@@ -139,19 +139,30 @@ export async function getAllProductSlugs(): Promise<string[]> {
  * Slugs may be stored URL-encoded (e.g. blog slugs containing emoji / CJK)
  * while Next.js decodes the route param before it reaches the page. Build a
  * candidate set so lookups match regardless of stored vs. requested encoding.
+ *
+ * Note: `encodeURIComponent` emits UPPERCASE %XX, but the seeded slug is stored
+ * LOWERCASE %xx — Postgres string matching is case-sensitive, so we add the
+ * lowercased form too.
  */
 function slugCandidates(slug: string): string[] {
   const set = new Set<string>([slug]);
+  let decoded: string | null = null;
   try {
-    set.add(decodeURIComponent(slug));
+    decoded = decodeURIComponent(slug);
   } catch {
     /* ignore */
   }
-  try {
-    set.add(encodeURIComponent(slug));
-  } catch {
-    /* ignore */
+  if (decoded && decoded !== slug) {
+    set.add(decoded);
+    try {
+      const enc = encodeURIComponent(decoded);
+      set.add(enc);
+      set.add(enc.toLowerCase());
+    } catch {
+      /* ignore */
+    }
   }
+  set.add(slug.toLowerCase());
   return [...set];
 }
 
