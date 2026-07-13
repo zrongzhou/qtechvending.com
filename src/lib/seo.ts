@@ -66,7 +66,11 @@ export function generatePageMetadata(options: PageSEOOptions): Metadata {
   const { title, description, path, image, type = 'website', publishedTime, modifiedTime, author, noindex = false } = options;
   const baseUrl = getBaseUrl();
 
-  const fullTitle = title ? `${title} | ${SITE_CONFIG.name}` : SITE_CONFIG.defaultTitle;
+  // `title` is the BARE page title. The root layout's `title.template`
+  // ("%s | Qtech") appends the site name to the <title> tag, so we must NOT
+  // prepend it here (that would double the site name). OG/Twitter titles are
+  // not templated, so we build the full display title for them.
+  const displayTitle = title ? `${title} | ${SITE_CONFIG.name}` : SITE_CONFIG.defaultTitle;
   const fullDescription = description || SITE_CONFIG.defaultDescription;
   const ogImageUrl = image
     ? image.startsWith('http')
@@ -75,24 +79,26 @@ export function generatePageMetadata(options: PageSEOOptions): Metadata {
     : `${baseUrl}${SITE_CONFIG.ogImage}`;
   const pageUrl = path.startsWith('http') ? path : `${baseUrl}${path.startsWith('/') ? '' : '/'}${path}`;
 
+  // Next.js's Metadata API only accepts a fixed set of OpenGraph `type`
+  // values; 'product' is rejected at RUNTIME (throws "Invalid OpenGraph
+  // type"). JSON-LD still uses @type: 'Product' (valid), so map the OG type
+  // to 'website' here.
+  const ogType = type === 'product' ? 'website' : type;
+
   return {
-    title: fullTitle,
+    title,
     description: fullDescription,
     keywords: options.keywords && options.keywords.length ? options.keywords.join(', ') : SITE_CONFIG.keywords.join(', '),
     ...(noindex && { robots: { index: false, follow: true } }),
     openGraph: {
-      title: fullTitle,
+      title: displayTitle,
       description: fullDescription,
       url: pageUrl,
       siteName: SITE_CONFIG.name,
       images: [{ url: ogImageUrl, width: 1200, height: 630, alt: title || SITE_CONFIG.name }],
       locale: 'en_US',
       alternateLocale: ['zh_CN', 'ar'],
-      // Next.js Metadata types only accept 'website' | 'article' for OG type,
-      // but the real OpenGraph protocol supports 'product' for product pages.
-      // The `as` cast narrows the compile-time union while preserving the
-      // runtime value (e.g. 'product') which is valid in actual OG output.
-      type: type as 'website' | 'article',
+      type: ogType as 'website' | 'article',
       ...(publishedTime && { publishedTime }),
       ...(modifiedTime && { modifiedTime }),
       ...(author && { authors: [author] }),
