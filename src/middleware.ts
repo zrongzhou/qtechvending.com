@@ -24,9 +24,14 @@ export function middleware(request: NextRequest) {
 
   const seg = pathname.split('/').filter(Boolean)[0] || '';
 
-  // 2. An unknown first segment that is not a locale and not a legit top → 404.
+  // 2. First segment is not a locale and not a legit top-level route →
+  //    prepend the default locale so /products -> /en/products,
+  //    /blog -> /en/blog, /about -> /en/about, etc. (step 1 already
+  //    handles pathname === '/', so here pathname is never just '/').
   if (seg && !VALID_LOCALES.includes(seg) && !LEGIT_TOPS.has(seg)) {
-    return new NextResponse('Not Found', { status: 404 });
+    const url = request.nextUrl.clone();
+    url.pathname = '/en' + pathname;
+    return NextResponse.redirect(url, 308);
   }
 
   // 3. Expose the current pathname to the root layout for <html lang/dir>.
