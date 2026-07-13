@@ -105,7 +105,7 @@ export function generatePageMetadata(options: PageSEOOptions): Metadata {
     },
     twitter: {
       card: 'summary_large_image',
-      title: fullTitle,
+      title: displayTitle,
       description: fullDescription,
       images: [ogImageUrl],
       creator: SITE_CONFIG.twitterHandle,
