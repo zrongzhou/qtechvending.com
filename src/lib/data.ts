@@ -135,10 +135,30 @@ export async function getAllProductSlugs(): Promise<string[]> {
   }
 }
 
+/**
+ * Slugs may be stored URL-encoded (e.g. blog slugs containing emoji / CJK)
+ * while Next.js decodes the route param before it reaches the page. Build a
+ * candidate set so lookups match regardless of stored vs. requested encoding.
+ */
+function slugCandidates(slug: string): string[] {
+  const set = new Set<string>([slug]);
+  try {
+    set.add(decodeURIComponent(slug));
+  } catch {
+    /* ignore */
+  }
+  try {
+    set.add(encodeURIComponent(slug));
+  } catch {
+    /* ignore */
+  }
+  return [...set];
+}
+
 export async function getProductBySlug(slug: string): Promise<Product | null> {
   try {
-    const product = await prisma.product.findUnique({
-      where: { slug },
+    const product = await prisma.product.findFirst({
+      where: { slug: { in: slugCandidates(slug) } },
       include: { categories: true },
     });
     return (product as unknown as Product) ?? null;
@@ -175,7 +195,7 @@ export async function getRelatedProducts(product: Product, limit = 4): Promise<P
 
 export async function getCategoryBySlug(slug: string): Promise<Category | null> {
   try {
-    const cat = await prisma.category.findUnique({ where: { slug } });
+    const cat = await prisma.category.findFirst({ where: { slug: { in: slugCandidates(slug) } } });
     return (cat as unknown as Category) ?? null;
   } catch (err) {
     logDataError('getCategoryBySlug', err);
@@ -222,7 +242,9 @@ export async function getAllBlogSlugs(): Promise<string[]> {
 
 export async function getBlogBySlug(slug: string): Promise<BlogPost | null> {
   try {
-    const post = await prisma.blogPost.findUnique({ where: { slug } });
+    const post = await prisma.blogPost.findFirst({
+      where: { slug: { in: slugCandidates(slug) } },
+    });
     return (post as unknown as BlogPost) ?? null;
   } catch (err) {
     logDataError('getBlogBySlug', err);
