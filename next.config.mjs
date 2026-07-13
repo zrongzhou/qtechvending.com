@@ -1,0 +1,47 @@
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+
+  // Port is controlled by the PORT env var (pm2 injects 3001 in production,
+  // `next dev -p 3001` / `next start -p 3001` in local scripts).
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '5mb',
+    },
+  },
+
+  // All product/blog/about images are downloaded locally into /public/images,
+  // so no remote image domains are required.
+  images: {
+    formats: ['image/webp', 'image/avif'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+  },
+
+  // Suppress Google Translate auto-translation of our managed trilingual content.
+  headers: async () => {
+    return [
+      {
+        source: '/:path*',
+        headers: [{ key: 'google', value: 'notranslate' }],
+      },
+      {
+        source: '/:all*(svg|png|jpg|jpeg|gif|webp|avif|ico|woff|woff2|ttf|eot)',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=604800, immutable' },
+        ],
+      },
+    ];
+  },
+
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production'
+      ? { exclude: ['error', 'warn'] }
+      : false,
+  },
+
+  compress: true,
+  poweredByHeader: false,
+};
+
+export default nextConfig;

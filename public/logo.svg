@@ -1,0 +1,12 @@
+<svg width="160" height="40" viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22d3ee"/>
+      <stop offset="0.5" stop-color="#0ea5e9"/>
+      <stop offset="1" stop-color="#0891b2"/>
+    </linearGradient>
+  </defs>
+  <path d="M20 3 L23.2 16.8 L37 20 L23.2 23.2 L20 37 L16.8 23.2 L3 20 L16.8 16.8 Z" fill="url(#g)"/>
+  <path d="M34 7 L35.4 13.4 L42 15 L35.4 16.6 L34 23 L32.6 16.6 L26 15 L32.6 13.4 Z" fill="url(#g)" opacity="0.8"/>
+  <text x="46" y="27" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="800" fill="#0f172a">Qtech</text>
+</svg>

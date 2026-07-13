@@ -1,0 +1,115 @@
+// QtechVending — Prisma schema (independent database `qtechvending`)
+// This schema is intentionally Lean: NO e-commerce models (Order/Payment/Cart/
+// Favorite/Review/Tag) — the site is a B2B showcase + inquiry portal.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==================== 分类（11 个 product_cat）====================
+model Category {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        Json     // { zh, en, ar }
+  icon        String?  // emoji 或图标名
+  description Json?
+  order       Int      @default(0)
+  status      String   @default("active") // active
+  type        String   @default("product") // product
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  products    Product[] @relation(map: "ProductCategory")
+  @@index([type, status])
+  @@map("categories")
+}
+
+// ==================== 产品 ====================
+model Product {
+  id               String   @id @default(cuid())
+  slug             String   @unique
+  sku              String   @unique
+  name             Json     // { zh, en, ar }
+  description      Json?    // { zh, en, ar } 正文
+  shortDescription Json?    // { zh, en, ar } 列表简述
+  images           String[] // 本地路径数组：/images/products/<slug>/1.webp
+  features         Json?    // { en:[], zh:[], ar:[] } 卖点
+  specs            Json?    // 参数表：[{ param: string, value: string }]
+  status           String   @default("active") // active
+  featured         Boolean  @default(false)
+  order            Int      @default(0)
+  relatedProducts  String[] // Product id 数组
+  seoTitle         Json?
+  seoDescription   Json?
+  seoKeywords      Json?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  categories       Category[] @relation(map: "ProductCategory")
+  @@index([status, featured])
+  @@index([slug])
+  @@map("products")
+}
+
+// ==================== 博客 ====================
+model BlogPost {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       Json     // { zh, en, ar }
+  excerpt     Json?    // { zh, en, ar }
+  content     Json     // { zh, en, ar } Markdown
+  author      String   @default("Qtech Team")
+  publishedAt DateTime
+  status      String   @default("published") // published
+  featured    Boolean  @default(false)
+  image       String?  // /images/blog/<slug>.webp
+  seoKeywords Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@index([status, publishedAt])
+  @@map("blog_posts")
+}
+
+// ==================== 公司介绍（关于页结构化内容）====================
+model CompanyInfo {
+  id        String   @id @default(cuid())
+  slug      String   @unique @default("main")
+  sections  Json?    // [{ key, title:{zh,en,ar}, body:{zh,en,ar}, image? }]
+  updatedAt DateTime @updatedAt
+  @@map("company_info")
+}
+
+// ==================== 联系询盘消息 ====================
+model ContactMessage {
+  id              Int      @id @default(autoincrement())
+  name            String
+  email           String
+  phone           String?
+  company         String?  // 公司
+  country         String?  // 国家
+  productInterest String?  // 产品/分类兴趣（slug）
+  subject         String   // general|sales|support|customization|partnership
+  message         String   @db.Text
+  isRead          Boolean  @default(false)
+  locale          String   @default("en")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  @@index([createdAt])
+  @@index([isRead])
+  @@map("contact_messages")
+}
+
+// ==================== 后台用户（仅 admin 登录）====================
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("admin") // admin
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  @@map("users")
+}

@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: #f8fafc;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-slate-50 text-ink-800 antialiased;
+  min-height: 100vh;
+}
+
+/* RTL adjustments for Arabic */
+html[dir='rtl'] body {
+  text-align: right;
+}
+
+/* Reusable container helper */
+.container-qtech {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+/* Prose tweaks for blog / about content */
+.prose-qtech {
+  @apply prose prose-slate max-w-none prose-headings:font-semibold prose-a:text-brand-600;
+}
+
+/* Hide number input spinners (contact form) */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
