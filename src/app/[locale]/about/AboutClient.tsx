@@ -27,7 +27,7 @@ interface NumberItem {
 }
 
 /** Icon mapping for each section key — used when image file is missing */
-const SECTION_ICONS: Record<string, ComponentType<{ className?: string }>> = {
+const SECTION_ICONS: Record<string, ComponentType<{ className?: string; strokeWidth?: number }>> = {
   story: Factory,
   mission: Target,
   vision: Eye,
