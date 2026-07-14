@@ -23,6 +23,8 @@ export interface ImageWithRetryProps {
   height?: number | string;
   /** Native loading strategy; defaults to lazy. */
   loading?: 'lazy' | 'eager';
+  /** Set fetchPriority='high' for LCP / above-fold images. */
+  fetchPriority?: 'high' | 'low' | 'auto';
   /** Optional inline style for the <img> element. */
   style?: CSSProperties;
   /** Optional native event handler. */
@@ -50,6 +52,7 @@ export default function ImageWithRetry({
   width,
   height,
   loading = 'lazy',
+  fetchPriority,
   style,
   onClick,
   draggable,
@@ -115,6 +118,7 @@ export default function ImageWithRetry({
         width={width}
         height={height}
         loading={loading}
+        fetchPriority={fetchPriority}
         draggable={draggable}
         onClick={onClick}
         onLoad={() => setStatus('ready')}

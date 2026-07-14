@@ -93,6 +93,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
                 src={firstImage(current.images)}
                 alt={name}
                 loading="eager"
+                fetchPriority="high"
                 className="h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-ink-900/75 via-ink-900/5 to-transparent" />
