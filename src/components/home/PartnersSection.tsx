@@ -124,7 +124,7 @@ export default function PartnersSection() {
   };
 
   return (
-    <section className="bg-slate-50 py-16 lg:py-20">
+    <section className="bg-gradient-to-br from-slate-50 via-white to-cyan-50/40 py-16 lg:py-20">
       <div className="container-qtech">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold text-ink-900">{t('home.partners.title')}</h2>
@@ -140,7 +140,7 @@ export default function PartnersSection() {
             <div
               key={i}
               data-card
-              className="relative w-[280px] shrink-0 snap-start overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-card sm:w-[340px]"
+              className="glass-card relative w-[280px] shrink-0 snap-start overflow-hidden rounded-2xl sm:w-[340px]"
             >
               <div className="relative aspect-[4/3] bg-slate-100">
                 <ImageWithRetry

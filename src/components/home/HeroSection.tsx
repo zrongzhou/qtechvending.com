@@ -83,7 +83,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
         {/* Right column: live product carousel */}
         <div className="hidden lg:block">
           {current ? (
-            <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl border border-white/30 shadow-2xl">
+            <div className="glass-card-dark relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl border border-white/30 shadow-2xl">
               <ImageWithRetry
                 key={current.slug}
                 src={firstImage(current.images)}
@@ -125,7 +125,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
               )}
             </div>
           ) : (
-            <div className="mx-auto flex aspect-[4/5] w-full max-w-md items-center justify-center rounded-3xl border border-white/30 bg-white/10 text-center backdrop-blur">
+            <div className="glass-card-dark mx-auto flex aspect-[4/5] w-full max-w-md items-center justify-center rounded-3xl border border-white/30 bg-white/10 text-center backdrop-blur">
               <span className="text-lg font-semibold text-white/90">{t('home.hero.featuredLabel')}</span>
             </div>
           )}

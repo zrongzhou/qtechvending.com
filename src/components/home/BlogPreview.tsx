@@ -10,7 +10,7 @@ export default function BlogPreview({ posts }: { posts: BlogPost[] }) {
   if (!posts.length) return null;
 
   return (
-    <section className="container-qtech py-16 lg:py-20">
+    <section className="container-qtech bg-gradient-to-br from-slate-50 via-white to-brand-50/40 py-16 lg:py-20">
       <div className="flex items-end justify-between gap-4">
         <div>
           <h2 className="text-3xl font-bold text-ink-900">{t('home.blog.title')}</h2>

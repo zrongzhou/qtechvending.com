@@ -52,7 +52,7 @@ export default function BlogListClient({ initial }: { initial: Paginated<BlogPos
   const { data, totalPages } = result;
 
   return (
-    <div className="container-qtech py-12 lg:py-16">
+    <div className="container-qtech bg-gradient-to-br from-slate-50 via-white to-brand-50/40 py-12 lg:py-16">
       <header className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h1 className="text-3xl font-bold text-ink-900">{t('blog.title')}</h1>

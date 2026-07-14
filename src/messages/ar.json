@@ -8,6 +8,23 @@
   "nav.language": "اللغة",
   "nav.toggleMenu": "افتح القائمة",
   "nav.closeMenu": "أغلق القائمة",
+  "nav.solutions": "الحلول",
+  "nav.faq": "الأسئلة الشائعة",
+
+  "solutions.badge": "حلول صناعية",
+  "solutions.title": "حلول البيع والأتمتة",
+  "solutions.subtitle": "من أرضية المصنع إلى مرافق الرعاية، تبني Qtech معدات الخدمة الذاتية وراء العمليات الحديثة.",
+  "solutions.learnMore": "استكشف الآلات",
+  "solutions.ctaTitle": "لم تجد سيناريوك؟",
+  "solutions.ctaSubtitle": "أخبرنا عن عملياتك وسنصمم حل بيع أو خزائن مخصصًا لها.",
+  "solutions.ctaButton": "اطلب عرض سعر",
+
+  "faq.badge": "مركز المساعدة",
+  "faq.title": "الأسئلة الشائعة",
+  "faq.subtitle": "إجابات سريعة حول آلاتنا والتخصيص والطلب والدعم.",
+  "faq.ctaTitle": "لا تزال لديك أسئلة؟",
+  "faq.ctaSubtitle": "فريق المبيعات والهندسة لدينا سعيد بمساعدتك.",
+  "faq.ctaButton": "اتصل بنا",
 
   "footer.tagline": "معدات البيع الذكية وأتمتة الزهور من غوانغتشو، للموزعين والمشغلين حول العالم.",
   "footer.quickLinks": "روابط سريعة",

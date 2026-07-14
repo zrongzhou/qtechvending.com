@@ -8,6 +8,23 @@
   "nav.language": "语言",
   "nav.toggleMenu": "打开菜单",
   "nav.closeMenu": "关闭菜单",
+  "nav.solutions": "解决方案",
+  "nav.faq": "常见问题",
+
+  "solutions.badge": "行业解决方案",
+  "solutions.title": "售货与自动化解决方案",
+  "solutions.subtitle": "从工厂车间到护理机构，Qtech 为现代运营打造背后的自助设备。",
+  "solutions.learnMore": "浏览设备",
+  "solutions.ctaTitle": "没有找到您的场景？",
+  "solutions.ctaSubtitle": "告诉我们您的运营需求，我们将为您量身设计售货或智能柜方案。",
+  "solutions.ctaButton": "获取报价",
+
+  "faq.badge": "帮助中心",
+  "faq.title": "常见问题",
+  "faq.subtitle": "关于我们的设备、定制、下单与支持的快速解答。",
+  "faq.ctaTitle": "还有其他问题？",
+  "faq.ctaSubtitle": "我们的销售与工程团队随时为您服务。",
+  "faq.ctaButton": "联系我们",
 
   "footer.tagline": "Qtech 在广州制造智能售货与鲜花园艺自动化设备，服务全球经销商与运营商。",
   "footer.quickLinks": "快速链接",

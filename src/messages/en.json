@@ -8,6 +8,23 @@
   "nav.language": "Language",
   "nav.toggleMenu": "Open menu",
   "nav.closeMenu": "Close menu",
+  "nav.solutions": "Solutions",
+  "nav.faq": "FAQ",
+
+  "solutions.badge": "Industry solutions",
+  "solutions.title": "Vending & Automation Solutions",
+  "solutions.subtitle": "From factory floors to care facilities, Qtech builds the self-service equipment behind modern operations.",
+  "solutions.learnMore": "Explore machines",
+  "solutions.ctaTitle": "Can't find your scenario?",
+  "solutions.ctaSubtitle": "Tell us your operation and we'll design a vending or locker solution around it.",
+  "solutions.ctaButton": "Request a Quote",
+
+  "faq.badge": "Help center",
+  "faq.title": "Frequently Asked Questions",
+  "faq.subtitle": "Quick answers about our machines, customization, ordering and support.",
+  "faq.ctaTitle": "Still have questions?",
+  "faq.ctaSubtitle": "Our sales and engineering team is happy to help.",
+  "faq.ctaButton": "Contact Us",
 
   "footer.tagline": "Intelligent vending and fresh-flower automation equipment, manufactured in Guangzhou for distributors and operators worldwide.",
   "footer.quickLinks": "Quick Links",

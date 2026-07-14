@@ -28,6 +28,8 @@ export default function Footer() {
             <li><Link href={`${base}`} className="hover:text-brand-300">{t('nav.home')}</Link></li>
             <li><Link href={`${base}/products`} className="hover:text-brand-300">{t('nav.products')}</Link></li>
             <li><Link href={`${base}/blog`} className="hover:text-brand-300">{t('nav.blog')}</Link></li>
+            <li><Link href={`${base}/solutions`} className="hover:text-brand-300">{t('nav.solutions')}</Link></li>
+            <li><Link href={`${base}/faq`} className="hover:text-brand-300">{t('nav.faq')}</Link></li>
             <li><Link href={`${base}/about`} className="hover:text-brand-300">{t('nav.about')}</Link></li>
             <li><Link href={`${base}/contact`} className="hover:text-brand-300">{t('nav.contact')}</Link></li>
           </ul>

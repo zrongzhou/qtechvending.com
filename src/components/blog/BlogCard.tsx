@@ -27,7 +27,7 @@ export default function BlogCard({ post }: { post: BlogPost }) {
   return (
     <Link
       href={`/${locale}/blog/${post.slug}`}
-      className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-card transition hover:-translate-y-1 hover:border-brand-300"
+      className="glass-card group flex flex-col overflow-hidden rounded-2xl"
     >
       <div className="relative aspect-[16/9] overflow-hidden bg-slate-100">
         <ImageWithRetry

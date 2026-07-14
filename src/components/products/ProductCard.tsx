@@ -44,7 +44,7 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/${locale}/products/${product.slug}`}
-      className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-card transition hover:-translate-y-1 hover:border-brand-300"
+      className="group flex flex-col overflow-hidden rounded-2xl glass-card"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
         <ImageWithRetry

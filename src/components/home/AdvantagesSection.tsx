@@ -20,7 +20,7 @@ export default function AdvantagesSection() {
   ];
 
   return (
-    <section className="bg-white py-16 lg:py-20">
+    <section className="bg-gradient-to-br from-white via-slate-50 to-brand-50/40 py-16 lg:py-20">
       <div className="container-qtech">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold text-ink-900">{t('home.advantages.title')}</h2>
@@ -33,7 +33,7 @@ export default function AdvantagesSection() {
             return (
               <div
                 key={item.titleKey}
-                className="group relative overflow-hidden rounded-2xl border border-slate-200 p-6 transition hover:border-brand-300 hover:shadow-card"
+                className="glass-card group relative overflow-hidden rounded-2xl p-6"
               >
                 {/* Big progressive step number */}
                 <span className="absolute -right-2 -top-4 select-none text-7xl font-extrabold text-slate-100 transition group-hover:text-brand-50">

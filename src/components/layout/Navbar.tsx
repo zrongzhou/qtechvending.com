@@ -10,6 +10,8 @@ import Logo from '@/components/Logo';
 const NAV_ITEMS = [
   { key: 'nav.home', href: '' },
   { key: 'nav.products', href: '/products' },
+  { key: 'nav.solutions', href: '/solutions' },
+  { key: 'nav.faq', href: '/faq' },
   { key: 'nav.blog', href: '/blog' },
   { key: 'nav.about', href: '/about' },
   { key: 'nav.contact', href: '/contact' },

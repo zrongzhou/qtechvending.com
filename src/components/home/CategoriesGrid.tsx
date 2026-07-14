@@ -35,12 +35,12 @@ const ICON_MAP: Record<string, ComponentType<{ className?: string }>> = {
 };
 
 const GRADIENTS = [
-  'from-cyan-500 to-sky-600',
-  'from-sky-500 to-blue-600',
-  'from-teal-500 to-cyan-600',
-  'from-indigo-500 to-sky-500',
-  'from-blue-500 to-cyan-500',
-  'from-cyan-600 to-teal-500',
+  'from-cyan-500/70 to-sky-600/70',
+  'from-sky-500/70 to-blue-600/70',
+  'from-teal-500/70 to-cyan-600/70',
+  'from-indigo-500/70 to-sky-500/70',
+  'from-blue-500/70 to-cyan-500/70',
+  'from-cyan-600/70 to-teal-500/70',
 ];
 
 export default function CategoriesGrid({
@@ -54,7 +54,7 @@ export default function CategoriesGrid({
   if (!categories.length) return null;
 
   return (
-    <section className="container-qtech py-16 lg:py-20">
+    <section className="container-qtech bg-gradient-to-br from-cyan-100 via-sky-100 to-indigo-100 py-16 lg:py-20">
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="text-3xl font-bold text-ink-900">{t('home.categories.title')}</h2>
         <p className="mt-2 text-ink-500">{t('home.categories.subtitle')}</p>
@@ -72,7 +72,7 @@ export default function CategoriesGrid({
             <Link
               key={cat.id}
               href={`/${locale}/category/${cat.slug}`}
-              className={`group relative flex min-w-[260px] snap-start flex-col overflow-hidden rounded-2xl bg-gradient-to-br ${gradient} p-6 text-white shadow-card transition hover:-translate-y-1 hover:shadow-xl sm:min-w-0`}
+              className={`group relative flex min-w-[260px] snap-start flex-col overflow-hidden rounded-2xl bg-gradient-to-br ${gradient} p-6 text-white glass-card transition hover:-translate-y-1 hover:shadow-xl sm:min-w-0`}
             >
               <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/20 backdrop-blur">
                 <Icon className="h-6 w-6" />
