@@ -10,10 +10,10 @@ import Logo from '@/components/Logo';
 const NAV_ITEMS = [
   { key: 'nav.home', href: '' },
   { key: 'nav.products', href: '/products' },
-  { key: 'nav.solutions', href: '/solutions' },
-  { key: 'nav.faq', href: '/faq' },
-  { key: 'nav.blog', href: '/blog' },
   { key: 'nav.about', href: '/about' },
+  { key: 'nav.solutions', href: '/solutions' },
+  { key: 'nav.blog', href: '/blog' },
+  { key: 'nav.faq', href: '/faq' },
   { key: 'nav.contact', href: '/contact' },
 ];
 
@@ -41,8 +41,15 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
       <div className="container-qtech flex h-16 items-center justify-between">
-        <Link href={`/${locale}`} className="flex items-center" aria-label="Qtech home">
-          <Logo textClassName="text-ink-900" />
+        {/* Brand logo — 两列布局: 左列=菱形星标+Qtech/TOOL CABINET, 右列=公司全名 */}
+        <Link href={`/${locale}`} className="flex items-center gap-3" aria-label="Qtech home">
+          <Logo size={26} />
+          <span
+            className="hidden sm:inline text-slate-900 font-bold leading-snug"
+            style={{ fontSize: '15px', maxWidth: '180px' }}
+          >
+            Guangzhou Qiuyan Technology Co., Ltd.
+          </span>
         </Link>
 
         {/* Desktop nav */}
