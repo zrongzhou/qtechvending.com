@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import Image from 'next/image';
 
 export interface ImageWithRetryProps {
   /** Image source URL. */
@@ -8,7 +9,7 @@ export interface ImageWithRetryProps {
   /** Alt text for accessibility. */
   alt?: string;
   /**
-   * Class applied to the underlying <img> element (e.g. sizing, object-fit,
+   * Class applied to the underlying <Image> element (e.g. sizing, object-fit,
    * hover zoom). The component wraps it in a relative container so the
    * skeleton and fade-in overlay align correctly.
    */
@@ -25,7 +26,7 @@ export interface ImageWithRetryProps {
   loading?: 'lazy' | 'eager';
   /** Set fetchPriority='high' for LCP / above-fold images. */
   fetchPriority?: 'high' | 'low' | 'auto';
-  /** Optional inline style for the <img> element. */
+  /** Optional inline style for the wrapper element. */
   style?: CSSProperties;
   /** Optional native event handler. */
   onClick?: () => void;
@@ -39,9 +40,15 @@ type Status = 'loading' | 'ready' | 'retrying' | 'failed';
 const RETRY_DELAYS = [500, 1000, 2000];
 
 /**
- * An <img> replacement that shows a pulsing skeleton while loading, retries
- * failed loads with an increasing delay, and only falls back to `fallbackSrc`
- * once every retry is exhausted. The final image fades in on load.
+ * A Next.js <Image> replacement that shows a pulsing skeleton while loading,
+ * retries failed loads with an increasing delay, and only falls back to
+ * `fallbackSrc` once every retry is exhausted.
+ *
+ * Benefits over plain <img>:
+ * - Automatic WebP/AVIF conversion (configured in next.config.mjs)
+ * - Responsive sizing via deviceSizes/imageSizes
+ * - Built-in priority prop for LCP optimization
+ * - Blur placeholder support ready
  */
 export default function ImageWithRetry({
   src,
@@ -55,7 +62,7 @@ export default function ImageWithRetry({
   fetchPriority,
   style,
   onClick,
-  draggable,
+  draggable = true,
 }: ImageWithRetryProps) {
   const [displaySrc, setDisplaySrc] = useState<string>(src);
   const [status, setStatus] = useState<Status>('loading');
@@ -77,7 +84,6 @@ export default function ImageWithRetry({
   }, []);
 
   const handleError = () => {
-    // Already on the fallback and it failed — give up gracefully.
     if (displaySrc === fallbackSrc) {
       setStatus('failed');
       return;
@@ -99,7 +105,15 @@ export default function ImageWithRetry({
 
   const showSkeleton = status !== 'ready' && status !== 'failed';
   const imgHidden = status === 'retrying';
-  const imgStyle: CSSProperties = imgHidden ? { ...style, display: 'none' } : { ...style };
+  const imgStyle: CSSProperties = imgHidden ? { ...style, visibility: 'hidden' } : { ...style };
+
+  // Whether current src has retry query params (bypass Next.js optimizer for those)
+  const isRetrying = displaySrc.includes('__r=');
+
+  // Determine sizing strategy
+  const hasExplicitSize = width && height;
+  const numWidth = typeof width === 'number' ? width : undefined;
+  const numHeight = typeof height === 'number' ? height : undefined;
 
   return (
     <>
@@ -111,22 +125,25 @@ export default function ImageWithRetry({
           {alt || 'image'}
         </div>
       )}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         src={displaySrc}
         alt={alt}
-        width={width}
-        height={height}
+        width={numWidth ?? (hasExplicitSize ? 0 : undefined)}
+        height={numHeight ?? (hasExplicitSize ? 0 : undefined)}
+        fill={!hasExplicitSize ? true : undefined}
         loading={loading}
+        priority={fetchPriority === 'high'}
         fetchPriority={fetchPriority}
+        unoptimized={isRetrying}
         draggable={draggable}
         onClick={onClick}
         onLoad={() => setStatus('ready')}
         onError={handleError}
         style={imgStyle}
-        className={`${className} transition-opacity duration-500 ${
+        className={`transition-opacity duration-500 ${
           status === 'ready' ? 'opacity-100' : 'opacity-0'
-        }`}
+        } ${className}`}
+        sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 33vw"
       />
     </>
   );

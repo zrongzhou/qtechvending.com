@@ -2,9 +2,9 @@
   <defs>
     <linearGradient id="cr" x1="2" y1="1" x2="30" y2="31" gradientUnits="userSpaceOnUse">
       <stop stop-color="#0a1a4f"/>
-      <stop offset="0.35" stopColor="#1e40af"/>
-      <stop offset="0.7" stopColor="#2563eb"/>
-      <stop offset="1" stopColor="#3b82f6"/>
+      <stop offset="0.35" stop-color="#1e40af"/>
+      <stop offset="0.7" stop-color="#2563eb"/>
+      <stop offset="1" stop-color="#3b82f6"/>
     </linearGradient>
   </defs>
 
@@ -12,9 +12,9 @@
   <polygon points="16,2 30,16 16,30 2,16" fill="url(#cr)" stroke="#3b82f6" stroke-width="0.8"/>
 
   <!-- 水晶切面高光 -->
-  <path d="M16 2 L16 30" stroke="#fff" stroke-opacity="0.2" stroke-width="0.5"/>
-  <path d="M2 16 L30 16" stroke="#fff" stroke-opacity="0.2" stroke-width="0.5"/>
-  <path d="M16 2 L22 9 L10 9 Z" fill="#fff" fill-opacity="0.25"/>
+  <path d="M16 2 L16 30" stroke="#ffffff" stroke-opacity="0.2" stroke-width="0.5"/>
+  <path d="M2 16 L30 16" stroke="#ffffff" stroke-opacity="0.2" stroke-width="0.5"/>
+  <path d="M16 2 L22 9 L10 9 Z" fill="#ffffff" fill-opacity="0.25"/>
 
   <!-- 主星 — 纯白实心（小尺寸必须高对比）-->
   <path d="M12 8 L14.2 16.5 L22 18.5 L14.2 20.5 L12 29 L9.8 20.5 L2 18.5 L9.8 16.5 Z" fill="#ffffff"/>
