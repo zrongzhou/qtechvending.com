@@ -33,6 +33,16 @@ export default function SolutionsGrid() {
                 </span>
                 <h3 className="mt-4 text-lg font-semibold text-ink-900">{localized(s.title, locale)}</h3>
                 <p className="mt-2 text-sm text-ink-500">{localized(s.description, locale)}</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {s.tags[locale]?.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
                 <ul className="mt-4 space-y-2">
                   {s.features.map((f, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-ink-600">

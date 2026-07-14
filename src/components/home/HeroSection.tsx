@@ -53,6 +53,10 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
             {t('home.hero.title')}
           </h1>
           <p className="mt-5 max-w-xl text-lg text-white/90">{t('home.hero.subtitle')}</p>
+          <p className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-cyan-200">
+            <span className="h-1.5 w-1.5 rounded-full bg-cyan-300" aria-hidden="true" />
+            {t('home.hero.tagline')}
+          </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href={`/${locale}/products`}

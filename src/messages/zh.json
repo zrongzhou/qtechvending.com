@@ -50,6 +50,7 @@
   "home.hero.stat3Value": "24/7",
   "home.hero.stat3Label": "自助运营",
   "home.hero.featuredLabel": "精选机型",
+  "home.hero.tagline": "智能自助设备，广州智造。",
 
   "home.categories.title": "按分类浏览",
   "home.categories.subtitle": "为不同市场精选的设备——按分类浏览，找到最适合您的机型。",
@@ -131,6 +132,8 @@
   "about.subtitle": "您自助设备背后的制造商。",
   "about.cta": "与我们合作",
   "about.statsTitle": "Qtech 概览",
+  "about.valuesTitle": "我们的核心价值观",
+  "about.valuesSubtitle": "我们制造的每一台设备背后，都是这些信念。",
 
   "contact.title": "联系我们",
   "contact.subtitle": "提交询盘，我们的销售团队将尽快与您联系。",
@@ -162,6 +165,9 @@
   "contact.emailUs": "邮箱",
   "contact.callUs": "电话",
   "contact.hours": "工作时间：周一至周五 09:00–18:00（GMT+8）",
+  "contact.connectWithUs": "关注我们",
+  "contact.faqLink": "还有疑问？查看常见问题",
+  "contact.viewMap": "在 Google 地图上查看",
 
   "contact.subject.general": "一般咨询",
   "contact.subject.sales": "销售与报价",

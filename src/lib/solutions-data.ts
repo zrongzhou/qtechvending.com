@@ -11,6 +11,8 @@ export interface Solution {
   title: Record<Locale, string>;
   /** Localized one-paragraph description. */
   description: Record<Locale, string>;
+  /** Short scenario / capability tags shown as pills. */
+  tags: Record<Locale, string[]>;
   /** Localized bullet points (each a separate i18n field). */
   features: Record<Locale, string>[];
   /** Internal route the card links to. */
@@ -36,10 +38,16 @@ export const SOLUTIONS: Solution[] = [
       zh: '面向车间的智能工具柜与售货系统，对工具、耗材与劳保用品进行追踪、审计，全天候可用。',
       ar: 'خزائن وآلات بيع ذكية للأدوات والمستهلكات ومعدات السلامة في ورش العمل — متتبَّعة ومراجَعة ومتاحة على مدار الساعة.',
     },
+    tags: {
+      en: ['RFID', '24/7', 'PPE'],
+      zh: ['RFID', '全天候', '劳保用品'],
+      ar: ['RFID', '24/7', 'معدات السلامة'],
+    },
     features: [
       { en: 'RFID / PIN controlled access', zh: 'RFID / 密码 访问控制', ar: 'وصول مُتحكم به عبر RFID / رمز' },
       { en: 'Automatic usage & inventory logs', zh: '自动记录领用与库存', ar: 'سجلات استخدام ومخزون تلقائية' },
       { en: 'Low-stock alerts to procurement', zh: '低库存自动提醒采购', ar: 'تنبيهات نقص المخزون للمشتريات' },
+      { en: 'Integrates with ERP & maintenance', zh: '可对接 ERP 与维保系统', ar: 'يتكامل مع ERP والصيانة' },
     ],
     href: '/products',
   },
@@ -56,10 +64,16 @@ export const SOLUTIONS: Solution[] = [
       zh: '自助补给站提供笔、笔记本等办公耗材，团队随时取用，告别繁琐的手动申领。',
       ar: 'محطات ذاتية لمنتجات مثل الأقلام والدفاتر بحيث لا ينفد المخزون أبدًا — دون طلبات يدوية.',
     },
+    tags: {
+      en: ['Cashless', 'Compact', 'SKU'],
+      zh: ['无现金', '小巧', 'SKU'],
+      ar: ['بدون نقد', 'مدمج', 'SKU'],
+    },
     features: [
       { en: 'Compact floor-standing design', zh: '小巧立式机身', ar: 'تصميم عمودي مدمج' },
       { en: 'Cashless & staff-card payment', zh: '无现金与员工卡支付', ar: 'دفع بدون نقد وبطاقة الموظف' },
       { en: 'Restock reports by SKU', zh: '按 SKU 补货报表', ar: 'تقارير إعادة التخزين حسب المنتج' },
+      { en: 'Branded wrap & UI options', zh: '支持机身外观与界面定制', ar: 'خيارات تغليف وواجهة مخصصة' },
     ],
     href: '/products',
   },
@@ -76,10 +90,16 @@ export const SOLUTIONS: Solution[] = [
       zh: '为敏感元器件提供恒温存储与售货，具备静电防护处理与全程可追溯。',
       ar: 'تخزين وبيع للمكونات الحساسة مع بيئة مناسبة وتعامل آمن من التفريغ الكهربائي وتتبع كامل.',
     },
+    tags: {
+      en: ['ESD-safe', 'Climate', 'Traceable'],
+      zh: ['防静电', '恒温', '可追溯'],
+      ar: ['آمن من التفريغ', 'مناخ مناسب', 'قابل للتتبع'],
+    },
     features: [
       { en: 'ESD-safe compartments', zh: '防静电隔间', ar: 'أقسام آمنة من التفريغ الكهربائي' },
       { en: 'Per-user issue tracking', zh: '按人员发放追踪', ar: 'تتبع الصرف لكل مستخدم' },
       { en: 'Audit-ready export logs', zh: '可审计导出日志', ar: 'سجلات تصدير جاهزة للمراجعة' },
+      { en: 'Humidity & temperature logging', zh: '温湿度记录', ar: 'تسجيل الرطوبة والحرارة' },
     ],
     href: '/products',
   },
@@ -96,10 +116,16 @@ export const SOLUTIONS: Solution[] = [
       zh: '为诊所、实验室与护理机构提供安全、卫生的防护用品、套装与耗材发放。',
       ar: 'صرف آمن ونظيف لمعدات السلامة والحقائب والمستهلكات للعيادات والمختبرات ومرافق الرعاية.',
     },
+    tags: {
+      en: ['Hygienic', 'Role-based', 'Compliant'],
+      zh: ['卫生', '按角色', '合规'],
+      ar: ['نظيف', 'حسب الدور', 'متوافق'],
+    },
     features: [
       { en: 'Hygienic touchless pickup', zh: '卫生无接触取货', ar: 'استلام نظيف دون تلامس' },
       { en: 'Access-controlled by role', zh: '按角色权限控制', ar: 'وصول مُتحكم به حسب الدور' },
       { en: 'Expiry & batch monitoring', zh: '效期与批次监控', ar: 'مراقبة الصلاحية والدفعات' },
+      { en: 'Restock & low-level alerts', zh: '补货与低量提醒', ar: 'تنبيهات إعادة التخزين والكميات المنخفضة' },
     ],
     href: '/products',
   },
@@ -116,10 +142,16 @@ export const SOLUTIONS: Solution[] = [
       zh: '我们的核心产品线——鲜花、披萨、咖啡、果汁与零食售货机，为 24/7 稳定运营而打造。',
       ar: 'خطنا الأساسي — آلات بيع الزهور والبيتزا والقهوة والعصير والوجبات الخفيفة المصممة لتشغيل موثوق على مدار الساعة.',
     },
+    tags: {
+      en: ['Refrigerated', 'Multi-currency', 'Telemetry'],
+      zh: ['冷藏', '多币种', '远程'],
+      ar: ['مبرّد', 'متعدد العملات', 'قياس عن بُعد'],
+    },
     features: [
       { en: 'Refrigerated & heated options', zh: '冷藏与加热可选', ar: 'خيارات مبردة وساخنة' },
       { en: 'Cashless multi-currency POS', zh: '无现金多币种收银', ar: 'نقطة بيع متعددة العملات بدون نقد' },
       { en: 'Remote telemetry & alerts', zh: '远程监控与告警', ar: 'مراقبة وتنبيهات عن بُعد' },
+      { en: 'Energy-saving cooling design', zh: '节能制冷设计', ar: 'تصميم تبريد موفر للطاقة' },
     ],
     href: '/products',
   },
@@ -136,10 +168,16 @@ export const SOLUTIONS: Solution[] = [
       zh: '按需发放安全帽、手套、护目镜与防护装备，确保各作业现场合规。',
       ar: 'صرف عند الطلب للخوذات والقفازات والنظارات ومعدات الوقاية لإبقاء كل موقع متوافقًا.',
     },
+    tags: {
+      en: ['Must-issue', 'Shift rules', 'Dashboards'],
+      zh: ['强制发放', '班次规则', '看板'],
+      ar: ['إصدار إلزامي', 'قواعد الوردية', 'لوحات بيانات'],
+    },
     features: [
       { en: 'Must-issue safety kits', zh: '强制发放安全套装', ar: 'حقائب سلامة إلزامية' },
       { en: 'Site & shift-based rules', zh: '按工地与班次规则', ar: 'قواعد حسب الموقع والوردية' },
       { en: 'Compliance dashboards', zh: '合规看板', ar: 'لوحات امتثال' },
+      { en: 'Offline PIN backup access', zh: '离线密码备份访问', ar: 'وصول احتياطي برمز دون اتصال' },
     ],
     href: '/products',
   },

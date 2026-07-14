@@ -50,6 +50,7 @@
   "home.hero.stat3Value": "24/7",
   "home.hero.stat3Label": "تشغيل ذاتي",
   "home.hero.featuredLabel": "نماذج مميزة",
+  "home.hero.tagline": "خدمة ذاتية ذكية، صُنعت في غوانغتشو.",
 
   "home.categories.title": "تصفح حسب الفئة",
   "home.categories.subtitle": "آلات مختارة لكل سوق — تصفح حسب الفئة لإيجاد الأنسب لك.",
@@ -131,6 +132,8 @@
   "about.subtitle": "الشركة المصنعة خلف معدات الخدمة الذاتية الخاصة بك.",
   "about.cta": "تعاون معنا",
   "about.statsTitle": "نظرة عامة على Qtech",
+  "about.valuesTitle": "قيمنا الأساسية",
+  "about.valuesSubtitle": "المبادئ وراء كل آلة نصنعها.",
 
   "contact.title": "اتصل بنا",
   "contact.subtitle": "أرسل استفسارًا وسيتواصل فريق المبيعات معك قريبًا.",
@@ -162,6 +165,9 @@
   "contact.emailUs": "البريد الإلكتروني",
   "contact.callUs": "الهاتف",
   "contact.hours": "ساعات العمل: الاثنين–الجمعة 09:00–18:00 (GMT+8)",
+  "contact.connectWithUs": "تواصل معنا",
+  "contact.faqLink": "أسئلة أخرى؟ زر أسئلتنا الشائعة",
+  "contact.viewMap": "عرض على خرائط Google",
 
   "contact.subject.general": "استفسار عام",
   "contact.subject.sales": "المبيعات والأسعار",

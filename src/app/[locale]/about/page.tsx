@@ -42,6 +42,26 @@ const DEFAULT_SECTIONS: AboutSection[] = [
     },
     image: '/images/about/mission.svg',
   },
+  {
+    key: 'vision',
+    title: { en: 'Our Vision', zh: '我们的愿景', ar: 'رؤيتنا' },
+    body: {
+      en: 'To be the most trusted partner for intelligent self-service equipment — helping businesses of every size turn any space into a 24/7, automated retail and service point.',
+      zh: '成为最值得信赖的智能自助设备伙伴——帮助各种规模的企业，将任意空间变为 24/7 的自动化零售与服务触点。',
+      ar: 'أن نكون الشريك الأكثر موثوقية لمعدات الخدمة الذاتية الذكية — ومساعدة الأعمال بكل أحجامها على تحويل أي مساحة إلى نقطة بيع وخدمة آلية على مدار الساعة.',
+    },
+    image: '/images/about/vision.svg',
+  },
+  {
+    key: 'capability',
+    title: { en: 'What We Do', zh: '我们的业务', ar: 'ماذا نقدم' },
+    body: {
+      en: 'We design and manufacture fresh-flower, food, beverage and specialty vending machines, plus smart lockers and automated kiosks — all backed by in-house R&D, OEM customization and global logistics.',
+      zh: '我们设计制造鲜花、食品、饮品与特种售货机，以及智能柜与自动化终端——全部依托自主研发、OEM 定制与全球物流支持。',
+      ar: 'نصمم ونصنع آلات بيع الزهور والطعام والمشروبات والمتخصصة، بالإضافة إلى خزائن ذكية وأكشاك آلية — بدعم من البحث والتطوير الداخلي وتخصيص OEM واللوجستيات العالمية.',
+    },
+    image: '/images/about/capability.svg',
+  },
 ];
 
 export default async function AboutPage() {

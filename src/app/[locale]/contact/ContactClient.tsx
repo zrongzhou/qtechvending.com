@@ -1,6 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type ComponentType } from 'react';
+import Link from 'next/link';
+import {
+  MapPin,
+  Mail,
+  Phone,
+  Clock,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Youtube,
+  Twitter,
+} from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
 import type { Category } from '@/types';
@@ -8,6 +20,20 @@ import type { Category } from '@/types';
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
 const SUBJECTS = ['general', 'sales', 'support', 'customization', 'partnership'] as const;
+
+interface SocialLink {
+  name: string;
+  href: string;
+  icon: ComponentType<{ className?: string }>;
+}
+
+const SOCIALS: SocialLink[] = [
+  { name: 'Facebook', href: 'https://www.facebook.com/qtechvending', icon: Facebook },
+  { name: 'Instagram', href: 'https://www.instagram.com/qtechvending', icon: Instagram },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/company/qtechvending', icon: Linkedin },
+  { name: 'YouTube', href: 'https://www.youtube.com/@qtechvending', icon: Youtube },
+  { name: 'Twitter', href: 'https://twitter.com/qtechvending', icon: Twitter },
+];
 
 export default function ContactClient({
   categories,
@@ -97,6 +123,18 @@ export default function ContactClient({
   const inputCls =
     'w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100';
 
+  const infoRow = (Icon: ComponentType<{ className?: string }>, label: string, value: string) => (
+    <li className="flex items-start gap-3">
+      <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+        <Icon className="h-4 w-4" />
+      </span>
+      <div>
+        <p className="text-xs font-medium uppercase tracking-wide text-ink-400">{label}</p>
+        <p className="mt-0.5 text-sm text-ink-700">{value}</p>
+      </div>
+    </li>
+  );
+
   return (
     <div className="container-qtech py-12 lg:py-16">
       <header className="mb-8 text-center">
@@ -175,25 +213,61 @@ export default function ContactClient({
           </button>
         </form>
 
-        <aside className="rounded-2xl border border-slate-200 bg-white p-6">
-          <h2 className="text-lg font-semibold text-ink-900">{t('contact.info')}</h2>
-          <dl className="mt-4 space-y-4 text-sm">
-            <div>
-              <dt className="font-medium text-ink-500">{t('contact.address')}</dt>
-              <dd className="mt-1 text-ink-700">Guangzhou, Guangdong, China</dd>
+        <aside className="space-y-6">
+          {/* Contact info card */}
+          <div className="glass-card p-6">
+            <h2 className="text-lg font-semibold text-ink-900">{t('contact.info')}</h2>
+            <ul className="mt-4 space-y-4 text-sm">
+              {infoRow(MapPin, t('contact.address'), 'Guangzhou, Guangdong, China')}
+              {infoRow(Mail, t('contact.emailUs'), 'sales@qtechvending.com')}
+              {infoRow(Phone, t('contact.callUs'), '+86-20-0000-0000')}
+              {infoRow(Clock, t('contact.hours'), '')}
+            </ul>
+          </div>
+
+          {/* Map / location */}
+          <Link
+            href="https://maps.google.com/?q=Guangzhou%20Qiuyan%20Technology%20Co.%20Ltd"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex h-36 items-center justify-center gap-3 overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-brand-50 to-cyan-100 text-brand-700 transition hover:from-brand-100"
+          >
+            <MapPin className="h-6 w-6" />
+            <span className="text-sm font-semibold">{t('contact.viewMap')}</span>
+          </Link>
+
+          {/* Social media */}
+          <div className="glass-card p-6">
+            <h3 className="text-sm font-semibold uppercase tracking-wide text-ink-500">
+              {t('contact.connectWithUs')}
+            </h3>
+            <div className="mt-4 flex flex-wrap gap-3">
+              {SOCIALS.map((s) => {
+                const Icon = s.icon;
+                return (
+                  <a
+                    key={s.name}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.name}
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-50 text-brand-600 transition hover:bg-brand-600 hover:text-white"
+                  >
+                    <Icon className="h-5 w-5" />
+                  </a>
+                );
+              })}
             </div>
-            <div>
-              <dt className="font-medium text-ink-500">{t('contact.emailUs')}</dt>
-              <dd className="mt-1 text-ink-700">sales@qtechvending.com</dd>
-            </div>
-            <div>
-              <dt className="font-medium text-ink-500">{t('contact.callUs')}</dt>
-              <dd className="mt-1 text-ink-700">+86-20-0000-0000</dd>
-            </div>
-            <div>
-              <dt className="font-medium text-ink-500">{t('contact.hours')}</dt>
-            </div>
-          </dl>
+          </div>
+
+          {/* FAQ quick link */}
+          <Link
+            href={`/${locale}/faq`}
+            className="flex items-center justify-between gap-2 rounded-2xl border border-brand-100 bg-brand-50 px-5 py-4 text-sm font-medium text-brand-700 transition hover:bg-brand-100"
+          >
+            {t('contact.faqLink')}
+            <span aria-hidden="true" className="transition group-hover:translate-x-0.5">→</span>
+          </Link>
         </aside>
       </div>
     </div>
