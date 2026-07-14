@@ -3,9 +3,10 @@ import HeroSection from '@/components/home/HeroSection';
 import CategoriesGrid from '@/components/home/CategoriesGrid';
 import FeaturedProducts from '@/components/home/FeaturedProducts';
 import AdvantagesSection from '@/components/home/AdvantagesSection';
+import PartnersSection from '@/components/home/PartnersSection';
 import BlogPreview from '@/components/home/BlogPreview';
 import CtaSection from '@/components/home/CtaSection';
-import { getFeaturedProducts, getLatestBlogs, getCategories } from '@/lib/data';
+import { getFeaturedProducts, getLatestBlogs, getCategories, getCategoryProductCounts } from '@/lib/data';
 import { generatePageMetadata, SITE_CONFIG } from '@/lib/seo';
 import { buildStaticPageKeywords } from '@/lib/seo-keywords';
 
@@ -25,18 +26,20 @@ export async function generateMetadata({ params: { locale } }: PageProps): Promi
 }
 
 export default async function HomePage({ params: { locale } }: PageProps) {
-  const [featured, blogs, categories] = await Promise.all([
+  const [featured, blogs, categories, counts] = await Promise.all([
     getFeaturedProducts(8),
     getLatestBlogs(3),
     getCategories(),
+    getCategoryProductCounts(),
   ]);
 
   return (
     <>
-      <HeroSection />
-      <CategoriesGrid categories={categories} />
+      <HeroSection products={featured} />
+      <CategoriesGrid categories={categories} counts={counts} />
       <FeaturedProducts products={featured} />
       <AdvantagesSection />
+      <PartnersSection />
       <BlogPreview posts={blogs} />
       <CtaSection />
     </>

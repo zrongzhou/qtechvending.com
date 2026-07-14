@@ -32,6 +32,27 @@ export async function getCategories(): Promise<Category[]> {
   }
 }
 
+/**
+ * Number of active products in each category, keyed by category slug.
+ * Used by the home CategoriesGrid to show a product count per card.
+ */
+export async function getCategoryProductCounts(): Promise<Record<string, number>> {
+  try {
+    const rows = await prisma.category.findMany({
+      where: { status: 'active', type: 'product' },
+      select: { slug: true, _count: { select: { products: true } } },
+    });
+    const map: Record<string, number> = {};
+    for (const r of rows) {
+      map[r.slug] = r._count.products;
+    }
+    return map;
+  } catch (err) {
+    logDataError('getCategoryProductCounts', err);
+    return {};
+  }
+}
+
 export async function getFeaturedProducts(limit = 8): Promise<Product[]> {
   try {
     const products = await prisma.product.findMany({

@@ -23,7 +23,7 @@
 
   "home.badge": "شركة مصنعة موثوقة لمعدات البيع",
   "home.hero.title": "البيع الذكي وأتمتة الزهور من Qtech",
-  "home.hero.subtitle": "من آلات بيع الزهور إلى أكشاك الحدائق الآلية — معدات ذكية مباشرة من المصنع للموزعين والمشغلين حول العالم.",
+  "home.hero.subtitle": "من آلات بيع الزهور الطازجة إلى أكشاك الحدائق الآلية، تبني Qtech معدات ذكية مباشرة من المصنع تساعد الموزعين والمشغلين على البيع على مدار الساعة في أكثر من 80 دولة.",
   "home.hero.ctaBrowse": "تصفح الآلات",
   "home.hero.ctaContact": "تواصل مع المبيعات",
   "home.hero.stat1Value": "+11",
@@ -32,17 +32,20 @@
   "home.hero.stat2Label": "دولة نخدمها",
   "home.hero.stat3Value": "24/7",
   "home.hero.stat3Label": "تشغيل ذاتي",
+  "home.hero.featuredLabel": "نماذج مميزة",
 
   "home.categories.title": "تصفح حسب الفئة",
-  "home.categories.subtitle": "اعثر على الآلة المناسبة لسوقك.",
+  "home.categories.subtitle": "آلات مختارة لكل سوق — تصفح حسب الفئة لإيجاد الأنسب لك.",
   "home.categories.viewAll": "عرض كل المنتجات",
+  "home.categories.productCount": "منتج",
 
   "home.featured.title": "آلات مميزة",
-  "home.featured.subtitle": "نماذج تمثيلية من كل خط إنتاج.",
+  "home.featured.subtitle": "النماذج الأكثر مبيعًا عبر خطوط الزهور والطعام والمشروبات — جميعها مباشرة من المصنع وجاهزة لـ OEM.",
   "home.featured.viewAll": "شاهد كل المنتجات",
+  "home.featured.viewDetails": "عرض التفاصيل",
 
   "home.advantages.title": "لماذا تختار Qtech",
-  "home.advantages.subtitle": "شريك تصنيع موثوق لمعدات الخدمة الذاتية.",
+  "home.advantages.subtitle": "شريك تصنيع مصمم للخدمة الذاتية: أسعار مباشرة من المصنع وهندسة حقيقية ودعم بلغتك.",
   "home.advantages.factoryDirect": "مباشرة من المصنع",
   "home.advantages.factoryDirectDesc": "أسعار تنافسية وتحكم كامل في الجودة من منشأتنا في غوانغتشو.",
   "home.advantages.selfService": "خدمة ذاتية 24/7",
@@ -52,13 +55,17 @@
   "home.advantages.globalShipping": "شحن عالمي",
   "home.advantages.globalShippingDesc": "خبرة تصدير ودعم لوجستي لأكثر من 60 دولة.",
 
+  "home.partners.title": "الشركاء العالميون وقصص النجاح",
+  "home.partners.subtitle": "من محطات المترو إلى منتجعات الشواطئ، تعمل آلات Qtech على مدار الساعة للمشغلين في ست قارات.",
+
   "home.blog.title": "أحدث المقالات",
-  "home.blog.subtitle": "رؤى الصناعة وتحديثات المنتجات وقصص التطبيق.",
+  "home.blog.subtitle": "قصص ميدانية وتحديثات منتجات ونصائح عملية من فريق Qtech.",
   "home.blog.viewAll": "اقرأ المدونة",
 
   "home.cta.title": "هل أنت مستعد لإطلاق أعمال البيع؟",
-  "home.cta.subtitle": "تحدث مع فريقنا حول النماذج والأسعار وخيارات OEM.",
+  "home.cta.subtitle": "أخبرنا عن سوقك وسنوصي بالنماذج والأسعار وخيارات OEM — مع عروض أسعار مباشرة من المصنع خلال 24 ساعة.",
   "home.cta.button": "اطلب عرض سعر",
+  "home.cta.proof": "انضم إلى أكثر من 500 شريك عالمي",
 
   "products.title": "المنتجات",
   "products.subtitle": "تصفح مجموعتنا الكاملة من معدات البيع الذكية والأتمتة.",
@@ -78,6 +85,8 @@
   "products.page": "صفحة",
   "products.of": "من",
   "products.loading": "جارٍ التحميل...",
+  "products.badgeNew": "جديد",
+  "products.badgeHot": "رائج",
 
   "product.specs": "المواصفات",
   "product.description": "الوصف",

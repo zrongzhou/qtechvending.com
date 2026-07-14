@@ -6,6 +6,7 @@ import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
 import ProductCard from '@/components/products/ProductCard';
 import ProductFaqSection from './ProductFaqSection';
+import ImageWithRetry from '@/components/ui/ImageWithRetry';
 import type { Product } from '@/types';
 
 function renderParagraphs(text: string) {
@@ -59,16 +60,8 @@ export default function ProductDetailView({
       <div className="grid gap-10 lg:grid-cols-2">
         {/* Gallery */}
         <div>
-          <div className="aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={activeImage}
-              alt={name}
-              className="h-full w-full object-cover"
-              onError={(e) => {
-                (e.currentTarget as HTMLImageElement).src = '/images/og-default.svg';
-              }}
-            />
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
+            <ImageWithRetry src={activeImage} alt={name} className="h-full w-full object-cover" />
           </div>
           {images.length > 1 && (
             <div className="mt-4 flex flex-wrap gap-3">
@@ -77,12 +70,11 @@ export default function ProductDetailView({
                   key={img}
                   type="button"
                   onClick={() => setActiveImage(img)}
-                  className={`h-20 w-20 overflow-hidden rounded-lg border-2 ${
+                  className={`relative h-20 w-20 overflow-hidden rounded-lg border-2 ${
                     activeImage === img ? 'border-brand-500' : 'border-transparent'
                   }`}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={img} alt="" className="h-full w-full object-cover" />
+                  <ImageWithRetry src={img} alt="" className="h-full w-full object-cover" />
                 </button>
               ))}
             </div>

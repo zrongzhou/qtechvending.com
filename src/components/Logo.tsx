@@ -7,8 +7,12 @@ interface LogoProps {
 }
 
 /**
- * Qtech brand mark — two four-pointed stars (sparkles) in the ice-blue
- * gradient, optionally paired with the wordmark "Qtech".
+ * Qtech brand mark — a single rounded hexagon containing a minimal "Q",
+ * filled with the ice-blue gradient. Optionally paired with the wordmark
+ * "Qtech" and the "TOOL CABINET" tagline.
+ *
+ * The gradient id is shared by every instance on the page; because all
+ * definitions are identical this is safe and avoids duplicate-id flicker.
  */
 export default function Logo({ className = '', markOnly = false, textClassName = 'text-ink-900' }: LogoProps) {
   return (
@@ -23,26 +27,31 @@ export default function Logo({ className = '', markOnly = false, textClassName =
         className="shrink-0"
       >
         <defs>
-          <linearGradient id="qtechStar" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+          <linearGradient id="qtechMark" x1="4" y1="6" x2="44" y2="42" gradientUnits="userSpaceOnUse">
             <stop stopColor="#22d3ee" />
-            <stop offset="0.5" stopColor="#0ea5e9" />
+            <stop offset="0.55" stopColor="#0ea5e9" />
             <stop offset="1" stopColor="#0891b2" />
           </linearGradient>
         </defs>
-        {/* Primary four-pointed star */}
+        {/* Single rounded hexagon */}
         <path
-          d="M24 3 L27.2 20.8 L45 24 L27.2 27.2 L24 45 L20.8 27.2 L3 24 L20.8 20.8 Z"
-          fill="url(#qtechStar)"
+          d="M14 6.68 L34 6.68 L44 24 L34 41.32 L14 41.32 L4 24 Z"
+          fill="url(#qtechMark)"
+          stroke="url(#qtechMark)"
+          strokeWidth="2"
+          strokeLinejoin="round"
         />
-        {/* Secondary smaller star (offset, upper-right) */}
-        <path
-          d="M40 8 L41.6 15.4 L49 17 L41.6 18.6 L40 26 L38.4 18.6 L31 17 L38.4 15.4 Z"
-          fill="url(#qtechStar)"
-          opacity="0.75"
-        />
+        {/* Minimal "Q": ring + tail */}
+        <circle cx="24" cy="22.5" r="9" fill="none" stroke="#ffffff" strokeWidth="3" />
+        <path d="M30 28 L35 34" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" fill="none" />
       </svg>
       {!markOnly && (
-        <span className={`text-xl font-extrabold tracking-tight ${textClassName}`}>Qtech</span>
+        <span className="flex flex-col leading-none">
+          <span className={`text-xl font-extrabold tracking-tight ${textClassName}`}>Qtech</span>
+          <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-600">
+            Tool Cabinet
+          </span>
+        </span>
       )}
     </span>
   );

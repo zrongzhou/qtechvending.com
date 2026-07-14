@@ -23,7 +23,7 @@
 
   "home.badge": "值得信赖的售货设备制造商",
   "home.hero.title": "Qtech 智能售货与鲜花园艺自动化设备",
-  "home.hero.subtitle": "从鲜花售货机到自动化园艺终端——广州工厂直供的智能设备，服务全球经销商与运营商。",
+  "home.hero.subtitle": "从鲜花售货到自动化园艺终端，Qtech 以工厂直供的智能设备，助力全球经销商与运营商在 80+ 国家实现全天候销售。",
   "home.hero.ctaBrowse": "浏览设备",
   "home.hero.ctaContact": "联系销售",
   "home.hero.stat1Value": "11+",
@@ -32,17 +32,20 @@
   "home.hero.stat2Label": "服务国家",
   "home.hero.stat3Value": "24/7",
   "home.hero.stat3Label": "自助运营",
+  "home.hero.featuredLabel": "精选机型",
 
   "home.categories.title": "按分类浏览",
-  "home.categories.subtitle": "为您的市场找到合适的设备。",
+  "home.categories.subtitle": "为不同市场精选的设备——按分类浏览，找到最适合您的机型。",
   "home.categories.viewAll": "查看全部产品",
+  "home.categories.productCount": "款设备",
 
   "home.featured.title": "精选设备",
-  "home.featured.subtitle": "每条产品线的代表机型。",
+  "home.featured.subtitle": "鲜花、餐饮与饮品各产品线的热销机型——全部工厂直供，支持 OEM 定制。",
   "home.featured.viewAll": "查看全部产品",
+  "home.featured.viewDetails": "查看详情",
 
   "home.advantages.title": "为什么选择 Qtech",
-  "home.advantages.subtitle": "自助设备领域可靠的制造合作伙伴。",
+  "home.advantages.subtitle": "为自助场景打造的制造伙伴：工厂直供价格、真实研发实力，以及母语级售后支持。",
   "home.advantages.factoryDirect": "工厂直供",
   "home.advantages.factoryDirectDesc": "广州自有工厂，价格更具竞争力，品质全程可控。",
   "home.advantages.selfService": "24/7 自助运营",
@@ -52,13 +55,17 @@
   "home.advantages.globalShipping": "全球发货",
   "home.advantages.globalShippingDesc": "出口经验丰富，物流支持覆盖 60 多个国家。",
 
+  "home.partners.title": "全球合作伙伴与成功案例",
+  "home.partners.subtitle": "从地铁站到海滨度假村，Qtech 设备在全球六大洲持续为运营商服务。",
+
   "home.blog.title": "博客最新文章",
-  "home.blog.subtitle": "行业洞察、产品更新与应用案例。",
+  "home.blog.subtitle": "来自 Qtech 团队的现场故事、产品更新与实用指南。",
   "home.blog.viewAll": "阅读博客",
 
   "home.cta.title": "准备好开启您的售货业务了吗？",
-  "home.cta.subtitle": "与我们的团队沟通机型、报价与 OEM 方案。",
+  "home.cta.subtitle": "告诉我们您的市场，我们将推荐机型、报价与 OEM 方案——24 小时内提供工厂直供报价。",
   "home.cta.button": "获取报价",
+  "home.cta.proof": "加入 500+ 全球合作伙伴",
 
   "products.title": "产品",
   "products.subtitle": "浏览我们全系列的智能售货与自动化设备。",
@@ -78,6 +85,8 @@
   "products.page": "第",
   "products.of": "/ 共",
   "products.loading": "加载中...",
+  "products.badgeNew": "新品",
+  "products.badgeHot": "热销",
 
   "product.specs": "规格参数",
   "product.description": "产品描述",

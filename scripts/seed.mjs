@@ -37,6 +37,30 @@ if (!process.env.DATABASE_URL) {
 
 const prisma = new PrismaClient();
 
+/**
+ * Normalize a data-file value into the DB `Json` i18n shape `{ en, zh, ar }`.
+ *
+ * The scraped data files may store these fields as either a plain English
+ * string (legacy) or as a fully translated `{ en, zh, ar }` object (after
+ * `fix-i18n-names.mjs`). This helper accepts both and guarantees every locale
+ * key is present, falling back to English so the UI never renders an empty
+ * string in any language.
+ */
+function toI18n(value) {
+  if (value === undefined || value === null) return undefined;
+  if (typeof value === 'string') return { en: value, zh: value, ar: value };
+  if (typeof value === 'object') {
+    const o = value;
+    const en = typeof o.en === 'string' && o.en ? o.en : typeof o.zh === 'string' ? o.zh : typeof o.ar === 'string' ? o.ar : '';
+    return {
+      en,
+      zh: typeof o.zh === 'string' && o.zh ? o.zh : en,
+      ar: typeof o.ar === 'string' && o.ar ? o.ar : en,
+    };
+  }
+  return undefined;
+}
+
 // ---- Professionally rewritten About-page copy (replaces source Lorem ipsum) ----
 // NOTE: English / Chinese copy is final. Arabic (ar) copy is AI-generated and
 // still pending human review — TODO: ar 人工校对.
@@ -84,18 +108,18 @@ async function main() {
     await prisma.category.upsert({
       where: { slug: c.slug },
       update: {
-        name: { en: c.name },
+        name: toI18n(c.name),
         icon: c.icon || '🏷️',
-        description: c.description ? { en: c.description } : undefined,
+        description: toI18n(c.description),
         order: c.order ?? 0,
         status: 'active',
         type: 'product',
       },
       create: {
         slug: c.slug,
-        name: { en: c.name },
+        name: toI18n(c.name),
         icon: c.icon || '🏷️',
-        description: c.description ? { en: c.description } : undefined,
+        description: toI18n(c.description),
         order: c.order ?? 0,
         status: 'active',
         type: 'product',
@@ -120,9 +144,9 @@ async function main() {
     await prisma.product.upsert({
       where: { slug: p.slug },
       update: {
-        name: { en: p.name },
-        shortDescription: p.shortDescription ? { en: p.shortDescription } : undefined,
-        description: p.description ? { en: p.description } : undefined,
+        name: toI18n(p.name),
+        shortDescription: toI18n(p.shortDescription),
+        description: toI18n(p.description),
         images: p.images || [],
         specs: p.specs || [],
         sku: p.sku,
@@ -133,9 +157,9 @@ async function main() {
       create: {
         slug: p.slug,
         sku: p.sku,
-        name: { en: p.name },
-        shortDescription: p.shortDescription ? { en: p.shortDescription } : undefined,
-        description: p.description ? { en: p.description } : undefined,
+        name: toI18n(p.name),
+        shortDescription: toI18n(p.shortDescription),
+        description: toI18n(p.description),
         images: p.images || [],
         specs: p.specs || [],
         order: p.order ?? 0,
@@ -158,18 +182,18 @@ async function main() {
     await prisma.blogPost.upsert({
       where: { slug: b.slug },
       update: {
-        title: { en: b.title },
-        excerpt: b.excerpt ? { en: b.excerpt } : undefined,
-        content: { en: b.content },
+        title: toI18n(b.title),
+        excerpt: toI18n(b.excerpt),
+        content: toI18n(b.content),
         publishedAt: new Date(b.publishedAt),
         image: b.image || null,
         status: 'published',
       },
       create: {
         slug: b.slug,
-        title: { en: b.title },
-        excerpt: b.excerpt ? { en: b.excerpt } : undefined,
-        content: { en: b.content },
+        title: toI18n(b.title),
+        excerpt: toI18n(b.excerpt),
+        content: toI18n(b.content),
         publishedAt: new Date(b.publishedAt),
         image: b.image || null,
         status: 'published',

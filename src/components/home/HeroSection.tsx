@@ -1,28 +1,48 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useLocale } from '@/lib/i18n';
+import { localized } from '@/lib/localize';
+import ImageWithRetry from '@/components/ui/ImageWithRetry';
+import CountUp from '@/components/ui/CountUp';
+import type { Product } from '@/types';
 
-export default function HeroSection() {
+function firstImage(images: string[] | undefined): string {
+  if (images && images.length > 0) return images[0];
+  return '/images/og-default.svg';
+}
+
+export default function HeroSection({ products = [] }: { products?: Product[] }) {
   const { t, locale } = useLocale();
+
+  const slides = products.slice(0, 6);
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (slides.length <= 1) return;
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % slides.length);
+    }, 4500);
+    return () => clearInterval(id);
+  }, [slides.length]);
+
+  const current = slides[index];
+  const category = current?.categories?.[0];
+  const categoryName = category ? localized(category.name, locale) : '';
+  const name = current ? localized(current.name, locale) : '';
+
   const stats = [
-    { value: t('home.hero.stat1Value'), label: t('home.hero.stat1Label') },
-    { value: t('home.hero.stat2Value'), label: t('home.hero.stat2Label') },
-    { value: t('home.hero.stat3Value'), label: t('home.hero.stat3Label') },
+    { end: 11, suffix: '+', labelKey: 'home.hero.stat1Label' },
+    { end: 60, suffix: '+', labelKey: 'home.hero.stat2Label' },
+    { end: 24, suffix: '/7', labelKey: 'home.hero.stat3Label' },
   ];
 
   return (
-    <section className="relative overflow-hidden bg-brand-gradient text-white">
-      <div className="absolute inset-0 opacity-20" aria-hidden="true">
-        <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="stars" width="120" height="120" patternUnits="userSpaceOnUse">
-              <path d="M60 20 L64 48 L92 52 L64 56 L60 84 L56 56 L28 52 L56 48 Z" fill="#ffffff" opacity="0.5" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#stars)" />
-        </svg>
-      </div>
+    <section className="relative overflow-hidden bg-brand-gradient animate-gradient-x text-white">
+      {/* Decorative floating blobs (pure CSS motion) */}
+      <div className="pointer-events-none absolute -left-16 top-10 h-64 w-64 rounded-full bg-white/10 blur-3xl animate-float" aria-hidden="true" />
+      <div className="pointer-events-none absolute right-0 top-1/3 h-72 w-72 rounded-full bg-cyan-300/20 blur-3xl animate-float-slow" aria-hidden="true" />
 
       <div className="container-qtech relative grid items-center gap-12 py-20 lg:grid-cols-2 lg:py-28">
         <div>
@@ -50,23 +70,65 @@ export default function HeroSection() {
 
           <dl className="mt-12 grid grid-cols-3 gap-6 border-t border-white/20 pt-8">
             {stats.map((s) => (
-              <div key={s.label}>
-                <dt className="text-3xl font-bold">{s.value}</dt>
-                <dd className="mt-1 text-sm text-white/80">{s.label}</dd>
+              <div key={s.labelKey}>
+                <dt className="text-3xl font-bold">
+                  <CountUp end={s.end} suffix={s.suffix} />
+                </dt>
+                <dd className="mt-1 text-sm text-white/80">{t(s.labelKey)}</dd>
               </div>
             ))}
           </dl>
         </div>
 
+        {/* Right column: live product carousel */}
         <div className="hidden lg:block">
-          <div className="relative mx-auto aspect-square w-full max-w-md rounded-3xl bg-white/10 p-8 backdrop-blur">
-            <div className="flex h-full w-full items-center justify-center rounded-2xl bg-white/10">
-              <svg width="160" height="160" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M24 3 L27.2 20.8 L45 24 L27.2 27.2 L24 45 L20.8 27.2 L3 24 L20.8 20.8 Z" fill="#ffffff" />
-                <path d="M40 8 L41.6 15.4 L49 17 L41.6 18.6 L40 26 L38.4 18.6 L31 17 L38.4 15.4 Z" fill="#ffffff" opacity="0.8" />
-              </svg>
+          {current ? (
+            <div className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl border border-white/30 shadow-2xl">
+              <ImageWithRetry
+                key={current.slug}
+                src={firstImage(current.images)}
+                alt={name}
+                loading="eager"
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink-900/75 via-ink-900/5 to-transparent" />
+
+              <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
+                {categoryName && (
+                  <span className="text-xs font-medium uppercase tracking-wide text-cyan-200">
+                    {categoryName}
+                  </span>
+                )}
+                <h3 className="mt-1 line-clamp-2 text-lg font-bold">{name}</h3>
+                <Link
+                  href={`/${locale}/products/${current.slug}`}
+                  className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-white underline-offset-2 hover:underline"
+                >
+                  {t('home.featured.viewDetails')} →
+                </Link>
+              </div>
+
+              {slides.length > 1 && (
+                <div className="absolute right-4 top-4 flex gap-1.5">
+                  {slides.map((p, i) => (
+                    <button
+                      key={p.slug}
+                      type="button"
+                      aria-label={`${t('home.featured.viewDetails')} ${i + 1}`}
+                      onClick={() => setIndex(i)}
+                      className={`h-2 w-2 rounded-full transition ${
+                        i === index ? 'bg-white' : 'bg-white/40 hover:bg-white/70'
+                      }`}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
-          </div>
+          ) : (
+            <div className="mx-auto flex aspect-[4/5] w-full max-w-md items-center justify-center rounded-3xl border border-white/30 bg-white/10 text-center backdrop-blur">
+              <span className="text-lg font-semibold text-white/90">{t('home.hero.featuredLabel')}</span>
+            </div>
+          )}
         </div>
       </div>
     </section>

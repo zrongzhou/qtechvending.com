@@ -18,7 +18,7 @@ export default function FeaturedProducts({ products }: { products: Product[] }) 
         </div>
         <Link
           href={`/${locale}/products`}
-          className="hidden shrink-0 rounded-full border border-brand-200 px-5 py-2.5 text-sm font-semibold text-brand-700 transition hover:bg-brand-50 sm:inline-flex"
+          className="hidden shrink-0 rounded-full bg-brand-gradient px-5 py-2.5 text-sm font-semibold text-white shadow-card transition hover:opacity-90 sm:inline-flex"
         >
           {t('home.featured.viewAll')} →
         </Link>

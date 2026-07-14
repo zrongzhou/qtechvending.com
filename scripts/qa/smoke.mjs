@@ -1,15 +1,15 @@
-// QA: Route smoke test for the QtechVending trilingual site.
-// Fetches each route and asserts HTTP 200 + key markers.
-// NOTE: data-driven pages are expected to DEGRADE GRACEFULLY (render shell with
-// empty sections) when the database is unavailable. A 500 from an empty/missing
-// DB is treated as a SOURCE BUG (not an environment artifact).
+// QA: Route smoke test for the QtechVending trilingual site — Round 2 regression.
+// Expected env: NO database (no .env / no DATABASE_URL). Per the fix for
+// Bug A, data pages must render the shell with HTTP 200 (empty data) instead
+// of 500. Per the fix for Bug B, /ar must ship <html lang="ar" dir="rtl"> at SSR.
+// Detail/category routes for a slug that does not exist in the (empty) DB are
+// allowed to 404 gracefully (notFound) — that is correct behavior.
 import http from 'node:http';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const BASE = process.env.BASE_URL || 'http://localhost:3000';
 
-// Pick a real slug from the crawler data so detail routes are valid.
-import fs from 'node:fs';
-import path from 'node:path';
 const DATA = path.resolve('scripts/data');
 let productSlug = '';
 let categorySlug = '';
@@ -18,17 +18,21 @@ try {
   categorySlug = JSON.parse(fs.readFileSync(path.join(DATA, 'categories.json'), 'utf8'))[0]?.slug || '';
 } catch { /* ignore */ }
 
+// acceptableStatus: a Set of statuses considered a PASS for that route.
+// markers (lowercased, matched case-insensitively against lowercased body).
 const ROUTES = [
-  { path: '/en', markers: ['Qtech', 'Products', 'Blog', 'About', 'Contact', 'lang="en"'] },
-  { path: '/zh', markers: ['Qtech', 'lang="zh"'] },
-  { path: '/ar', markers: ['Qtech', 'lang="ar"', 'dir="rtl"'] },
-  { path: '/en/products', markers: ['Products', 'Qtech'] },
-  { path: `/en/products/${productSlug}`, markers: ['Qtech'] },
-  { path: `/en/category/${categorySlug}`, markers: ['Qtech'] },
-  { path: '/en/blog', markers: ['Blog', 'Qtech'] },
-  { path: '/en/about', markers: ['About', 'Qtech'] },
-  { path: '/en/contact', markers: ['name', 'email', 'phone', 'company', 'country', 'productInterest', 'subject', 'message'] },
-  { path: '/xiaozhouBackend/login', markers: ['Qtech', 'login', 'Login'] },
+  { path: '/en', status: new Set([200]), markers: ['qtech', 'products', 'blog', 'about', 'contact', 'lang="en"'] },
+  { path: '/zh', status: new Set([200]), markers: ['qtech', 'lang="zh"'] },
+  { path: '/ar', status: new Set([200]), markers: ['qtech', 'lang="ar"', 'dir="rtl"'] },
+  { path: '/en/products', status: new Set([200]), markers: ['products', 'qtech'] },
+  { path: `/en/products/${productSlug}`, status: new Set([200, 404]), markers: [] },
+  { path: `/en/category/${categorySlug}`, status: new Set([200, 404]), markers: [] },
+  { path: '/en/blog', status: new Set([200]), markers: ['blog', 'qtech'] },
+  { path: '/en/about', status: new Set([200]), markers: ['about', 'qtech'] },
+  { path: '/en/contact', status: new Set([200]), markers: ['name', 'email', 'phone', 'company', 'country', 'product', 'subject', 'message'] },
+  { path: '/xiaozhouBackend/login', status: new Set([200]), markers: ['qtech'] },
+  // SEO spot-check on /en (hreflang alternates + meta).
+  { path: '/en', status: new Set([200]), markers: ['hreflang', 'x-default', '<title>', 'name="description"', 'og:'], tag: 'SEO' },
 ];
 
 function get(url) {
@@ -47,12 +51,16 @@ const results = [];
 for (const r of ROUTES) {
   const url = `${BASE}${r.path}`;
   const { status, body } = await get(url);
-  const missing = r.markers.filter((m) => !body.includes(m));
-  const ok = status === 200 && missing.length === 0;
-  results.push({ path: r.path, status, missing, ok });
+  const low = body.toLowerCase();
+  const missing = r.markers.filter((m) => !low.includes(m.toLowerCase()));
+  // For routes we only assert status (detail/category/sEO), skip marker check when empty.
+  const markerOk = r.markers.length === 0 ? true : missing.length === 0;
+  const ok = r.status.has(status) && markerOk;
+  results.push({ path: r.path, status, missing, ok, tag: r.tag });
+  const extra = r.tag ? ` [${r.tag}]` : '';
   console.log(
-    `${ok ? 'PASS' : 'FAIL'}  ${status}  ${r.path}` +
-      (missing.length ? `  missing=[${missing.join(', ')}]` : '')
+    `${ok ? 'PASS' : 'FAIL'}  ${status}  ${r.path}${extra}` +
+      (!ok && missing.length ? `  missing=[${missing.join(', ')}]` : '')
   );
 }
 

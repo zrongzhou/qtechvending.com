@@ -36,3 +36,58 @@ input[type='number']::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+/* ---- Home hero motion (pure CSS) ---- */
+@keyframes qtech-gradient-x {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: qtech-gradient-x 14s ease infinite;
+}
+
+@keyframes qtech-float {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-16px) translateX(8px);
+  }
+}
+
+.animate-float {
+  animation: qtech-float 7s ease-in-out infinite;
+}
+
+@keyframes qtech-float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(12px);
+  }
+}
+
+.animate-float-slow {
+  animation: qtech-float-slow 9s ease-in-out infinite;
+}
+
+/* Hide scrollbar for horizontal mobile carousels while keeping scroll. */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

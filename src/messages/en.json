@@ -23,7 +23,7 @@
 
   "home.badge": "Trusted vending equipment manufacturer",
   "home.hero.title": "Smart Vending & Fresh-Flower Automation, Built by Qtech",
-  "home.hero.subtitle": "From flower vending machines to automated garden kiosks — factory-direct intelligent equipment for global distributors and operators.",
+  "home.hero.subtitle": "From fresh-flower vending to automated garden kiosks, Qtech builds factory-direct intelligent equipment that helps distributors and operators sell around the clock in 80+ countries.",
   "home.hero.ctaBrowse": "Browse Machines",
   "home.hero.ctaContact": "Contact Sales",
   "home.hero.stat1Value": "11+",
@@ -32,17 +32,20 @@
   "home.hero.stat2Label": "Countries served",
   "home.hero.stat3Value": "24/7",
   "home.hero.stat3Label": "Self-service operation",
+  "home.hero.featuredLabel": "Featured Models",
 
   "home.categories.title": "Explore by Category",
-  "home.categories.subtitle": "Find the right machine for your market.",
+  "home.categories.subtitle": "Hand-picked machines for every market — explore by category to find your best fit.",
   "home.categories.viewAll": "View all products",
+  "home.categories.productCount": "products",
 
   "home.featured.title": "Featured Machines",
-  "home.featured.subtitle": "Representative models from each product line.",
+  "home.featured.subtitle": "Best-selling models across our fresh-flower, food and beverage lines — all factory-direct and OEM-ready.",
   "home.featured.viewAll": "See all products",
+  "home.featured.viewDetails": "View Details",
 
   "home.advantages.title": "Why Choose Qtech",
-  "home.advantages.subtitle": "A reliable manufacturing partner for self-service equipment.",
+  "home.advantages.subtitle": "A manufacturing partner built for self-service: direct pricing, real engineering, and support in your language.",
   "home.advantages.factoryDirect": "Factory Direct",
   "home.advantages.factoryDirectDesc": "Competitive pricing and full quality control from our Guangzhou facility.",
   "home.advantages.selfService": "24/7 Self-Service",
@@ -52,13 +55,17 @@
   "home.advantages.globalShipping": "Global Shipping",
   "home.advantages.globalShippingDesc": "Export experience and logistics support to over 60 countries.",
 
+  "home.partners.title": "Global Partners & Success Stories",
+  "home.partners.subtitle": "From metro stations to beach resorts, Qtech machines run around the clock for operators on six continents.",
+
   "home.blog.title": "Latest from the Blog",
-  "home.blog.subtitle": "Industry insights, product updates and application stories.",
+  "home.blog.subtitle": "Field stories, product updates and practical tips from the Qtech team.",
   "home.blog.viewAll": "Read the blog",
 
   "home.cta.title": "Ready to launch your vending business?",
-  "home.cta.subtitle": "Talk to our team about models, pricing and OEM options.",
+  "home.cta.subtitle": "Tell us your market and we'll recommend models, pricing and OEM options — with factory-direct quotes in 24 hours.",
   "home.cta.button": "Request a Quote",
+  "home.cta.proof": "Join 500+ global partners",
 
   "products.title": "Products",
   "products.subtitle": "Browse our full range of intelligent vending and automation equipment.",
@@ -78,6 +85,8 @@
   "products.page": "Page",
   "products.of": "of",
   "products.loading": "Loading...",
+  "products.badgeNew": "New",
+  "products.badgeHot": "Hot",
 
   "product.specs": "Specifications",
   "product.description": "Description",

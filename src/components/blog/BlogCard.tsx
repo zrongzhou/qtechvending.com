@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { CalendarDays } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
+import ImageWithRetry from '@/components/ui/ImageWithRetry';
 import type { BlogPost } from '@/types';
 
 function formatDate(iso: string, locale: string): string {
@@ -29,14 +30,9 @@ export default function BlogCard({ post }: { post: BlogPost }) {
       className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-card transition hover:-translate-y-1 hover:border-brand-300"
     >
       <div className="relative aspect-[16/9] overflow-hidden bg-slate-100">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <ImageWithRetry
           src={post.image || '/images/og-default.svg'}
           alt={title}
-          loading="lazy"
-          onError={(e) => {
-            (e.currentTarget as HTMLImageElement).src = '/images/og-default.svg';
-          }}
           className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
         />
       </div>
