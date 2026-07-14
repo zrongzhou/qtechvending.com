@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Lightbulb, ShieldCheck, Headphones, Handshake } from 'lucide-react';
+import { Lightbulb, ShieldCheck, Headphones, Handshake, Factory, Target, Eye, Cog } from 'lucide-react';
 import { type ComponentType } from 'react';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
@@ -25,6 +25,14 @@ interface NumberItem {
   suffix: string;
   label: Record<string, string>;
 }
+
+/** Icon mapping for each section key — used when image file is missing */
+const SECTION_ICONS: Record<string, ComponentType<{ className?: string }>> = {
+  story: Factory,
+  mission: Target,
+  vision: Eye,
+  capability: Cog,
+};
 
 /** Four core values rendered as a glass-card grid below the story sections. */
 const VALUES: ValueItem[] = [
@@ -90,6 +98,9 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         {sections.map((section, idx) => {
           const title = localized(section.title, locale);
           const body = localized(section.body, locale);
+          const SectionIcon = SECTION_ICONS[section.key] || Factory;
+          const hasImage = !!section.image;
+          // Use icon illustration when no real image is available
           return (
             <section
               key={section.key}
@@ -111,17 +122,27 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     ))}
                 </div>
               </div>
-              <div className="aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={section.image || '/images/og-default.svg'}
-                  alt={title}
-                  className="h-full w-full object-cover"
-                  onError={(e) => {
-                    (e.currentTarget as HTMLImageElement).src = '/images/og-default.svg';
-                  }}
-                />
-              </div>
+              {hasImage ? (
+                <div className="aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={section.image}
+                    alt={title}
+                    className="h-full w-full object-cover"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).style.display = 'none';
+                    }}
+                  />
+                </div>
+              ) : (
+                <div className="flex aspect-[4/3] flex-col items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-cyan-400 p-8 text-white shadow-lg">
+                  <div className="rounded-2xl bg-white/15 p-5 backdrop-blur-sm">
+                    <SectionIcon className="h-14 w-14" strokeWidth={1.5} />
+                  </div>
+                  <p className="mt-5 text-center text-lg font-semibold">{title}</p>
+                  <div className="mt-3 h-1 w-16 rounded-full bg-white/30" />
+                </div>
+              )}
             </section>
           );
         })}
