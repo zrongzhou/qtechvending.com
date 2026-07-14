@@ -1,8 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Lightbulb, ShieldCheck, Headphones, Handshake, Factory, Target, Eye, Cog } from 'lucide-react';
-import { type ComponentType } from 'react';
+import { Lightbulb, ShieldCheck, Headphones, Handshake, Factory, Target, Eye, Cog, type LucideIcon } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
 import CountUp from '@/components/ui/CountUp';
@@ -15,7 +14,7 @@ export interface AboutSection {
 }
 
 interface ValueItem {
-  icon: ComponentType<{ className?: string }>;
+  icon: LucideIcon;
   title: Record<string, string>;
   desc: Record<string, string>;
 }
@@ -27,7 +26,7 @@ interface NumberItem {
 }
 
 /** Icon mapping for each section key — used when image file is missing */
-const SECTION_ICONS: Record<string, ComponentType<{ className?: string; strokeWidth?: number }>> = {
+const SECTION_ICONS: Record<string, LucideIcon> = {
   story: Factory,
   mission: Target,
   vision: Eye,
