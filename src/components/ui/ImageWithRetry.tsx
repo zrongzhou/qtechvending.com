@@ -68,6 +68,7 @@ export default function ImageWithRetry({
   const [status, setStatus] = useState<Status>('loading');
   const [retries, setRetries] = useState<number>(0);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   // Reset whenever the source prop changes (e.g. gallery thumbnail switch).
   useEffect(() => {
@@ -82,6 +83,20 @@ export default function ImageWithRetry({
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, []);
+
+  // 🔑 Critical fix: detect hydration race condition.
+  // After SSR, the browser may have already loaded the image before React
+  // hydrates and binds the onLoad listener. In that case img.complete === true
+  // but onLoad never fires → permanent white screen (skeleton visible, img opacity-0).
+  // We check complete on mount + after src changes to recover from this gap.
+  useEffect(() => {
+    const img = imgRef.current;
+    if (!img) return;
+    if (img.complete && img.naturalWidth > 0) {
+      setStatus('ready');
+      return;
+    }
+  }, [src, displaySrc]);
 
   const handleError = () => {
     if (displaySrc === fallbackSrc) {
@@ -118,7 +133,14 @@ export default function ImageWithRetry({
   return (
     <>
       {showSkeleton && (
-        <div className="absolute inset-0 animate-pulse bg-slate-200" aria-hidden="true" />
+        <div className="absolute inset-0 overflow-hidden animate-pulse bg-gradient-to-br from-slate-100 to-slate-200" aria-hidden="true">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <svg className="w-8 h-8 text-slate-300 animate-spin" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2.5" opacity="0.3" />
+              <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+            </svg>
+          </div>
+        </div>
       )}
       {status === 'failed' && (
         <div className="absolute inset-0 flex items-center justify-center bg-slate-100 text-xs text-slate-400">
@@ -126,6 +148,7 @@ export default function ImageWithRetry({
         </div>
       )}
       <Image
+        ref={imgRef as any}
         src={displaySrc}
         alt={alt}
         width={numWidth ?? (hasExplicitSize ? 0 : undefined)}
