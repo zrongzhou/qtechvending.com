@@ -1,10 +1,19 @@
 'use client';
 
 import Link from 'next/link';
+import { Facebook, Instagram, Linkedin, Youtube, Twitter } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import Logo from '@/components/Logo';
 
 const YEAR = new Date().getFullYear();
+
+const FOOTER_SOCIALS = [
+  { name: 'Facebook', href: 'https://www.facebook.com/qtechvending', icon: Facebook },
+  { name: 'Instagram', href: 'https://www.instagram.com/qtechvending', icon: Instagram },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/company/qtechvending', icon: Linkedin },
+  { name: 'YouTube', href: 'https://www.youtube.com/@qtechvending', icon: Youtube },
+  { name: 'Twitter', href: 'https://twitter.com/qtechvending', icon: Twitter },
+];
 
 export default function Footer() {
   const { t, locale } = useLocale();
@@ -26,6 +35,23 @@ export default function Footer() {
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-400">
             {t('footer.tagline')}
           </p>
+          <div className="mt-5 flex flex-wrap gap-2.5">
+            {FOOTER_SOCIALS.map((s) => {
+              const Icon = s.icon;
+              return (
+                <a
+                  key={s.name}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.name}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-slate-300 transition hover:border-brand-400 hover:bg-brand-600 hover:text-white"
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
+              );
+            })}
+          </div>
         </div>
 
         <div>

@@ -58,9 +58,9 @@ export default function ProductDetailView({
       </nav>
 
       <div className="grid gap-10 lg:grid-cols-2">
-        {/* Gallery */}
-        <div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
+        {/* Gallery — sticky on desktop so the main image stays in view while scrolling specs/description */}
+        <div className="lg:sticky lg:top-24 lg:self-start">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm">
             <ImageWithRetry src={activeImage} alt={name} className="h-full w-full object-cover" />
           </div>
           {images.length > 1 && (
@@ -70,8 +70,8 @@ export default function ProductDetailView({
                   key={img}
                   type="button"
                   onClick={() => setActiveImage(img)}
-                  className={`relative h-20 w-20 overflow-hidden rounded-lg border-2 ${
-                    activeImage === img ? 'border-brand-500' : 'border-transparent'
+                  className={`relative h-20 w-20 overflow-hidden rounded-xl border-2 transition ${
+                    activeImage === img ? 'border-brand-500 shadow-md' : 'border-transparent hover:border-slate-300'
                   }`}
                 >
                   <ImageWithRetry src={img} alt="" className="h-full w-full object-cover" />

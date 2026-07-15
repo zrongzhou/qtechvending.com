@@ -230,10 +230,24 @@ export default function ContactClient({
             href="https://maps.google.com/?q=Guangzhou%20Qiuyan%20Technology%20Co.%20Ltd"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex h-36 items-center justify-center gap-3 overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-brand-50 to-cyan-100 text-brand-700 transition hover:from-brand-100"
+            className="group relative flex h-44 items-center justify-center gap-3 overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br from-brand-50 to-cyan-100 text-brand-700 transition hover:from-brand-100"
           >
-            <MapPin className="h-6 w-6" />
-            <span className="text-sm font-semibold">{t('contact.viewMap')}</span>
+            {/* Subtle map grid for a location-card feel */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 opacity-50"
+              style={{
+                backgroundImage:
+                  'linear-gradient(rgba(2,132,199,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(2,132,199,0.12) 1px, transparent 1px)',
+                backgroundSize: '28px 28px',
+              }}
+            />
+            <div className="relative flex flex-col items-center gap-2">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-brand-600 shadow-md transition group-hover:scale-105">
+                <MapPin className="h-6 w-6" />
+              </span>
+              <span className="text-sm font-semibold">{t('contact.viewMap')}</span>
+            </div>
           </Link>
 
           {/* Social media */}
