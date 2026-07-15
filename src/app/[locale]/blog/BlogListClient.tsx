@@ -52,7 +52,7 @@ export default function BlogListClient({ initial }: { initial: Paginated<BlogPos
   const { data, totalPages } = result;
 
   return (
-    <div className="container-qtech beach-section-alt py-12 lg:py-16">
+    <div className="container-qtech bg-brand-50 py-12 lg:py-16">
       <header className="mb-10 flex flex-col gap-5 border-b border-slate-100 pb-8 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <span className="inline-flex items-center rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
@@ -67,7 +67,7 @@ export default function BlogListClient({ initial }: { initial: Paginated<BlogPos
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t('products.searchPlaceholder')}
-            className="w-full rounded-lg border border-sand-300 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-coral-500 focus:ring-2 focus:ring-coral-100"
+            className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
           />
         </div>
       </header>

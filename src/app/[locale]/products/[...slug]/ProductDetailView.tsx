@@ -84,7 +84,7 @@ export default function ProductDetailView({
         {/* Info */}
         <div>
           {categoryName && (
-            <span className="text-sm font-medium uppercase tracking-wide text-coral-600">
+            <span className="text-sm font-medium uppercase tracking-wide text-brand-600">
               {categoryName}
             </span>
           )}
@@ -93,7 +93,7 @@ export default function ProductDetailView({
 
           <Link
             href={`/${locale}/contact${categorySlug ? `?product=${categorySlug}` : ''}`}
-            className="btn-sunset mt-6 px-7 py-3 text-sm"
+            className="btn-primary mt-6 px-7 py-3 text-sm"
           >
             {t('product.inquire')}
           </Link>

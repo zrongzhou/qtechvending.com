@@ -27,10 +27,10 @@ export default function BlogCard({ post }: { post: BlogPost }) {
   return (
     <Link
       href={`/${locale}/blog/${post.slug}`}
-      className="group relative flex flex-col overflow-hidden rounded-2xl beach-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+      className="group relative flex flex-col overflow-hidden rounded-2xl pro-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
     >
       {/* Top accent on hover */}
-      <span className="absolute inset-x-0 top-0 z-20 h-0.5 scale-x-0 bg-gradient-to-r from-coral-400 to-amber-400 transition-transform duration-500 group-hover:scale-x-100" />
+      <span className="absolute inset-x-0 top-0 z-20 h-0.5 scale-x-0 bg-gradient-to-r from-brand-400 to-brand-600 transition-transform duration-500 group-hover:scale-x-100" />
 
       <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
         <ImageWithRetry
@@ -53,10 +53,10 @@ export default function BlogCard({ post }: { post: BlogPost }) {
         {excerpt && <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-ink-500">{excerpt}</p>}
 
         <div className="mt-auto flex items-center justify-between pt-4">
-          <span className="text-sm font-semibold text-coral-600">{t('blog.readMore')}</span>
+          <span className="text-sm font-semibold text-brand-600">{t('blog.readMore')}</span>
           <span
             aria-hidden="true"
-            className="flex h-7 w-7 items-center justify-center rounded-full bg-coral-50 text-coral-600 transition group-hover:bg-coral-500 group-hover:text-white"
+            className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-50 text-brand-600 transition group-hover:bg-brand-500 group-hover:text-white"
           >
             <ArrowUpRight className="h-4 w-4" />
           </span>

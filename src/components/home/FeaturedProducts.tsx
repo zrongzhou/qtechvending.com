@@ -10,16 +10,16 @@ export default function FeaturedProducts({ products }: { products: Product[] }) 
   if (!products.length) return null;
 
   return (
-    <section className="container-qtech beach-section-alt py-16 lg:py-20">
+    <section className="container-qtech bg-brand-50 py-16 lg:py-20">
       <div className="flex items-end justify-between gap-4">
         <div>
           <h2 className="text-3xl font-bold text-ink-900">{t('home.featured.title')}</h2>
-          <span className="mt-3 block h-1 w-16 rounded-full bg-coral-400" aria-hidden="true" />
+          <span className="mt-3 block h-1 w-16 rounded-full bg-brand-500" aria-hidden="true" />
           <p className="mt-2 text-ink-500">{t('home.featured.subtitle')}</p>
         </div>
         <Link
           href={`/${locale}/products`}
-          className="hidden shrink-0 btn-ocean px-5 py-2.5 text-sm sm:inline-flex"
+          className="hidden shrink-0 btn-primary px-5 py-2.5 text-sm sm:inline-flex"
         >
           {t('home.featured.viewAll')} →
         </Link>

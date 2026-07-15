@@ -14,12 +14,12 @@ export default function ProductFaqSection({ features }: { features: I18nStringLi
   if (!items.length) return null;
 
   return (
-    <div className="beach-card p-6">
+    <div className="pro-card p-6">
       <h2 className="text-lg font-semibold text-ink-900">{t('product.features')}</h2>
       <ul className="mt-4 space-y-2">
         {items.map((item, i) => (
           <li key={i} className="flex items-start gap-2 text-sm text-ink-600">
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-coral-500" />
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />
             {item}
           </li>
         ))}

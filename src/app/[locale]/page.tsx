@@ -6,7 +6,6 @@ import AdvantagesSection from '@/components/home/AdvantagesSection';
 import PartnersSection from '@/components/home/PartnersSection';
 import BlogPreview from '@/components/home/BlogPreview';
 import CtaSection from '@/components/home/CtaSection';
-import WaveDivider from '@/components/common/WaveDivider';
 import { getFeaturedProducts, getLatestBlogs, getCategories, getCategoryProductCounts } from '@/lib/data';
 import { generatePageMetadata, SITE_CONFIG } from '@/lib/seo';
 import { buildStaticPageKeywords } from '@/lib/seo-keywords';
@@ -38,12 +37,10 @@ export default async function HomePage({ params: { locale } }: PageProps) {
     <>
       <HeroSection products={featured} />
       <CategoriesGrid categories={categories} counts={counts} />
-      <WaveDivider color="#fffdf8" />
       <FeaturedProducts products={featured} />
       <AdvantagesSection />
       <PartnersSection />
       <BlogPreview posts={blogs} />
-      <WaveDivider color="#fffdf8" />
       <CtaSection />
     </>
   );

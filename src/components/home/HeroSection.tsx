@@ -6,7 +6,6 @@ import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
 import ImageWithRetry from '@/components/ui/ImageWithRetry';
 import CountUp from '@/components/ui/CountUp';
-import WaveDivider from '@/components/common/WaveDivider';
 import type { Product } from '@/types';
 
 function firstImage(images: string[] | undefined): string {
@@ -39,42 +38,14 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
     { end: 24, suffix: '/7', labelKey: 'home.hero.stat3Label' },
   ];
 
-  // Slowly drifting foam dots for the bright beach ambience.
-  const foams = [
-    { size: 10, left: 10, duration: 9, delay: 0, opacity: 0.55 },
-    { size: 16, left: 24, duration: 12, delay: 2, opacity: 0.4 },
-    { size: 7, left: 38, duration: 8, delay: 4, opacity: 0.6 },
-    { size: 13, left: 52, duration: 11, delay: 1, opacity: 0.45 },
-    { size: 9, left: 67, duration: 10, delay: 5, opacity: 0.5 },
-    { size: 18, left: 80, duration: 13, delay: 3, opacity: 0.35 },
-    { size: 11, left: 91, duration: 9.5, delay: 6, opacity: 0.45 },
-  ];
-
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-sky-200 via-brand-100 to-sand-50">
-      {/* Sun glow radiating from the top-right */}
-      <div className="sun-glow" />
-
-      {/* Drifting foam dots */}
-      {foams.map((f, i) => (
-        <span
-          key={`foam-${i}`}
-          aria-hidden="true"
-          className="foam-dot pointer-events-none"
-          style={{
-            width: f.size,
-            height: f.size,
-            left: `${f.left}%`,
-            ['--foam-opacity' as string]: f.opacity,
-            animationDuration: `${f.duration}s`,
-            animationDelay: `${f.delay}s`,
-          } as React.CSSProperties}
-        />
-      ))}
+    <section className="relative overflow-hidden bg-gradient-to-br from-white via-brand-50 to-white">
+      {/* Brand-blue soft glow */}
+      <div className="tech-glow" />
 
       <div className="container-qtech relative grid items-center gap-12 py-20 lg:grid-cols-2 lg:py-28">
         <div>
-          <span className="inline-flex items-center rounded-full bg-white/70 px-4 py-1.5 text-sm font-medium text-brand-700 shadow-sm backdrop-blur border border-brand-100">
+          <span className="inline-flex items-center rounded-full bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-700 shadow-sm border border-brand-100">
             {t('home.badge')}
           </span>
           <h1 className="mt-5 text-4xl font-extrabold leading-tight text-ink-900 sm:text-5xl">
@@ -82,25 +53,25 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
           </h1>
           <p className="mt-5 max-w-xl text-lg text-ink-600">{t('home.hero.subtitle')}</p>
           <p className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-brand-700">
-            <span className="h-1.5 w-1.5 rounded-full bg-coral-500" aria-hidden="true" />
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-500" aria-hidden="true" />
             {t('home.hero.tagline')}
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href={`/${locale}/products`}
-              className="btn-sunset px-7 py-3 text-sm"
+              className="btn-primary px-7 py-3 text-sm"
             >
               {t('home.hero.ctaBrowse')}
             </Link>
             <Link
               href={`/${locale}/contact`}
-              className="btn-ocean px-7 py-3 text-sm"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-brand-200 bg-white px-7 py-3 text-sm font-semibold text-brand-700 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-50"
             >
               {t('home.hero.ctaContact')}
             </Link>
           </div>
 
-          <dl className="mt-12 grid grid-cols-3 gap-6 border-t border-sand-200 pt-8">
+          <dl className="mt-12 grid grid-cols-3 gap-6 border-t border-slate-200 pt-8">
             {stats.map((s) => (
               <div key={s.labelKey}>
                 <dt className="text-3xl font-bold text-brand-700">
@@ -115,7 +86,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
         {/* Right column: live product carousel */}
         <div className="hidden lg:block">
           {current ? (
-            <div className="beach-card relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl shadow-xl">
+            <div className="pro-card relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-3xl shadow-xl">
               <ImageWithRetry
                 key={current.slug}
                 src={firstImage(current.images)}
@@ -150,7 +121,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
                       aria-label={`${t('home.featured.viewDetails')} ${i + 1}`}
                       onClick={() => setIndex(i)}
                       className={`h-2 w-2 rounded-full transition ${
-                        i === index ? 'bg-coral-500' : 'bg-white/50 hover:bg-white/80'
+                        i === index ? 'bg-brand-600' : 'bg-white/50 hover:bg-white/80'
                       }`}
                     />
                   ))}
@@ -158,15 +129,12 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
               )}
             </div>
           ) : (
-            <div className="beach-card mx-auto flex aspect-[4/5] w-full max-w-md items-center justify-center rounded-3xl border border-sand-200 text-center">
+            <div className="pro-card mx-auto flex aspect-[4/5] w-full max-w-md items-center justify-center rounded-3xl border border-slate-200 text-center">
               <span className="text-lg font-semibold text-ink-700">{t('home.hero.featuredLabel')}</span>
             </div>
           )}
         </div>
       </div>
-
-      {/* Beach wave transition into the next (warm sand) section */}
-      <WaveDivider color="#fffdf8" />
     </section>
   );
 }

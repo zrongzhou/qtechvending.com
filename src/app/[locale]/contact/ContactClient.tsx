@@ -207,7 +207,7 @@ export default function ContactClient({
           <button
             type="submit"
             disabled={status === 'submitting'}
-            className="btn-sunset w-full px-7 py-3 text-sm disabled:opacity-60"
+            className="btn-primary w-full px-7 py-3 text-sm disabled:opacity-60"
           >
             {status === 'submitting' ? t('contact.submitting') : t('contact.submit')}
           </button>
@@ -215,7 +215,7 @@ export default function ContactClient({
 
         <aside className="space-y-6">
           {/* Contact info card */}
-          <div className="beach-card p-6">
+          <div className="pro-card p-6">
             <h2 className="text-lg font-semibold text-ink-900">{t('contact.info')}</h2>
             <ul className="mt-4 space-y-4 text-sm">
               {infoRow(MapPin, t('contact.address'), 'Guangzhou, Guangdong, China')}
@@ -251,7 +251,7 @@ export default function ContactClient({
           </Link>
 
           {/* Social media */}
-          <div className="beach-card p-6">
+          <div className="pro-card p-6">
             <h3 className="text-sm font-semibold uppercase tracking-wide text-ink-500">
               {t('contact.connectWithUs')}
             </h3>
@@ -265,7 +265,7 @@ export default function ContactClient({
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.name}
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-coral-50 text-coral-600 transition hover:bg-coral-500 hover:text-white"
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-50 text-brand-600 transition hover:bg-brand-500 hover:text-white"
                   >
                     <Icon className="h-5 w-5" />
                   </a>
@@ -277,7 +277,7 @@ export default function ContactClient({
           {/* FAQ quick link */}
           <Link
             href={`/${locale}/faq`}
-            className="flex items-center justify-between gap-2 rounded-2xl border border-coral-100 bg-coral-50 px-5 py-4 text-sm font-medium text-coral-700 transition hover:bg-coral-100"
+            className="flex items-center justify-between gap-2 rounded-2xl border border-brand-100 bg-brand-50 px-5 py-4 text-sm font-medium text-brand-700 transition hover:bg-brand-100"
           >
             {t('contact.faqLink')}
             <span aria-hidden="true" className="transition group-hover:translate-x-0.5">→</span>

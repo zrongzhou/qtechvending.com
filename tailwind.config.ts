@@ -23,32 +23,6 @@ const config: Config = {
           900: '#164e63',
           950: '#083344',
         },
-        // Warm sand palette — the "beach" base for V12 summer theme.
-        sand: {
-          50: '#fffdf8',
-          100: '#fdf6ec',
-          200: '#fae9d3',
-          300: '#f4d3a8',
-          400: '#ecb97a',
-          500: '#e0a062',
-          600: '#c9854a',
-          700: '#a9683c',
-          800: '#884f33',
-          900: '#6e412c',
-        },
-        // Coral / sunset accent palette — the warm "ocean sunset" highlight.
-        coral: {
-          50: '#fff1ec',
-          100: '#ffe0d4',
-          200: '#ffc1ad',
-          300: '#ff9a82',
-          400: '#ff7159',
-          500: '#fb573d',
-          600: '#ec3f24',
-          700: '#c92c14',
-          800: '#a32412',
-          900: '#842414',
-        },
         // Deep navy used for headings / footer.
         ink: {
           50: '#f8fafc',
@@ -82,7 +56,6 @@ const config: Config = {
       },
       backgroundImage: {
         'brand-gradient': 'linear-gradient(135deg, #0891b2 0%, #0ea5e9 45%, #22d3ee 100%)',
-        'sunset-gradient': 'linear-gradient(135deg, #fb573d 0%, #f97316 50%, #fbbf24 100%)',
       },
     },
   },

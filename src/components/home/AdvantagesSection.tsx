@@ -20,11 +20,11 @@ export default function AdvantagesSection() {
   ];
 
   return (
-    <section className="beach-section py-16 lg:py-20">
+    <section className="bg-white py-16 lg:py-20">
       <div className="container-qtech">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold text-ink-900">{t('home.advantages.title')}</h2>
-          <span className="mt-3 block h-1 w-16 rounded-full bg-coral-400" aria-hidden="true" />
+          <span className="mt-3 block h-1 w-16 rounded-full bg-brand-500" aria-hidden="true" />
           <p className="mt-2 text-ink-500">{t('home.advantages.subtitle')}</p>
         </div>
 
@@ -34,15 +34,15 @@ export default function AdvantagesSection() {
             return (
               <div
                 key={item.titleKey}
-                className="beach-card group relative overflow-hidden rounded-2xl p-6"
+                className="pro-card group relative overflow-hidden rounded-2xl p-6"
               >
                 {/* Big progressive step number */}
-                <span className="absolute -right-2 -top-4 select-none text-7xl font-extrabold text-slate-100 transition group-hover:text-coral-50">
+                <span className="absolute -right-2 -top-4 select-none text-7xl font-extrabold text-slate-100 transition group-hover:text-brand-50">
                   <CountUp end={item.number} prefix="0" />
                 </span>
 
                 <div className="relative">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-coral-50 text-coral-600">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
                     <Icon className="h-6 w-6" />
                   </div>
                   <h3 className="mt-4 text-lg font-semibold text-ink-900">{t(item.titleKey)}</h3>

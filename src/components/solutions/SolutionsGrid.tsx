@@ -24,7 +24,7 @@ export default function SolutionsGrid() {
   const { t, locale } = useLocale();
 
   return (
-    <div className="beach-section-alt">
+    <div className="bg-white">
       <div className="container-qtech py-16 lg:py-20">
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center rounded-full bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-700">
@@ -56,7 +56,7 @@ export default function SolutionsGrid() {
                     />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-ink-900/85 via-ink-900/30 to-transparent" />
-                  <span className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-coral-400 text-white shadow-md backdrop-blur">
+                  <span className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-md backdrop-blur">
                     <Icon className="h-5 w-5" />
                   </span>
                   <h3 className="absolute bottom-3 left-4 right-4 text-lg font-bold leading-tight text-white drop-shadow">
@@ -107,7 +107,7 @@ export default function SolutionsGrid() {
           <p className="mx-auto mt-3 max-w-2xl text-white/90">{t('solutions.ctaSubtitle')}</p>
           <Link
             href={`/${locale}/contact`}
-            className="btn-sunset mt-8 px-9 py-4 text-base"
+            className="btn-primary mt-8 px-9 py-4 text-base"
           >
             {t('solutions.ctaButton')}
           </Link>

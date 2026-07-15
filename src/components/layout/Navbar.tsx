@@ -39,7 +39,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-sand-200 bg-white/70 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur">
       <div className="container-qtech flex h-16 items-center justify-between">
         {/* Brand logo — 两列布局: 左列=菱形星标+Qtech/TOOL CABINET, 右列=公司全名 */}
         <Link href={`/${locale}`} className="flex items-center gap-3" aria-label="Qtech home">
@@ -60,8 +60,8 @@ export default function Navbar() {
               href={`/${locale}${item.href}`}
               className={`rounded-md px-3 py-2 text-sm font-medium transition ${
                 isActive(item.href)
-                  ? 'text-coral-600'
-                  : 'text-ink-600 hover:text-coral-600'
+                  ? 'text-brand-600'
+                  : 'text-ink-600 hover:text-brand-600'
               }`}
             >
               {t(item.key)}
@@ -75,21 +75,21 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setLangOpen((v) => !v)}
-              className="inline-flex items-center gap-1 rounded-md border border-sand-200 px-2.5 py-2 text-sm font-medium text-ink-700 hover:bg-sand-50"
+              className="inline-flex items-center gap-1 rounded-md border border-slate-200 px-2.5 py-2 text-sm font-medium text-ink-700 hover:bg-slate-50"
               aria-label={t('nav.language')}
             >
               <Globe className="h-4 w-4" />
               <span className="uppercase">{locale}</span>
             </button>
             {langOpen && (
-              <div className="absolute end-0 mt-2 w-32 overflow-hidden rounded-md border border-sand-200 bg-white shadow-card">
+              <div className="absolute end-0 mt-2 w-32 overflow-hidden rounded-md border border-slate-200 bg-white shadow-card">
                 {locales.map((l) => (
                   <button
                     key={l}
                     type="button"
                     onClick={() => switchLocale(l)}
-                    className={`block w-full px-4 py-2 text-start text-sm hover:bg-sand-50 ${
-                      l === locale ? 'font-semibold text-coral-600' : 'text-ink-700'
+                    className={`block w-full px-4 py-2 text-start text-sm hover:bg-slate-50 ${
+                      l === locale ? 'font-semibold text-brand-600' : 'text-ink-700'
                     }`}
                   >
                     {l === 'en' ? 'English' : l === 'zh' ? '中文' : 'العربية'}
@@ -101,7 +101,7 @@ export default function Navbar() {
 
           <Link
             href={`/${locale}/contact`}
-            className="hidden btn-sunset px-4 py-2 text-sm sm:inline-flex"
+            className="hidden btn-primary px-4 py-2 text-sm sm:inline-flex"
           >
             {t('nav.getQuote')}
           </Link>
@@ -120,7 +120,7 @@ export default function Navbar() {
 
       {/* Mobile nav */}
       {open && (
-        <div className="border-t border-sand-200 bg-sand-50 md:hidden">
+        <div className="border-t border-slate-200 bg-slate-50 md:hidden">
           <nav className="container-qtech flex flex-col py-2">
             {NAV_ITEMS.map((item) => (
               <Link
@@ -128,7 +128,7 @@ export default function Navbar() {
                 href={`/${locale}${item.href}`}
                 onClick={() => setOpen(false)}
                 className={`rounded-md px-3 py-3 text-sm font-medium ${
-                  isActive(item.href) ? 'text-coral-600' : 'text-ink-700'
+                  isActive(item.href) ? 'text-brand-600' : 'text-ink-700'
                 }`}
               >
                 {t(item.key)}
@@ -137,7 +137,7 @@ export default function Navbar() {
             <Link
               href={`/${locale}/contact`}
               onClick={() => setOpen(false)}
-              className="btn-sunset mt-2 px-4 py-3 text-center text-sm"
+              className="btn-primary mt-2 px-4 py-3 text-center text-sm"
             >
               {t('nav.getQuote')}
             </Link>

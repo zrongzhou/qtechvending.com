@@ -42,7 +42,7 @@ export default async function CategoryPage({ params }: PageProps) {
   return (
     <div>
       {/* Category banner */}
-      <section className="bg-sunset-gradient text-white">
+      <section className="bg-gradient-to-br from-brand-600 to-brand-800 text-white">
         <div className="container-qtech py-12">
           <nav className="mb-4 text-sm text-white/80">
             <Link href={`/${locale}`} className="hover:underline">Home</Link>

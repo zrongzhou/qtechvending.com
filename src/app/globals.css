@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --color-bg: #fffdf8;
+  --color-bg: #f8fafc;
 }
 
 html {
@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  @apply bg-sand-50 text-ink-800 antialiased;
+  @apply bg-slate-50 text-ink-800 antialiased;
   min-height: 100vh;
 }
 
@@ -243,38 +243,7 @@ input[type='number']::-webkit-inner-spin-button {
   will-change: transform, opacity;
 }
 
-/* ===== CTA shoal (shallow beach) theme (V11) ===== */
-@keyframes cta-wave {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-.cta-wave {
-  animation: cta-wave 14s linear infinite;
-  will-change: transform;
-}
-.cta-wave-slow {
-  animation: cta-wave 22s linear infinite;
-  will-change: transform;
-}
-
-@keyframes cta-sunspot {
-  0%,
-  100% {
-    opacity: 0.1;
-  }
-  50% {
-    opacity: 0.25;
-  }
-}
-.cta-sunspot {
-  animation: cta-sunspot 7s ease-in-out infinite;
-  will-change: opacity;
-}
-
+/* ===== CTA reveal animation ===== */
 .cta-reveal {
   opacity: 0;
   transform: translateY(16px);
@@ -338,70 +307,29 @@ input[type='number']::-webkit-inner-spin-button {
     border-color: rgba(255, 255, 255, 0.35);
   }
 
-  /* ===== V12 Summer Beach theme utilities ===== */
-  .beach-section {
-    @apply bg-sand-50;
+  /* ===== V12 Professional Tech-Blue theme utilities ===== */
+  .pro-card {
+    @apply bg-white rounded-2xl border border-slate-200 shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
   }
 
-  .beach-section-alt {
-    @apply bg-gradient-to-b from-brand-50/50 to-sand-50;
-  }
-
-  .beach-card {
-    @apply bg-white/85 backdrop-blur-sm rounded-2xl shadow-card border border-sand-200/70;
-  }
-
-  .btn-sunset {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-coral-500 to-amber-400 text-white font-bold shadow-lg shadow-coral-500/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 hover:from-coral-600 hover:to-amber-500;
-  }
-
-  .btn-ocean {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-sky-400 text-white font-bold shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5;
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-700 text-white font-bold shadow-lg shadow-brand-600/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5;
   }
 }
 
-/* ===== V12 beach decorative sun glow ===== */
-.sun-glow {
+/* ===== V12 professional brand-blue soft glow ===== */
+.tech-glow {
   position: absolute;
   inset: 0;
   pointer-events: none;
   background: radial-gradient(
-    circle at 82% 12%,
-    rgba(251, 191, 36, 0.28) 0%,
-    rgba(255, 237, 178, 0.12) 28%,
-    rgba(255, 255, 255, 0) 52%
+    circle at 80% 12%,
+    rgba(8, 145, 178, 0.12) 0%,
+    rgba(255, 255, 255, 0) 50%
   );
 }
 
-/* ===== V12 beach foam dots (slow upward drift) ===== */
-@keyframes foam-rise {
-  0% {
-    transform: translateY(0) translateX(0);
-    opacity: 0;
-  }
-  15% {
-    opacity: var(--foam-opacity, 0.5);
-  }
-  85% {
-    opacity: var(--foam-opacity, 0.5);
-  }
-  100% {
-    transform: translateY(-120px) translateX(14px);
-    opacity: 0;
-  }
-}
-
-.foam-dot {
-  position: absolute;
-  bottom: -10px;
-  border-radius: 9999px;
-  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.35) 70%);
-  filter: blur(2px);
-  animation: foam-rise ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-/* Respect reduced-motion: disable CTA / beach animations but keep content visible */
+/* Respect reduced-motion: disable CTA / decorative animations but keep content visible */
 @media (prefers-reduced-motion: reduce) {
   .cta-particle,
   .cta-ring,
@@ -414,12 +342,7 @@ input[type='number']::-webkit-inner-spin-button {
   .ocean-ripple,
   .ocean-beam,
   .ocean-particle,
-  .cta-wave,
-  .cta-wave-slow,
-  .cta-sunspot,
-  .sun-glow,
-  .wave-anim,
-  .foam-dot {
+  .tech-glow {
     animation: none !important;
   }
   .cta-cta-hidden {
