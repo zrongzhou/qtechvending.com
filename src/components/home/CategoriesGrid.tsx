@@ -37,17 +37,17 @@ const ICON_MAP: Record<string, ComponentType<{ className?: string }>> = {
 
 // Banner photo per category slug (generated visuals in public/images/categories).
 const IMAGE_MAP: Record<string, string> = {
-  'all-machines': '/images/categories/all-machines.png',
-  'fresh-flower-vending-machine': '/images/categories/fresh-flower-vending-machine.png',
-  'pizza-vending-machine': '/images/categories/pizza-vending-machine.png',
-  'cotton-candy-machine': '/images/categories/cotton-candy-machine.png',
-  'fruit-vegetable-egg-vending-machine': '/images/categories/fruit-vegetable-egg-vending-machine.png',
-  'sugar-cane-juice-vending-machine': '/images/categories/sugar-cane-juice-vending-machine.png',
-  'ice-maker-vending-machine': '/images/categories/ice-maker-vending-machine.png',
-  'coffee-vending-machine': '/images/categories/coffee-vending-machine.png',
-  'ice-cream-vending-machine': '/images/categories/ice-cream-vending-machine.png',
-  'pet-washing-machine': '/images/categories/pet-washing-machine.png',
-  'food-vending-machine': '/images/categories/food-vending-machine.png',
+  'all-machines': '/images/categories/all-machines.webp',
+  'fresh-flower-vending-machine': '/images/categories/fresh-flower-vending-machine.webp',
+  'pizza-vending-machine': '/images/categories/pizza-vending-machine.webp',
+  'cotton-candy-machine': '/images/categories/cotton-candy-machine.webp',
+  'fruit-vegetable-egg-vending-machine': '/images/categories/fruit-vegetable-egg-vending-machine.webp',
+  'sugar-cane-juice-vending-machine': '/images/categories/sugar-cane-juice-vending-machine.webp',
+  'ice-maker-vending-machine': '/images/categories/ice-maker-vending-machine.webp',
+  'coffee-vending-machine': '/images/categories/coffee-vending-machine.webp',
+  'ice-cream-vending-machine': '/images/categories/ice-cream-vending-machine.webp',
+  'pet-washing-machine': '/images/categories/pet-washing-machine.webp',
+  'food-vending-machine': '/images/categories/food-vending-machine.webp',
 };
 
 export default function CategoriesGrid({
@@ -89,6 +89,7 @@ export default function CategoriesGrid({
                     src={img}
                     alt={name}
                     loading="lazy"
+                    decoding="async"
                     className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                   />
                 )}

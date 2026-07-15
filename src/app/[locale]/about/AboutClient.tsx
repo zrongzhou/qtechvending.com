@@ -144,7 +144,7 @@ const NUMBERS: NumberItem[] = [
 /* ── Manufacturing process cards ── */
 const MANU_CARDS = [
   {
-    img: '/images/about/factory-assembly.png',
+    img: '/images/about/factory-assembly.webp',
     icon: Factory,
     title: { en: 'Automated Assembly Line', zh: '自动化装配线', ar: 'خط التجميع الآلي' },
     desc: {
@@ -154,7 +154,7 @@ const MANU_CARDS = [
     },
   },
   {
-    img: '/images/about/factory-rnd.png',
+    img: '/images/about/factory-rnd.webp',
     icon: Cog,
     title: { en: 'R&D & Innovation Center', zh: '研发与创新中心', ar: 'مركز البحث والتطوير والابتكار' },
     desc: {
@@ -164,7 +164,7 @@ const MANU_CARDS = [
     },
   },
   {
-    img: '/images/about/factory-qc.png',
+    img: '/images/about/factory-qc.webp',
     icon: ShieldCheck,
     title: { en: 'Strict QC Testing', zh: '严格质检体系', ar: 'نظام مراقبة الجودة الصارم' },
     desc: {
@@ -174,7 +174,7 @@ const MANU_CARDS = [
     },
   },
   {
-    img: '/images/about/factory-warehouse.png',
+    img: '/images/about/factory-warehouse.webp',
     icon: Globe2,
     title: { en: 'Global Logistics Hub', zh: '全球物流枢纽', ar: 'مركز لوجستي عالمي' },
     desc: {
@@ -239,7 +239,7 @@ const STORIES = [
   },
   {
     image:
-      '/images/products/the-hot-new-pet-intelligent-self-service-washing-and-grooming-vending-machine-with-convenient-payment-options/1.jpeg',
+      '/images/products/the-hot-new-pet-intelligent-self-service-washing-and-grooming-vending-machine-with-convenient-payment-options/1.webp',
     title: { en: 'Pet Spa on the Street', zh: '街头宠物洗护站', ar: 'سبا للحيوانات في الشارع' },
     sub: {
       en: 'Self-service pet wash in a residential district.',
@@ -459,6 +459,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                       alt={localized(card.title, locale)}
                       className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                       loading="lazy"
+                      decoding="async"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                   </div>

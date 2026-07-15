@@ -6,7 +6,7 @@ import { Star, ArrowRight, Sparkles } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 
 /* ── Floating particle data (pre-computed for performance) ── */
-const PARTICLES = Array.from({ length: 18 }, (_, i) => ({
+const PARTICLES = Array.from({ length: 8 }, (_, i) => ({
   id: i,
   size: 3 + (i % 5),
   left: (i * 37) % 100,
@@ -19,8 +19,6 @@ const PARTICLES = Array.from({ length: 18 }, (_, i) => ({
 /* ── Ring burst decorations ── */
 const RINGS = [
   { size: 220, delay: 0, left: 78, top: 12 },
-  { size: 150, delay: 1.5, left: 12, top: 70 },
-  { size: 100, delay: 3, left: 68, top: 82 },
 ];
 
 export default function CtaSection() {
