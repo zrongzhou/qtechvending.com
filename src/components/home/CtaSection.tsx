@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { Star } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 
 export default function CtaSection() {
@@ -19,7 +20,9 @@ export default function CtaSection() {
         </Link>
         {t('home.cta.proof') && (
           <p className="mx-auto mt-5 inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium text-white">
-            <span aria-hidden="true">★</span>
+            <span aria-hidden="true">
+              <Star className="h-4 w-4 fill-current" />
+            </span>
             {t('home.cta.proof')}
           </p>
         )}

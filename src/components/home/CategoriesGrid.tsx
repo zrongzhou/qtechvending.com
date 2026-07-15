@@ -35,6 +35,21 @@ const ICON_MAP: Record<string, ComponentType<{ className?: string }>> = {
   'food-vending-machine': UtensilsCrossed,
 };
 
+// Banner photo per category slug (generated visuals in public/images/categories).
+const IMAGE_MAP: Record<string, string> = {
+  'all-machines': '/images/categories/all-machines.png',
+  'fresh-flower-vending-machine': '/images/categories/fresh-flower-vending-machine.png',
+  'pizza-vending-machine': '/images/categories/pizza-vending-machine.png',
+  'cotton-candy-machine': '/images/categories/cotton-candy-machine.png',
+  'fruit-vegetable-egg-vending-machine': '/images/categories/fruit-vegetable-egg-vending-machine.png',
+  'sugar-cane-juice-vending-machine': '/images/categories/sugar-cane-juice-vending-machine.png',
+  'ice-maker-vending-machine': '/images/categories/ice-maker-vending-machine.png',
+  'coffee-vending-machine': '/images/categories/coffee-vending-machine.png',
+  'ice-cream-vending-machine': '/images/categories/ice-cream-vending-machine.png',
+  'pet-washing-machine': '/images/categories/pet-washing-machine.png',
+  'food-vending-machine': '/images/categories/food-vending-machine.png',
+};
+
 export default function CategoriesGrid({
   categories,
   counts = {},
@@ -57,23 +72,41 @@ export default function CategoriesGrid({
           const name = localized(cat.name, locale);
           const description = cat.description ? localized(cat.description, locale) : '';
           const Icon = ICON_MAP[cat.slug] || Factory;
+          const img = IMAGE_MAP[cat.slug];
           const count = counts[cat.slug] ?? 0;
 
           return (
             <Link
               key={cat.id}
               href={`/${locale}/category/${cat.slug}`}
-              className="group relative flex min-w-[260px] snap-start flex-col overflow-hidden rounded-2xl glass-card p-6 transition hover:-translate-y-1 hover:shadow-xl sm:min-w-0"
+              className="group relative flex min-w-[260px] snap-start flex-col overflow-hidden rounded-2xl glass-card p-0 transition hover:-translate-y-1 hover:shadow-xl sm:min-w-0"
             >
-              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-600 transition group-hover:bg-brand-600 group-hover:text-white">
-                <Icon className="h-6 w-6" />
-              </span>
-              <h3 className="mt-4 text-lg font-semibold text-ink-900">{name}</h3>
-              {description && <p className="mt-1 line-clamp-2 text-sm text-ink-500">{description}</p>}
-              <span className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-brand-600">
-                {count} {t('home.categories.productCount')}
-                <span aria-hidden="true" className="transition group-hover:translate-x-0.5">→</span>
-              </span>
+              {/* Banner image with gradient overlay */}
+              <div className="relative h-36 w-full overflow-hidden">
+                {img && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={img}
+                    alt={name}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-brand-900/20 to-transparent" />
+                <span className="absolute left-3 top-3 flex h-10 w-10 items-center justify-center rounded-xl bg-white/90 text-brand-600 shadow-md backdrop-blur">
+                  <Icon className="h-5 w-5" />
+                </span>
+              </div>
+
+              {/* Body */}
+              <div className="flex flex-1 flex-col p-5">
+                <h3 className="text-lg font-semibold text-ink-900">{name}</h3>
+                {description && <p className="mt-1 line-clamp-2 text-sm text-ink-500">{description}</p>}
+                <span className="mt-auto inline-flex items-center gap-1 pt-3 text-xs font-medium text-brand-600">
+                  {count} {t('home.categories.productCount')}
+                  <span aria-hidden="true" className="transition group-hover:translate-x-0.5">→</span>
+                </span>
+              </div>
             </Link>
           );
         })}

@@ -385,8 +385,9 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         {/* ════════ 3. MANUFACTURING & QUALITY ════════ */}
         <section className="overflow-hidden rounded-3xl bg-brand-gradient px-8 py-14 text-white lg:px-12">
           <div className="mx-auto max-w-2xl text-center">
-            <span className="inline-flex items-center rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium">
-              🏭 {locale === 'zh' ? '智造实力' : locale === 'ar' ? 'قدرات التصنيع' : 'Manufacturing Capability'}
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium">
+              <Factory className="h-4 w-4" />
+              {locale === 'zh' ? '智造实力' : locale === 'ar' ? 'قدرات التصنيع' : 'Manufacturing Capability'}
             </span>
             <h2 className="mt-5 text-3xl font-extrabold sm:text-4xl">
               {locale === 'zh' ? '从研发到交付的全链路品质保障'
