@@ -143,6 +143,138 @@ input[type='number']::-webkit-inner-spin-button {
 .cta-pulse { animation: pulse-slow 2s ease-in-out infinite; will-change: transform, opacity; }
 .cta-spin { animation: spin-slow 8s linear infinite; will-change: transform; }
 
+/* ===== Hero deep-ocean theme (V11) ===== */
+@keyframes bubble-rise {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  8% {
+    opacity: var(--bubble-opacity, 0.12);
+  }
+  92% {
+    opacity: var(--bubble-opacity, 0.12);
+  }
+  100% {
+    transform: translateY(-100vh) translateX(10px);
+    opacity: 0;
+  }
+}
+.ocean-bubble {
+  position: absolute;
+  bottom: -24px;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 32% 30%, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.12) 70%);
+  animation: bubble-rise linear infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+.ocean-ripple {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transform-origin: center;
+  animation: ripple ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes beam-sway {
+  0%,
+  100% {
+    transform: rotate(18deg) translateX(0);
+    opacity: 0.1;
+  }
+  50% {
+    transform: rotate(18deg) translateX(24px);
+    opacity: 0.16;
+  }
+}
+.ocean-beam {
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 50%;
+  height: 140%;
+  background: linear-gradient(
+    180deg,
+    rgba(186, 230, 253, 0.55) 0%,
+    rgba(125, 211, 252, 0.12) 45%,
+    transparent 75%
+  );
+  filter: blur(6px);
+  transform-origin: top center;
+  animation: beam-sway 9s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes ocean-drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(12px, -16px);
+  }
+  66% {
+    transform: translate(-10px, -8px);
+  }
+}
+.ocean-particle {
+  position: absolute;
+  border-radius: 9999px;
+  background: rgba(186, 230, 253, 0.9);
+  box-shadow: 0 0 8px 2px rgba(125, 211, 252, 0.5);
+  animation: ocean-drift ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* ===== CTA shoal (shallow beach) theme (V11) ===== */
+@keyframes cta-wave {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.cta-wave {
+  animation: cta-wave 14s linear infinite;
+  will-change: transform;
+}
+.cta-wave-slow {
+  animation: cta-wave 22s linear infinite;
+  will-change: transform;
+}
+
+@keyframes cta-sunspot {
+  0%,
+  100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+.cta-sunspot {
+  animation: cta-sunspot 7s ease-in-out infinite;
+  will-change: opacity;
+}
+
 .cta-reveal {
   opacity: 0;
   transform: translateY(16px);
@@ -215,10 +347,21 @@ input[type='number']::-webkit-inner-spin-button {
   .cta-pulse-ring,
   .cta-pulse,
   .cta-spin,
-  .cta-reveal {
+  .cta-reveal,
+  .ocean-bubble,
+  .ocean-ripple,
+  .ocean-beam,
+  .ocean-particle,
+  .cta-wave,
+  .cta-wave-slow,
+  .cta-sunspot {
     animation: none !important;
   }
   .cta-cta-hidden {
     opacity: 1 !important;
+  }
+  .ocean-bubble,
+  .ocean-particle {
+    opacity: 0 !important;
   }
 }

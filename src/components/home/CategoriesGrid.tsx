@@ -68,7 +68,7 @@ export default function CategoriesGrid({
       </div>
 
       <div className="mt-10 grid snap-x gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible sm:snap-none">
-        {categories.map((cat) => {
+        {categories.slice(0, 8).map((cat) => {
           const name = localized(cat.name, locale);
           const description = cat.description ? localized(cat.description, locale) : '';
           const Icon = ICON_MAP[cat.slug] || Factory;
@@ -112,12 +112,11 @@ export default function CategoriesGrid({
           );
         })}
 
-        {/* Filler CTA card when categories don't fill the last row */}
-        {categories.length % 4 !== 0 && (
-          <Link
-            href={`/${locale}/products`}
-            className="group flex min-w-[260px] snap-start flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-brand-300 bg-gradient-to-br from-brand-50 to-cyan-50 p-0 transition hover:border-brand-500 hover:-translate-y-1 hover:shadow-lg sm:min-w-0"
-          >
+        {/* Filler CTA card — always rendered in the 9th slot */}
+        <Link
+          href={`/${locale}/products`}
+          className="group flex min-w-[260px] snap-start flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-brand-300 bg-gradient-to-br from-brand-50 to-cyan-50 p-0 transition hover:border-brand-500 hover:-translate-y-1 hover:shadow-lg sm:min-w-0"
+        >
             <div className="flex h-full flex-col items-center justify-center gap-3 p-5 text-center">
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-brand-600 shadow-sm">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" /></svg>
@@ -128,7 +127,6 @@ export default function CategoriesGrid({
               </div>
             </div>
           </Link>
-        )}
       </div>
     </section>
   );

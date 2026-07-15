@@ -79,7 +79,7 @@ export default function FaqAccordion() {
                   return (
                     <div
                       key={idx}
-                      className="overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:border-brand-200 hover:shadow-sm"
+                      className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
                     >
                       <button
                         type="button"

@@ -27,7 +27,7 @@ export default function BlogCard({ post }: { post: BlogPost }) {
   return (
     <Link
       href={`/${locale}/blog/${post.slug}`}
-      className="group relative flex flex-col overflow-hidden rounded-2xl glass-card"
+      className="group relative flex flex-col overflow-hidden rounded-2xl glass-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
     >
       {/* Top accent on hover */}
       <span className="absolute inset-x-0 top-0 z-20 h-0.5 scale-x-0 bg-gradient-to-r from-brand-500 to-cyan-400 transition-transform duration-500 group-hover:scale-x-100" />

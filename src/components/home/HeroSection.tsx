@@ -38,11 +38,79 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
     { end: 24, suffix: '/7', labelKey: 'home.hero.stat3Label' },
   ];
 
+  // Rising bubbles for the deep-ocean ambience.
+  const bubbles = [
+    { size: 6, left: 8, duration: 18, delay: 0, opacity: 0.18 },
+    { size: 10, left: 18, duration: 24, delay: 4, opacity: 0.12 },
+    { size: 4, left: 28, duration: 15, delay: 2, opacity: 0.2 },
+    { size: 12, left: 42, duration: 28, delay: 6, opacity: 0.1 },
+    { size: 7, left: 55, duration: 20, delay: 1, opacity: 0.15 },
+    { size: 5, left: 68, duration: 16, delay: 8, opacity: 0.2 },
+    { size: 9, left: 82, duration: 22, delay: 3, opacity: 0.12 },
+  ];
+
+  // Slowly drifting glowing plankton particles.
+  const plankton = [
+    { size: 3, left: 15, top: 30, duration: 12, delay: 0 },
+    { size: 2, left: 35, top: 62, duration: 15, delay: 3 },
+    { size: 4, left: 60, top: 24, duration: 14, delay: 1 },
+    { size: 2.5, left: 78, top: 52, duration: 16, delay: 5 },
+    { size: 3, left: 88, top: 72, duration: 13, delay: 2 },
+  ];
+
   return (
-    <section className="relative overflow-hidden bg-brand-gradient animate-gradient-x text-white">
-      {/* Decorative floating blobs (pure CSS motion) */}
-      <div className="pointer-events-none absolute -left-16 top-10 h-64 w-64 rounded-full bg-white/10 blur-3xl animate-float" aria-hidden="true" />
-      <div className="pointer-events-none absolute right-0 top-1/3 h-72 w-72 rounded-full bg-cyan-300/20 blur-3xl animate-float-slow" aria-hidden="true" />
+    <section
+      className="relative overflow-hidden text-white"
+      style={{
+        background:
+          'linear-gradient(135deg, #0a1628 0%, #0c2340 35%, #0a1a4f 70%, #0d3b66 100%)',
+      }}
+    >
+      {/* Light beam refracting from the surface */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div className="ocean-beam" />
+        <div className="ocean-beam" style={{ left: '38%', animationDelay: '3s', opacity: 0.08 }} />
+      </div>
+
+      {/* Rising bubbles */}
+      {bubbles.map((b, i) => (
+        <span
+          key={`bubble-${i}`}
+          aria-hidden="true"
+          className="ocean-bubble pointer-events-none"
+          style={{
+            width: b.size,
+            height: b.size,
+            left: `${b.left}%`,
+            ['--bubble-opacity' as string]: b.opacity,
+            animationDuration: `${b.duration}s`,
+            animationDelay: `${b.delay}s`,
+          } as React.CSSProperties}
+        />
+      ))}
+
+      {/* Drifting plankton particles */}
+      {plankton.map((p, i) => (
+        <span
+          key={`plankton-${i}`}
+          aria-hidden="true"
+          className="ocean-particle pointer-events-none"
+          style={{
+            width: p.size,
+            height: p.size,
+            left: `${p.left}%`,
+            top: `${p.top}%`,
+            animationDuration: `${p.duration}s`,
+            animationDelay: `${p.delay}s`,
+          }}
+        />
+      ))}
+
+      {/* Water ripples near the bottom */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0" aria-hidden="true">
+        <span className="ocean-ripple" style={{ bottom: '18px', animationDuration: '5s', animationDelay: '0s' }} />
+        <span className="ocean-ripple" style={{ bottom: '8px', animationDuration: '7s', animationDelay: '1.5s' }} />
+      </div>
 
       <div className="container-qtech relative grid items-center gap-12 py-20 lg:grid-cols-2 lg:py-28">
         <div>

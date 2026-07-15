@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { Star } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
 import ImageWithRetry from '@/components/ui/ImageWithRetry';
@@ -28,7 +27,7 @@ export default function ProductCard({ product }: { product: Product }) {
   const category = product.categories?.[0];
   const categoryName = category ? localized(category.name, locale) : '';
 
-  // ---- Derived display signals (badge / price range / rating) ----
+  // ---- Derived display signals (badge / price range) ----
   const isHot = Boolean(product.featured);
   const isNew = !isHot && /2025/.test(product.slug);
   const badgeKey = isHot ? 'products.badgeHot' : isNew ? 'products.badgeNew' : null;
@@ -38,13 +37,11 @@ export default function ProductCard({ product }: { product: Product }) {
   const priceFrom = 1500 + (h % 50) * 100;
   const priceTo = priceFrom + 1500 + ((h >> 3) % 15) * 100;
   const priceLabel = `$${priceFrom.toLocaleString('en-US')} – $${priceTo.toLocaleString('en-US')}`;
-  const rating = 4.3 + (h % 7) * 0.1;
-  const fullStars = Math.round(rating);
 
   return (
     <Link
       href={`/${locale}/products/${product.slug}`}
-      className="group relative flex flex-col overflow-hidden rounded-2xl glass-card"
+      className="group relative flex flex-col overflow-hidden rounded-2xl glass-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
     >
       {/* Top accent line on hover */}
       <span className="absolute inset-x-0 top-0 z-20 h-0.5 scale-x-0 bg-gradient-to-r from-brand-500 to-cyan-400 transition-transform duration-500 group-hover:scale-x-100" />
@@ -59,10 +56,10 @@ export default function ProductCard({ product }: { product: Product }) {
         {/* Gradient scrim for legibility */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/35 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-        {/* Badge */}
+        {/* Badge — compact, small radius */}
         {badgeKey && (
           <span
-            className={`absolute start-3 top-3 z-10 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold text-white shadow-sm ${badgeClass}`}
+            className={`absolute start-3 top-3 z-10 inline-flex items-center gap-1 rounded-lg px-2 py-0.5 text-[10px] font-semibold text-white shadow-sm ${badgeClass}`}
           >
             {badgeKey === 'products.badgeHot' && <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />}
             {t(badgeKey)}
@@ -79,32 +76,30 @@ export default function ProductCard({ product }: { product: Product }) {
       </div>
 
       <div className="flex flex-1 flex-col p-5">
+        {/* Category pill */}
         {categoryName && (
-          <span className="inline-flex w-fit items-center rounded-full bg-brand-50 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-brand-600">
+          <span className="inline-flex w-fit items-center rounded-md bg-gradient-to-r from-brand-50 to-cyan-50 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-brand-700">
             {categoryName}
           </span>
         )}
-        <h3 className="mt-2 line-clamp-2 text-base font-semibold leading-snug text-ink-900 transition-colors group-hover:text-brand-700">
+
+        {/* Title — single line, bold */}
+        <h3 className="mt-2 line-clamp-1 text-lg font-bold tracking-tight text-ink-900 transition-colors group-hover:text-brand-700">
           {name}
         </h3>
-        {short && <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-ink-500">{short}</p>}
 
-        {/* Price range + rating */}
-        <div className="mt-auto flex items-center justify-between gap-2 pt-4">
-          <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-brand-50 to-cyan-50 px-3 py-1 text-xs font-bold text-brand-700">
+        {/* Description — muted, de-emphasised */}
+        {short && <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-ink-400">{short}</p>}
+
+        {/* Price (solid gradient pill) */}
+        <div className="mt-auto pt-4">
+          <span className="inline-flex items-center gap-1 rounded-lg bg-gradient-to-r from-brand-600 to-cyan-600 px-4 py-1.5 text-sm font-bold text-white shadow-sm">
             {priceLabel}
-          </span>
-          <span className="inline-flex items-center gap-0.5" aria-label={`${rating.toFixed(1)} / 5`}>
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star
-                key={i}
-                className={`h-3.5 w-3.5 ${i < fullStars ? 'fill-amber-400 text-amber-400' : 'text-slate-300'}`}
-              />
-            ))}
           </span>
         </div>
 
-        <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
+        {/* Bottom action bar — clean slide-in */}
+        <div className="mt-3 flex items-center justify-between transition-transform duration-300 group-hover:translate-x-1">
           <span className="text-sm font-semibold text-brand-700">{t('products.view')}</span>
           <span aria-hidden="true" className="text-brand-700 transition-transform duration-300 group-hover:translate-x-1">→</span>
         </div>

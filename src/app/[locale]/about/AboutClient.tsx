@@ -5,7 +5,6 @@ import {
   Lightbulb,
   ShieldCheck,
   Headphones,
-  Handshake,
   Factory,
   Target,
   Eye,
@@ -19,6 +18,8 @@ import {
   Leaf,
   Radio,
   Microscope,
+  BarChart3,
+  RefreshCw,
   type LucideIcon,
 } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
@@ -96,7 +97,7 @@ const VALUES: ValueItem[] = [
     },
   },
   {
-    icon: Cog,
+    icon: BarChart3,
     title: { en: 'Smart Management', zh: '智能管理', ar: 'إدارة ذكية' },
     desc: {
       en: 'Remote control and monitoring systems let operators manage fleets from anywhere.',
@@ -123,7 +124,7 @@ const VALUES: ValueItem[] = [
     },
   },
   {
-    icon: Handshake,
+    icon: RefreshCw,
     title: { en: 'Continuous Improvement', zh: '持续改进', ar: 'تحسين مستمر' },
     desc: {
       en: 'We keep refining our machines release after release to stay ahead of the market.',
@@ -537,15 +538,23 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             <p className="mt-2 text-ink-500">{t('about.valuesSubtitle') || 'What drives us forward every day.'}</p>
           </div>
           <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {VALUES.map((v) => {
+            {VALUES.map((v, i) => {
               const Icon = v.icon;
               return (
-                <div key={localized(v.title, locale)} className="glass-card group p-6 text-center">
-                  <div className="mx-auto flex h-13 w-13 items-center justify-center rounded-xl bg-brand-50 text-brand-600 transition group-hover:bg-brand-600 group-hover:text-white">
-                    <Icon className="h-6.5 w-6.5" strokeWidth={1.5} />
+                <div key={localized(v.title, locale)} className="glass-card group relative p-6 text-center">
+                  {/* Oversized index watermark */}
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -right-2 -top-2 select-none text-6xl font-black text-slate-100/50"
+                  >
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+
+                  <div className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-50 to-cyan-50 text-brand-600 shadow-sm transition group-hover:scale-110 group-hover:from-brand-600 group-hover:to-cyan-600 group-hover:text-white group-hover:shadow-lg">
+                    <Icon className="h-7 w-7" strokeWidth={1.5} />
                   </div>
-                  <h3 className="mt-4 text-base font-semibold text-ink-900">{localized(v.title, locale)}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-500">{localized(v.desc, locale)}</p>
+                  <h3 className="relative mt-4 text-lg font-bold text-ink-900">{localized(v.title, locale)}</h3>
+                  <p className="relative mt-2 text-sm leading-relaxed text-ink-500">{localized(v.desc, locale)}</p>
                 </div>
               );
             })}
