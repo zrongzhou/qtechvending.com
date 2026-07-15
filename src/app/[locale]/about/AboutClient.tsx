@@ -15,6 +15,10 @@ import {
   Globe2,
   Users,
   TrendingUp,
+  BadgeCheck,
+  Leaf,
+  Radio,
+  Microscope,
   type LucideIcon,
 } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
@@ -49,9 +53,19 @@ interface MilestoneItem {
 
 interface CertBadge {
   name: string;
-  icon: string; // emoji or short text like "CE"
+  icon: string; // lucide icon name
   full: Record<string, string>;
 }
+
+/* Lucide icon map for certification badges */
+const CERT_ICON: Record<string, LucideIcon> = {
+  ShieldCheck,
+  BadgeCheck,
+  Leaf,
+  Radio,
+  Microscope,
+  Award,
+};
 
 /** Icon mapping — used when section photo is missing */
 const SECTION_ICONS: Record<string, LucideIcon> = {
@@ -61,42 +75,60 @@ const SECTION_ICONS: Record<string, LucideIcon> = {
   capability: Cog,
 };
 
-/* ── Four core values ── */
+/* ── Six company strengths (migrated from source site) ── */
 const VALUES: ValueItem[] = [
   {
     icon: Lightbulb,
-    title: { en: 'Innovation', zh: '创新驱动', ar: 'الابتكار' },
+    title: { en: 'Creative Design', zh: '创意设计', ar: 'تصميم إبداعي' },
     desc: {
-      en: 'Continuous R&D in vending mechanics, IoT and payment keeps our machines ahead.',
-      zh: '在售货机械、物联网与支付领域持续研发，让我们的设备始终领先。',
-      ar: 'تطوير مستمر في ميكانيكا البيع وإنترنت الأشياء والدفع لإبقاء آلاتنا في المقدمة.',
+      en: 'Our designs stay fresh and on-trend, giving every machine a distinctive, market-ready look.',
+      zh: '设计始终新颖、紧跟潮流，让每台设备都拥有独特且契合市场的外观。',
+      ar: 'تصاميمنا دائمًا حديثة وتواكب الاتجاهات، مما يمنح كل آلة مظهرًا مميزًا وجاهزًا للسوق.',
     },
   },
   {
     icon: ShieldCheck,
-    title: { en: 'Quality First', zh: '品质为先', ar: 'الجودة أولاً' },
+    title: { en: 'Premium Materials', zh: '优质材料', ar: 'مواد فاخرة' },
     desc: {
-      en: 'Every unit is tested end-to-end in our Guangzhou facility before shipment.',
-      zh: '每台设备在广州工厂出厂前都经过端到端测试。',
-      ar: 'تُختبر كل وحدة بشكل شامل في منشأتنا بغوانغتشو قبل الشحن.',
+      en: 'We build with the best-grade components so machines last through years of daily operation.',
+      zh: '采用最优等级零部件制造，确保设备在长年日常运营中经久耐用。',
+      ar: 'نبني بأفضل المكونات لتبقى الآلات صامدة عبر سنوات من التشغيل اليومي.',
+    },
+  },
+  {
+    icon: Cog,
+    title: { en: 'Smart Management', zh: '智能管理', ar: 'إدارة ذكية' },
+    desc: {
+      en: 'Remote control and monitoring systems let operators manage fleets from anywhere.',
+      zh: '远程控制与监控系统让运营者随时随地管理设备集群。',
+      ar: 'أنظمة التحكم والمراقبة عن بُعد تتيح للمشغلين إدارة الأساطيل من أي مكان.',
+    },
+  },
+  {
+    icon: TrendingUp,
+    title: { en: 'Affordable Quality', zh: '高性价比', ar: 'جودة بأسعار معقولة' },
+    desc: {
+      en: 'We keep costs down through vertical integration without sacrificing build quality.',
+      zh: '通过垂直整合控制成本，同时绝不牺牲制造品质。',
+      ar: 'نخفض التكاليف عبر التكامل الرأسي دون التضحية بجودة البناء.',
     },
   },
   {
     icon: Headphones,
-    title: { en: 'Customer Service', zh: '贴心服务', ar: 'خدمة العملاء' },
+    title: { en: 'All-Round Service', zh: '全程服务', ar: 'خدمة شاملة' },
     desc: {
-      en: 'Pre-sale consultation and after-sales support in English, Chinese and Arabic.',
-      zh: '提供中文、英文与阿拉伯语售前咨询与售后支持。',
-      ar: 'استشارات ما قبل البيع ودعم ما بعد البيع بالإنجليزية والصينية والعربية.',
+      en: 'Advice and support from first inquiry to after-sales, in English, Chinese and Arabic.',
+      zh: '从首次咨询到售后，提供中文、英文与阿拉伯语全程支持。',
+      ar: 'استشارات ودعم من أول استفسار حتى ما بعد البيع بالإنجليزية والصينية والعربية.',
     },
   },
   {
     icon: Handshake,
-    title: { en: 'Integrity', zh: '诚信共赢', ar: 'النزاهة' },
+    title: { en: 'Continuous Improvement', zh: '持续改进', ar: 'تحسين مستمر' },
     desc: {
-      en: 'Transparent pricing and honest partnership with distributors worldwide.',
-      zh: '透明的价格与全球经销商的诚信合作。',
-      ar: 'أسعار شفافة وشراكة صادقة مع الموزعين حول العالم.',
+      en: 'We keep refining our machines release after release to stay ahead of the market.',
+      zh: '我们在一代又一代产品中持续打磨，始终领先市场。',
+      ar: 'نواصل تحسين آلاتنا إصدارًا بعد إصدار لتبقى في المقدمة.',
     },
   },
 ];
@@ -217,6 +249,16 @@ const STORIES = [
   },
 ];
 
+/* ── Category tag per story (keeps image ↔ copy consistent) ── */
+const STORY_CATS = [
+  { en: 'Flower Vending', zh: '鲜花售货', ar: 'بيع الزهور' },
+  { en: 'Pizza Vending', zh: '披萨售货', ar: 'بيع البيتزا' },
+  { en: 'Ice-Cream Robot', zh: '冰淇淋机器人', ar: 'روبوت آيس كريم' },
+  { en: 'Coffee Vending', zh: '咖啡售货', ar: 'بيع القهوة' },
+  { en: 'Juice Vending', zh: '果汁售货', ar: 'بيع العصير' },
+  { en: 'Pet Wash', zh: '宠物洗护', ar: 'غسيل الحيوانات' },
+];
+
 /* ── Company timeline ── */
 const TIMELINE: MilestoneItem[] = [
   {
@@ -277,12 +319,12 @@ const TIMELINE: MilestoneItem[] = [
 
 /* ── Certifications ── */
 const CERTS: CertBadge[] = [
-  { name: 'CE', icon: '🇪🇺', full: { en: 'CE Certified', zh: 'CE 认证', ar: 'معتمد CE' } },
-  { name: 'ISO 9001', icon: '✓', full: { en: 'ISO 9001 Quality System', zh: 'ISO 9001 质量管理体系', ar: 'نظام جودة ISO 9001' } },
-  { name: 'RoHS', icon: '♻️', full: { en: 'RoHS Compliant', zh: 'RoHS 环保合规', ar: 'متوافق مع RoHS' } },
-  { name: 'FCC', icon: '📡', full: { en: 'FCC Approved', zh: 'FCC 认证', ar: 'معتمد FCC' } },
-  { name: 'SGS', icon: '🔬', full: { en: 'SGS Tested', zh: 'SGS 检测认证', ar: 'تم اختباره بواسطة SGS' } },
-  { name: 'Patents 20+', icon: '🏅', full: { en: '20+ Patents', zh: '20+ 项专利', ar: 'أكثر من 20 براءة اختراع' } },
+  { name: 'CE', icon: 'ShieldCheck', full: { en: 'CE Certified', zh: 'CE 认证', ar: 'معتمد CE' } },
+  { name: 'ISO 9001', icon: 'BadgeCheck', full: { en: 'ISO 9001 Quality System', zh: 'ISO 9001 质量管理体系', ar: 'نظام جودة ISO 9001' } },
+  { name: 'RoHS', icon: 'Leaf', full: { en: 'RoHS Compliant', zh: 'RoHS 环保合规', ar: 'متوافق مع RoHS' } },
+  { name: 'FCC', icon: 'Radio', full: { en: 'FCC Approved', zh: 'FCC 认证', ar: 'معتمد FCC' } },
+  { name: 'SGS', icon: 'Microscope', full: { en: 'SGS Tested', zh: 'SGS 检测认证', ar: 'تم اختباره بواسطة SGS' } },
+  { name: 'Patents 20+', icon: 'Award', full: { en: '20+ Patents', zh: '20+ 项专利', ar: 'أكثر من 20 براءة اختراع' } },
 ];
 
 /* ── Hero stat cards (under hero) ── */
@@ -439,7 +481,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         <section>
           <div className="mx-auto max-w-2xl text-center">
             <span className="inline-flex items-center rounded-full bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-700">
-              🌍 {locale === 'zh' ? '全球落地案例' : locale === 'ar' ? 'قصص النجاح العالمية' : 'Global Success Stories'}
+              {locale === 'zh' ? '全球落地案例' : locale === 'ar' ? 'قصص النجاح العالمية' : 'Global Success Stories'}
             </span>
             <h2 className="mt-5 text-3xl font-extrabold text-ink-900 sm:text-4xl">
               {t('home.partners.title') || 'Global Partners & Success Stories'}
@@ -453,24 +495,37 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           </div>
 
           <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {STORIES.map((s) => (
-              <div
-                key={localized(s.title, locale)}
-                className="group glass-card overflow-hidden"
-              >
-                <div className="aspect-[4/3] overflow-hidden bg-slate-100">
-                  <ImageWithRetry
-                    src={s.image}
-                    alt={s.title[locale] || s.title.en}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                  />
+            {STORIES.map((s, i) => {
+              const cat = STORY_CATS[i];
+              return (
+                <div
+                  key={localized(s.title, locale)}
+                  className="group relative overflow-hidden rounded-2xl glass-card"
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={s.image}
+                      alt={s.title[locale] || s.title.en}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = '/images/og-default.svg';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-ink-900/60 via-transparent to-transparent" />
+                    {/* Category tag overlay */}
+                    <span className="absolute start-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-brand-700 shadow-sm backdrop-blur">
+                      {cat[locale] || cat.en}
+                    </span>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="text-base font-semibold text-ink-900">{s.title[locale] || s.title.en}</h3>
+                    <p className="mt-2 line-clamp-2 text-sm text-ink-500">{s.sub[locale] || s.sub.en}</p>
+                  </div>
                 </div>
-                <div className="p-5">
-                  <h3 className="text-base font-semibold text-ink-900">{s.title[locale] || s.title.en}</h3>
-                  <p className="mt-2 line-clamp-2 text-sm text-ink-500">{s.sub[locale] || s.sub.en}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 
@@ -480,7 +535,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             <h2 className="text-3xl font-extrabold text-ink-900 sm:text-4xl">{t('about.valuesTitle') || 'Our Values'}</h2>
             <p className="mt-2 text-ink-500">{t('about.valuesSubtitle') || 'What drives us forward every day.'}</p>
           </div>
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {VALUES.map((v) => {
               const Icon = v.icon;
               return (
@@ -500,7 +555,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         <section className="bg-gradient-to-br from-ink-800 via-ink-900 to-brand-900 px-8 py-14 text-white lg:px-12">
           <div className="mx-auto max-w-2xl text-center">
             <span className="inline-flex items-center rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium text-cyan-200">
-              ⏱ {locale === 'zh' ? '发展历程' : locale === 'ar' ? 'رحلتنا الزمنية' : 'Our Journey'}
+              {locale === 'zh' ? '发展历程' : locale === 'ar' ? 'رحلتنا الزمنية' : 'Our Journey'}
             </span>
             <h2 className="mt-5 text-3xl font-extrabold sm:text-4xl">
               {locale === 'zh' ? '十年深耕，从广州走向世界'
@@ -547,18 +602,21 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           </div>
 
           <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-            {CERTS.map((cert) => (
-              <div
-                key={cert.name}
-                className="group flex flex-col items-center gap-2 rounded-2xl border border-slate-200 bg-white p-5 text-center shadow-sm transition hover:-translate-y-1 hover:border-brand-200 hover:shadow-md"
-              >
-                <span className="text-3xl">{cert.icon}</span>
-                <span className="text-xs font-bold tracking-tight text-ink-900">{cert.name}</span>
-                <span className="hidden text-[11px] leading-snug text-ink-400 group-hover:block">
-                  {cert.full[locale] || cert.full.en}
-                </span>
-              </div>
-            ))}
+            {CERTS.map((cert) => {
+              const CertIcon = CERT_ICON[cert.icon] || ShieldCheck;
+              return (
+                <div
+                  key={cert.name}
+                  className="group flex flex-col items-center gap-2 rounded-2xl border border-slate-200 bg-white p-5 text-center shadow-sm transition hover:-translate-y-1 hover:border-brand-200 hover:shadow-md"
+                >
+                  <CertIcon className="h-8 w-8 text-brand-600" strokeWidth={1.6} />
+                  <span className="text-xs font-bold tracking-tight text-ink-900">{cert.name}</span>
+                  <span className="hidden text-[11px] leading-snug text-ink-400 group-hover:block">
+                    {cert.full[locale] || cert.full.en}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </section>
 

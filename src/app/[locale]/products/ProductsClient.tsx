@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useLocale } from '@/lib/i18n';
 import ProductCard from '@/components/products/ProductCard';
-import FilterBar, { type SortKey } from '@/components/products/FilterBar';
+import FilterBar from '@/components/products/FilterBar';
 import type { Category, Paginated, Product } from '@/types';
 
 interface ProductsClientProps {
@@ -16,21 +16,19 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
   const { t, locale } = useLocale();
   const [selected, setSelected] = useState<string[]>([]);
   const [search, setSearch] = useState('');
-  const [sort, setSort] = useState<SortKey>('featured');
   const [page, setPage] = useState(1);
   const [result, setResult] = useState<Paginated<Product>>(initial);
   const [loading, setLoading] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const load = useCallback(
-    async (opts: { categories: string[]; search: string; sort: SortKey; page: number }) => {
+    async (opts: { categories: string[]; search: string; page: number }) => {
       setLoading(true);
       try {
         const params = new URLSearchParams();
         if (opts.categories.length) params.set('category', opts.categories.join(','));
         if (opts.search.trim()) params.set('q', opts.search.trim());
         params.set('page', String(opts.page));
-        params.set('sort', opts.sort);
         const res = await fetch(`/api/products?${params.toString()}`);
         if (res.ok) {
           const json = (await res.json()) as Paginated<Product>;
@@ -49,18 +47,18 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
-      load({ categories: selected, search, sort, page: 1 });
+      load({ categories: selected, search, page: 1 });
       setPage(1);
     }, 350);
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selected, search, sort]);
+  }, [selected, search]);
 
   useEffect(() => {
     // page changes (pagination) reload with current filters
-    load({ categories: selected, search, sort, page });
+    load({ categories: selected, search, page });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
@@ -73,7 +71,6 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
   const clear = () => {
     setSelected([]);
     setSearch('');
-    setSort('featured');
     setPage(1);
   };
 
@@ -94,8 +91,6 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
             onToggleCategory={toggleCategory}
             search={search}
             onSearch={setSearch}
-            sort={sort}
-            onSort={setSort}
             onClear={clear}
             total={result.total}
             loading={loading}

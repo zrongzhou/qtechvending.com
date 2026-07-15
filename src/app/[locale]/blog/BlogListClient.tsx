@@ -53,10 +53,13 @@ export default function BlogListClient({ initial }: { initial: Paginated<BlogPos
 
   return (
     <div className="container-qtech bg-gradient-to-br from-slate-50 via-white to-brand-50/40 py-12 lg:py-16">
-      <header className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <header className="mb-10 flex flex-col gap-5 border-b border-slate-100 pb-8 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-ink-900">{t('blog.title')}</h1>
-          <p className="mt-2 text-ink-500">{t('blog.subtitle')}</p>
+          <span className="inline-flex items-center rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
+            {locale === 'zh' ? '行业洞察' : locale === 'ar' ? 'رؤى الصناعة' : 'Industry Insights'}
+          </span>
+          <h1 className="mt-3 text-3xl font-bold text-ink-900 sm:text-4xl">{t('blog.title')}</h1>
+          <p className="mt-2 max-w-xl text-ink-500">{t('blog.subtitle')}</p>
         </div>
         <div className="relative w-full sm:w-72">
           <input
@@ -64,7 +67,7 @@ export default function BlogListClient({ initial }: { initial: Paginated<BlogPos
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t('products.searchPlaceholder')}
-            className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
+            className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
           />
         </div>
       </header>

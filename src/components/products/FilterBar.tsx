@@ -1,11 +1,23 @@
 'use client';
 
-import { Search, X } from 'lucide-react';
+import { Search, X, ChevronDown, Factory, Flower2, Pizza, Candy, Egg, CupSoda, Snowflake, Coffee, IceCream, PawPrint, UtensilsCrossed, type LucideIcon } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
 import type { Category } from '@/types';
 
-export type SortKey = 'featured' | 'newest' | 'name';
+const CAT_ICON: Record<string, LucideIcon> = {
+  'all-machines': Factory,
+  'fresh-flower-vending-machine': Flower2,
+  'pizza-vending-machine': Pizza,
+  'cotton-candy-machine': Candy,
+  'fruit-vegetable-egg-vending-machine': Egg,
+  'sugar-cane-juice-vending-machine': CupSoda,
+  'ice-maker-vending-machine': Snowflake,
+  'coffee-vending-machine': Coffee,
+  'ice-cream-vending-machine': IceCream,
+  'pet-washing-machine': PawPrint,
+  'food-vending-machine': UtensilsCrossed,
+};
 
 interface FilterBarProps {
   categories: Category[];
@@ -13,8 +25,6 @@ interface FilterBarProps {
   onToggleCategory: (slug: string) => void;
   search: string;
   onSearch: (value: string) => void;
-  sort: SortKey;
-  onSort: (value: SortKey) => void;
   onClear: () => void;
   total: number;
   loading: boolean;
@@ -26,8 +36,6 @@ export default function FilterBar({
   onToggleCategory,
   search,
   onSearch,
-  sort,
-  onSort,
   onClear,
   total,
   loading,
@@ -36,7 +44,7 @@ export default function FilterBar({
   const hasFilters = selected.length > 0 || search.trim().length > 0;
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5">
+    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
       <div className="flex flex-col gap-4">
         {/* Search */}
         <div className="relative">
@@ -46,67 +54,77 @@ export default function FilterBar({
             value={search}
             onChange={(e) => onSearch(e.target.value)}
             placeholder={t('products.searchPlaceholder')}
-            className="w-full rounded-lg border border-slate-300 bg-white py-2.5 ps-10 pe-4 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
+            className="w-full rounded-lg border border-slate-300 bg-white py-2.5 ps-10 pe-4 text-sm outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
           />
         </div>
 
-        {/* Categories */}
+        {/* Category dropdown */}
         <div>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-ink-400">
+          <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-ink-400">
             {t('products.filterTitle')}
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {categories.map((cat) => {
-              const active = selected.includes(cat.slug);
-              return (
-                <button
-                  key={cat.id}
-                  type="button"
-                  onClick={() => onToggleCategory(cat.slug)}
-                  className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm transition ${
-                    active
-                      ? 'border-brand-600 bg-brand-600 text-white'
-                      : 'border-slate-300 text-ink-600 hover:border-brand-300'
-                  }`}
-                >
-                  <span>{cat.icon || '🏷️'}</span>
+          </label>
+          <div className="relative">
+            <select
+              value={selected[0] ?? ''}
+              onChange={(e) => {
+                const v = e.target.value;
+                // single-select dropdown: replace selection with chosen slug
+                if (v && !selected.includes(v)) onToggleCategory(v);
+                else if (!v && selected.length) selected.forEach((s) => onToggleCategory(s));
+              }}
+              className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pe-10 ps-3 text-sm font-medium text-ink-700 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
+            >
+              <option value="">{locale === 'zh' ? '全部品类' : locale === 'ar' ? 'كل الفئات' : 'All Categories'}</option>
+              {categories.map((cat) => (
+                <option key={cat.id} value={cat.slug}>
                   {localized(cat.name, locale)}
-                </button>
-              );
-            })}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="pointer-events-none absolute end-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-400" />
           </div>
+
+          {/* Active filter chip */}
+          {selected.length > 0 && (
+            <div className="mt-2 flex flex-wrap gap-2">
+              {selected.map((slug) => {
+                const cat = categories.find((c) => c.slug === slug);
+                return (
+                  <span
+                    key={slug}
+                    className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700"
+                  >
+                    {cat ? localized(cat.name, locale) : slug}
+                    <button
+                      type="button"
+                      onClick={() => onToggleCategory(slug)}
+                      className="rounded-full p-0.5 hover:bg-brand-100"
+                      aria-label="remove"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </span>
+                );
+              })}
+            </div>
+          )}
         </div>
 
-        {/* Sort + clear */}
-        <div className="flex items-center justify-between gap-3 border-t border-slate-100 pt-4">
-          <label className="flex items-center gap-2 text-sm text-ink-600">
-            {t('products.sort')}:
-            <select
-              value={sort}
-              onChange={(e) => onSort(e.target.value as SortKey)}
-              className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm outline-none focus:border-brand-500"
+        {/* Result count + clear */}
+        <div className="flex items-center justify-between border-t border-slate-100 pt-4">
+          <span className="text-sm text-ink-400">
+            {loading ? t('products.loading') : `${total} ${t('products.results')}`}
+          </span>
+          {hasFilters && (
+            <button
+              type="button"
+              onClick={onClear}
+              className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-sm font-medium text-brand-700 transition hover:bg-brand-50"
             >
-              <option value="featured">{t('products.sortFeatured')}</option>
-              <option value="newest">{t('products.sortNewest')}</option>
-              <option value="name">{t('products.sortNameAsc')}</option>
-            </select>
-          </label>
-
-          <div className="flex items-center gap-3 text-sm">
-            <span className="text-ink-400">
-              {loading ? t('products.loading') : `${total} ${t('products.results')}`}
-            </span>
-            {hasFilters && (
-              <button
-                type="button"
-                onClick={onClear}
-                className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-brand-700 hover:bg-brand-50"
-              >
-                <X className="h-3.5 w-3.5" />
-                {t('products.clear')}
-              </button>
-            )}
-          </div>
+              <X className="h-3.5 w-3.5" />
+              {t('products.clear')}
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -44,59 +44,70 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/${locale}/products/${product.slug}`}
-      className="group flex flex-col overflow-hidden rounded-2xl glass-card"
+      className="group relative flex flex-col overflow-hidden rounded-2xl glass-card"
     >
+      {/* Top accent line on hover */}
+      <span className="absolute inset-x-0 top-0 z-20 h-0.5 scale-x-0 bg-gradient-to-r from-brand-500 to-cyan-400 transition-transform duration-500 group-hover:scale-x-100" />
+
       <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
         <ImageWithRetry
           src={firstImage(product.images)}
           alt={name}
-          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+          className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
         />
+
+        {/* Gradient scrim for legibility */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/35 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
         {/* Badge */}
         {badgeKey && (
           <span
-            className={`absolute start-3 top-3 rounded-full px-2.5 py-1 text-xs font-semibold text-white ${badgeClass}`}
+            className={`absolute start-3 top-3 z-10 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold text-white shadow-sm ${badgeClass}`}
           >
+            {badgeKey === 'products.badgeHot' && <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />}
             {t(badgeKey)}
           </span>
         )}
 
         {/* Hover overlay: View Details */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-ink-900/80 to-transparent p-4 transition-transform duration-300 group-hover:translate-y-0">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-ink-900/85 to-transparent p-4 transition-transform duration-300 group-hover:translate-y-0">
           <span className="inline-flex items-center gap-1 text-sm font-semibold text-white">
             {t('home.featured.viewDetails')}
-            <span aria-hidden="true">→</span>
+            <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
           </span>
         </div>
       </div>
 
       <div className="flex flex-1 flex-col p-5">
         {categoryName && (
-          <span className="text-xs font-medium uppercase tracking-wide text-brand-600">{categoryName}</span>
+          <span className="inline-flex w-fit items-center rounded-full bg-brand-50 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-brand-600">
+            {categoryName}
+          </span>
         )}
-        <h3 className="mt-1 line-clamp-1 text-base font-semibold text-ink-900">{name}</h3>
-        {short && <p className="mt-2 line-clamp-2 text-sm text-ink-500">{short}</p>}
+        <h3 className="mt-2 line-clamp-2 text-base font-semibold leading-snug text-ink-900 transition-colors group-hover:text-brand-700">
+          {name}
+        </h3>
+        {short && <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-ink-500">{short}</p>}
 
         {/* Price range + rating */}
-        <div className="mt-3 flex items-center justify-between gap-2">
-          <span className="rounded-full bg-brand-50 px-2.5 py-1 text-xs font-semibold text-brand-700">
+        <div className="mt-auto flex items-center justify-between gap-2 pt-4">
+          <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-brand-50 to-cyan-50 px-3 py-1 text-xs font-bold text-brand-700">
             {priceLabel}
           </span>
-          <span className="inline-flex items-center gap-1" aria-label={`${rating.toFixed(1)} / 5`}>
+          <span className="inline-flex items-center gap-0.5" aria-label={`${rating.toFixed(1)} / 5`}>
             {Array.from({ length: 5 }).map((_, i) => (
               <Star
                 key={i}
                 className={`h-3.5 w-3.5 ${i < fullStars ? 'fill-amber-400 text-amber-400' : 'text-slate-300'}`}
               />
             ))}
-            <span className="ms-1 text-xs font-medium text-ink-500">{rating.toFixed(1)}</span>
           </span>
         </div>
 
-        <span className="mt-4 inline-flex items-center text-sm font-semibold text-brand-700">
-          {t('products.view')} →
-        </span>
+        <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
+          <span className="text-sm font-semibold text-brand-700">{t('products.view')}</span>
+          <span aria-hidden="true" className="text-brand-700 transition-transform duration-300 group-hover:translate-x-1">→</span>
+        </div>
       </div>
     </Link>
   );
