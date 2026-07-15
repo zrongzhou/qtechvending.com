@@ -45,13 +45,13 @@ export default function BlogDetailClient({
   return (
     <article className="container-qtech py-10 lg:py-14">
       <nav className="mb-6 text-sm text-ink-400">
-        <Link href={`/${locale}`} className="hover:text-brand-700">Home</Link>
+        <Link href={`/${locale}`} className="hover:text-coral-600">Home</Link>
         <span className="mx-2">/</span>
-        <Link href={`/${locale}/blog`} className="hover:text-brand-700">{t('nav.blog')}</Link>
+        <Link href={`/${locale}/blog`} className="hover:text-coral-600">{t('nav.blog')}</Link>
       </nav>
 
       <header className="mx-auto max-w-3xl text-center">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-coral-50 px-3 py-1 text-xs font-semibold text-coral-700">
           <CalendarDays className="h-3.5 w-3.5" />
           {t('blog.publishedOn')} {formatDate(post.publishedAt, locale)}
         </span>
@@ -78,7 +78,7 @@ export default function BlogDetailClient({
       {related.length > 0 && (
         <section className="mx-auto mt-14 max-w-5xl border-t border-slate-100 pt-10">
           <div className="mb-6 flex items-center gap-3">
-            <span className="h-5 w-1.5 rounded-full bg-brand-500" />
+            <span className="h-5 w-1.5 rounded-full bg-coral-500" />
             <h2 className="text-2xl font-bold text-ink-900">{t('blog.related')}</h2>
           </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --color-bg: #f8fafc;
+  --color-bg: #fffdf8;
 }
 
 html {
@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  @apply bg-slate-50 text-ink-800 antialiased;
+  @apply bg-sand-50 text-ink-800 antialiased;
   min-height: 100vh;
 }
 
@@ -337,9 +337,71 @@ input[type='number']::-webkit-inner-spin-button {
     background: rgba(255, 255, 255, 0.16);
     border-color: rgba(255, 255, 255, 0.35);
   }
+
+  /* ===== V12 Summer Beach theme utilities ===== */
+  .beach-section {
+    @apply bg-sand-50;
+  }
+
+  .beach-section-alt {
+    @apply bg-gradient-to-b from-brand-50/50 to-sand-50;
+  }
+
+  .beach-card {
+    @apply bg-white/85 backdrop-blur-sm rounded-2xl shadow-card border border-sand-200/70;
+  }
+
+  .btn-sunset {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-coral-500 to-amber-400 text-white font-bold shadow-lg shadow-coral-500/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 hover:from-coral-600 hover:to-amber-500;
+  }
+
+  .btn-ocean {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-sky-400 text-white font-bold shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5;
+  }
 }
 
-/* Respect reduced-motion: disable CTA animations but keep content visible */
+/* ===== V12 beach decorative sun glow ===== */
+.sun-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 82% 12%,
+    rgba(251, 191, 36, 0.28) 0%,
+    rgba(255, 237, 178, 0.12) 28%,
+    rgba(255, 255, 255, 0) 52%
+  );
+}
+
+/* ===== V12 beach foam dots (slow upward drift) ===== */
+@keyframes foam-rise {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: var(--foam-opacity, 0.5);
+  }
+  85% {
+    opacity: var(--foam-opacity, 0.5);
+  }
+  100% {
+    transform: translateY(-120px) translateX(14px);
+    opacity: 0;
+  }
+}
+
+.foam-dot {
+  position: absolute;
+  bottom: -10px;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.35) 70%);
+  filter: blur(2px);
+  animation: foam-rise ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Respect reduced-motion: disable CTA / beach animations but keep content visible */
 @media (prefers-reduced-motion: reduce) {
   .cta-particle,
   .cta-ring,
@@ -354,7 +416,10 @@ input[type='number']::-webkit-inner-spin-button {
   .ocean-particle,
   .cta-wave,
   .cta-wave-slow,
-  .cta-sunspot {
+  .cta-sunspot,
+  .sun-glow,
+  .wave-anim,
+  .foam-dot {
     animation: none !important;
   }
   .cta-cta-hidden {

@@ -119,7 +119,7 @@ export default function CtaSection() {
 
           <Link
             href={`/${locale}/contact`}
-            className="cta-reveal cta-d3 group mt-10 inline-flex items-center gap-3 rounded-full bg-white px-8 py-3.5 text-base font-bold text-brand-700 shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
+            className="cta-reveal cta-d3 group btn-sunset mt-10 px-8 py-3.5 text-base"
           >
             {t('home.cta.button')}
             <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />

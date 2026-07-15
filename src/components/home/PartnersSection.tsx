@@ -124,7 +124,7 @@ export default function PartnersSection() {
   };
 
   return (
-    <section className="bg-gradient-to-br from-slate-50 via-white to-cyan-50/40 py-16 lg:py-20">
+    <section className="beach-section py-16 lg:py-20">
       <div className="container-qtech">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold text-ink-900">{t('home.partners.title')}</h2>
@@ -140,7 +140,7 @@ export default function PartnersSection() {
             <div
               key={i}
               data-card
-              className="glass-card relative w-[280px] shrink-0 snap-start overflow-hidden rounded-2xl sm:w-[340px]"
+              className="beach-card relative w-[280px] shrink-0 snap-start overflow-hidden rounded-2xl sm:w-[340px]"
             >
               <div className="relative aspect-[4/3] bg-slate-100">
                 <ImageWithRetry
@@ -166,7 +166,7 @@ export default function PartnersSection() {
               aria-label={`${t('home.partners.title')} ${i + 1}`}
               onClick={() => scrollToIndex(i)}
               className={`h-2.5 w-2.5 rounded-full transition ${
-                i === active ? 'w-6 bg-brand-600' : 'bg-slate-300 hover:bg-slate-400'
+                i === active ? 'w-6 bg-coral-500' : 'bg-slate-300 hover:bg-slate-400'
               }`}
             />
           ))}

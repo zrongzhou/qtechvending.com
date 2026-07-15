@@ -41,10 +41,10 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/${locale}/products/${product.slug}`}
-      className="group relative flex flex-col overflow-hidden rounded-2xl glass-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+      className="group relative flex flex-col overflow-hidden rounded-2xl beach-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
     >
       {/* Top accent line on hover */}
-      <span className="absolute inset-x-0 top-0 z-20 h-0.5 scale-x-0 bg-gradient-to-r from-brand-500 to-cyan-400 transition-transform duration-500 group-hover:scale-x-100" />
+      <span className="absolute inset-x-0 top-0 z-20 h-0.5 scale-x-0 bg-gradient-to-r from-coral-400 to-amber-400 transition-transform duration-500 group-hover:scale-x-100" />
 
       <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
         <ImageWithRetry
@@ -78,30 +78,30 @@ export default function ProductCard({ product }: { product: Product }) {
       <div className="flex flex-1 flex-col p-5">
         {/* Category pill */}
         {categoryName && (
-          <span className="inline-flex w-fit items-center rounded-md bg-gradient-to-r from-brand-50 to-cyan-50 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-brand-700">
+          <span className="inline-flex w-fit items-center rounded-md bg-gradient-to-r from-brand-50 to-coral-50 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-coral-700">
             {categoryName}
           </span>
         )}
 
         {/* Title — single line, bold */}
-        <h3 className="mt-2 line-clamp-1 text-lg font-bold tracking-tight text-ink-900 transition-colors group-hover:text-brand-700">
+        <h3 className="mt-2 line-clamp-1 text-lg font-bold tracking-tight text-ink-900 transition-colors group-hover:text-coral-700">
           {name}
         </h3>
 
         {/* Description — muted, de-emphasised */}
         {short && <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-ink-400">{short}</p>}
 
-        {/* Price (solid gradient pill) */}
+        {/* Price (solid sunset gradient pill) */}
         <div className="mt-auto pt-4">
-          <span className="inline-flex items-center gap-1 rounded-lg bg-gradient-to-r from-brand-600 to-cyan-600 px-4 py-1.5 text-sm font-bold text-white shadow-sm">
+          <span className="inline-flex items-center gap-1 rounded-lg bg-gradient-to-r from-coral-500 to-amber-500 px-4 py-1.5 text-sm font-bold text-white shadow-sm">
             {priceLabel}
           </span>
         </div>
 
         {/* Bottom action bar — clean slide-in */}
         <div className="mt-3 flex items-center justify-between transition-transform duration-300 group-hover:translate-x-1">
-          <span className="text-sm font-semibold text-brand-700">{t('products.view')}</span>
-          <span aria-hidden="true" className="text-brand-700 transition-transform duration-300 group-hover:translate-x-1">→</span>
+          <span className="text-sm font-semibold text-coral-600">{t('products.view')}</span>
+          <span aria-hidden="true" className="text-coral-600 transition-transform duration-300 group-hover:translate-x-1">→</span>
         </div>
       </div>
     </Link>

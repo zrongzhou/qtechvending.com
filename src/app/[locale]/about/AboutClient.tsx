@@ -26,6 +26,7 @@ import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
 import CountUp from '@/components/ui/CountUp';
 import ImageWithRetry from '@/components/ui/ImageWithRetry';
+import WaveDivider from '@/components/common/WaveDivider';
 
 export interface AboutSection {
   key: string;
@@ -346,6 +347,8 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         {/* Decorative blobs */}
         <div className="pointer-events-none absolute -left-16 top-10 h-64 w-64 rounded-full bg-white/10 blur-3xl" aria-hidden="true" />
         <div className="pointer-events-none absolute right-0 top-1/3 h-72 w-72 rounded-full bg-cyan-300/20 blur-3xl" aria-hidden="true" />
+        {/* Sun glow */}
+        <div className="sun-glow" />
 
         <div className="container-qtech relative py-16 text-center lg:py-22">
           <span className="inline-flex items-center rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium">
@@ -372,6 +375,8 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             })}
           </div>
         </div>
+        {/* Beach wave transition into the content below */}
+        <WaveDivider color="#fffdf8" />
       </section>
 
       {/* ════════ 2. STORY SECTIONS (from DB) ════════ */}
@@ -401,7 +406,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               </div>
               <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200">
                 {/* Icon fallback layer */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-brand-500 to-cyan-400 p-8 text-white">
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-brand-500 to-coral-400 p-8 text-white">
                   <div className="rounded-2xl bg-white/15 p-5 backdrop-blur-sm">
                     <SectionIcon className="h-14 w-14" strokeWidth={1.5} />
                   </div>
@@ -502,7 +507,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               return (
                 <div
                   key={localized(s.title, locale)}
-                  className="group relative overflow-hidden rounded-2xl glass-card"
+                  className="group relative overflow-hidden rounded-2xl beach-card"
                 >
                   <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -517,7 +522,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-ink-900/60 via-transparent to-transparent" />
                     {/* Category tag overlay */}
-                    <span className="absolute start-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-brand-700 shadow-sm backdrop-blur">
+                    <span className="absolute start-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-coral-700 shadow-sm backdrop-blur">
                       {cat[locale] || cat.en}
                     </span>
                   </div>
@@ -541,7 +546,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             {VALUES.map((v, i) => {
               const Icon = v.icon;
               return (
-                <div key={localized(v.title, locale)} className="glass-card group relative p-6 text-center">
+                <div key={localized(v.title, locale)} className="beach-card group relative p-6 text-center">
                   {/* Oversized index watermark */}
                   <span
                     aria-hidden="true"
@@ -550,7 +555,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     {String(i + 1).padStart(2, '0')}
                   </span>
 
-                  <div className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-50 to-cyan-50 text-brand-600 shadow-sm transition group-hover:scale-110 group-hover:from-brand-600 group-hover:to-cyan-600 group-hover:text-white group-hover:shadow-lg">
+                  <div className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-coral-400 text-white shadow-sm transition group-hover:scale-110 group-hover:from-coral-500 group-hover:to-amber-400 group-hover:shadow-lg">
                     <Icon className="h-7 w-7" strokeWidth={1.5} />
                   </div>
                   <h3 className="relative mt-4 text-lg font-bold text-ink-900">{localized(v.title, locale)}</h3>
@@ -617,9 +622,9 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               return (
                 <div
                   key={cert.name}
-                  className="group flex flex-col items-center gap-2 rounded-2xl border border-slate-200 bg-white p-5 text-center shadow-sm transition hover:-translate-y-1 hover:border-brand-200 hover:shadow-md"
+                  className="beach-card group flex flex-col items-center gap-2 p-5 text-center transition hover:-translate-y-1 hover:border-coral-200 hover:shadow-md"
                 >
-                  <CertIcon className="h-8 w-8 text-brand-600" strokeWidth={1.6} />
+                  <CertIcon className="h-8 w-8 text-coral-600" strokeWidth={1.6} />
                   <span className="text-xs font-bold tracking-tight text-ink-900">{cert.name}</span>
                   <span className="hidden text-[11px] leading-snug text-ink-400 group-hover:block">
                     {cert.full[locale] || cert.full.en}
@@ -657,7 +662,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           </p>
           <Link
             href={`/${locale}/contact`}
-            className="mt-8 inline-flex rounded-full bg-brand-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition hover:bg-brand-400 hover:-translate-y-0.5"
+            className="btn-sunset mt-8 px-8 py-3.5 text-sm"
           >
             {t('nav.getQuote') || 'Get a Quote'} →
           </Link>

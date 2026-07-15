@@ -77,7 +77,7 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
   const { data, totalPages } = result;
 
   return (
-    <div className="container-qtech py-12 lg:py-16">
+    <div className="container-qtech beach-section py-12 lg:py-16">
       <header className="mb-8">
         <h1 className="text-3xl font-bold text-ink-900">{t('products.title')}</h1>
         <p className="mt-2 text-ink-500">{t('products.subtitle')}</p>
