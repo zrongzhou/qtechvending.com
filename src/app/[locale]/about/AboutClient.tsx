@@ -369,10 +369,10 @@ const CERTS: CertBadge[] = [
 
 /* ── Hero stat cards (under hero) ── */
 const HERO_STATS = [
-  { end: 11, suffix: '+', icon: Factory, key: 'hero.statCategories' },
-  { end: 60, suffix: '+', icon: Globe2, key: 'hero.statCountries' },
-  { end: 500, suffix: '+', icon: Users, key: 'hero.statPartners' },
-  { end: 24, suffix: '/7', icon: Clock, key: 'hero.statService' },
+  { end: 11, suffix: '+', icon: Factory, label: { en: 'Product categories', zh: '产品品类', ar: 'فئات المنتجات' } },
+  { end: 60, suffix: '+', icon: Globe2, label: { en: 'Countries served', zh: '服务国家', ar: 'دول نخدمها' } },
+  { end: 500, suffix: '+', icon: Users, label: { en: 'Global partners', zh: '全球合作伙伴', ar: 'شركاء عالميون' } },
+  { end: 24, suffix: '/7', icon: Clock, label: { en: 'Self-service operation', zh: '无人自助运营', ar: 'تشغيل ذاتي' } },
 ];
 
 export default function AboutClient({ sections }: { sections: AboutSection[] }) {
@@ -400,7 +400,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             {HERO_STATS.map((s, i) => {
               const Icon = s.icon;
               return (
-                <RevealOnScroll key={s.key} delay={i * 80} className="h-full">
+                <RevealOnScroll key={s.label.en} delay={i * 80} className="h-full">
                   <div className="h-full rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-sm lg:p-5">
                     <div className="flex items-center justify-center gap-2 text-cyan-200">
                       <IconTile icon={Icon} className="h-5 w-5" tileClassName="bg-white/15 text-cyan-200 p-2" />
@@ -408,7 +408,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     <dt className="mt-2 text-3xl font-extrabold">
                       <CountUp end={s.end} suffix={s.suffix} />
                     </dt>
-                    <dd className="mt-0.5 text-sm text-white/75">{t(s.key)}</dd>
+                    <dd className="mt-0.5 text-sm text-white/75">{localized(s.label, locale)}</dd>
                   </div>
                 </RevealOnScroll>
               );
