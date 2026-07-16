@@ -100,8 +100,6 @@ const STORIES: Story[] = [
   },
 ];
 
-const GAP = 24;
-
 export default function PartnersSection() {
   const { t, locale } = useLocale();
   const scrollerRef = useRef<HTMLDivElement>(null);
@@ -110,18 +108,34 @@ export default function PartnersSection() {
   const scrollToIndex = (i: number) => {
     const el = scrollerRef.current;
     if (!el) return;
-    const first = el.querySelector<HTMLElement>('[data-card]');
-    const cardW = first ? first.offsetWidth : el.clientWidth;
-    el.scrollTo({ left: i * (cardW + GAP), behavior: 'smooth' });
+    const cards = el.querySelectorAll<HTMLElement>('[data-card]');
+    const target = cards[i];
+    if (target) {
+      // direction-agnostic: aligns the card's inline-start edge to the
+      // container's inline-start edge, which is correct for both LTR and RTL.
+      target.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+    }
   };
 
   const handleScroll = () => {
     const el = scrollerRef.current;
     if (!el) return;
-    const first = el.querySelector<HTMLElement>('[data-card]');
-    if (!first) return;
-    const idx = Math.round(el.scrollLeft / (first.offsetWidth + GAP));
-    setActive(idx);
+    const cards = Array.from(el.querySelectorAll<HTMLElement>('[data-card]'));
+    if (!cards.length) return;
+    const dir = getComputedStyle(el).direction;
+    const containerEdge = dir === 'rtl' ? el.getBoundingClientRect().right : el.getBoundingClientRect().left;
+    let best = 0;
+    let bestDist = Infinity;
+    cards.forEach((c, idx) => {
+      const r = c.getBoundingClientRect();
+      const edge = dir === 'rtl' ? r.right : r.left;
+      const dist = Math.abs(edge - containerEdge);
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = idx;
+      }
+    });
+    setActive(best);
   };
 
   return (
@@ -142,17 +156,23 @@ export default function PartnersSection() {
             <div
               key={i}
               data-card
-              className="pro-card relative w-[280px] shrink-0 snap-start overflow-hidden rounded-2xl sm:w-[340px]"
+              className="group pro-card relative w-[280px] shrink-0 snap-start overflow-hidden rounded-2xl sm:w-[340px]"
             >
-              <div className="relative aspect-[4/3] bg-slate-100">
+              {/* Brand top accent bar — aligns with card design system */}
+              <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-brand-400 to-brand-700" />
+              <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
                 <ImageWithRetry
                   src={s.image}
                   alt={s.title[locale] || s.title.en}
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 />
+                {/* Subtle depth scrim on hover */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               </div>
               <div className="p-5">
-                <h3 className="text-base font-semibold text-ink-900">{s.title[locale] || s.title.en}</h3>
+                <h3 className="text-base font-semibold text-ink-900 transition-colors group-hover:text-brand-700">
+                  {s.title[locale] || s.title.en}
+                </h3>
                 <p className="mt-2 line-clamp-2 text-sm text-ink-500">{s.sub[locale] || s.sub.en}</p>
               </div>
             </div>
