@@ -309,11 +309,11 @@ input[type='number']::-webkit-inner-spin-button {
 
   /* ===== V12 Professional Tech-Blue theme utilities ===== */
   .pro-card {
-    @apply bg-white rounded-2xl border border-slate-200 shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+    @apply bg-white rounded-2xl border border-slate-200 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-700 text-white font-bold shadow-lg shadow-brand-600/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-700 text-white font-bold shadow-lg shadow-brand-600/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
   }
 }
 

@@ -13,10 +13,17 @@ import { Settings2 } from 'lucide-react';
 import type { Product } from '@/types';
 
 function renderParagraphs(text: string) {
+  // Split into readable paragraphs: first by blank lines, then by sentence
+  // boundaries (". ") so long description blocks become clean <p> elements.
   return text
     .split(/\n{2,}/)
-    .map((p) => p.trim())
-    .filter(Boolean)
+    .flatMap((block) =>
+      block
+        .replace(/\.\s+/g, '.\n')
+        .split('\n')
+        .map((s) => s.replace(/\s+/g, ' ').trim())
+        .filter(Boolean),
+    )
     .map((p, i) => (
       <p key={i} className="mb-4 leading-relaxed text-ink-600">
         {p}
@@ -33,6 +40,8 @@ export default function ProductDetailView({
 }) {
   const { t, locale } = useLocale();
   const name = localized(product.name, locale);
+  // C4: prefer a short, clean display title in the H1; fall back to the full name.
+  const heading = product.displayTitle ? localized(product.displayTitle, locale) || name : name;
   const short = localized(product.shortDescription, locale);
   const description = localized(product.description, locale);
   const specs = product.specs || [];
@@ -91,7 +100,7 @@ export default function ProductDetailView({
               {categoryName}
             </span>
           )}
-          <h1 className="mt-2 text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">{name}</h1>
+          <h1 className="mt-2 text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">{heading}</h1>
           {short && <p className="mt-3 max-w-xl text-base leading-relaxed text-ink-600">{short}</p>}
 
           <Link

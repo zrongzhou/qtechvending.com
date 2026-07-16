@@ -46,29 +46,39 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
   const imageSrc = (heroProduct?.images?.[0] || HERO_FALLBACK) as string;
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-white via-brand-50 to-white">
+    <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-brand-900 to-ink-900">
       {/* Brand-blue soft glow + breathing accent */}
       <div className="tech-glow" />
       <div className="brand-breathe pointer-events-none absolute -right-24 top-8 h-72 w-72 rounded-full bg-brand-300/20 blur-3xl" />
+      {/* Subtle dot pattern for depth (decorative, non-interactive) */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.12]"
+        aria-hidden="true"
+        style={{
+          backgroundImage:
+            'radial-gradient(rgba(255,255,255,0.7) 1px, transparent 1px)',
+          backgroundSize: '26px 26px',
+        }}
+      />
 
-      <div className="container-qtech relative grid items-center gap-12 py-20 lg:grid-cols-2 lg:py-28">
+      <div className="container-qtech relative grid items-center gap-12 py-24 lg:grid-cols-2 lg:py-32">
         {/* Left: value proposition */}
         <div>
-          <span className="inline-flex items-center gap-2 rounded-full bg-brand-50 px-4 py-1.5 text-sm font-semibold text-brand-700 shadow-sm border border-brand-100">
+          <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-sm font-semibold text-white shadow-sm border border-white/20 backdrop-blur-sm">
             <Sparkles className="h-4 w-4" strokeWidth={1.75} />
             {t('home.badge')}
           </span>
 
-          <h1 className="mt-5 text-4xl font-extrabold leading-[1.1] tracking-tight text-ink-900 sm:text-5xl lg:text-6xl">
+          <h1 className="mt-5 text-4xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
             {t('home.hero.title')}
           </h1>
 
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-600">
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/80">
             {t('home.hero.subtitle')}
           </p>
 
-          <p className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-brand-700">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-500" aria-hidden="true" />
+          <p className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-brand-300">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-400" aria-hidden="true" />
             {t('home.hero.tagline')}
           </p>
 
@@ -86,14 +96,14 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
             </Link>
             <a
               href="#machines"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-brand-200 bg-white px-7 py-3.5 text-sm font-semibold text-brand-700 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-50"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:bg-white/20"
             >
               {t('home.hero.ctaSecondary')}
             </a>
           </div>
 
           {/* Trust strip */}
-          <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-slate-200 pt-6 sm:grid-cols-4">
+          <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-white/15 pt-6 sm:grid-cols-4">
             {TRUST.map((item) => {
               const Icon = item.icon;
               return (
@@ -101,13 +111,13 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
                   <IconTile
                     icon={Icon}
                     className="h-4 w-4 shrink-0"
-                    tileClassName="bg-brand-50 text-brand-600 p-2"
+                    tileClassName="bg-white/10 text-brand-300 p-2"
                   />
                   <div className="leading-tight">
-                    <dt className="text-sm font-extrabold tracking-tight text-ink-900">
+                    <dt className="text-sm font-extrabold tracking-tight text-white">
                       {t(item.valueKey)}
                     </dt>
-                    <dd className="text-xs text-ink-500">{t(item.labelKey)}</dd>
+                    <dd className="text-xs text-white/70">{t(item.labelKey)}</dd>
                   </div>
                 </div>
               );
@@ -145,7 +155,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
 
         {/* Right: floating real machine */}
         <div className="relative hidden lg:block">
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-md">
+          <div className="relative mx-auto aspect-[4/5] w-full max-w-lg">
             {/* Breathing glow behind the machine */}
             <div className="brand-breathe absolute inset-4 rounded-[2.5rem] bg-gradient-to-br from-brand-200/50 to-brand-400/30 blur-2xl" />
 

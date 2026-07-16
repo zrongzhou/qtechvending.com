@@ -38,6 +38,8 @@ export interface Product {
   slug: string;
   sku: string;
   name: I18nString;
+  /** Short clean title for H1 display (≤60 chars). Falls back to name if omitted. */
+  displayTitle?: I18nString;
   description: I18nString | null;
   shortDescription: I18nString | null;
   images: string[];
