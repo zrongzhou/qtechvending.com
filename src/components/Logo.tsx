@@ -80,7 +80,7 @@ export default function Logo({
       </svg>
 
       {!markOnly && (
-        <span className="flex flex-col leading-none ml-2">
+        <span className="flex flex-col leading-none ms-2">
           <span className={`text-[12px] font-semibold tracking-tight ${textClassName}`}>Qtech</span>
           <span
             style={{

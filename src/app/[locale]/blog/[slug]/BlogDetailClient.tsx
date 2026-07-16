@@ -40,7 +40,7 @@ function renderRichContent(text: string) {
         items.push(raw[idx].trim().slice(2)); idx++;
       }
       els.push(
-        <ul key={idx} className="mb-5 ml-6 space-y-1.5 list-disc marker:text-brand-500 text-ink-600">
+        <ul key={idx} className="mb-5 ms-6 space-y-1.5 list-disc marker:text-brand-500 text-ink-600">
           {items.map((it, j) => <li key={j} className="leading-relaxed">{it}</li>)}
         </ul>,
       );

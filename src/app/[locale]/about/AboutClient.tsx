@@ -654,13 +654,13 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
 
           <div className="relative mx-auto mt-12 max-w-3xl">
             {/* Vertical line */}
-            <div className="absolute top-0 bottom-0 left-[19px] hidden w-px bg-slate-200 md:block translate-x-1/2" />
+            <div className="absolute top-0 bottom-0 start-[19px] hidden w-px bg-slate-200 md:block translate-x-1/2" />
 
             <div className="space-y-8">
               {TIMELINE.map((m) => (
-                <div key={m.year} className="relative flex gap-5 pl-0 md:pl-12">
+                <div key={m.year} className="relative flex gap-5 ps-0 md:ps-12">
                   {/* Dot */}
-                  <div className="absolute left-0 top-1 z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-500 text-xs font-bold shadow-lg shadow-brand-500/25 ring-4 ring-slate-100 md:left-0">
+                  <div className="absolute start-0 top-1 z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-500 text-xs font-bold shadow-lg shadow-brand-500/25 ring-4 ring-slate-100 md:start-0">
                     {m.year.slice(-2)}
                   </div>
                   <div className="pro-card flex-1 rounded-xl p-5">

@@ -56,7 +56,7 @@ export default function SolutionsGrid() {
                       />
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-ink-900/85 via-ink-900/30 to-transparent" />
-                    <span className="absolute left-4 top-4">
+                    <span className="absolute start-4 top-4">
                       <IconTile icon={Icon} className="h-5 w-5" tileClassName="bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-md p-2.5" />
                     </span>
                     <h3 className="absolute bottom-3 left-4 right-4 text-lg font-bold leading-tight text-white drop-shadow">
