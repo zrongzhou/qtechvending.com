@@ -21,16 +21,47 @@ function formatDate(iso: string, locale: string): string {
   }
 }
 
-function renderParagraphs(text: string) {
-  return text
-    .split(/\n{2,}/)
-    .map((p) => p.trim())
-    .filter(Boolean)
-    .map((p, i) => (
-      <p key={i} className="mb-4 leading-relaxed text-ink-600">
-        {p}
-      </p>
-    ));
+function renderRichContent(text: string) {
+  const raw = text.split('\n');
+  const els: (JSX.Element | null)[] = [];
+  let idx = 0;
+  while (idx < raw.length) {
+    const ln = raw[idx].trim();
+    if (!ln) { idx++; continue; }
+
+    // headings
+    if (ln.startsWith('### ')) { els.push(<h3 key={idx} className="mt-8 mb-3 text-xl font-bold text-ink-900">{ln.slice(4)}</h3>); idx++; }
+    else if (ln.startsWith('## ')) { els.push(<h2 key={idx} className="mt-10 mb-4 text-2xl font-bold tracking-tight text-ink-900">{ln.slice(3)}</h2>); idx++; }
+    else if (ln.startsWith('# ')) { els.push(<h1 key={idx} className="mt-8 mb-4 text-3xl font-bold text-ink-900">{ln.slice(2)}</h1>); idx++; }
+    // unordered list
+    else if (ln.startsWith('- ') || ln.startsWith('* ')) {
+      const items: string[] = [];
+      while (idx < raw.length && (raw[idx].trim().startsWith('- ') || raw[idx].trim().startsWith('* '))) {
+        items.push(raw[idx].trim().slice(2)); idx++;
+      }
+      els.push(
+        <ul key={idx} className="mb-5 ml-6 space-y-1.5 list-disc marker:text-brand-500 text-ink-600">
+          {items.map((it, j) => <li key={j} className="leading-relaxed">{it}</li>)}
+        </ul>,
+      );
+    }
+    // paragraph(s) — collect consecutive non-empty non-markdown lines
+    else {
+      const parts: string[] = [];
+      while (
+        idx < raw.length
+        && raw[idx].trim() !== ''
+        && !/^#{1,3}\s/.test(raw[idx])
+        && !/^[*-]\s/.test(raw[idx])
+      ) {
+        parts.push(raw[idx].trim()); idx++;
+      }
+      if (parts.length > 0) {
+        els.push(<p key={idx} className="mb-4 leading-relaxed text-ink-600">{parts.join(' ')}</p>);
+      }
+    }
+  }
+  return els;
 }
 
 export default function BlogDetailClient({
@@ -71,7 +102,7 @@ export default function BlogDetailClient({
       </RevealOnScroll>
 
       <RevealOnScroll className="prose-qtech mx-auto mt-10 max-w-3xl">
-        {renderParagraphs(content)}
+        {renderRichContent(content)}
       </RevealOnScroll>
 
       {related.length > 0 && (

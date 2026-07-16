@@ -111,26 +111,32 @@ export default function ProductDetailView({
           </Link>
 
           {specs.length > 0 && (
-            <RevealOnScroll className="mt-8">
-              <div className="pro-card relative overflow-hidden">
-                <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
-                <h2 className="flex items-center gap-2 border-b border-slate-100 px-5 py-4 text-lg font-bold text-ink-900">
-                  <IconTile icon={Settings2} className="h-7 w-7" tileClassName="bg-brand-50 text-brand-700" />
-                  {t('product.specs')}
-                </h2>
-                <dl>
+            <RevealOnScroll className="mt-10">
+              <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                {/* Gradient header */}
+                <div className="bg-gradient-to-r from-brand-500 to-brand-700 px-6 py-4">
+                  <h2 className="flex items-center gap-2.5 text-lg font-bold text-white">
+                    <IconTile icon={Settings2} className="h-6 w-6" tileClassName="bg-white/20 text-white p-2" />
+                    {t('product.specs')}
+                  </h2>
+                </div>
+
+                {/* Clean spec rows */}
+                <div className="divide-y divide-slate-100">
                   {specs.map((s, i) => (
                     <div
                       key={i}
-                      className={`grid grid-cols-1 gap-1 px-5 py-3.5 text-sm sm:grid-cols-3 sm:gap-4 ${
-                        i % 2 === 0 ? 'bg-white' : 'bg-brand-50/50'
-                      }`}
+                      className="flex flex-col gap-1 px-6 py-4 transition-colors hover:bg-brand-50/40 sm:flex-row sm:gap-6"
                     >
-                      <dt className="font-semibold text-brand-700 sm:col-span-1">{s.param}</dt>
-                      <dd className="text-ink-700 sm:col-span-2">{s.value || '—'}</dd>
+                      <dt className="w-36 shrink-0 text-xs font-bold uppercase tracking-wider text-brand-600">
+                        {s.param}
+                      </dt>
+                      <dd className="text-sm font-medium leading-relaxed text-ink-800">
+                        {s.value || '—'}
+                      </dd>
                     </div>
                   ))}
-                </dl>
+                </div>
               </div>
             </RevealOnScroll>
           )}
