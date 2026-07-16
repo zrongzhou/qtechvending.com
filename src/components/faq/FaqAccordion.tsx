@@ -52,7 +52,7 @@ export default function FaqAccordion() {
                     setActive(tab.id);
                     setOpen({});
                   }}
-                  className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition ${
+                  className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold outline-none transition focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 active:scale-95 ${
                     isActive
                       ? 'bg-brand-600 text-white shadow-sm'
                       : 'text-ink-600 hover:bg-brand-50'
@@ -88,7 +88,7 @@ export default function FaqAccordion() {
                           type="button"
                           onClick={() => toggle(cat.id, idx)}
                           aria-expanded={isOpen}
-                          className="flex w-full items-center justify-between gap-4 px-5 py-4 text-start"
+                          className="flex w-full items-center justify-between gap-4 rounded-xl px-5 py-4 text-start outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
                         >
                           <span className="flex items-center gap-3 text-base font-semibold text-ink-900">
                             <IconTile icon={HelpCircle} className="h-4 w-4" tileClassName="bg-brand-50 text-brand-600 p-1.5" />
@@ -102,11 +102,17 @@ export default function FaqAccordion() {
                             aria-hidden="true"
                           />
                         </button>
-                        {isOpen && (
-                          <div className="border-t border-slate-100 px-5 pb-5 pt-4 text-sm leading-relaxed text-ink-600">
-                            {localized(item.answer, locale)}
+                        <div
+                          className={`grid transition-all duration-300 ease-out motion-reduce:transition-none ${
+                            isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                          }`}
+                        >
+                          <div className="overflow-hidden">
+                            <div className="border-t border-slate-100 px-5 pb-5 pt-4 text-sm leading-relaxed text-ink-600">
+                              {localized(item.answer, locale)}
+                            </div>
                           </div>
-                        )}
+                        </div>
                       </div>
                     </RevealOnScroll>
                   );
