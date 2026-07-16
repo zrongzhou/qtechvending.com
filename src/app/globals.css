@@ -72,12 +72,12 @@ input[type='number']::-webkit-inner-spin-button {
 
   /* Primary call-to-action button */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-700 px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lift;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-700 px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lift active:scale-[0.97] active:shadow-soft;
   }
 
   /* Secondary / ghost button */
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-ink-900 transition hover:border-slate-400 hover:bg-slate-50;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-ink-900 transition hover:border-slate-400 hover:bg-slate-50 active:scale-[0.97];
   }
 
   /* Status pills */
@@ -122,6 +122,43 @@ input[type='number']::-webkit-inner-spin-button {
     radial-gradient(38% 38% at 86% 30%, rgba(56, 189, 248, 0.10), transparent 70%);
 }
 
+/* Hero ambient motion: slowly drifting blurred brand orbs + a soft gradient
+   flow sheen. Purely decorative, layered behind hero content, and disabled
+   under prefers-reduced-motion. */
+@keyframes heroOrbDriftA {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(36px, -28px, 0) scale(1.08); }
+}
+@keyframes heroOrbDriftB {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(-30px, 22px, 0) scale(1.06); }
+}
+@keyframes heroFlowSheen {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.hero-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(56px);
+  opacity: 0.45;
+  will-change: transform;
+  pointer-events: none;
+}
+.hero-orb--a { animation: heroOrbDriftA 18s ease-in-out infinite; }
+.hero-orb--b { animation: heroOrbDriftB 22s ease-in-out infinite; }
+.hero-orb--c { animation: heroOrbDriftA 26s ease-in-out infinite; }
+.hero-flow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 35%, rgba(255, 255, 255, 0.45) 50%, transparent 65%);
+  background-size: 220% 220%;
+  mix-blend-mode: soft-light;
+  animation: heroFlowSheen 16s ease-in-out infinite;
+  pointer-events: none;
+}
+
 /* Hide scrollbar for horizontal mobile carousels while keeping scroll. */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
@@ -138,7 +175,9 @@ input[type='number']::-webkit-inner-spin-button {
     transform: none !important;
     transition: none !important;
   }
-  .float-soft {
+  .float-soft,
+  .hero-orb,
+  .hero-flow {
     animation: none !important;
   }
 }
