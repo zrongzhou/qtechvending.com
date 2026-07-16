@@ -23,7 +23,7 @@ export default function BlogPreview({ posts }: { posts: BlogPost[] }) {
             href={`/${locale}/blog`}
             className="shrink-0 rounded-full border border-brand-200 px-5 py-2.5 text-sm font-semibold text-brand-700 transition hover:bg-brand-50"
           >
-            {t('home.blog.viewAll')} →
+            {t('home.blog.viewAll')} <span aria-hidden="true" className="rtl:-scale-x-100">→</span>
           </Link>
         </div>
 

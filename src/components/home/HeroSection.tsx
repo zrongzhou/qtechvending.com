@@ -111,7 +111,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
               >
                 {t('home.hero.ctaPrimary')}
                 <ArrowRight
-                  className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                  className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1"
                   strokeWidth={1.75}
                 />
               </Link>
@@ -172,7 +172,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
                   </span>
                   <span className="shrink-0 inline-flex items-center gap-1 text-xs font-semibold text-brand-700">
                     {t('home.featured.viewDetails')}
-                    <span aria-hidden="true">→</span>
+                    <span aria-hidden="true" className="rtl:-scale-x-100">→</span>
                   </span>
                 </Link>
               </div>

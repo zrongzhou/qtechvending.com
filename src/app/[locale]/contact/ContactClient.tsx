@@ -309,7 +309,7 @@ export default function ContactClient({
               className="flex items-center justify-between gap-2 rounded-2xl border border-brand-100 bg-brand-50 px-5 py-4 text-sm font-medium text-brand-700 transition hover:bg-brand-100"
             >
               {t('contact.faqLink')}
-              <span aria-hidden="true" className="transition group-hover:translate-x-0.5">→</span>
+              <span aria-hidden="true" className="transition group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5">→</span>
             </Link>
           </aside>
         </RevealOnScroll>

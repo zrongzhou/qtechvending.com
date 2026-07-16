@@ -93,7 +93,7 @@ export default function SolutionsGrid() {
                       className="group/learn mt-6 inline-flex items-center gap-1 text-sm font-semibold text-brand-700 transition-colors hover:text-brand-800"
                     >
                       {t('solutions.learnMore')}
-                      <span aria-hidden="true" className="transition-transform duration-300 group-hover/learn:translate-x-1">→</span>
+                      <span aria-hidden="true" className="transition-transform duration-300 group-hover/learn:translate-x-1 rtl:-scale-x-100 rtl:group-hover/learn:-translate-x-1">→</span>
                     </Link>
                   </div>
                 </div>

@@ -60,7 +60,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-ink-900/85 to-transparent p-4 transition-transform duration-300 group-hover:translate-y-0">
           <span className="inline-flex items-center gap-1 text-sm font-semibold text-white">
             {t('home.featured.viewDetails')}
-            <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
+            <span aria-hidden="true" className="transition-transform group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1">→</span>
           </span>
         </div>
       </div>
@@ -98,9 +98,9 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
 
         {/* Bottom action bar — clean slide-in */}
-        <div className="mt-3 flex items-center justify-between transition-transform duration-300 group-hover:translate-x-1">
+        <div className="mt-3 flex items-center justify-between transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1">
           <span className="text-sm font-semibold text-brand-600">{t('products.view')}</span>
-          <span aria-hidden="true" className="text-brand-600 transition-transform duration-300 group-hover:translate-x-1">→</span>
+          <span aria-hidden="true" className="text-brand-600 transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1">→</span>
         </div>
       </div>
     </Link>

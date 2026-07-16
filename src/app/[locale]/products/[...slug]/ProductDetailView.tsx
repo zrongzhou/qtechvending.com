@@ -59,7 +59,7 @@ export default function ProductDetailView({
         href={`/${locale}/products`}
         className="inline-flex items-center gap-1.5 text-sm font-medium text-ink-500 transition-colors hover:text-brand-700"
       >
-        <ArrowLeft className="h-4 w-4" />
+        <ArrowLeft className="h-4 w-4 rtl:-scale-x-100" />
         {t('product.backToProducts')}
       </Link>
 

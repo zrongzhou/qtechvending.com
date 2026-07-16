@@ -23,7 +23,7 @@ export default function FeaturedProducts({ products }: { products: Product[] }) 
             href={`/${locale}/products`}
             className="shrink-0 btn-primary px-5 py-2.5 text-sm"
           >
-            {t('home.featured.viewAll')} →
+            {t('home.featured.viewAll')} <span aria-hidden="true" className="rtl:-scale-x-100">→</span>
           </Link>
         </div>
 

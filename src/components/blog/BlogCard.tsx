@@ -58,7 +58,7 @@ export default function BlogCard({ post }: { post: BlogPost }) {
           <IconTile
             icon={ArrowUpRight}
             className="h-4 w-4"
-            tileClassName="bg-brand-50 text-brand-600 p-1.5 transition group-hover:translate-x-1 group-hover:bg-brand-500 group-hover:text-white"
+            tileClassName="bg-brand-50 text-brand-600 p-1.5 transition group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1 group-hover:bg-brand-500 group-hover:text-white"
           />
         </div>
       </div>

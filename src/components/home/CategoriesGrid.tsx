@@ -111,7 +111,7 @@ export default function CategoriesGrid({
                     {description && <p className="mt-1 line-clamp-2 text-sm text-ink-500">{description}</p>}
                     <span className="mt-auto inline-flex items-center gap-1 pt-3 text-xs font-medium text-ink-500">
                       {count} {t('home.categories.productCount')}
-                      <span aria-hidden="true" className="transition group-hover:translate-x-1">→</span>
+                      <span aria-hidden="true" className="transition group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1">→</span>
                     </span>
                   </div>
                 </Link>
