@@ -45,9 +45,9 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
           ar: 'إلى أي دول تقوم بالشحن؟',
         },
         answer: {
-          en: 'We export to 60+ countries across Asia, Europe, the Middle East, Africa and the Americas, with experience in both LCL and full-container shipping.',
-          zh: '我们向亚洲、欧洲、中东、非洲与美洲的 60 多个国家出口，具备拼箱与整柜运输经验。',
-          ar: 'نصدّر إلى أكثر من 60 دولة في آسيا وأوروبا والشرق الأوسط وأفريقيا والأمريكتين، مع خبرة في الشحن المجمّع والحاويات الكاملة.',
+          en: 'We export to 60+ countries — including Malaysia, Thailand, the USA, Canada, France and Germany — across Asia, Europe, the Middle East, Africa and the Americas, with experience in both LCL and full-container shipping.',
+          zh: '我们向 60+ 国家出口，包括马来西亚、泰国、美国、加拿大、法国与德国等，覆盖亚洲、欧洲、中东、非洲与美洲，具备拼箱与整柜运输经验。',
+          ar: 'نصدّر إلى أكثر من 60 دولة — بما في ذلك ماليزيا وتايلاند والولايات المتحدة وكندا وفرنسا وألمانيا — في آسيا وأوروبا والشرق الأوسط وأفريقيا والأمريكتين، مع خبرة في الشحن المجمّع والحاويات الكاملة.',
         },
       },
       {
@@ -72,6 +72,18 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
           en: 'Sales and technical support are available in English, Chinese and Arabic.',
           zh: '销售与技术支持提供中文、英文与阿拉伯语服务。',
           ar: 'يتوفر الدعم في المبيعات والدعم الفني باللغات الإنجليزية والصينية والعربية.',
+        },
+      },
+      {
+        question: {
+          en: 'What is your minimum order quantity (MOQ)?',
+          zh: '你们的最小起订量（MOQ）是多少？',
+          ar: 'ما هي الكمية الدنيا للطلب (MOQ)؟',
+        },
+        answer: {
+          en: 'Our MOQ is just 1 piece — you can start with a single machine to test the market before scaling up.',
+          zh: '我们的最小起订量仅为 1 台，您可以先下单一台测试市场，再逐步扩大规模。',
+          ar: 'الحد الأدنى للطلب لدينا هو قطعة واحدة فقط — يمكنك البدء بماكينة واحدة لتجربة السوق قبل التوسع.',
         },
       },
     ],
@@ -161,9 +173,9 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
           ar: 'ماذا عن الضمان وما بعد البيع؟',
         },
         answer: {
-          en: 'We provide a standard warranty with remote diagnostics, spare parts and technical guidance; extended plans are available.',
-          zh: '我们提供标准保修，含远程诊断、备件与技术指导；可延长保修方案。',
-          ar: 'نوفر ضمانًا قياسيًا مع تشخيص عن بُعد وقطع غيار وإرشادات فنية؛ وتتوفر خطط ممددة.',
+          en: 'We provide a 2-year warranty with lifetime maintenance support — including remote diagnostics, spare parts and technical guidance; extended plans are available.',
+          zh: '我们提供 2 年保修与终身维护支持，含远程诊断、备件与技术指导；可延长保修方案。',
+          ar: 'نوفر ضمانًا لمدة عامين مع صيانة مدى الحياة — يشمل التشخيص عن بُعد وقطع الغيار والإرشادات الفنية؛ وتتوفر خطط ممددة.',
         },
       },
       {

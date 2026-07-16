@@ -5,6 +5,7 @@ import { CalendarDays, ArrowUpRight } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
 import ImageWithRetry from '@/components/ui/ImageWithRetry';
+import IconTile from '@/components/ui/IconTile';
 import type { BlogPost } from '@/types';
 
 function formatDate(iso: string, locale: string): string {
@@ -41,7 +42,7 @@ export default function BlogCard({ post }: { post: BlogPost }) {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/30 via-transparent to-transparent" />
         {/* Date pill */}
         <span className="absolute start-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-xs font-medium text-ink-600 shadow-sm backdrop-blur">
-          <CalendarDays className="h-3.5 w-3.5" />
+          <IconTile icon={CalendarDays} className="h-3.5 w-3.5" tileClassName="" />
           {formatDate(post.publishedAt, locale)}
         </span>
       </div>
@@ -54,12 +55,11 @@ export default function BlogCard({ post }: { post: BlogPost }) {
 
         <div className="mt-auto flex items-center justify-between pt-4">
           <span className="text-sm font-semibold text-brand-600">{t('blog.readMore')}</span>
-          <span
-            aria-hidden="true"
-            className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-50 text-brand-600 transition group-hover:bg-brand-500 group-hover:text-white"
-          >
-            <ArrowUpRight className="h-4 w-4" />
-          </span>
+          <IconTile
+            icon={ArrowUpRight}
+            className="h-4 w-4"
+            tileClassName="bg-brand-50 text-brand-600 p-1.5 transition group-hover:bg-brand-500 group-hover:text-white"
+          />
         </div>
       </div>
     </Link>

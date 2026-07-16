@@ -41,7 +41,7 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/${locale}/products/${product.slug}`}
-      className="group relative flex flex-col overflow-hidden rounded-2xl pro-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+      className="group relative flex h-full flex-col overflow-hidden rounded-2xl pro-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
     >
       {/* Top accent line on hover */}
       <span className="absolute inset-x-0 top-0 z-20 h-0.5 scale-x-0 bg-gradient-to-r from-brand-400 to-brand-600 transition-transform duration-500 group-hover:scale-x-100" />

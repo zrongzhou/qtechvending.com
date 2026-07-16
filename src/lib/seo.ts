@@ -45,8 +45,8 @@ export const SITE_CONFIG = {
   ogImage: '/images/og-default.svg',
   twitterHandle: '@qtechvending',
   sameAs: [] as string[],
-  email: 'sales@qtechvending.com',
-  phone: '+86-20-0000-0000',
+  email: 'glvending.sabina@gmail.com',
+  phone: '+86 183 1975 3992',
 };
 
 interface PageSEOOptions {

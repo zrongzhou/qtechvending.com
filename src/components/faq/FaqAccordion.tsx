@@ -6,6 +6,8 @@ import { ChevronDown, HelpCircle, MessageCircle } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
 import { FAQ_CATEGORIES } from '@/lib/faq-data';
+import RevealOnScroll from '@/components/ui/RevealOnScroll';
+import IconTile from '@/components/ui/IconTile';
 
 /**
  * Tabbed FAQ: a sticky category rail on the left (lg) / horizontal pills (mobile)
@@ -25,12 +27,12 @@ export default function FaqAccordion() {
   const visibleCats = active === 'all' ? FAQ_CATEGORIES : FAQ_CATEGORIES.filter((c) => c.id === active);
 
   return (
-    <div className="bg-brand-50">
-      <div className="container-qtech py-16 lg:py-20">
+    <RevealOnScroll className="bg-brand-50">
+      <div className="container-qtech py-20 md:py-28">
         {/* Header */}
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-700">
-            <HelpCircle className="h-4 w-4" />
+            <IconTile icon={HelpCircle} className="h-4 w-4" tileClassName="" />
             {t('faq.badge')}
           </span>
           <h1 className="mt-5 text-4xl font-extrabold text-ink-900">{t('faq.title')}</h1>
@@ -77,35 +79,35 @@ export default function FaqAccordion() {
                 {cat.items.map((item, idx) => {
                   const isOpen = open[cat.id] === idx;
                   return (
-                    <div
-                      key={idx}
-                      className="pro-card overflow-hidden rounded-2xl transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
-                    >
-                      <button
-                        type="button"
-                        onClick={() => toggle(cat.id, idx)}
-                        aria-expanded={isOpen}
-                        className="flex w-full items-center justify-between gap-4 px-5 py-4 text-start"
+                    <RevealOnScroll key={idx} delay={idx * 60} className="h-full">
+                      <div
+                        className="pro-card overflow-hidden rounded-2xl transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
                       >
-                        <span className="flex items-center gap-3 text-base font-semibold text-ink-900">
-                          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
-                            <HelpCircle className="h-4 w-4" />
+                        <button
+                          type="button"
+                          onClick={() => toggle(cat.id, idx)}
+                          aria-expanded={isOpen}
+                          className="flex w-full items-center justify-between gap-4 px-5 py-4 text-start"
+                        >
+                          <span className="flex items-center gap-3 text-base font-semibold text-ink-900">
+                            <IconTile icon={HelpCircle} className="h-4 w-4" tileClassName="bg-brand-50 text-brand-600 p-1.5" />
+                            {localized(item.question, locale)}
                           </span>
-                          {localized(item.question, locale)}
-                        </span>
-                        <ChevronDown
-                          className={`h-5 w-5 shrink-0 text-brand-600 transition-transform duration-300 ${
-                            isOpen ? 'rotate-180' : ''
-                          }`}
-                          aria-hidden="true"
-                        />
-                      </button>
-                      {isOpen && (
-                        <div className="border-t border-slate-100 px-5 pb-5 pt-4 text-sm leading-relaxed text-ink-600">
-                          {localized(item.answer, locale)}
-                        </div>
-                      )}
-                    </div>
+                          <ChevronDown
+                            className={`h-5 w-5 shrink-0 text-brand-600 transition-transform duration-300 ${
+                              isOpen ? 'rotate-180' : ''
+                            }`}
+                            strokeWidth={1.75}
+                            aria-hidden="true"
+                          />
+                        </button>
+                        {isOpen && (
+                          <div className="border-t border-slate-100 px-5 pb-5 pt-4 text-sm leading-relaxed text-ink-600">
+                            {localized(item.answer, locale)}
+                          </div>
+                        )}
+                      </div>
+                    </RevealOnScroll>
                   );
                 })}
               </div>
@@ -122,12 +124,12 @@ export default function FaqAccordion() {
               href={`/${locale}/contact`}
               className="btn-primary group mt-8 px-9 py-4 text-base"
             >
-              <MessageCircle className="h-5 w-5" />
+              <MessageCircle className="h-5 w-5" strokeWidth={1.75} />
               {t('faq.ctaButton')}
             </Link>
           </div>
         </div>
       </div>
-    </div>
+    </RevealOnScroll>
   );
 }

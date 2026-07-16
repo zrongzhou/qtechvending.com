@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
 import BlogCard from '@/components/blog/BlogCard';
+import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import type { BlogPost, Paginated } from '@/types';
 
 export default function BlogListClient({ initial }: { initial: Paginated<BlogPost> }) {
@@ -78,8 +79,10 @@ export default function BlogListClient({ initial }: { initial: Paginated<BlogPos
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {data.map((post) => (
-            <BlogCard key={post.id} post={post} />
+          {data.map((post, i) => (
+            <RevealOnScroll key={post.id} delay={(i % 9) * 60} className="h-full">
+              <BlogCard post={post} />
+            </RevealOnScroll>
           ))}
         </div>
       )}

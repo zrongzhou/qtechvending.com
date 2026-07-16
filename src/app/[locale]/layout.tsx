@@ -73,9 +73,9 @@ export default function LocaleLayout({ children, params: { locale } }: LocaleLay
             logo: `${BASE_URL}/images/logo.svg`,
             contactPoint: {
               '@type': 'ContactPoint',
-              telephone: '+86-20-0000-0000',
+              telephone: '+86 183 1975 3992',
               contactType: 'sales',
-              email: 'sales@qtechvending.com',
+              email: 'glvending.sabina@gmail.com',
               availableLanguage: ['English', 'Chinese', 'Arabic'],
             },
             address: {

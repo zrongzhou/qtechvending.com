@@ -7,6 +7,7 @@ import { localized } from '@/lib/localize';
 import ProductCard from '@/components/products/ProductCard';
 import ProductFaqSection from './ProductFaqSection';
 import ImageWithRetry from '@/components/ui/ImageWithRetry';
+import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import type { Product } from '@/types';
 
 function renderParagraphs(text: string) {
@@ -99,22 +100,26 @@ export default function ProductDetailView({
           </Link>
 
           {specs.length > 0 && (
-            <div className="mt-8">
-              <h2 className="text-lg font-semibold text-ink-900">{t('product.specs')}</h2>
-              <dl className="mt-3 overflow-hidden rounded-xl border border-slate-200">
-                {specs.map((s, i) => (
-                  <div
-                    key={i}
-                    className={`grid grid-cols-2 gap-4 px-4 py-3 text-sm ${
-                      i % 2 === 0 ? 'bg-white' : 'bg-slate-50'
-                    }`}
-                  >
-                    <dt className="font-medium text-ink-700">{s.param}</dt>
-                    <dd className="text-ink-600">{s.value || '—'}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
+            <RevealOnScroll className="mt-8">
+              <div className="pro-card overflow-hidden">
+                <h2 className="border-b border-slate-100 px-5 py-4 text-lg font-bold text-ink-900">
+                  {t('product.specs')}
+                </h2>
+                <dl>
+                  {specs.map((s, i) => (
+                    <div
+                      key={i}
+                      className={`grid grid-cols-1 gap-1 px-5 py-3.5 text-sm sm:grid-cols-3 sm:gap-4 ${
+                        i % 2 === 0 ? 'bg-white' : 'bg-brand-50/50'
+                      }`}
+                    >
+                      <dt className="font-semibold text-brand-700 sm:col-span-1">{s.param}</dt>
+                      <dd className="text-ink-700 sm:col-span-2">{s.value || '—'}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </RevealOnScroll>
           )}
 
           <div className="mt-6">

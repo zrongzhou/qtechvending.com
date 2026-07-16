@@ -1,15 +1,16 @@
 'use client';
 
-import { Factory, Clock, Settings2, Globe } from 'lucide-react';
-import { type ComponentType } from 'react';
+import { Factory, Clock, Settings2, Globe, type LucideIcon } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import CountUp from '@/components/ui/CountUp';
+import RevealOnScroll from '@/components/ui/RevealOnScroll';
+import IconTile from '@/components/ui/IconTile';
 
 export default function AdvantagesSection() {
   const { t } = useLocale();
   const items: {
     number: number;
-    icon: ComponentType<{ className?: string }>;
+    icon: LucideIcon;
     titleKey: string;
     descKey: string;
   }[] = [
@@ -20,35 +21,33 @@ export default function AdvantagesSection() {
   ];
 
   return (
-    <section className="bg-white py-16 lg:py-20">
+    <section className="bg-white py-20 md:py-28">
       <div className="container-qtech">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold text-ink-900">{t('home.advantages.title')}</h2>
-          <span className="mt-3 block h-1 w-16 rounded-full bg-brand-500" aria-hidden="true" />
-          <p className="mt-2 text-ink-500">{t('home.advantages.subtitle')}</p>
+          <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">{t('home.advantages.eyebrow')}</p>
+          <h2 className="mt-3 text-2xl font-bold text-ink-900 md:text-3xl">{t('home.advantages.title')}</h2>
+          <span className="mx-auto mt-3 block h-1 w-16 rounded-full bg-brand-500" aria-hidden="true" />
+          <p className="mt-4 text-ink-600">{t('home.advantages.subtitle')}</p>
         </div>
 
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {items.map((item) => {
+          {items.map((item, i) => {
             const Icon = item.icon;
             return (
-              <div
-                key={item.titleKey}
-                className="pro-card group relative overflow-hidden rounded-2xl p-6"
-              >
-                {/* Big progressive step number */}
-                <span className="absolute -right-2 -top-4 select-none text-7xl font-extrabold text-slate-100 transition group-hover:text-brand-50">
-                  <CountUp end={item.number} prefix="0" />
-                </span>
+              <RevealOnScroll key={item.titleKey} delay={i * 80} className="h-full">
+                <div className="pro-card group relative flex h-full flex-col overflow-hidden rounded-2xl p-6">
+                  {/* Big progressive step number */}
+                  <span className="absolute -right-2 -top-4 select-none text-7xl font-extrabold text-slate-100 transition group-hover:text-brand-50">
+                    <CountUp end={item.number} prefix="0" />
+                  </span>
 
-                <div className="relative">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
-                    <Icon className="h-6 w-6" />
+                  <div className="relative">
+                    <IconTile icon={Icon} className="h-6 w-6" tileClassName="bg-brand-50 text-brand-600 p-3" />
+                    <h3 className="mt-4 text-lg font-semibold text-ink-900">{t(item.titleKey)}</h3>
+                    <p className="mt-2 text-sm text-ink-500">{t(item.descKey)}</p>
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold text-ink-900">{t(item.titleKey)}</h3>
-                  <p className="mt-2 text-sm text-ink-500">{t(item.descKey)}</p>
                 </div>
-              </div>
+              </RevealOnScroll>
             );
           })}
         </div>

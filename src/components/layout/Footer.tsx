@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Facebook, Instagram, Linkedin, Youtube, Twitter } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import Logo from '@/components/Logo';
+import IconTile from '@/components/ui/IconTile';
 
 const YEAR = new Date().getFullYear();
 
@@ -47,7 +48,7 @@ export default function Footer() {
                   aria-label={s.name}
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-slate-300 transition hover:border-brand-400 hover:bg-brand-600 hover:text-white"
                 >
-                  <Icon className="h-4 w-4" />
+                  <IconTile icon={Icon} className="h-4 w-4" tileClassName="" />
                 </a>
               );
             })}
@@ -74,9 +75,9 @@ export default function Footer() {
             {t('footer.contact')}
           </h3>
           <ul className="mt-4 space-y-2 text-sm text-slate-400">
-            <li>{t('contact.emailUs')}: sales@qtechvending.com</li>
-            <li>{t('contact.callUs')}: +86-20-0000-0000</li>
-            <li>Guangzhou, Guangdong, China</li>
+            <li>{t('contact.emailUs')}: glvending.sabina@gmail.com</li>
+            <li>{t('contact.callUs')}: +86 183 1975 3992 / +86 190 1516 9848</li>
+            <li>Zai Pier, No.131 Jintong Road, Bao long street, Panyu, Guangzhou, China</li>
           </ul>
         </div>
 

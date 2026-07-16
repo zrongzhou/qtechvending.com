@@ -52,16 +52,19 @@
   "home.hero.featuredLabel": "نماذج مميزة",
   "home.hero.tagline": "خدمة ذاتية ذكية، صُنعت في غوانغتشو.",
 
+  "home.categories.eyebrow": "فئات المنتجات",
   "home.categories.title": "تصفح حسب الفئة",
   "home.categories.subtitle": "آلات مختارة لكل سوق — تصفح حسب الفئة لإيجاد الأنسب لك.",
   "home.categories.viewAll": "عرض كل المنتجات",
   "home.categories.productCount": "منتج",
 
+  "home.featured.eyebrow": "الأكثر مبيعًا",
   "home.featured.title": "آلات مميزة",
   "home.featured.subtitle": "النماذج الأكثر مبيعًا عبر خطوط الزهور والطعام والمشروبات — جميعها مباشرة من المصنع وجاهزة لـ OEM.",
   "home.featured.viewAll": "شاهد كل المنتجات",
   "home.featured.viewDetails": "عرض التفاصيل",
 
+  "home.advantages.eyebrow": "لماذا Qtech",
   "home.advantages.title": "لماذا تختار Qtech",
   "home.advantages.subtitle": "شريك تصنيع مصمم للخدمة الذاتية: أسعار مباشرة من المصنع وهندسة حقيقية ودعم بلغتك.",
   "home.advantages.factoryDirect": "مباشرة من المصنع",
@@ -73,9 +76,11 @@
   "home.advantages.globalShipping": "شحن عالمي",
   "home.advantages.globalShippingDesc": "خبرة تصدير ودعم لوجستي لأكثر من 60 دولة.",
 
+  "home.partners.eyebrow": "موثوق عالميًا",
   "home.partners.title": "الشركاء العالميون وقصص النجاح",
   "home.partners.subtitle": "من محطات المترو إلى منتجعات الشواطئ، تعمل آلات Qtech على مدار الساعة للمشغلين في ست قارات.",
 
+  "home.blog.eyebrow": "أخبار ورؤى",
   "home.blog.title": "أحدث المقالات",
   "home.blog.subtitle": "قصص ميدانية وتحديثات منتجات ونصائح عملية من فريق Qtech.",
   "home.blog.viewAll": "اقرأ المدونة",
@@ -85,6 +90,7 @@
   "home.cta.button": "اطلب عرض سعر",
   "home.cta.proof": "انضم إلى أكثر من 500 شريك عالمي",
 
+  "products.eyebrow": "معداتنا",
   "products.title": "المنتجات",
   "products.subtitle": "تصفح مجموعتنا الكاملة من معدات البيع الذكية والأتمتة.",
   "products.searchPlaceholder": "ابحث عن المنتجات...",
@@ -115,6 +121,7 @@
   "product.notFound": "لم يتم العثور على المنتج.",
   "product.category": "الفئة",
 
+  "category.eyebrow": "تصفح الفئة",
   "category.title": "المنتجات في",
   "category.subtitle": "تصفح الآلات في هذه الفئة.",
   "category.backToAll": "العودة إلى كل المنتجات",
@@ -132,9 +139,11 @@
   "about.subtitle": "الشركة المصنعة خلف معدات الخدمة الذاتية الخاصة بك.",
   "about.cta": "تعاون معنا",
   "about.statsTitle": "نظرة عامة على Qtech",
+  "about.valuesEyebrow": "قيمنا",
   "about.valuesTitle": "قيمنا الأساسية",
   "about.valuesSubtitle": "المبادئ وراء كل آلة نصنعها.",
 
+  "contact.eyebrow": "تواصل معنا",
   "contact.title": "اتصل بنا",
   "contact.subtitle": "أرسل استفسارًا وسيتواصل فريق المبيعات معك قريبًا.",
   "contact.name": "الاسم",

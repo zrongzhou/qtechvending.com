@@ -49,7 +49,10 @@ export default async function CategoryPage({ params }: PageProps) {
             <span className="mx-2">/</span>
             <Link href={`/${locale}/products`} className="hover:underline">Products</Link>
           </nav>
-          <h1 className="text-3xl font-bold sm:text-4xl">
+          <p className="text-sm font-semibold uppercase tracking-wide text-white/80">
+            {locale === 'zh' ? '浏览分类' : locale === 'ar' ? 'تصفح الفئة' : 'Browse Category'}
+          </p>
+          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">
             {name ? `${name}` : 'Category'}
           </h1>
           {description && <p className="mt-3 max-w-2xl text-white/90">{description}</p>}

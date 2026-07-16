@@ -52,16 +52,19 @@
   "home.hero.featuredLabel": "精选机型",
   "home.hero.tagline": "智能自助设备，广州智造。",
 
+  "home.categories.eyebrow": "产品品类",
   "home.categories.title": "按分类浏览",
   "home.categories.subtitle": "为不同市场精选的设备——按分类浏览，找到最适合您的机型。",
   "home.categories.viewAll": "查看全部产品",
   "home.categories.productCount": "款设备",
 
+  "home.featured.eyebrow": "热销机型",
   "home.featured.title": "精选设备",
   "home.featured.subtitle": "鲜花、餐饮与饮品各产品线的热销机型——全部工厂直供，支持 OEM 定制。",
   "home.featured.viewAll": "查看全部产品",
   "home.featured.viewDetails": "查看详情",
 
+  "home.advantages.eyebrow": "为什么选择 Qtech",
   "home.advantages.title": "为什么选择 Qtech",
   "home.advantages.subtitle": "为自助场景打造的制造伙伴：工厂直供价格、真实研发实力，以及母语级售后支持。",
   "home.advantages.factoryDirect": "工厂直供",
@@ -73,9 +76,11 @@
   "home.advantages.globalShipping": "全球发货",
   "home.advantages.globalShippingDesc": "出口经验丰富，物流支持覆盖 60 多个国家。",
 
+  "home.partners.eyebrow": "全球信赖",
   "home.partners.title": "全球合作伙伴与成功案例",
   "home.partners.subtitle": "从地铁站到海滨度假村，Qtech 设备在全球六大洲持续为运营商服务。",
 
+  "home.blog.eyebrow": "资讯与洞察",
   "home.blog.title": "博客最新文章",
   "home.blog.subtitle": "来自 Qtech 团队的现场故事、产品更新与实用指南。",
   "home.blog.viewAll": "阅读博客",
@@ -85,6 +90,7 @@
   "home.cta.button": "获取报价",
   "home.cta.proof": "加入 500+ 全球合作伙伴",
 
+  "products.eyebrow": "我们的设备",
   "products.title": "产品",
   "products.subtitle": "浏览工厂直供的全系列智能售货与自动化设备——鲜花、餐饮食品、劳保与工业产线，均支持 OEM 定制，远销 60+ 国家。",
   "products.searchPlaceholder": "搜索产品...",
@@ -115,6 +121,7 @@
   "product.notFound": "未找到该产品。",
   "product.category": "分类",
 
+  "category.eyebrow": "浏览分类",
   "category.title": "分类下的产品",
   "category.subtitle": "探索本分类下的全部机型——完整规格、工厂直供报价与针对您市场的 OEM 定制方案。",
   "category.backToAll": "返回全部产品",
@@ -132,9 +139,11 @@
   "about.subtitle": "广州秋彦科技（Qtech）为 80+ 国家的经销商与运营商设计、制造智能售货与鲜花自动化设备。",
   "about.cta": "与我们合作",
   "about.statsTitle": "Qtech 概览",
+  "about.valuesEyebrow": "我们的价值观",
   "about.valuesTitle": "我们的核心价值观",
   "about.valuesSubtitle": "我们制造的每一台设备背后，都是这些信念。",
 
+  "contact.eyebrow": "联系我们",
   "contact.title": "联系我们",
   "contact.subtitle": "提交询盘，我们的销售团队将尽快与您联系。",
   "contact.name": "姓名",

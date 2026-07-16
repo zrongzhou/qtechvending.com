@@ -5,6 +5,8 @@ import { CalendarDays } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
 import BlogCard from '@/components/blog/BlogCard';
+import IconTile from '@/components/ui/IconTile';
+import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import type { BlogPost } from '@/types';
 
 function formatDate(iso: string, locale: string): string {
@@ -52,7 +54,7 @@ export default function BlogDetailClient({
 
       <header className="mx-auto max-w-3xl text-center">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
-          <CalendarDays className="h-3.5 w-3.5" />
+          <IconTile icon={CalendarDays} className="h-3.5 w-3.5" tileClassName="" />
           {t('blog.publishedOn')} {formatDate(post.publishedAt, locale)}
         </span>
         <h1 className="mt-4 text-3xl font-bold leading-tight text-ink-900 sm:text-4xl lg:text-[2.75rem]">{title}</h1>
@@ -82,8 +84,10 @@ export default function BlogDetailClient({
             <h2 className="text-2xl font-bold text-ink-900">{t('blog.related')}</h2>
           </div>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-            {related.map((p) => (
-              <BlogCard key={p.id} post={p} />
+            {related.map((p, i) => (
+              <RevealOnScroll key={p.id} delay={i * 80} className="h-full">
+                <BlogCard post={p} />
+              </RevealOnScroll>
             ))}
           </div>
         </section>

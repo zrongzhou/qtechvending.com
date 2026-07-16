@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
 import { SOLUTIONS } from '@/lib/solutions-data';
+import RevealOnScroll from '@/components/ui/RevealOnScroll';
+import IconTile from '@/components/ui/IconTile';
 
 /** Banner image per solution id (generated visuals in public/images/solutions). */
 const SOLUTION_IMAGES: Record<string, string> = {
@@ -25,78 +27,75 @@ export default function SolutionsGrid() {
 
   return (
     <div className="bg-white">
-      <div className="container-qtech py-16 lg:py-20">
+      <div className="container-qtech py-20 md:py-28">
         <div className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center rounded-full bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-700">
-            {t('solutions.badge')}
-          </span>
-          <h1 className="mt-5 text-4xl font-extrabold text-ink-900">{t('solutions.title')}</h1>
-          <p className="mt-4 text-lg text-ink-500">{t('solutions.subtitle')}</p>
+          <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">{t('solutions.badge')}</p>
+          <h1 className="mt-3 text-3xl font-bold text-ink-900 md:text-4xl">{t('solutions.title')}</h1>
+          <p className="mt-4 text-lg text-ink-600">{t('solutions.subtitle')}</p>
         </div>
 
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {SOLUTIONS.map((s) => {
+          {SOLUTIONS.map((s, i) => {
             const Icon = s.icon;
             const img = SOLUTION_IMAGES[s.id];
             return (
-              <div
-                key={s.id}
-                className="glass-card group flex flex-col overflow-hidden p-0 transition hover:-translate-y-1 hover:shadow-xl"
-              >
-                {/* Banner image with gradient overlay */}
-                <div className="relative h-44 w-full overflow-hidden">
-                  {img && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={img}
-                      alt={localized(s.title, locale)}
-                      loading="lazy"
-                      decoding="async"
-                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                    />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink-900/85 via-ink-900/30 to-transparent" />
-                  <span className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-md backdrop-blur">
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <h3 className="absolute bottom-3 left-4 right-4 text-lg font-bold leading-tight text-white drop-shadow">
-                    {localized(s.title, locale)}
-                  </h3>
-                </div>
-
-                {/* Body */}
-                <div className="flex flex-1 flex-col p-6">
-                  <p className="text-sm text-ink-500">{localized(s.description, locale)}</p>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {s.tags[locale]?.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+              <RevealOnScroll key={s.id} delay={i * 80} className="h-full">
+                <div className="glass-card group flex h-full flex-col overflow-hidden p-0 transition hover:-translate-y-1 hover:shadow-xl">
+                  {/* Banner image with gradient overlay */}
+                  <div className="relative h-44 w-full overflow-hidden">
+                    {img && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={img}
+                        alt={localized(s.title, locale)}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-ink-900/85 via-ink-900/30 to-transparent" />
+                    <span className="absolute left-4 top-4">
+                      <IconTile icon={Icon} className="h-5 w-5" tileClassName="bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-md p-2.5" />
+                    </span>
+                    <h3 className="absolute bottom-3 left-4 right-4 text-lg font-bold leading-tight text-white drop-shadow">
+                      {localized(s.title, locale)}
+                    </h3>
                   </div>
-                  <ul className="mt-4 space-y-2">
-                    {s.features.map((f, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-ink-600">
+
+                  {/* Body */}
+                  <div className="flex flex-1 flex-col p-6">
+                    <p className="text-sm text-ink-500">{localized(s.description, locale)}</p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {s.tags[locale]?.map((tag) => (
                         <span
-                          className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500"
-                          aria-hidden="true"
-                        />
-                        {localized(f, locale)}
-                      </li>
-                    ))}
-                  </ul>
-                  <Link
-                    href={`/${locale}${s.href}`}
-                    className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-brand-700 transition-all hover:gap-2"
-                  >
-                    {t('solutions.learnMore')}
-                    <span aria-hidden="true">→</span>
-                  </Link>
+                          key={tag}
+                          className="rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <ul className="mt-4 space-y-2">
+                      {s.features.map((f, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-ink-600">
+                          <span
+                            className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500"
+                            aria-hidden="true"
+                          />
+                          {localized(f, locale)}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href={`/${locale}${s.href}`}
+                      className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-brand-700 transition-all hover:gap-2"
+                    >
+                      {t('solutions.learnMore')}
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                  </div>
                 </div>
-              </div>
+              </RevealOnScroll>
             );
           })}
         </div>

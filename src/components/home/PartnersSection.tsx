@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 import { useLocale } from '@/lib/i18n';
 import ImageWithRetry from '@/components/ui/ImageWithRetry';
+import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import type { Locale } from '@/lib/i18n';
 
 interface Story {
@@ -124,11 +125,12 @@ export default function PartnersSection() {
   };
 
   return (
-    <section className="bg-brand-50 py-16 lg:py-20">
+    <RevealOnScroll as="section" className="bg-brand-50 py-20 md:py-28">
       <div className="container-qtech">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold text-ink-900">{t('home.partners.title')}</h2>
-          <p className="mt-2 text-ink-500">{t('home.partners.subtitle')}</p>
+          <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">{t('home.partners.eyebrow')}</p>
+          <h2 className="mt-3 text-2xl font-bold text-ink-900 md:text-3xl">{t('home.partners.title')}</h2>
+          <p className="mt-4 text-ink-600">{t('home.partners.subtitle')}</p>
         </div>
 
         <div
@@ -172,6 +174,6 @@ export default function PartnersSection() {
           ))}
         </div>
       </div>
-    </section>
+    </RevealOnScroll>
   );
 }

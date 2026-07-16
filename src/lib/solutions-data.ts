@@ -1,12 +1,11 @@
-import type { ComponentType } from 'react';
-import { Factory, Package, Cpu, HeartPulse, UtensilsCrossed, ShieldCheck } from 'lucide-react';
+import { Factory, Package, Cpu, HeartPulse, UtensilsCrossed, ShieldCheck, type LucideIcon } from 'lucide-react';
 import type { Locale } from '@/lib/i18n';
 
 export interface Solution {
   /** Stable identifier used as React key and for anchors. */
   id: string;
   /** Lucide icon rendered in the card header. */
-  icon: ComponentType<{ className?: string }>;
+  icon: LucideIcon;
   /** Localized card title. */
   title: Record<Locale, string>;
   /** Localized one-paragraph description. */
