@@ -79,13 +79,17 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
 
   return (
     <div className="container-qtech bg-white py-12 lg:py-16">
-      <header className="mb-8">
+      <RevealOnScroll className="mb-8 md:mb-10">
         <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
           {t('products.eyebrow')}
         </p>
-        <h1 className="mt-3 text-3xl font-bold text-ink-900">{t('products.title')}</h1>
-        <p className="mt-2 text-ink-500">{t('products.subtitle')}</p>
-      </header>
+        <h1 className="mt-3 text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">
+          {t('products.title')}
+        </h1>
+        <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-600">
+          {t('products.subtitle')}
+        </p>
+      </RevealOnScroll>
 
       <div className="grid gap-8 lg:grid-cols-[320px_1fr]">
         <aside className="lg:sticky lg:top-20 lg:self-start">

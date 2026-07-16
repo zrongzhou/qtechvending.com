@@ -30,8 +30,8 @@ export default function BlogCard({ post }: { post: BlogPost }) {
       href={`/${locale}/blog/${post.slug}`}
       className="group relative flex flex-col overflow-hidden rounded-2xl pro-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
     >
-      {/* Top accent on hover */}
-      <span className="absolute inset-x-0 top-0 z-20 h-0.5 scale-x-0 bg-gradient-to-r from-brand-400 to-brand-600 transition-transform duration-500 group-hover:scale-x-100" />
+      {/* Persistent brand-500 top accent bar — card memory point */}
+      <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-brand-400 to-brand-700" />
 
       <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
         <ImageWithRetry

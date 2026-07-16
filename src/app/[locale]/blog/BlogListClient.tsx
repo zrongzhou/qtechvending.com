@@ -59,8 +59,8 @@ export default function BlogListClient({ initial }: { initial: Paginated<BlogPos
           <span className="inline-flex items-center rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
             {locale === 'zh' ? '行业洞察' : locale === 'ar' ? 'رؤى الصناعة' : 'Industry Insights'}
           </span>
-          <h1 className="mt-3 text-3xl font-bold text-ink-900 sm:text-4xl">{t('blog.title')}</h1>
-          <p className="mt-2 max-w-xl text-ink-500">{t('blog.subtitle')}</p>
+          <h1 className="mt-3 text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">{t('blog.title')}</h1>
+          <p className="mt-3 max-w-xl text-base leading-relaxed text-ink-600">{t('blog.subtitle')}</p>
         </div>
         <div className="relative w-full sm:w-72">
           <input

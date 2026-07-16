@@ -1,7 +1,9 @@
 'use client';
 
+import { Check } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import { localizedList } from '@/lib/localize';
+import IconTile from '@/components/ui/IconTile';
 import type { I18nStringList } from '@/types';
 
 /**
@@ -14,16 +16,17 @@ export default function ProductFaqSection({ features }: { features: I18nStringLi
   if (!items.length) return null;
 
   return (
-    <div className="pro-card p-6">
-      <h2 className="text-lg font-semibold text-ink-900">{t('product.features')}</h2>
-      <ul className="mt-4 space-y-2">
-        {items.map((item, i) => (
-          <li key={i} className="flex items-start gap-2 text-sm text-ink-600">
-            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500" />
-            {item}
-          </li>
-        ))}
-      </ul>
-    </div>
+      <div className="pro-card relative overflow-hidden p-6">
+        <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
+        <h2 className="text-lg font-semibold text-ink-900">{t('product.features')}</h2>
+        <ul className="mt-4 space-y-3">
+          {items.map((item, i) => (
+            <li key={i} className="flex items-start gap-3 text-sm leading-relaxed text-ink-600">
+              <IconTile icon={Check} className="h-5 w-5 shrink-0" tileClassName="bg-brand-500 text-white" />
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
   );
 }

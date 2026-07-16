@@ -392,7 +392,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           <span className="inline-flex items-center rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium">
             {t('about.badge') || 'About Qtech'}
           </span>
-          <h1 className="mt-5 text-4xl font-extrabold sm:text-5xl">{t('about.title')}</h1>
+          <h1 className="mt-5 text-4xl font-extrabold tracking-tight sm:text-5xl">{t('about.title')}</h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-white/90">{t('about.subtitle')}</p>
 
           {/* Stat band under hero */}
@@ -424,7 +424,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
               {locale === 'zh' ? '关于 Qtech' : locale === 'ar' ? 'عن Qtech' : 'About Qtech'}
             </p>
-            <h2 className="mt-3 text-2xl font-bold text-ink-900 sm:text-3xl">
+            <h2 className="mt-3 text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl">
               {locale === 'zh' ? '创新科技，便捷服务' : locale === 'ar' ? 'تكنولوجيا مبتكرة، خدمة مريحة' : 'Innovative Tech, Convenient Service'}
             </h2>
             <div className="prose-qtech mt-4">
@@ -463,7 +463,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               }`}
             >
               <div>
-                <h2 className="text-2xl font-bold text-ink-900 sm:text-3xl">{title}</h2>
+                <h2 className="text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl">{title}</h2>
                 <div className="prose-qtech mt-4">
                   {body
                     .split(/\n{2,}/)

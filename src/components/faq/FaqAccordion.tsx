@@ -35,8 +35,8 @@ export default function FaqAccordion() {
             <IconTile icon={HelpCircle} className="h-4 w-4" tileClassName="" />
             {t('faq.badge')}
           </span>
-          <h1 className="mt-5 text-4xl font-extrabold text-ink-900">{t('faq.title')}</h1>
-          <p className="mt-4 text-lg text-ink-500">{t('faq.subtitle')}</p>
+          <h1 className="mt-5 text-4xl font-extrabold tracking-tight text-ink-900">{t('faq.title')}</h1>
+          <p className="mt-4 text-lg leading-relaxed text-ink-600">{t('faq.subtitle')}</p>
         </div>
 
         {/* Tabs */}

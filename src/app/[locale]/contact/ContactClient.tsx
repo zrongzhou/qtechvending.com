@@ -140,14 +140,15 @@ export default function ContactClient({
           <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
             {t('contact.eyebrow')}
           </p>
-          <h1 className="mt-3 text-3xl font-bold text-ink-900">{t('contact.title')}</h1>
-          <p className="mt-2 text-ink-500">{t('contact.subtitle')}</p>
+          <h1 className="mt-3 text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">{t('contact.title')}</h1>
+          <p className="mt-2 text-base leading-relaxed text-ink-600">{t('contact.subtitle')}</p>
         </header>
       </RevealOnScroll>
 
       <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
         <RevealOnScroll className="h-full">
-          <form onSubmit={onSubmit} className="h-full space-y-5 rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
+          <form onSubmit={onSubmit} className="relative h-full space-y-5 overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
+            <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
                 <label className="mb-1.5 block text-sm font-medium text-ink-700">
@@ -221,7 +222,8 @@ export default function ContactClient({
         <RevealOnScroll delay={120} className="h-full">
           <aside className="space-y-6">
             {/* Contact info card */}
-            <div className="pro-card p-6">
+            <div className="pro-card relative overflow-hidden p-6">
+              <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
               <h2 className="text-lg font-semibold text-ink-900">{t('contact.info')}</h2>
               <ul className="mt-4 space-y-4 text-sm">
                 {infoRow(MapPin, t('contact.address'), 'Zai Pier, No.131 Jintong Road, Bao long street, Panyu, Guangzhou, China')}
@@ -273,7 +275,8 @@ export default function ContactClient({
             </div>
 
             {/* Social media */}
-            <div className="pro-card p-6">
+            <div className="pro-card relative overflow-hidden p-6">
+              <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
               <h3 className="text-sm font-semibold uppercase tracking-wide text-ink-500">
                 {t('contact.connectWithUs')}
               </h3>

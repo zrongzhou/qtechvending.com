@@ -7,6 +7,7 @@ import { localized } from '@/lib/localize';
 import BlogCard from '@/components/blog/BlogCard';
 import IconTile from '@/components/ui/IconTile';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
+import ImageWithRetry from '@/components/ui/ImageWithRetry';
 import type { BlogPost } from '@/types';
 
 function formatDate(iso: string, locale: string): string {
@@ -52,30 +53,26 @@ export default function BlogDetailClient({
         <Link href={`/${locale}/blog`} className="hover:text-brand-600">{t('nav.blog')}</Link>
       </nav>
 
-      <header className="mx-auto max-w-3xl text-center">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
-          <IconTile icon={CalendarDays} className="h-3.5 w-3.5" tileClassName="" />
-          {t('blog.publishedOn')} {formatDate(post.publishedAt, locale)}
-        </span>
-        <h1 className="mt-4 text-3xl font-bold leading-tight text-ink-900 sm:text-4xl lg:text-[2.75rem]">{title}</h1>
-        {excerpt && <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-ink-500">{excerpt}</p>}
-      </header>
+      <RevealOnScroll className="mx-auto max-w-3xl text-center">
+        <header>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
+            <IconTile icon={CalendarDays} className="h-3.5 w-3.5" tileClassName="" />
+            {t('blog.publishedOn')} {formatDate(post.publishedAt, locale)}
+          </span>
+          <h1 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-ink-900 sm:text-4xl lg:text-[2.75rem]">{title}</h1>
+          {excerpt && <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-ink-600">{excerpt}</p>}
+        </header>
+      </RevealOnScroll>
 
-      <div className="mx-auto mt-8 max-w-4xl overflow-hidden rounded-3xl border border-slate-200 shadow-sm">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={post.image || '/images/og-default.svg'}
-          alt={title}
-          className="aspect-[16/9] w-full object-cover"
-          onError={(e) => {
-            (e.currentTarget as HTMLImageElement).src = '/images/og-default.svg';
-          }}
-        />
-      </div>
+      <RevealOnScroll className="mx-auto mt-8 max-w-4xl">
+        <div className="relative aspect-[16/9] overflow-hidden rounded-3xl border border-slate-200 shadow-sm ring-1 ring-brand-100">
+          <ImageWithRetry src={post.image || '/images/og-default.svg'} alt={title} className="h-full w-full object-cover" />
+        </div>
+      </RevealOnScroll>
 
-      <div className="prose-qtech mx-auto mt-10 max-w-3xl">
+      <RevealOnScroll className="prose-qtech mx-auto mt-10 max-w-3xl">
         {renderParagraphs(content)}
-      </div>
+      </RevealOnScroll>
 
       {related.length > 0 && (
         <section className="mx-auto mt-14 max-w-5xl border-t border-slate-100 pt-10">
