@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { CalendarDays } from 'lucide-react';
+import { ArrowLeft, CalendarDays } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
 import BlogCard from '@/components/blog/BlogCard';
@@ -78,7 +78,15 @@ export default function BlogDetailClient({
 
   return (
     <article className="container-qtech py-10 lg:py-14">
-      <nav className="mb-6 text-sm text-ink-400">
+      <Link
+        href={`/${locale}/blog`}
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-ink-500 transition-colors hover:text-brand-700"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        {t('blog.back')}
+      </Link>
+
+      <nav className="mb-6 mt-4 text-sm text-ink-400">
         <Link href={`/${locale}`} className="hover:text-brand-600">Home</Link>
         <span className="mx-2">/</span>
         <Link href={`/${locale}/blog`} className="hover:text-brand-600">{t('nav.blog')}</Link>

@@ -37,6 +37,12 @@ const config: Config = {
           900: '#0f172a',
           950: '#020617',
         },
+        // Warm gold accent scale for premium dark themes / CTAs.
+        gold: {
+          50: '#FFFBEB', 100: '#FEF3C7', 200: '#FDE68A', 300: '#FCD34D',
+          400: '#FBBF24', 500: '#F59E0B', 600: '#D97706', 700: '#B45309',
+          800: '#92400E', 900: '#78350F',
+        },
       },
       fontFamily: {
         sans: [
@@ -55,9 +61,15 @@ const config: Config = {
         card: '0 1px 3px rgba(15, 23, 42, 0.08), 0 8px 24px rgba(15, 23, 42, 0.06)',
         soft: '0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px rgba(15, 23, 42, 0.06)',
         lift: '0 12px 32px rgba(15, 23, 42, 0.10)',
+        'glow-brand': '0 18px 50px -12px rgba(8,145,178,0.45)',
+        'glow-gold': '0 18px 50px -12px rgba(245,158,11,0.40)',
+        'glow-emerald': '0 18px 50px -12px rgba(16,185,129,0.40)',
       },
       backgroundImage: {
         'brand-gradient': 'linear-gradient(135deg, #0891b2 0%, #0ea5e9 45%, #22d3ee 100%)',
+        'gold-gradient': 'linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #FCD34D 100%)',
+        'emerald-gradient': 'linear-gradient(135deg, #059669 0%, #10B981 50%, #34D399 100%)',
+        'ink-gradient': 'linear-gradient(135deg, #020617 0%, #0F172A 50%, #164E63 100%)',
       },
     },
   },

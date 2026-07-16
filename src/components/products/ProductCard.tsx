@@ -11,15 +11,6 @@ function firstImage(images: string[] | undefined): string {
   return '/images/og-default.svg';
 }
 
-/** Stable, deterministic hash so derived display values are consistent per product. */
-function hashString(s: string): number {
-  let h = 0;
-  for (let i = 0; i < s.length; i += 1) {
-    h = (h * 31 + s.charCodeAt(i)) >>> 0;
-  }
-  return h;
-}
-
 export default function ProductCard({ product }: { product: Product }) {
   const { locale, t } = useLocale();
   const name = localized(product.name, locale);
@@ -27,16 +18,15 @@ export default function ProductCard({ product }: { product: Product }) {
   const category = product.categories?.[0];
   const categoryName = category ? localized(category.name, locale) : '';
 
-  // ---- Derived display signals (badge / price range) ----
+  // ---- Derived display signals (badge) ----
   const isHot = Boolean(product.featured);
   const isNew = !isHot && /2025/.test(product.slug);
   const badgeKey = isHot ? 'products.badgeHot' : isNew ? 'products.badgeNew' : null;
   const badgeClass = isHot ? 'pill-hot' : 'pill-new';
 
-  const h = hashString(product.slug);
-  const priceFrom = 1500 + (h % 50) * 100;
-  const priceTo = priceFrom + 1500 + ((h >> 3) % 15) * 100;
-  const priceLabel = `$${priceFrom.toLocaleString('en-US')} – $${priceTo.toLocaleString('en-US')}`;
+  // Bottom info line: model number (preferred) or category tag as a fallback.
+  const modelSpec = product.specs?.find((s) => s.param.trim().toLowerCase() === 'model');
+  const modelLabel = modelSpec?.value?.trim() || '';
 
   return (
     <Link
@@ -91,11 +81,20 @@ export default function ProductCard({ product }: { product: Product }) {
         {/* Description — muted, de-emphasised */}
         {short && <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-ink-400">{short}</p>}
 
-        {/* Price (solid sunset gradient pill) */}
+        {/* Bottom info — model number (preferred) or category tag */}
         <div className="mt-auto pt-4">
-          <span className="inline-flex items-center gap-1 rounded-lg bg-gradient-to-r from-brand-500 to-brand-700 px-4 py-1.5 text-sm font-bold text-white shadow-sm">
-            {priceLabel}
-          </span>
+          {modelLabel ? (
+            <span className="inline-flex items-center gap-1.5 rounded-md bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-ink-600">
+              <span className="text-ink-400">{t('product.model')}</span>
+              <span className="font-mono">{modelLabel}</span>
+            </span>
+          ) : (
+            categoryName && (
+              <span className="inline-flex items-center rounded-md bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-ink-600">
+                {categoryName}
+              </span>
+            )
+          )}
         </div>
 
         {/* Bottom action bar — clean slide-in */}

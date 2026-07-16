@@ -11,7 +11,7 @@ export default function CtaSection() {
 
   return (
     <RevealOnScroll as="section" className="container-qtech py-20 md:py-28">
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-700 to-brand-500 px-8 py-12 text-center text-white shadow-lift sm:px-16 sm:py-16">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-800 via-brand-600 to-emerald-600 px-8 py-12 text-center text-white shadow-lift sm:px-16 sm:py-16">
         {/* Content layer */}
         <div className="relative z-10">
           <div className="inline-flex items-center gap-2 rounded-full bg-white/20 px-5 py-2 text-sm font-medium text-white">
@@ -42,7 +42,7 @@ export default function CtaSection() {
           {t('home.cta.proof') && (
             <div className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-white/70">
               <span className="inline-flex items-center gap-1">
-                <IconTile icon={CheckCircle2} className="h-4 w-4" tileClassName="bg-white/25 text-white p-1.5" />
+                <IconTile icon={CheckCircle2} className="h-4 w-4" tileClassName="bg-amber-400/25 text-amber-300 p-1.5" />
                 {t('home.cta.proof')}
               </span>
               <span className="hidden sm:inline text-white/30">|</span>

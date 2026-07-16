@@ -6,19 +6,50 @@ import CountUp from '@/components/ui/CountUp';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
 
-// V13 polish #3: per-card accent palette breaks monotonous teal.
+// V16 polish: per-card accent palette + tinted card surfaces break monotonous teal.
 // Each advantage gets its own identity while staying cohesive.
-const ACCENT_GRADIENTS = [
-  'from-brand-400 to-brand-600',
-  'from-amber-400 to-orange-500',
-  'from-emerald-400 to-teal-500',
-  'from-indigo-400 to-violet-500',
-];
-const ICON_TINTS = [
-  'bg-brand-50 text-brand-600',
-  'bg-amber-50 text-amber-600',
-  'bg-emerald-50 text-emerald-600',
-  'bg-indigo-50 text-indigo-600',
+interface AccentTheme {
+  bar: string; // top accent bar gradient
+  tint: string; // icon tile tint
+  hoverBorder: string; // card border colour on hover
+  hoverTile: string; // icon tile darken on hover
+  cardBg: string; // tinted card surface gradient
+  watermark: string; // watermark number tint on hover
+}
+
+const ACCENTS: AccentTheme[] = [
+  {
+    bar: 'from-brand-400 to-brand-600',
+    tint: 'bg-brand-50 text-brand-600',
+    hoverBorder: 'hover:border-brand-300',
+    hoverTile: 'group-hover:bg-brand-100',
+    cardBg: 'from-brand-50/60 to-white',
+    watermark: 'group-hover:text-brand-200',
+  },
+  {
+    bar: 'from-amber-400 to-orange-500',
+    tint: 'bg-amber-50 text-amber-600',
+    hoverBorder: 'hover:border-amber-300',
+    hoverTile: 'group-hover:bg-amber-100',
+    cardBg: 'from-amber-50/60 to-white',
+    watermark: 'group-hover:text-amber-200',
+  },
+  {
+    bar: 'from-emerald-400 to-teal-500',
+    tint: 'bg-emerald-50 text-emerald-600',
+    hoverBorder: 'hover:border-emerald-300',
+    hoverTile: 'group-hover:bg-emerald-100',
+    cardBg: 'from-emerald-50/60 to-white',
+    watermark: 'group-hover:text-emerald-200',
+  },
+  {
+    bar: 'from-indigo-400 to-violet-500',
+    tint: 'bg-indigo-50 text-indigo-600',
+    hoverBorder: 'hover:border-indigo-300',
+    hoverTile: 'group-hover:bg-indigo-100',
+    cardBg: 'from-indigo-50/60 to-white',
+    watermark: 'group-hover:text-indigo-200',
+  },
 ];
 
 export default function AdvantagesSection() {
@@ -47,21 +78,31 @@ export default function AdvantagesSection() {
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {items.map((item, i) => {
             const Icon = item.icon;
+            const accent = ACCENTS[i];
             return (
               <RevealOnScroll key={item.titleKey} delay={i * 80} className="h-full">
-                <div className="pro-card group relative flex h-full flex-col overflow-hidden rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lift">
+                <div
+                  className={`pro-card group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-br p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lift ${accent.cardBg} ${accent.hoverBorder}`}
+                >
                   {/* Top accent bar — per-card identity colour */}
-                  <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${ACCENT_GRADIENTS[i]}`} aria-hidden="true" />
+                  <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${accent.bar}`} aria-hidden="true" />
                   {/* Big progressive step number */}
-                  <span className="absolute -right-2 -top-4 select-none text-7xl font-extrabold text-slate-100/15 transition-colors group-hover:text-brand-30">
+                  <span className={`absolute -right-2 -top-4 select-none text-7xl font-extrabold text-slate-100/15 transition-colors ${accent.watermark}`}>
                     <CountUp end={item.number} prefix="0" />
                   </span>
 
                   <div className="relative">
-                    <IconTile icon={Icon} className="h-6 w-6" tileClassName={`${ICON_TINTS[i]} p-3`} />
-                    <h3 className="mt-4 text-lg font-semibold text-ink-900">{t(item.titleKey)}</h3>
-                    <p className="mt-2 text-sm text-ink-500">{t(item.descKey)}</p>
+                    <IconTile
+                      icon={Icon}
+                      className="h-8 w-8 animate-icon-bounce"
+                      tileClassName={`${accent.tint} p-4 transition-colors ${accent.hoverTile}`}
+                    />
+                    <h3 className="mt-4 text-xl font-bold text-ink-900">{t(item.titleKey)}</h3>
+                    <p className="mt-2 text-sm text-ink-600">{t(item.descKey)}</p>
                   </div>
+
+                  {/* Bottom decorative gradient line */}
+                  <span className={`mt-auto block h-1 w-full rounded-full bg-gradient-to-r opacity-70 ${accent.bar}`} aria-hidden="true" />
                 </div>
               </RevealOnScroll>
             );

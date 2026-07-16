@@ -9,7 +9,7 @@ import ProductFaqSection from './ProductFaqSection';
 import ImageWithRetry from '@/components/ui/ImageWithRetry';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
-import { Settings2 } from 'lucide-react';
+import { ArrowLeft, Settings2 } from 'lucide-react';
 import type { Product } from '@/types';
 
 function renderParagraphs(text: string) {
@@ -54,8 +54,17 @@ export default function ProductDetailView({
 
   return (
     <div className="container-qtech py-10 lg:py-14">
+      {/* Back to products */}
+      <Link
+        href={`/${locale}/products`}
+        className="inline-flex items-center gap-1.5 text-sm font-medium text-ink-500 transition-colors hover:text-brand-700"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        {t('product.backToProducts')}
+      </Link>
+
       {/* Breadcrumb */}
-      <nav className="mb-6 text-sm text-ink-400">
+      <nav className="mb-6 mt-4 text-sm text-ink-400">
         <Link href={`/${locale}`} className="hover:text-brand-700">Home</Link>
         <span className="mx-2">/</span>
         <Link href={`/${locale}/products`} className="hover:text-brand-700">{t('nav.products')}</Link>
@@ -110,36 +119,45 @@ export default function ProductDetailView({
             {t('product.inquire')}
           </Link>
 
-          {specs.length > 0 && (
-            <RevealOnScroll className="mt-10">
-              <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-                {/* Gradient header */}
-                <div className="bg-gradient-to-r from-brand-500 to-brand-700 px-6 py-4">
-                  <h2 className="flex items-center gap-2.5 text-lg font-bold text-white">
-                    <IconTile icon={Settings2} className="h-6 w-6" tileClassName="bg-white/20 text-white p-2" />
-                    {t('product.specs')}
-                  </h2>
-                </div>
+          <div className="mt-10">
+            {specs.length > 0 ? (
+              <RevealOnScroll>
+                <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                  {/* Gradient header */}
+                  <div className="bg-gradient-to-r from-brand-500 to-brand-700 px-6 py-4">
+                    <h2 className="flex items-center gap-2.5 text-lg font-bold text-white">
+                      <IconTile icon={Settings2} className="h-6 w-6" tileClassName="bg-white/20 text-white p-2" />
+                      {t('product.specs')}
+                    </h2>
+                  </div>
 
-                {/* Clean spec rows */}
-                <div className="divide-y divide-slate-100">
-                  {specs.map((s, i) => (
-                    <div
-                      key={i}
-                      className="flex flex-col gap-1 px-6 py-4 transition-colors hover:bg-brand-50/40 sm:flex-row sm:gap-6"
-                    >
-                      <dt className="w-36 shrink-0 text-xs font-bold uppercase tracking-wider text-brand-600">
-                        {s.param}
-                      </dt>
-                      <dd className="text-sm font-medium leading-relaxed text-ink-800">
-                        {s.value || '—'}
-                      </dd>
-                    </div>
-                  ))}
+                  {/* Clean spec rows — alternating bands, monospace params, hover highlight */}
+                  <dl className="divide-y divide-slate-100">
+                    {specs.map((s, i) => (
+                      <div
+                        key={i}
+                        className="flex flex-col gap-1 px-6 py-4 transition-colors even:bg-slate-50 hover:bg-brand-50/50 sm:flex-row sm:gap-6"
+                      >
+                        <dt className="w-40 shrink-0 font-mono text-xs font-bold uppercase tracking-wider text-brand-600">
+                          {s.param}
+                        </dt>
+                        <dd className="text-sm font-medium leading-relaxed text-ink-800">
+                          {s.value || '—'}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
                 </div>
-              </div>
-            </RevealOnScroll>
-          )}
+              </RevealOnScroll>
+            ) : (
+              <RevealOnScroll>
+                <div className="flex items-center gap-3 rounded-2xl border border-dashed border-brand-200 bg-brand-50/40 px-6 py-5">
+                  <IconTile icon={Settings2} className="h-6 w-6" tileClassName="bg-brand-100 text-brand-700 p-2" />
+                  <p className="text-sm font-medium text-ink-600">{t('product.contactForSpecs')}</p>
+                </div>
+              </RevealOnScroll>
+            )}
+          </div>
 
           <div className="mt-6">
             <ProductFaqSection features={product.features} />

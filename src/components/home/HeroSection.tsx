@@ -48,7 +48,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
   const imageSrc = (heroProduct?.images?.[0] || HERO_FALLBACK) as string;
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-brand-50 via-white to-slate-50">
+    <section className="relative overflow-hidden bg-ink-950">
       {/* Soft brand glow — depth without heavy decoration */}
       <div className="hero-glow pointer-events-none absolute inset-0" aria-hidden="true" />
 
@@ -59,6 +59,19 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
         <div className="hero-orb hero-orb--c bottom-[-6rem] left-1/3 h-64 w-64 bg-teal-300/30" />
         <div className="hero-flow" />
       </div>
+
+      {/* Full-bleed real product photo — moody backdrop on the ink base */}
+      <div className="absolute inset-0" aria-hidden="true">
+        <ImageWithRetry
+          src={imageSrc}
+          alt=""
+          loading="eager"
+          fetchPriority="high"
+          className="object-cover opacity-40"
+        />
+      </div>
+      {/* Dark gradient mask — keeps left-side white copy legible */}
+      <div className="absolute inset-0 bg-gradient-to-r from-ink-950 via-ink-950/90 to-ink-950/70 sm:via-ink-950/85 sm:to-ink-950/40" aria-hidden="true" />
 
       <div className="container-qtech relative z-10 grid items-center gap-12 py-20 lg:grid-cols-2 lg:py-28">
         {/* Left: value proposition */}
@@ -71,20 +84,20 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
           </RevealOnScroll>
 
           <RevealOnScroll delay={90} className="block">
-            <h1 className="mt-5 text-[clamp(34px,5vw,54px)] font-extrabold leading-[1.1] tracking-tight text-ink-900">
+            <h1 className="mt-5 text-[clamp(34px,5vw,54px)] font-extrabold leading-[1.1] tracking-tight text-white">
               {t('home.hero.title')}
             </h1>
           </RevealOnScroll>
 
           <RevealOnScroll delay={170} className="block">
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-600">
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/80">
               {t('home.hero.subtitle')}
             </p>
           </RevealOnScroll>
 
           <RevealOnScroll delay={240} className="block">
-            <p className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-brand-700">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-500" aria-hidden="true" />
+            <p className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-amber-300">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-400" aria-hidden="true" />
               {t('home.hero.tagline')}
             </p>
           </RevealOnScroll>
@@ -94,7 +107,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 href={`/${locale}/contact`}
-                className="btn-primary group"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gold-gradient px-6 py-3 text-sm font-semibold text-ink-950 shadow-glow-gold transition hover:-translate-y-0.5 hover:shadow-lift active:scale-[0.97] group"
               >
                 {t('home.hero.ctaPrimary')}
                 <ArrowRight
@@ -104,7 +117,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
               </Link>
               <a
                 href="#machines"
-                className="btn-ghost"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition hover:border-white/50 hover:bg-white/10 active:scale-[0.97]"
               >
                 {t('home.hero.ctaSecondary')}
               </a>
@@ -117,18 +130,18 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
               {TRUST.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <div key={item.valueKey} className="stat-chip">
+                  <div key={item.valueKey} className="glass-dark">
                     <div className="flex items-center justify-center">
                       <IconTile
                         icon={Icon}
                         className="h-4 w-4"
-                        tileClassName="bg-brand-50 text-brand-600 p-2 shadow-soft ring-1 ring-brand-100"
+                        tileClassName="bg-amber-400/15 text-amber-300 p-2"
                       />
                     </div>
-                    <dt className="mt-2 text-sm font-extrabold tracking-tight text-ink-900">
+                    <dt className="mt-2 text-sm font-extrabold tracking-tight text-white">
                       {t(item.valueKey)}
                     </dt>
-                    <dd className="text-xs text-ink-500">{t(item.labelKey)}</dd>
+                    <dd className="text-xs text-white/60">{t(item.labelKey)}</dd>
                   </div>
                 );
               })}
@@ -139,7 +152,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
         {/* Right: real product visual inside a light glass card */}
         <RevealOnScroll delay={200} className="block">
           <div className="group relative">
-            <div className="glass-card relative overflow-hidden p-3 shadow-lift">
+            <div className="glass-dark relative overflow-hidden p-3 shadow-lift">
               <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-slate-100">
                 <ImageWithRetry
                   src={imageSrc}
@@ -165,15 +178,15 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
               </div>
 
               {/* Floating credibility badge */}
-              <div className="float-soft absolute -left-4 -top-4 hidden items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 shadow-lift sm:inline-flex">
+              <div className="float-soft absolute -left-4 -top-4 hidden items-center gap-2 rounded-2xl border border-white/15 bg-ink-900/80 px-4 py-2.5 shadow-lift backdrop-blur sm:inline-flex">
                 <IconTile
                   icon={Star}
                   className="h-4 w-4"
                   tileClassName="bg-gradient-to-br from-brand-500 to-brand-700 text-white p-1.5"
                 />
                 <div className="leading-tight">
-                  <p className="text-sm font-extrabold tracking-tight text-ink-900">4.9 / 5</p>
-                  <p className="text-[11px] text-ink-500">500+ global partners</p>
+                  <p className="text-sm font-extrabold tracking-tight text-white">4.9 / 5</p>
+                  <p className="text-[11px] text-white/60">500+ global partners</p>
                 </div>
               </div>
             </div>
