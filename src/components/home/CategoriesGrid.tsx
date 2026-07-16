@@ -13,7 +13,6 @@ import {
   IceCream,
   PawPrint,
   UtensilsCrossed,
-  LayoutGrid,
   type LucideIcon,
 } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
@@ -120,21 +119,6 @@ export default function CategoriesGrid({
             );
           })}
 
-          {/* Filler CTA card — always rendered in the 9th slot */}
-          <RevealOnScroll delay={8 * 80} className="h-full">
-            <Link
-              href={`/${locale}/products`}
-              className="group flex h-full min-w-[260px] snap-start flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-brand-300 bg-gradient-to-br from-brand-50 to-brand-100 p-0 transition hover:border-brand-500 hover:-translate-y-1 hover:shadow-lg sm:min-w-0"
-            >
-              <div className="flex h-full flex-col items-center justify-center gap-3 p-5 text-center">
-                <IconTile icon={LayoutGrid} className="h-6 w-6" tileClassName="bg-white text-brand-600 shadow-sm p-3" />
-                <div>
-                  <p className="text-sm font-semibold text-brand-700">{locale === 'zh' ? '浏览全部设备' : locale === 'ar' ? 'عرض جميع المعدات' : 'Browse All Machines'}</p>
-                  <p className="mt-0.5 text-xs text-brand-500">{categories.length} {t('home.categories.productCount')}</p>
-                </div>
-              </div>
-            </Link>
-          </RevealOnScroll>
         </div>
       </div>
     </section>

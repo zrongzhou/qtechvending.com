@@ -27,7 +27,7 @@ export async function generateMetadata({ params: { locale } }: PageProps): Promi
 
 export default async function HomePage({ params: { locale } }: PageProps) {
   const [featured, blogs, categories, counts] = await Promise.all([
-    getFeaturedProducts(8),
+    getFeaturedProducts(6),
     getLatestBlogs(3),
     getCategories(),
     getCategoryProductCounts(),
