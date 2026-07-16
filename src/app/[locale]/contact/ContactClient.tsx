@@ -30,9 +30,9 @@ interface SocialLink {
 }
 
 const SOCIALS: SocialLink[] = [
-  { name: 'Facebook', href: 'https://www.facebook.com/memn.ho', icon: Facebook },
-  { name: 'Twitter', href: 'https://x.com/memhou-s-21', icon: Twitter },
-  { name: 'YouTube', href: 'https://www.youtube.com/@flowervending', icon: Youtube },
+  { name: 'Facebook', href: 'https://www.facebook.com/merin.zhou.7', icon: Facebook },
+  { name: 'Twitter', href: 'https://x.com/merinzhou?s=21', icon: Twitter },
+  { name: 'YouTube', href: 'https://www.youtube.com/@flowervending-VD', icon: Youtube },
 ];
 
 export default function ContactClient({
@@ -226,7 +226,7 @@ export default function ContactClient({
               <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
               <h2 className="text-lg font-semibold text-ink-900">{t('contact.info')}</h2>
               <ul className="mt-4 space-y-4 text-sm">
-                {infoRow(MapPin, t('contact.address'), 'Zai Pier, No.131 Jintong Road, Bao long street, Panyu, Guangzhou, China')}
+                {infoRow(MapPin, t('contact.address'), '2nd Floor No. 131, Jinlong Road, Dalong street, Panyu, Guangzhou, China')}
                 <li className="flex items-start gap-3">
                   <IconTile icon={Mail} className="h-4 w-4" tileClassName="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600" />
                   <div>
@@ -267,7 +267,7 @@ export default function ContactClient({
             <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm">
               <iframe
                 title="Qtech Vending — Guangzhou"
-                src="https://maps.google.com/maps?q=Zai+Pier+No.131+Jintong+Road+Bao+long+street+Panyu+Guangzhou+China&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                src="https://maps.google.com/maps?q=2nd+Floor+No.+131+Jinlong+Road+Dalong+street+Panyu+Guangzhou+China&t=&z=15&ie=UTF8&iwloc=&output=embed"
                 className="h-52 w-full"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

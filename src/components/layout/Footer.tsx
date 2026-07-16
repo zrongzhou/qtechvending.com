@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Facebook, Instagram, Linkedin, Youtube, Twitter } from 'lucide-react';
+import { Facebook, Youtube, Twitter } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import Logo from '@/components/Logo';
 import IconTile from '@/components/ui/IconTile';
@@ -9,11 +9,9 @@ import IconTile from '@/components/ui/IconTile';
 const YEAR = new Date().getFullYear();
 
 const FOOTER_SOCIALS = [
-  { name: 'Facebook', href: 'https://www.facebook.com/qtechvending', icon: Facebook },
-  { name: 'Instagram', href: 'https://www.instagram.com/qtechvending', icon: Instagram },
-  { name: 'LinkedIn', href: 'https://www.linkedin.com/company/qtechvending', icon: Linkedin },
-  { name: 'YouTube', href: 'https://www.youtube.com/@qtechvending', icon: Youtube },
-  { name: 'Twitter', href: 'https://twitter.com/qtechvending', icon: Twitter },
+  { name: 'Facebook', href: 'https://www.facebook.com/merin.zhou.7', icon: Facebook },
+  { name: 'Twitter', href: 'https://x.com/merinzhou?s=21', icon: Twitter },
+  { name: 'YouTube', href: 'https://www.youtube.com/@flowervending-VD', icon: Youtube },
 ];
 
 export default function Footer() {
@@ -77,7 +75,7 @@ export default function Footer() {
           <ul className="mt-4 space-y-2 text-sm text-slate-400">
             <li>{t('contact.emailUs')}: glvending.sabina@gmail.com</li>
             <li>{t('contact.callUs')}: +86 183 1975 3992 / +86 190 1516 9848</li>
-            <li>Zai Pier, No.131 Jintong Road, Bao long street, Panyu, Guangzhou, China</li>
+            <li>2nd Floor No. 131, Jinlong Road, Dalong street, Panyu, Guangzhou, China</li>
           </ul>
         </div>
 
