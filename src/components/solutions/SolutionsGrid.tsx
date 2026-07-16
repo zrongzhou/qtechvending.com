@@ -29,11 +29,11 @@ export default function SolutionsGrid() {
   return (
     <div className="bg-white">
       <div className="container-qtech py-20 md:py-28">
-        <div className="section-head">
+        <RevealOnScroll className="section-head">
           <p className="eyebrow">{t('solutions.badge')}</p>
           <h1 className="section-title">{t('solutions.title')}</h1>
           <p className="section-subtitle">{t('solutions.subtitle')}</p>
-        </div>
+        </RevealOnScroll>
 
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {SOLUTIONS.map((s, i) => {
@@ -103,7 +103,7 @@ export default function SolutionsGrid() {
         </div>
 
         {/* Closing CTA band */}
-        <div className="mt-16 overflow-hidden rounded-3xl bg-brand-50 px-8 py-14 text-center">
+        <RevealOnScroll className="mt-16 overflow-hidden rounded-3xl bg-brand-50 px-8 py-14 text-center">
           <h2 className="text-2xl font-bold text-ink-900 sm:text-3xl">{t('solutions.ctaTitle')}</h2>
           <p className="mx-auto mt-3 max-w-2xl text-ink-600">{t('solutions.ctaSubtitle')}</p>
           <Link
@@ -112,7 +112,7 @@ export default function SolutionsGrid() {
           >
             {t('solutions.ctaButton')}
           </Link>
-        </div>
+        </RevealOnScroll>
       </div>
     </div>
   );
