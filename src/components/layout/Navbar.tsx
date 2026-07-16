@@ -58,10 +58,11 @@ export default function Navbar() {
             <Link
               key={item.key}
               href={`/${locale}${item.href}`}
-              className={`rounded-md px-3 py-2 text-sm font-medium transition ${
+              aria-current={isActive(item.href) ? 'page' : undefined}
+              className={`relative rounded-md px-3 py-2 text-sm font-medium transition-colors after:pointer-events-none after:absolute after:inset-x-3 after:bottom-1 after:h-0.5 after:origin-center after:rounded-full after:bg-gradient-to-r after:from-brand-400 after:to-brand-600 after:transition-transform after:duration-300 motion-reduce:after:transition-none ${
                 isActive(item.href)
-                  ? 'text-brand-600'
-                  : 'text-ink-600 hover:text-brand-600'
+                  ? 'text-brand-600 after:scale-x-100'
+                  : 'text-ink-600 after:scale-x-0 hover:text-brand-600 hover:after:scale-x-100'
               }`}
             >
               {t(item.key)}
@@ -127,8 +128,11 @@ export default function Navbar() {
                 key={item.key}
                 href={`/${locale}${item.href}`}
                 onClick={() => setOpen(false)}
-                className={`rounded-md px-3 py-3 text-sm font-medium ${
-                  isActive(item.href) ? 'text-brand-600' : 'text-ink-700'
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                className={`rounded-md border-s-2 px-3 py-3 text-sm font-medium transition-colors ${
+                  isActive(item.href)
+                    ? 'border-brand-500 bg-white text-brand-600'
+                    : 'border-transparent text-ink-700 hover:bg-white hover:text-brand-600'
                 }`}
               >
                 {t(item.key)}

@@ -57,14 +57,15 @@ export default function Footer() {
           <h3 className="text-sm font-semibold uppercase tracking-wide text-white">
             {t('footer.quickLinks')}
           </h3>
+          <span className="mt-2 block h-0.5 w-8 rounded-full bg-gradient-to-r from-brand-400 to-brand-600" aria-hidden />
           <ul className="mt-4 space-y-2 text-sm">
-            <li><Link href={`${base}`} className="hover:text-brand-400">{t('nav.home')}</Link></li>
-            <li><Link href={`${base}/products`} className="hover:text-brand-400">{t('nav.products')}</Link></li>
-            <li><Link href={`${base}/about`} className="hover:text-brand-400">{t('nav.about')}</Link></li>
-            <li><Link href={`${base}/solutions`} className="hover:text-brand-400">{t('nav.solutions')}</Link></li>
-            <li><Link href={`${base}/blog`} className="hover:text-brand-400">{t('nav.blog')}</Link></li>
-            <li><Link href={`${base}/faq`} className="hover:text-brand-400">{t('nav.faq')}</Link></li>
-            <li><Link href={`${base}/contact`} className="hover:text-brand-400">{t('nav.contact')}</Link></li>
+            <li><Link href={`${base}`} className="inline-block transition-all duration-200 hover:translate-x-1 hover:text-brand-400 motion-reduce:transition-none rtl:hover:-translate-x-1">{t('nav.home')}</Link></li>
+            <li><Link href={`${base}/products`} className="inline-block transition-all duration-200 hover:translate-x-1 hover:text-brand-400 motion-reduce:transition-none rtl:hover:-translate-x-1">{t('nav.products')}</Link></li>
+            <li><Link href={`${base}/about`} className="inline-block transition-all duration-200 hover:translate-x-1 hover:text-brand-400 motion-reduce:transition-none rtl:hover:-translate-x-1">{t('nav.about')}</Link></li>
+            <li><Link href={`${base}/solutions`} className="inline-block transition-all duration-200 hover:translate-x-1 hover:text-brand-400 motion-reduce:transition-none rtl:hover:-translate-x-1">{t('nav.solutions')}</Link></li>
+            <li><Link href={`${base}/blog`} className="inline-block transition-all duration-200 hover:translate-x-1 hover:text-brand-400 motion-reduce:transition-none rtl:hover:-translate-x-1">{t('nav.blog')}</Link></li>
+            <li><Link href={`${base}/faq`} className="inline-block transition-all duration-200 hover:translate-x-1 hover:text-brand-400 motion-reduce:transition-none rtl:hover:-translate-x-1">{t('nav.faq')}</Link></li>
+            <li><Link href={`${base}/contact`} className="inline-block transition-all duration-200 hover:translate-x-1 hover:text-brand-400 motion-reduce:transition-none rtl:hover:-translate-x-1">{t('nav.contact')}</Link></li>
           </ul>
         </div>
 
@@ -72,6 +73,7 @@ export default function Footer() {
           <h3 className="text-sm font-semibold uppercase tracking-wide text-white">
             {t('footer.contact')}
           </h3>
+          <span className="mt-2 block h-0.5 w-8 rounded-full bg-gradient-to-r from-brand-400 to-brand-600" aria-hidden />
           <ul className="mt-4 space-y-2 text-sm text-slate-400">
             <li>{t('contact.emailUs')}: glvending.sabina@gmail.com</li>
             <li>{t('contact.callUs')}: +86 183 1975 3992 / +86 190 1516 9848</li>
@@ -83,6 +85,7 @@ export default function Footer() {
           <h3 className="text-sm font-semibold uppercase tracking-wide text-white">
             {t('footer.getQuote')}
           </h3>
+          <span className="mt-2 block h-0.5 w-8 rounded-full bg-gradient-to-r from-brand-400 to-brand-600" aria-hidden />
           <p className="mt-4 text-sm text-slate-400">{t('contact.subtitle')}</p>
           <Link
             href={`${base}/contact`}
