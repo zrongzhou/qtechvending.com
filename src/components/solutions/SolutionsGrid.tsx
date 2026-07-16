@@ -6,6 +6,7 @@ import { localized } from '@/lib/localize';
 import { SOLUTIONS } from '@/lib/solutions-data';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
+import ImageWithRetry from '@/components/ui/ImageWithRetry';
 
 /** Banner image per solution id (generated visuals in public/images/solutions). */
 const SOLUTION_IMAGES: Record<string, string> = {
@@ -18,9 +19,9 @@ const SOLUTION_IMAGES: Record<string, string> = {
 };
 
 /**
- * Renders the Solutions page: a localized hero header, a responsive grid of
- * image cards (one per solution scenario, each with a banner photo + gradient
- * overlay) and a closing CTA band.
+ * Renders the Solutions page (Clean Premium): a localized hero header, a
+ * responsive grid of light cards (one per solution scenario, each with a banner
+ * photo + gradient overlay) and a closing CTA band.
  */
 export default function SolutionsGrid() {
   const { t, locale } = useLocale();
@@ -28,10 +29,10 @@ export default function SolutionsGrid() {
   return (
     <div className="bg-white">
       <div className="container-qtech py-20 md:py-28">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">{t('solutions.badge')}</p>
-          <h1 className="mt-3 text-3xl font-bold tracking-tight text-ink-900 md:text-4xl">{t('solutions.title')}</h1>
-          <p className="mt-4 text-lg text-ink-600">{t('solutions.subtitle')}</p>
+        <div className="section-head">
+          <p className="eyebrow">{t('solutions.badge')}</p>
+          <h1 className="section-title">{t('solutions.title')}</h1>
+          <p className="section-subtitle">{t('solutions.subtitle')}</p>
         </div>
 
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -40,19 +41,17 @@ export default function SolutionsGrid() {
             const img = SOLUTION_IMAGES[s.id];
             return (
               <RevealOnScroll key={s.id} delay={i * 80} className="h-full">
-                <div className="glass-card group flex h-full flex-col overflow-hidden p-0 transition hover:-translate-y-1 hover:shadow-xl">
+                <div className="pro-card group flex h-full flex-col overflow-hidden p-0 transition hover:-translate-y-1 hover:shadow-lift">
                   {/* Top accent bar — visual anchor */}
                   <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-brand-400 to-brand-700" aria-hidden="true" />
 
                   {/* Banner image with gradient overlay */}
-                  <div className="relative h-44 w-full overflow-hidden">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden">
                     {img && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
+                      <ImageWithRetry
                         src={img}
                         alt={localized(s.title, locale)}
                         loading="lazy"
-                        decoding="async"
                         className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                       />
                     )}
@@ -104,12 +103,12 @@ export default function SolutionsGrid() {
         </div>
 
         {/* Closing CTA band */}
-        <div className="mt-16 overflow-hidden rounded-3xl bg-brand-gradient px-8 py-14 text-center text-white">
-          <h2 className="text-2xl font-bold sm:text-3xl">{t('solutions.ctaTitle')}</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-white/90">{t('solutions.ctaSubtitle')}</p>
+        <div className="mt-16 overflow-hidden rounded-3xl bg-brand-50 px-8 py-14 text-center">
+          <h2 className="text-2xl font-bold text-ink-900 sm:text-3xl">{t('solutions.ctaTitle')}</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-ink-600">{t('solutions.ctaSubtitle')}</p>
           <Link
             href={`/${locale}/contact`}
-            className="btn-primary mt-8 px-9 py-4 text-base"
+            className="btn-primary mt-8"
           >
             {t('solutions.ctaButton')}
           </Link>

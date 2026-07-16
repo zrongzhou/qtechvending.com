@@ -381,19 +381,17 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
   return (
     <div>
       {/* ════════ 1. HERO ════════ */}
-      <section className="relative overflow-hidden bg-brand-gradient text-white">
+      <section className="relative overflow-hidden bg-gradient-to-br from-brand-50 to-white">
         {/* Decorative blobs */}
-        <div className="pointer-events-none absolute -left-16 top-10 h-64 w-64 rounded-full bg-white/10 blur-3xl" aria-hidden="true" />
-        <div className="pointer-events-none absolute right-0 top-1/3 h-72 w-72 rounded-full bg-cyan-300/20 blur-3xl" aria-hidden="true" />
-        {/* Soft brand glow */}
-        <div className="tech-glow" />
+        <div className="pointer-events-none absolute -left-16 top-10 h-64 w-64 rounded-full bg-brand-100/60 blur-3xl" aria-hidden="true" />
+        <div className="pointer-events-none absolute right-0 top-1/3 h-72 w-72 rounded-full bg-brand-200/50 blur-3xl" aria-hidden="true" />
 
         <div className="container-qtech relative py-16 text-center lg:py-22">
-          <span className="inline-flex items-center rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium">
+          <span className="inline-flex items-center rounded-full bg-brand-100 px-4 py-1.5 text-sm font-medium text-brand-700">
             {t('about.badge') || 'About Qtech'}
           </span>
-          <h1 className="mt-5 text-4xl font-extrabold tracking-tight sm:text-5xl">{t('about.title')}</h1>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-white/90">{t('about.subtitle')}</p>
+          <h1 className="mt-5 text-4xl font-extrabold tracking-tight text-ink-900 sm:text-5xl">{t('about.title')}</h1>
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-ink-600">{t('about.subtitle')}</p>
 
           {/* Stat band under hero */}
           <div className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
@@ -401,14 +399,14 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               const Icon = s.icon;
               return (
                 <RevealOnScroll key={s.key} delay={i * 80} className="h-full">
-                  <div className="h-full rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-sm lg:p-5">
-                    <div className="flex items-center justify-center gap-2 text-cyan-200">
-                      <IconTile icon={Icon} className="h-5 w-5" tileClassName="bg-white/15 text-cyan-200 p-2" />
+                  <div className="h-full rounded-2xl border border-slate-200 bg-white p-4 shadow-soft lg:p-5">
+                    <div className="flex items-center justify-center gap-2 text-brand-700">
+                      <IconTile icon={Icon} className="h-5 w-5" tileClassName="bg-brand-100 text-brand-700 p-2" />
                     </div>
-                    <dt className="mt-2 text-3xl font-extrabold">
+                    <dt className="mt-2 text-3xl font-extrabold text-ink-900">
                       <CountUp end={s.end} suffix={s.suffix} />
                     </dt>
-                    <dd className="mt-0.5 text-sm text-white/75">{t(s.key)}</dd>
+                    <dd className="mt-0.5 text-sm text-ink-600">{t(s.key)}</dd>
                   </div>
                 </RevealOnScroll>
               );
@@ -432,11 +430,11 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                 <p key={i} className="mb-4 leading-relaxed text-ink-600">{p}</p>
               ))}
             </div>
-            <Link href={`/${locale}/contact`} className="btn-primary mt-6 px-7 py-3 text-sm">
-              {t('nav.getQuote') || 'Get a Quote'} →
+            <Link href={`/${locale}/contact`} className="btn-primary mt-6">
+              {t('nav.getQuote') || 'Get a Quote'}
             </Link>
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 shadow-soft">
             <img
               src={COMPANY_INTRO.image}
               alt="Qtech factory"
@@ -499,18 +497,18 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         })}
 
         {/* ════════ 3. MANUFACTURING & QUALITY ════════ */}
-        <RevealOnScroll as="section" className="overflow-hidden rounded-3xl bg-brand-gradient px-8 py-14 text-white lg:px-12">
+        <RevealOnScroll as="section" className="overflow-hidden rounded-3xl bg-brand-50 px-8 py-14 lg:px-12">
           <div className="mx-auto max-w-2xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium">
-              <IconTile icon={Factory} className="h-4 w-4" tileClassName="bg-white/20 text-white p-1.5" />
+            <span className="inline-flex items-center gap-2 rounded-full bg-brand-100 px-4 py-1.5 text-sm font-medium text-brand-700">
+              <IconTile icon={Factory} className="h-4 w-4" tileClassName="bg-brand-200 text-brand-700 p-1.5" />
               {locale === 'zh' ? '智造实力' : locale === 'ar' ? 'قدرات التصنيع' : 'Manufacturing Capability'}
             </span>
-            <h2 className="mt-5 text-3xl font-extrabold sm:text-4xl">
+            <h2 className="mt-5 text-3xl font-extrabold text-ink-900 sm:text-4xl">
               {locale === 'zh' ? '从研发到交付的全链路品质保障'
                 : locale === 'ar' ? 'ضمان الجودة من البحث حتى التسليم'
                 : 'End-to-End Quality from R&D to Delivery'}
             </h2>
-            <p className="mt-3 text-white/80">
+            <p className="mt-3 text-ink-600">
               {locale === 'zh'
                 ? '位于广州的现代化生产基地，配备自动化产线、专业研发团队与严格质检体系。'
                 : locale === 'ar'
@@ -524,7 +522,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               const Icon = card.icon;
               return (
                 <RevealOnScroll key={localized(card.title, locale)} delay={i * 80} className="h-full">
-                  <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-white/10 backdrop-blur-sm">
+                  <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft">
                     <div className="aspect-[16/10] overflow-hidden">
                       <img
                         src={card.img}
@@ -533,14 +531,14 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                         loading="lazy"
                         decoding="async"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-ink-900/50 via-transparent to-transparent" />
                     </div>
                     <div className="p-5">
                       <div className="flex items-center gap-3">
-                        <IconTile icon={Icon} className="h-4 w-4" tileClassName="flex h-9 w-9 items-center justify-center rounded-lg bg-white/15 text-cyan-200" />
-                        <h3 className="text-base font-semibold">{localized(card.title, locale)}</h3>
+                        <IconTile icon={Icon} className="h-4 w-4" tileClassName="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-600" />
+                        <h3 className="text-base font-semibold text-ink-900">{localized(card.title, locale)}</h3>
                       </div>
-                      <p className="mt-2 text-sm leading-relaxed text-white/80">{localized(card.desc, locale)}</p>
+                      <p className="mt-2 text-sm leading-relaxed text-ink-600">{localized(card.desc, locale)}</p>
                     </div>
                   </div>
                 </RevealOnScroll>
@@ -642,12 +640,12 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         </RevealOnScroll>
 
         {/* ════════ 6. COMPANY TIMELINE ════════ */}
-        <RevealOnScroll as="section" className="rounded-3xl bg-gradient-to-br from-ink-800 via-ink-900 to-brand-900 px-8 py-14 text-white lg:px-12">
+        <RevealOnScroll as="section" className="rounded-3xl bg-slate-50 px-8 py-14 lg:px-12">
           <div className="mx-auto max-w-2xl text-center">
-            <span className="inline-flex items-center rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium text-cyan-200">
+            <span className="inline-flex items-center rounded-full bg-brand-100 px-4 py-1.5 text-sm font-medium text-brand-700">
               {locale === 'zh' ? '发展历程' : locale === 'ar' ? 'رحلتنا الزمنية' : 'Our Journey'}
             </span>
-            <h2 className="mt-5 text-3xl font-extrabold sm:text-4xl">
+            <h2 className="mt-5 text-3xl font-extrabold text-ink-900 sm:text-4xl">
               {locale === 'zh' ? '十年深耕，从广州走向世界'
                 : locale === 'ar' ? 'عقد من الخبرة: من غوانغتشو إلى العالم'
                 : 'A Decade of Excellence, From Guangzhou to the World'}
@@ -656,21 +654,21 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
 
           <div className="relative mx-auto mt-12 max-w-3xl">
             {/* Vertical line */}
-            <div className="absolute top-0 bottom-0 left-[19px] hidden w-px bg-white/15 md:block translate-x-1/2" />
+            <div className="absolute top-0 bottom-0 left-[19px] hidden w-px bg-slate-200 md:block translate-x-1/2" />
 
             <div className="space-y-8">
               {TIMELINE.map((m) => (
                 <div key={m.year} className="relative flex gap-5 pl-0 md:pl-12">
                   {/* Dot */}
-                  <div className="absolute left-0 top-1 z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-500 text-xs font-bold shadow-lg shadow-brand-500/25 ring-4 ring-ink-900 md:left-0">
+                  <div className="absolute left-0 top-1 z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-500 text-xs font-bold shadow-lg shadow-brand-500/25 ring-4 ring-slate-100 md:left-0">
                     {m.year.slice(-2)}
                   </div>
-                  <div className="glass-card-dark flex-1 rounded-xl p-5">
+                  <div className="pro-card flex-1 rounded-xl p-5">
                     <div className="flex items-baseline gap-3">
-                      <span className="text-xs font-mono uppercase tracking-wider text-brand-400">{m.year}</span>
-                      <h3 className="text-base font-semibold text-white">{localized(m.title, locale)}</h3>
+                      <span className="text-xs font-mono uppercase tracking-wider text-brand-600">{m.year}</span>
+                      <h3 className="text-base font-semibold text-ink-900">{localized(m.title, locale)}</h3>
                     </div>
-                    <p className="mt-2 text-sm leading-relaxed text-white/70">{localized(m.desc, locale)}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-ink-600">{localized(m.desc, locale)}</p>
                   </div>
                 </div>
               ))}
@@ -696,7 +694,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               const CertIcon = CERT_ICON[cert.icon] || ShieldCheck;
               return (
                 <RevealOnScroll key={cert.name} delay={i * 60} className="h-full">
-                  <div className="pro-card group relative flex h-full flex-col items-center gap-2 p-5 text-center transition hover:-translate-y-1 hover:border-brand-200 hover:shadow-md">
+                  <div className="pro-card group relative flex h-full flex-col items-center gap-2 p-5 text-center transition hover:border-brand-200 hover:shadow-lift">
                     <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
                     <IconTile icon={CertIcon} className="h-8 w-8" tileClassName="text-brand-600" />
                     <span className="text-xs font-bold tracking-tight text-ink-900">{cert.name}</span>
@@ -723,7 +721,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3">
             {CERT_GALLERY.map((c, i) => (
               <RevealOnScroll key={c.img} delay={i * 60} className="h-full">
-                <div className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md">
+                <div className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft transition hover:shadow-lift">
                   <div className="aspect-[4/3] overflow-hidden bg-slate-100">
                     <img
                       src={c.img}
@@ -757,7 +755,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {WORKSHOP.map((w, i) => (
               <RevealOnScroll key={w.img} delay={i * 60} className="h-full">
-                <div className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                <div className="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft">
                   <div className="aspect-[4/3] overflow-hidden bg-slate-100">
                     <img
                       src={w.img}
@@ -779,24 +777,24 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         </RevealOnScroll>
 
         {/* ════════ 8. KEY NUMBERS ════════ */}
-        <RevealOnScroll as="section" className="overflow-hidden rounded-3xl bg-brand-gradient px-8 py-12 text-center text-white">
-          <h2 className="text-2xl font-bold sm:text-3xl">{t('about.statsTitle') || 'Qtech by Numbers'}</h2>
+        <RevealOnScroll as="section" className="overflow-hidden rounded-3xl bg-brand-50 px-8 py-12 text-center">
+          <h2 className="text-2xl font-bold text-ink-900 sm:text-3xl">{t('about.statsTitle') || 'Qtech by Numbers'}</h2>
           <div className="mt-8 grid grid-cols-2 gap-8 lg:grid-cols-4">
             {NUMBERS.map((n) => (
               <div key={localized(n.label, locale)}>
-                <dt className="text-4xl font-extrabold">
+                <dt className="text-4xl font-extrabold text-ink-900">
                   <CountUp end={n.end} suffix={n.suffix} />
                 </dt>
-                <dd className="mt-2 text-sm text-white/85">{localized(n.label, locale)}</dd>
+                <dd className="mt-2 text-sm text-ink-600">{localized(n.label, locale)}</dd>
               </div>
             ))}
           </div>
         </RevealOnScroll>
 
         {/* ════════ 9. CTA ════════ */}
-        <RevealOnScroll as="section" className="rounded-3xl bg-ink-900 px-8 py-14 text-center text-white">
-          <h2 className="text-3xl font-bold">{t('about.cta') || 'Ready to Partner with Qtech?'}</h2>
-          <p className="mx-auto mt-3 max-w-xl text-white/70">
+        <RevealOnScroll as="section" className="rounded-3xl bg-brand-50 px-8 py-14 text-center">
+          <h2 className="text-3xl font-bold text-ink-900">{t('about.cta') || 'Ready to Partner with Qtech?'}</h2>
+          <p className="mx-auto mt-3 max-w-xl text-ink-600">
             {locale === 'zh'
               ? '联系我们获取定制报价与技术方案。'
               : locale === 'ar'
@@ -805,9 +803,9 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           </p>
           <Link
             href={`/${locale}/contact`}
-            className="btn-primary mt-8 px-8 py-3.5 text-sm"
+            className="btn-primary mt-8"
           >
-            {t('nav.getQuote') || 'Get a Quote'} →
+            {t('nav.getQuote') || 'Get a Quote'}
           </Link>
         </RevealOnScroll>
       </div>

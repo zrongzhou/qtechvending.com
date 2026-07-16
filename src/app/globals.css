@@ -37,223 +37,73 @@ input[type='number']::-webkit-inner-spin-button {
   margin: 0;
 }
 
-/* ---- Home hero motion (pure CSS) ---- */
-@keyframes qtech-gradient-x {
-  0% {
-    background-position: 0% 50%;
+/* ===== Clean Premium design system ===== */
+@layer components {
+  /* Vertical rhythm for page sections */
+  .section {
+    @apply py-20 sm:py-24;
   }
-  50% {
-    background-position: 100% 50%;
+
+  /* Small uppercase brand eyebrow / tag */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand-700;
   }
-  100% {
-    background-position: 0% 50%;
+
+  /* Centered section header block */
+  .section-head {
+    @apply mx-auto mb-12 max-w-2xl text-center;
   }
-}
-
-.animate-gradient-x {
-  background-size: 200% 200%;
-  animation: qtech-gradient-x 14s ease infinite;
-}
-
-@keyframes qtech-float {
-  0%,
-  100% {
-    transform: translateY(0) translateX(0);
+  .section-title {
+    @apply text-3xl font-extrabold tracking-tight text-ink-900 sm:text-4xl;
   }
-  50% {
-    transform: translateY(-16px) translateX(8px);
+  .section-subtitle {
+    @apply mt-3 text-base text-ink-600;
   }
-}
 
-.animate-float {
-  animation: qtech-float 7s ease-in-out infinite;
-}
-
-@keyframes qtech-float-slow {
-  0%,
-  100% {
-    transform: translateY(0);
+  /* Primary content card — flat, soft shadow, restrained hover lift */
+  .pro-card {
+    @apply rounded-2xl border border-slate-200 bg-white p-6 shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-lift;
   }
-  50% {
-    transform: translateY(12px);
+
+  /* Light glass surface — subtle frosted panel on light backgrounds */
+  .glass-card {
+    @apply rounded-2xl border border-slate-200 bg-white/70 p-6 shadow-soft backdrop-blur;
   }
-}
 
-.animate-float-slow {
-  animation: qtech-float-slow 9s ease-in-out infinite;
-}
-
-/* ---- CTA Section Animations (V9) ---- */
-@keyframes float-particle {
-  0%, 100% { transform: translateY(0) scale(1); opacity: var(--o, 0.3); }
-  50% { transform: translateY(-25px) scale(1.3); opacity: calc(var(--o, 0.3) * 1.8); }
-}
-.animate-float-particle { animation: float-particle ease-in-out infinite; }
-
-@keyframes ring-expand {
-  0% { transform: translate(-50%,-50%) scale(0.6); opacity: 0; }
-  40% { opacity: 0.4; }
-  100% { transform: translate(-50%,-50%) scale(1.4); opacity: 0; }
-}
-.animate-ring-expand { animation: ring-expand ease-out infinite; }
-
-@keyframes shimmer {
-  to { transform: translateX(200%); }
-}
-.animate-shimmer { animation: shimmer 2.5s infinite; }
-
-@keyframes pulse-ring {
-  0%, 100% { transform: scale(1); opacity: 0.3; }
-  50% { transform: scale(1.04); opacity: 0.15; }
-}
-.animate-pulse-ring { animation: pulse-ring 2.5s ease-in-out infinite; }
-
-@keyframes spin-slow {
-  to { transform: rotate(360deg); }
-}
-.animate-spin-slow { animation: spin-slow 8s linear infinite; }
-
-/* CTA entrance reveal */
-.cta-cta-hidden { transform: translateY(24px); transition: opacity 1s ease-out, transform 1s ease-out; }
-.cta-animate-in { opacity: 1 !important; transform: translateY(0) !important; }
-
-.cta-mesh {
-  background:
-    radial-gradient(ellipse at 20% 50%, rgba(6, 182, 212, 0.4) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(168, 85, 247, 0.25) 0%, transparent 55%);
-}
-
-.cta-particle {
-  animation-name: float-particle;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  will-change: transform, opacity;
-}
-
-.cta-ring {
-  transform: translate(-50%, -50%);
-  animation-name: ring-expand;
-  animation-timing-function: ease-out;
-  animation-iteration-count: infinite;
-  will-change: transform, opacity;
-}
-
-.cta-shimmer { animation: shimmer 2.5s infinite; will-change: transform; }
-.cta-pulse-ring { animation: pulse-ring 2.5s ease-in-out infinite; will-change: transform, opacity; }
-.cta-pulse { animation: pulse-slow 2s ease-in-out infinite; will-change: transform, opacity; }
-.cta-spin { animation: spin-slow 8s linear infinite; will-change: transform; }
-
-/* ===== Hero deep-ocean theme (V11) ===== */
-@keyframes bubble-rise {
-  0% {
-    transform: translateY(0) translateX(0);
-    opacity: 0;
+  /* Primary call-to-action button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-700 px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:shadow-lift;
   }
-  8% {
-    opacity: var(--bubble-opacity, 0.12);
+
+  /* Secondary / ghost button */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-ink-900 transition hover:border-slate-400 hover:bg-slate-50;
   }
-  92% {
-    opacity: var(--bubble-opacity, 0.12);
+
+  /* Status pills */
+  .pill-new {
+    @apply rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-semibold text-brand-700;
   }
-  100% {
-    transform: translateY(-100vh) translateX(10px);
-    opacity: 0;
+  .pill-hot {
+    @apply rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-semibold text-amber-700;
+  }
+
+  /* Compact stat tile */
+  .stat-chip {
+    @apply rounded-xl border border-slate-200 bg-white p-3 text-center shadow-soft;
   }
 }
-.ocean-bubble {
-  position: absolute;
-  bottom: -24px;
-  border-radius: 9999px;
-  background: radial-gradient(circle at 32% 30%, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.12) 70%);
-  animation: bubble-rise linear infinite;
-  will-change: transform, opacity;
-}
 
-@keyframes ripple {
-  0% {
-    transform: scaleX(0);
-    opacity: 0;
-  }
-  50% {
-    opacity: 0.6;
-  }
-  100% {
-    transform: scaleX(1);
-    opacity: 0;
-  }
-}
-.ocean-ripple {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-  transform-origin: center;
-  animation: ripple ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-@keyframes beam-sway {
-  0%,
-  100% {
-    transform: rotate(18deg) translateX(0);
-    opacity: 0.1;
-  }
-  50% {
-    transform: rotate(18deg) translateX(24px);
-    opacity: 0.16;
-  }
-}
-.ocean-beam {
-  position: absolute;
-  top: -20%;
-  left: -10%;
-  width: 50%;
-  height: 140%;
-  background: linear-gradient(
-    180deg,
-    rgba(186, 230, 253, 0.55) 0%,
-    rgba(125, 211, 252, 0.12) 45%,
-    transparent 75%
-  );
-  filter: blur(6px);
-  transform-origin: top center;
-  animation: beam-sway 9s ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-@keyframes ocean-drift {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  33% {
-    transform: translate(12px, -16px);
-  }
-  66% {
-    transform: translate(-10px, -8px);
-  }
-}
-.ocean-particle {
-  position: absolute;
-  border-radius: 9999px;
-  background: rgba(186, 230, 253, 0.9);
-  box-shadow: 0 0 8px 2px rgba(125, 211, 252, 0.5);
-  animation: ocean-drift ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-/* ===== CTA reveal animation ===== */
-.cta-reveal {
+/* ===== Scroll-reveal (restrained fade-up) ===== */
+.reveal-up {
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
-.cta-animate-in .cta-reveal { opacity: 1; transform: translateY(0); }
-.cta-animate-in .cta-d1 { transition-delay: 0.1s; }
-.cta-animate-in .cta-d2 { transition-delay: 0.25s; }
-.cta-animate-in .cta-d3 { transition-delay: 0.4s; }
-.cta-animate-in .cta-d4 { transition-delay: 0.55s; }
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: none;
+}
 
 /* Hide scrollbar for horizontal mobile carousels while keeping scroll. */
 .no-scrollbar::-webkit-scrollbar {
@@ -264,147 +114,11 @@ input[type='number']::-webkit-inner-spin-button {
   scrollbar-width: none;
 }
 
-/* ---- Glassmorphism utilities (site-wide) ----
-   Placed in @layer components so Tailwind utilities (e.g. rounded-2xl /
-   rounded-3xl, border-*, shadow-*) can still override per-card when needed. */
-@layer components {
-  .glass-card {
-    position: relative;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.62));
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(2, 132, 199, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04),
-      inset 0 1px 0 rgba(255, 255, 255, 0.6);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease,
-      border-color 0.3s ease;
-  }
-
-  .glass-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 48px rgba(2, 132, 199, 0.12), 0 4px 12px rgba(15, 23, 42, 0.06),
-      inset 0 1px 0 rgba(255, 255, 255, 0.7);
-    background: rgba(255, 255, 255, 0.9);
-    border-color: rgba(2, 132, 199, 0.25);
-  }
-
-  .glass-card-dark {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease,
-      border-color 0.3s ease;
-  }
-
-  .glass-card-dark:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18), 0 4px 12px rgba(0, 0, 0, 0.1);
-    background: rgba(255, 255, 255, 0.16);
-    border-color: rgba(255, 255, 255, 0.35);
-  }
-
-  /* ===== V12 Professional Tech-Blue theme utilities ===== */
-  .pro-card {
-    @apply bg-white rounded-2xl border border-slate-200 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
-  }
-
-  .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-700 text-white font-bold shadow-lg shadow-brand-600/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
-  }
-}
-
-/* ===== V12 professional brand-blue soft glow ===== */
-.tech-glow {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    circle at 80% 12%,
-    rgba(8, 145, 178, 0.12) 0%,
-    rgba(255, 255, 255, 0) 50%
-  );
-}
-
-/* ===== V12 scroll-reveal (RevealOnScroll) ===== */
-.reveal-up {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.reveal-up.is-visible {
-  opacity: 1;
-  transform: none;
-}
+/* Respect reduced-motion: reveal content immediately, no transforms. */
 @media (prefers-reduced-motion: reduce) {
   .reveal-up {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
-  }
-}
-
-/* ===== V12 hero floating machine + breathing accent (wow factor) ===== */
-@keyframes float-y {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
-}
-.float-y {
-  animation: float-y 7s ease-in-out infinite;
-  will-change: transform;
-}
-
-@keyframes brand-breathe {
-  0%,
-  100% {
-    opacity: 0.5;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.85;
-    transform: scale(1.06);
-  }
-}
-.brand-breathe {
-  animation: brand-breathe 9s ease-in-out infinite;
-  will-change: transform, opacity;
-}
-
-/* Respect reduced-motion: disable CTA / decorative animations but keep content visible */
-@media (prefers-reduced-motion: reduce) {
-  .cta-particle,
-  .cta-ring,
-  .cta-shimmer,
-  .cta-pulse-ring,
-  .cta-pulse,
-  .cta-spin,
-  .cta-reveal,
-  .ocean-bubble,
-  .ocean-ripple,
-  .ocean-beam,
-  .ocean-particle,
-  .tech-glow,
-  .float-y,
-  .brand-breathe {
-    animation: none !important;
-  }
-  .cta-cta-hidden {
-    opacity: 1 !important;
-  }
-  .ocean-bubble,
-  .ocean-particle {
-    opacity: 0 !important;
-  }
-  .float-y,
-  .brand-breathe {
-    transform: none !important;
   }
 }

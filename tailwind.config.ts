@@ -53,6 +53,8 @@ const config: Config = {
       },
       boxShadow: {
         card: '0 1px 3px rgba(15, 23, 42, 0.08), 0 8px 24px rgba(15, 23, 42, 0.06)',
+        soft: '0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px rgba(15, 23, 42, 0.06)',
+        lift: '0 12px 32px rgba(15, 23, 42, 0.10)',
       },
       backgroundImage: {
         'brand-gradient': 'linear-gradient(135deg, #0891b2 0%, #0ea5e9 45%, #22d3ee 100%)',

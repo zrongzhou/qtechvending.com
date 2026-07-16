@@ -21,6 +21,7 @@ import { localized } from '@/lib/localize';
 import type { Category } from '@/types';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
+import ImageWithRetry from '@/components/ui/ImageWithRetry';
 
 // Map each category slug to a lucide icon. Cards use a cohesive brand-tinted
 // glass surface (no per-card rainbow gradients) to keep the look premium.
@@ -66,10 +67,10 @@ export default function CategoriesGrid({
   return (
     <section id="machines" className="bg-white py-20 md:py-28">
       <div className="container-qtech">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">{t('home.categories.eyebrow')}</p>
-          <h2 className="mt-3 text-2xl font-bold tracking-tight text-ink-900 md:text-3xl">{t('home.categories.title')}</h2>
-          <p className="mt-4 text-ink-600">{t('home.categories.subtitle')}</p>
+        <div className="section-head">
+          <p className="eyebrow">{t('home.categories.eyebrow')}</p>
+          <h2 className="section-title">{t('home.categories.title')}</h2>
+          <p className="section-subtitle">{t('home.categories.subtitle')}</p>
         </div>
 
         <div className="mt-10 grid snap-x gap-6 sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible sm:snap-none">
@@ -90,14 +91,12 @@ export default function CategoriesGrid({
                   <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-brand-400 to-brand-700" aria-hidden="true" />
 
                   {/* Banner image with gradient overlay */}
-                  <div className="relative h-36 w-full overflow-hidden">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden">
                     {img && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
+                      <ImageWithRetry
                         src={img}
                         alt={name}
                         loading="lazy"
-                        decoding="async"
                         className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                       />
                     )}
@@ -111,7 +110,7 @@ export default function CategoriesGrid({
                   <div className="flex flex-1 flex-col p-5">
                     <h3 className="text-lg font-semibold text-ink-900">{name}</h3>
                     {description && <p className="mt-1 line-clamp-2 text-sm text-ink-500">{description}</p>}
-                    <span className="mt-auto inline-flex items-center gap-1 pt-3 text-xs font-medium text-brand-600">
+                    <span className="mt-auto inline-flex items-center gap-1 pt-3 text-xs font-medium text-ink-500">
                       {count} {t('home.categories.productCount')}
                       <span aria-hidden="true" className="transition group-hover:translate-x-0.5">→</span>
                     </span>

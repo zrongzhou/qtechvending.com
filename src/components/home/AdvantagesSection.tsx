@@ -23,11 +23,10 @@ export default function AdvantagesSection() {
   return (
     <section className="bg-white py-20 md:py-28">
       <div className="container-qtech">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">{t('home.advantages.eyebrow')}</p>
-          <h2 className="mt-3 text-2xl font-bold text-ink-900 md:text-3xl">{t('home.advantages.title')}</h2>
-          <span className="mx-auto mt-3 block h-1 w-16 rounded-full bg-brand-500" aria-hidden="true" />
-          <p className="mt-4 text-ink-600">{t('home.advantages.subtitle')}</p>
+        <div className="section-head">
+          <p className="eyebrow">{t('home.advantages.eyebrow')}</p>
+          <h2 className="section-title">{t('home.advantages.title')}</h2>
+          <p className="section-subtitle">{t('home.advantages.subtitle')}</p>
         </div>
 
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

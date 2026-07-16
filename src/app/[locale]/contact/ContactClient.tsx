@@ -147,7 +147,7 @@ export default function ContactClient({
 
       <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
         <RevealOnScroll className="h-full">
-          <form onSubmit={onSubmit} className="relative h-full space-y-5 overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
+          <form onSubmit={onSubmit} className="relative h-full space-y-5 overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-soft sm:p-8">
             <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
             <div className="grid gap-5 sm:grid-cols-2">
               <div>

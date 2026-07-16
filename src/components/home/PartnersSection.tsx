@@ -127,10 +127,10 @@ export default function PartnersSection() {
   return (
     <RevealOnScroll as="section" className="bg-brand-50 py-20 md:py-28">
       <div className="container-qtech">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">{t('home.partners.eyebrow')}</p>
-          <h2 className="mt-3 text-2xl font-bold text-ink-900 md:text-3xl">{t('home.partners.title')}</h2>
-          <p className="mt-4 text-ink-600">{t('home.partners.subtitle')}</p>
+        <div className="section-head">
+          <p className="eyebrow">{t('home.partners.eyebrow')}</p>
+          <h2 className="section-title">{t('home.partners.title')}</h2>
+          <p className="section-subtitle">{t('home.partners.subtitle')}</p>
         </div>
 
         <div

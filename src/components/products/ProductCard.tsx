@@ -31,7 +31,7 @@ export default function ProductCard({ product }: { product: Product }) {
   const isHot = Boolean(product.featured);
   const isNew = !isHot && /2025/.test(product.slug);
   const badgeKey = isHot ? 'products.badgeHot' : isNew ? 'products.badgeNew' : null;
-  const badgeClass = isHot ? 'bg-rose-500' : 'bg-emerald-500';
+  const badgeClass = isHot ? 'pill-hot' : 'pill-new';
 
   const h = hashString(product.slug);
   const priceFrom = 1500 + (h % 50) * 100;
@@ -59,7 +59,7 @@ export default function ProductCard({ product }: { product: Product }) {
         {/* Badge — compact, small radius */}
         {badgeKey && (
           <span
-            className={`absolute start-3 top-3 z-10 inline-flex items-center gap-1 rounded-lg px-2 py-0.5 text-[10px] font-semibold text-white shadow-sm ${badgeClass}`}
+            className={`absolute start-3 top-3 z-10 inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-semibold shadow-sm ${badgeClass}`}
           >
             {badgeKey === 'products.badgeHot' && <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />}
             {t(badgeKey)}

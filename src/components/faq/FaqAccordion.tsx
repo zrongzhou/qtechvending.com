@@ -117,7 +117,7 @@ export default function FaqAccordion() {
         </div>
 
         {/* Contact CTA */}
-        <div className="relative mt-16 overflow-hidden rounded-3xl bg-gradient-to-br from-brand-600 to-brand-800 px-8 py-14 text-center text-white shadow-xl">
+        <div className="relative mt-16 overflow-hidden rounded-3xl bg-gradient-to-br from-brand-700 to-brand-500 px-8 py-14 text-center text-white shadow-lift">
           <div className="relative z-10">
             <h2 className="text-2xl font-bold sm:text-3xl">{t('faq.ctaTitle')}</h2>
             <p className="mx-auto mt-3 max-w-2xl text-white/90">{t('faq.ctaSubtitle')}</p>

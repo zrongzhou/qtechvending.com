@@ -11,10 +11,10 @@ export default function CtaSection() {
 
   return (
     <RevealOnScroll as="section" className="container-qtech py-20 md:py-28">
-      <div className="tech-glow relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand-600 to-brand-800 px-10 py-20 text-center text-white shadow-2xl shadow-brand-700/20 sm:px-16 sm:py-24">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-700 to-brand-500 px-8 py-12 text-center text-white shadow-lift sm:px-16 sm:py-16">
         {/* Content layer */}
         <div className="relative z-10">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/20 px-5 py-2 text-sm font-medium text-white backdrop-blur">
+          <div className="inline-flex items-center gap-2 rounded-full bg-white/20 px-5 py-2 text-sm font-medium text-white">
             <IconTile icon={Sparkles} className="h-4 w-4" tileClassName="bg-white/25 text-white p-1.5" />
             {locale === 'zh' ? '立即开启合作'
               : locale === 'ar' ? 'ابدأ التعاون الآن'
@@ -33,7 +33,7 @@ export default function CtaSection() {
 
           <Link
             href={`/${locale}/contact`}
-            className="btn-primary group mt-10 px-8 py-3.5 text-base"
+            className="group mt-10 inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-3.5 text-base font-semibold text-brand-700 shadow-soft transition hover:-translate-y-0.5 hover:bg-slate-100"
           >
             {t('home.cta.button')}
             <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={1.75} />

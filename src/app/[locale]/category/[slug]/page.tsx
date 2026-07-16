@@ -42,20 +42,20 @@ export default async function CategoryPage({ params }: PageProps) {
   return (
     <div>
       {/* Category banner */}
-      <section className="bg-gradient-to-br from-brand-600 to-brand-800 text-white">
+      <section className="bg-gradient-to-br from-brand-50 to-white">
         <div className="container-qtech py-12">
-          <nav className="mb-4 text-sm text-white/80">
+          <nav className="mb-4 text-sm text-ink-500">
             <Link href={`/${locale}`} className="hover:underline">Home</Link>
             <span className="mx-2">/</span>
             <Link href={`/${locale}/products`} className="hover:underline">Products</Link>
           </nav>
-          <p className="text-sm font-semibold uppercase tracking-wide text-white/80">
+          <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
             {locale === 'zh' ? '浏览分类' : locale === 'ar' ? 'تصفح الفئة' : 'Browse Category'}
           </p>
-          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">
+          <h1 className="mt-2 text-3xl font-bold text-ink-900 sm:text-4xl">
             {name ? `${name}` : 'Category'}
           </h1>
-          {description && <p className="mt-3 max-w-2xl text-white/90">{description}</p>}
+          {description && <p className="mt-3 max-w-2xl text-ink-600">{description}</p>}
         </div>
       </section>
 
