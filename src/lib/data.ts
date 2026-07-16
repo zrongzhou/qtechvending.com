@@ -167,23 +167,39 @@ export async function getAllProductSlugs(): Promise<string[]> {
  */
 function slugCandidates(slug: string): string[] {
   const set = new Set<string>([slug]);
+
+  // V13 fix: canonical public URLs carry a trailing ".html" (e.g. /products/foo.html)
+  // but DB slugs are stored without it, so every .html URL 404'd. Strip the suffix
+  // (case-insensitive) across all slug variants so both forms resolve.
+  const stripHtml = (s: string): string[] => {
+    const out = [s];
+    const m = s.match(/^(.*)\.html$/i);
+    if (m) out.push(m[1]);
+    return out;
+  };
+
   let decoded: string | null = null;
   try {
     decoded = decodeURIComponent(slug);
   } catch {
     /* ignore */
   }
+
+  const seeds = [...stripHtml(slug)];
   if (decoded && decoded !== slug) {
-    set.add(decoded);
+    seeds.push(decoded, ...stripHtml(decoded));
     try {
       const enc = encodeURIComponent(decoded);
-      set.add(enc);
-      set.add(enc.toLowerCase());
+      seeds.push(enc, ...stripHtml(enc));
     } catch {
       /* ignore */
     }
   }
-  set.add(slug.toLowerCase());
+
+  for (const s of seeds) {
+    set.add(s);
+    set.add(s.toLowerCase());
+  }
   return [...set];
 }
 
