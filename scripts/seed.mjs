@@ -145,6 +145,7 @@ async function main() {
       where: { slug: p.slug },
       update: {
         name: toI18n(p.name),
+        displayTitle: toI18n(p.displayTitle),
         shortDescription: toI18n(p.shortDescription),
         description: toI18n(p.description),
         images: p.images || [],
@@ -158,6 +159,7 @@ async function main() {
         slug: p.slug,
         sku: p.sku,
         name: toI18n(p.name),
+        displayTitle: toI18n(p.displayTitle),
         shortDescription: toI18n(p.shortDescription),
         description: toI18n(p.description),
         images: p.images || [],

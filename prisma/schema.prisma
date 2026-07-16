@@ -34,6 +34,7 @@ model Product {
   slug             String   @unique
   sku              String   @unique
   name             Json     // { zh, en, ar }
+  displayTitle     Json?    // { zh, en, ar } 简短展示名（详情页 H1 用，避免 SEO 长尾标题）
   description      Json?    // { zh, en, ar } 正文
   shortDescription Json?    // { zh, en, ar } 列表简述
   images           String[] // 本地路径数组：/images/products/<slug>/1.webp
