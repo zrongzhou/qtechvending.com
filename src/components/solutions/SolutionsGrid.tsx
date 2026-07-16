@@ -9,12 +9,12 @@ import IconTile from '@/components/ui/IconTile';
 
 /** Banner image per solution id (generated visuals in public/images/solutions). */
 const SOLUTION_IMAGES: Record<string, string> = {
-  'factory-tools': '/images/solutions/factory-tools.webp',
-  'office-stationery': '/images/solutions/office-stationery.webp',
-  'electronic-components': '/images/solutions/electronic-components.webp',
-  'medical-supply': '/images/solutions/medical-supply.webp',
-  'food-beverage': '/images/solutions/food-beverage.webp',
-  'ppe-safety': '/images/solutions/ppe-safety.webp',
+  'factory-tools': '/images/solutions/factory-tools.png',
+  'office-stationery': '/images/solutions/office-stationery.png',
+  'electronic-components': '/images/solutions/electronic-components.png',
+  'medical-supply': '/images/solutions/medical-supply.png',
+  'food-beverage': '/images/solutions/food-beverage.png',
+  'ppe-safety': '/images/solutions/ppe-safety.png',
 };
 
 /**
@@ -30,7 +30,7 @@ export default function SolutionsGrid() {
       <div className="container-qtech py-20 md:py-28">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">{t('solutions.badge')}</p>
-          <h1 className="mt-3 text-3xl font-bold text-ink-900 md:text-4xl">{t('solutions.title')}</h1>
+          <h1 className="mt-3 text-3xl font-bold tracking-tight text-ink-900 md:text-4xl">{t('solutions.title')}</h1>
           <p className="mt-4 text-lg text-ink-600">{t('solutions.subtitle')}</p>
         </div>
 
@@ -41,6 +41,9 @@ export default function SolutionsGrid() {
             return (
               <RevealOnScroll key={s.id} delay={i * 80} className="h-full">
                 <div className="glass-card group flex h-full flex-col overflow-hidden p-0 transition hover:-translate-y-1 hover:shadow-xl">
+                  {/* Top accent bar — visual anchor */}
+                  <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-brand-400 to-brand-700" aria-hidden="true" />
+
                   {/* Banner image with gradient overlay */}
                   <div className="relative h-44 w-full overflow-hidden">
                     {img && (

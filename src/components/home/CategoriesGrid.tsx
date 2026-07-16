@@ -40,17 +40,17 @@ const ICON_MAP: Record<string, LucideIcon> = {
 
 // Banner photo per category slug (generated visuals in public/images/categories).
 const IMAGE_MAP: Record<string, string> = {
-  'all-machines': '/images/categories/all-machines.webp',
-  'fresh-flower-vending-machine': '/images/categories/fresh-flower-vending-machine.webp',
-  'pizza-vending-machine': '/images/categories/pizza-vending-machine.webp',
-  'cotton-candy-machine': '/images/categories/cotton-candy-machine.webp',
-  'fruit-vegetable-egg-vending-machine': '/images/categories/fruit-vegetable-egg-vending-machine.webp',
-  'sugar-cane-juice-vending-machine': '/images/categories/sugar-cane-juice-vending-machine.webp',
-  'ice-maker-vending-machine': '/images/categories/ice-maker-vending-machine.webp',
-  'coffee-vending-machine': '/images/categories/coffee-vending-machine.webp',
-  'ice-cream-vending-machine': '/images/categories/ice-cream-vending-machine.webp',
-  'pet-washing-machine': '/images/categories/pet-washing-machine.webp',
-  'food-vending-machine': '/images/categories/food-vending-machine.webp',
+  'all-machines': '/images/categories/all-machines.png',
+  'fresh-flower-vending-machine': '/images/categories/fresh-flower-vending-machine.png',
+  'pizza-vending-machine': '/images/categories/pizza-vending-machine.png',
+  'cotton-candy-machine': '/images/categories/cotton-candy-machine.png',
+  'fruit-vegetable-egg-vending-machine': '/images/categories/fruit-vegetable-egg-vending-machine.png',
+  'sugar-cane-juice-vending-machine': '/images/categories/sugar-cane-juice-vending-machine.png',
+  'ice-maker-vending-machine': '/images/categories/ice-maker-vending-machine.png',
+  'coffee-vending-machine': '/images/categories/coffee-vending-machine.png',
+  'ice-cream-vending-machine': '/images/categories/ice-cream-vending-machine.png',
+  'pet-washing-machine': '/images/categories/pet-washing-machine.png',
+  'food-vending-machine': '/images/categories/food-vending-machine.png',
 };
 
 export default function CategoriesGrid({
@@ -64,11 +64,11 @@ export default function CategoriesGrid({
   if (!categories.length) return null;
 
   return (
-    <section className="bg-white py-20 md:py-28">
+    <section id="machines" className="bg-white py-20 md:py-28">
       <div className="container-qtech">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">{t('home.categories.eyebrow')}</p>
-          <h2 className="mt-3 text-2xl font-bold text-ink-900 md:text-3xl">{t('home.categories.title')}</h2>
+          <h2 className="mt-3 text-2xl font-bold tracking-tight text-ink-900 md:text-3xl">{t('home.categories.title')}</h2>
           <p className="mt-4 text-ink-600">{t('home.categories.subtitle')}</p>
         </div>
 
@@ -86,6 +86,9 @@ export default function CategoriesGrid({
                   href={`/${locale}/category/${cat.slug}`}
                   className="group relative flex h-full min-w-[260px] snap-start flex-col overflow-hidden rounded-2xl pro-card p-0 transition hover:-translate-y-1 hover:shadow-xl sm:min-w-0"
                 >
+                  {/* Top accent bar — visual anchor */}
+                  <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-brand-400 to-brand-700" aria-hidden="true" />
+
                   {/* Banner image with gradient overlay */}
                   <div className="relative h-36 w-full overflow-hidden">
                     {img && (

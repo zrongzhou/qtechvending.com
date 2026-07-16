@@ -347,6 +347,37 @@ input[type='number']::-webkit-inner-spin-button {
   }
 }
 
+/* ===== V12 hero floating machine + breathing accent (wow factor) ===== */
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.float-y {
+  animation: float-y 7s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes brand-breathe {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.06);
+  }
+}
+.brand-breathe {
+  animation: brand-breathe 9s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
 /* Respect reduced-motion: disable CTA / decorative animations but keep content visible */
 @media (prefers-reduced-motion: reduce) {
   .cta-particle,
@@ -360,7 +391,9 @@ input[type='number']::-webkit-inner-spin-button {
   .ocean-ripple,
   .ocean-beam,
   .ocean-particle,
-  .tech-glow {
+  .tech-glow,
+  .float-y,
+  .brand-breathe {
     animation: none !important;
   }
   .cta-cta-hidden {
@@ -369,5 +402,9 @@ input[type='number']::-webkit-inner-spin-button {
   .ocean-bubble,
   .ocean-particle {
     opacity: 0 !important;
+  }
+  .float-y,
+  .brand-breathe {
+    transform: none !important;
   }
 }

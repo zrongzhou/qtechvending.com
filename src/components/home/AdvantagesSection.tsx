@@ -36,6 +36,8 @@ export default function AdvantagesSection() {
             return (
               <RevealOnScroll key={item.titleKey} delay={i * 80} className="h-full">
                 <div className="pro-card group relative flex h-full flex-col overflow-hidden rounded-2xl p-6">
+                  {/* Top accent bar — visual anchor */}
+                  <span className="absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-r from-brand-400 to-brand-700" aria-hidden="true" />
                   {/* Big progressive step number */}
                   <span className="absolute -right-2 -top-4 select-none text-7xl font-extrabold text-slate-100 transition group-hover:text-brand-50">
                     <CountUp end={item.number} prefix="0" />
