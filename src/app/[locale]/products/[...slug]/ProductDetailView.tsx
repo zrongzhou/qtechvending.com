@@ -165,9 +165,9 @@ export default function ProductDetailView({
             )}
           </div>
 
-          <div className="mt-6">
+          <RevealOnScroll className="mt-6">
             <ProductFaqSection features={product.features} />
-          </div>
+          </RevealOnScroll>
         </div>
       </div>
 

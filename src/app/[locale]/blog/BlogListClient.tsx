@@ -54,7 +54,8 @@ export default function BlogListClient({ initial }: { initial: Paginated<BlogPos
 
   return (
     <div className="container-qtech bg-brand-50 py-12 lg:py-16">
-      <header className="mb-10 flex flex-col gap-5 border-b border-slate-100 pb-8 sm:flex-row sm:items-end sm:justify-between">
+      <RevealOnScroll>
+        <header className="mb-10 flex flex-col gap-5 border-b border-slate-100 pb-8 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <span className="inline-flex items-center rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
             {locale === 'zh' ? '行业洞察' : locale === 'ar' ? 'رؤى الصناعة' : 'Industry Insights'}
@@ -71,7 +72,8 @@ export default function BlogListClient({ initial }: { initial: Paginated<BlogPos
             className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
           />
         </div>
-      </header>
+        </header>
+      </RevealOnScroll>
 
       {data.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center text-ink-500">
@@ -93,7 +95,7 @@ export default function BlogListClient({ initial }: { initial: Paginated<BlogPos
             type="button"
             disabled={page <= 1}
             onClick={() => setPage((p) => Math.max(1, p - 1))}
-            className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium disabled:opacity-40"
+            className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-slate-300 disabled:hover:bg-transparent disabled:hover:text-ink-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
           >
             {t('products.prev')}
           </button>
@@ -104,7 +106,7 @@ export default function BlogListClient({ initial }: { initial: Paginated<BlogPos
             type="button"
             disabled={page >= totalPages}
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium disabled:opacity-40"
+            className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-slate-300 disabled:hover:bg-transparent disabled:hover:text-ink-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
           >
             {t('products.next')}
           </button>
