@@ -21,8 +21,12 @@ export default function IconTile({
   tileClassName = 'bg-brand-50 text-brand-600 p-3',
   size = 24,
 }: IconTileProps) {
+  // Light tiles get a refined ring + soft shadow so every icon reads as a
+  // deliberate, polished detail; gradient (dark-on-photo) tiles are left alone.
+  const isGradient = tileClassName.includes('from-');
+  const base = isGradient ? '' : 'shadow-soft ring-1 ring-brand-100';
   return (
-    <span className={`inline-flex items-center justify-center rounded-xl ${tileClassName}`}>
+    <span className={`inline-flex items-center justify-center rounded-xl ${base} ${tileClassName}`}>
       <Icon className={className} size={size} strokeWidth={1.75} />
     </span>
   );
