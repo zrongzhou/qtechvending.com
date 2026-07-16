@@ -185,6 +185,29 @@ input[type='number']::-webkit-inner-spin-button {
   pointer-events: none;
 }
 
+/* CTA ambient motion: soft drifting glow orbs + diagonal sheen layered behind
+   the closing CTA band, echoing the hero's environment language. Purely
+   decorative, pointer-events-none, and disabled under prefers-reduced-motion. */
+.cta-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(64px);
+  opacity: 0.5;
+  will-change: transform;
+  pointer-events: none;
+}
+.cta-orb--a { animation: heroOrbDriftA 20s ease-in-out infinite; }
+.cta-orb--b { animation: heroOrbDriftB 24s ease-in-out infinite; }
+.cta-sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 38%, rgba(255, 255, 255, 0.18) 50%, transparent 62%);
+  background-size: 240% 240%;
+  mix-blend-mode: soft-light;
+  animation: heroFlowSheen 18s ease-in-out infinite;
+  pointer-events: none;
+}
+
 /* Hide scrollbar for horizontal mobile carousels while keeping scroll. */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
@@ -239,7 +262,9 @@ input[type='number']::-webkit-inner-spin-button {
   }
   .float-soft,
   .hero-orb,
-  .hero-flow {
+  .hero-flow,
+  .cta-orb,
+  .cta-sheen {
     animation: none !important;
   }
   .icon-pulse,

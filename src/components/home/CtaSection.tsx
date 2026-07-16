@@ -12,6 +12,13 @@ export default function CtaSection() {
   return (
     <RevealOnScroll as="section" className="container-qtech py-20 md:py-28">
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-800 via-brand-600 to-emerald-600 px-8 py-12 text-center text-white shadow-lift sm:px-16 sm:py-16">
+        {/* Ambient motion layer — drifting glow orbs + diagonal sheen (decorative) */}
+        <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+          <div className="cta-orb cta-orb--a -left-16 -top-20 h-64 w-64 bg-white/25" />
+          <div className="cta-orb cta-orb--b -bottom-24 -right-10 h-72 w-72 bg-amber-300/25" />
+          <div className="cta-sheen" />
+        </div>
+
         {/* Content layer */}
         <div className="relative z-10">
           <div className="inline-flex items-center gap-2 rounded-full bg-white/20 px-5 py-2 text-sm font-medium text-white">
@@ -36,7 +43,7 @@ export default function CtaSection() {
             className="group mt-10 inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-3.5 text-base font-semibold text-brand-700 shadow-soft transition hover:-translate-y-0.5 hover:bg-slate-100"
           >
             {t('home.cta.button')}
-            <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={1.75} />
+            <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1" strokeWidth={1.75} />
           </Link>
 
           {t('home.cta.proof') && (
