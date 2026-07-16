@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import ProductsClient from '@/app/[locale]/products/ProductsClient';
+import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import { getCategoryBySlug, getCategories, getProducts } from '@/lib/data';
 import { localized } from '@/lib/localize';
 import { generatePageMetadata } from '@/lib/seo';
@@ -43,7 +44,7 @@ export default async function CategoryPage({ params }: PageProps) {
     <div>
       {/* Category banner */}
       <section className="bg-gradient-to-br from-brand-50 to-white">
-        <div className="container-qtech py-12">
+        <RevealOnScroll className="container-qtech py-12">
           <nav className="mb-4 text-sm text-ink-500">
             <Link href={`/${locale}`} className="hover:underline">Home</Link>
             <span className="mx-2">/</span>
@@ -56,7 +57,7 @@ export default async function CategoryPage({ params }: PageProps) {
             {name ? `${name}` : 'Category'}
           </h1>
           {description && <p className="mt-3 max-w-2xl text-ink-600">{description}</p>}
-        </div>
+        </RevealOnScroll>
       </section>
 
       <ProductsClient categories={categories} initial={initial} />

@@ -44,7 +44,9 @@ export default function FilterBar({
   const hasFilters = selected.length > 0 || search.trim().length > 0;
 
   return (
-    <div className="pro-card p-5">
+    <div className="pro-card relative overflow-hidden p-5">
+      {/* Brand top accent bar — aligns with the card design system */}
+      <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" aria-hidden="true" />
       <div className="flex flex-col gap-4">
         {/* Search */}
         <div className="relative">
