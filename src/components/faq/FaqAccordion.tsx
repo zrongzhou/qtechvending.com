@@ -80,10 +80,11 @@ export default function FaqAccordion() {
                   const isOpen = open[cat.id] === idx;
                   return (
                     <RevealOnScroll key={idx} delay={idx * 60} className="h-full">
-                      <div
-                        className="pro-card overflow-hidden rounded-2xl transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
-                      >
-                        <button
+                    <div
+                      className="pro-card relative overflow-hidden rounded-2xl transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
+                    >
+                      <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
+                      <button
                           type="button"
                           onClick={() => toggle(cat.id, idx)}
                           aria-expanded={isOpen}

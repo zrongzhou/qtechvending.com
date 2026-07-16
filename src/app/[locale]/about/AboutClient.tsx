@@ -572,6 +572,8 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               return (
                 <RevealOnScroll key={localized(s.title, locale)} delay={i * 80} className="h-full">
                   <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl pro-card">
+                    {/* Persistent brand-500 top accent bar — card memory point */}
+                    <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
                     <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
@@ -615,6 +617,8 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               return (
                 <RevealOnScroll key={localized(v.title, locale)} delay={i * 80} className="h-full">
                   <div className="pro-card group relative flex h-full flex-col p-6 text-center">
+                    {/* Persistent brand-500 top accent bar — card memory point */}
+                    <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
                     {/* Oversized index watermark */}
                     <span
                       aria-hidden="true"
@@ -692,7 +696,8 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               const CertIcon = CERT_ICON[cert.icon] || ShieldCheck;
               return (
                 <RevealOnScroll key={cert.name} delay={i * 60} className="h-full">
-                  <div className="pro-card group flex h-full flex-col items-center gap-2 p-5 text-center transition hover:-translate-y-1 hover:border-brand-200 hover:shadow-md">
+                  <div className="pro-card group relative flex h-full flex-col items-center gap-2 p-5 text-center transition hover:-translate-y-1 hover:border-brand-200 hover:shadow-md">
+                    <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
                     <IconTile icon={CertIcon} className="h-8 w-8" tileClassName="text-brand-600" />
                     <span className="text-xs font-bold tracking-tight text-ink-900">{cert.name}</span>
                     <span className="hidden text-[11px] leading-snug text-ink-400 group-hover:block">
