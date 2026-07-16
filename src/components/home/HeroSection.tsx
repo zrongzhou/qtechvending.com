@@ -113,6 +113,34 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
               );
             })}
           </dl>
+
+          {/* Mobile-only floating machine — desktop right column above is unchanged */}
+          <div className="lg:hidden mt-10 max-w-sm mx-auto">
+            <div className="relative mx-auto aspect-[4/5] w-full">
+              {/* Breathing glow behind the machine */}
+              <div className="brand-breathe absolute inset-4 rounded-[2.5rem] bg-gradient-to-br from-brand-200/50 to-brand-400/30 blur-2xl" />
+              <div className="float-y relative h-full w-full overflow-hidden rounded-[2rem] border border-white/60 bg-white shadow-2xl shadow-brand-700/10">
+                <ImageWithRetry
+                  src={imageSrc}
+                  alt={heroName || t('home.hero.featuredLabel')}
+                  className="h-full w-full object-cover"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/35 via-transparent to-transparent" />
+                <Link
+                  href={heroHref}
+                  className="absolute inset-x-4 bottom-4 inline-flex items-center justify-between gap-2 rounded-xl bg-white/85 px-4 py-2.5 text-ink-900 shadow-lg backdrop-blur transition hover:bg-white"
+                >
+                  <span className="line-clamp-1 text-sm font-semibold leading-tight">
+                    {heroName || t('home.hero.featuredLabel')}
+                  </span>
+                  <span className="shrink-0 inline-flex items-center gap-1 text-xs font-semibold text-brand-700">
+                    {t('home.featured.viewDetails')}
+                    <span aria-hidden="true">→</span>
+                  </span>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Right: floating real machine */}
