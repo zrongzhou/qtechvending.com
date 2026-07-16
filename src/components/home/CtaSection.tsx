@@ -14,8 +14,8 @@ export default function CtaSection() {
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-800 via-brand-600 to-emerald-600 px-8 py-12 text-center text-white shadow-lift sm:px-16 sm:py-16">
         {/* Ambient motion layer — drifting glow orbs + diagonal sheen (decorative) */}
         <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
-          <div className="cta-orb cta-orb--a -left-16 -top-20 h-64 w-64 bg-white/25" />
-          <div className="cta-orb cta-orb--b -bottom-24 -right-10 h-72 w-72 bg-amber-300/25" />
+          <div className="cta-orb cta-orb--a -start-16 -top-20 h-64 w-64 bg-white/25" />
+          <div className="cta-orb cta-orb--b -bottom-24 -end-10 h-72 w-72 bg-amber-300/25" />
           <div className="cta-sheen" />
         </div>
 

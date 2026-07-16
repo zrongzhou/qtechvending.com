@@ -383,8 +383,8 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
       {/* ════════ 1. HERO ════════ */}
       <section className="relative overflow-hidden bg-gradient-to-br from-brand-50 to-white">
         {/* Decorative blobs */}
-        <div className="pointer-events-none absolute -left-16 top-10 h-64 w-64 rounded-full bg-brand-100/60 blur-3xl" aria-hidden="true" />
-        <div className="pointer-events-none absolute right-0 top-1/3 h-72 w-72 rounded-full bg-brand-200/50 blur-3xl" aria-hidden="true" />
+        <div className="pointer-events-none absolute -start-16 top-10 h-64 w-64 rounded-full bg-brand-100/60 blur-3xl" aria-hidden="true" />
+        <div className="pointer-events-none absolute end-0 top-1/3 h-72 w-72 rounded-full bg-brand-200/50 blur-3xl" aria-hidden="true" />
 
         <div className="container-qtech relative py-16 text-center lg:py-22">
           <span className="inline-flex items-center rounded-full bg-brand-100 px-4 py-1.5 text-sm font-medium text-brand-700">
@@ -620,7 +620,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     {/* Oversized index watermark */}
                     <span
                       aria-hidden="true"
-                      className="pointer-events-none absolute -right-2 -top-2 select-none text-6xl font-black text-slate-100/50"
+                      className="pointer-events-none absolute -end-2 -top-2 select-none text-6xl font-black text-slate-100/50"
                     >
                       {String(i + 1).padStart(2, '0')}
                     </span>

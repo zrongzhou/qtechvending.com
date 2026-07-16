@@ -54,9 +54,9 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
 
       {/* Ambient motion — drifting brand orbs + gradient sheen (decorative, behind content) */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-        <div className="hero-orb hero-orb--a -left-24 -top-24 h-72 w-72 bg-brand-300/40" />
-        <div className="hero-orb hero-orb--b -right-20 top-8 h-80 w-80 bg-sky-300/40" />
-        <div className="hero-orb hero-orb--c bottom-[-6rem] left-1/3 h-64 w-64 bg-teal-300/30" />
+        <div className="hero-orb hero-orb--a -start-24 -top-24 h-72 w-72 bg-brand-300/40" />
+        <div className="hero-orb hero-orb--b -end-20 top-8 h-80 w-80 bg-sky-300/40" />
+        <div className="hero-orb hero-orb--c bottom-[-6rem] start-1/3 h-64 w-64 bg-teal-300/30" />
         <div className="hero-flow" />
       </div>
 
@@ -178,7 +178,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
               </div>
 
               {/* Floating credibility badge */}
-              <div className="float-soft absolute -left-4 -top-4 hidden items-center gap-2 rounded-2xl border border-white/15 bg-ink-900/80 px-4 py-2.5 shadow-lift backdrop-blur sm:inline-flex">
+              <div className="float-soft absolute -start-4 -top-4 hidden items-center gap-2 rounded-2xl border border-white/15 bg-ink-900/80 px-4 py-2.5 shadow-lift backdrop-blur sm:inline-flex">
                 <IconTile
                   icon={Star}
                   className="h-4 w-4"

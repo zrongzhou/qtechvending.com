@@ -87,7 +87,7 @@ export default function AdvantagesSection() {
                   {/* Top accent bar — per-card identity colour */}
                   <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${accent.bar}`} aria-hidden="true" />
                   {/* Big progressive step number */}
-                  <span className={`absolute -right-2 -top-4 select-none text-7xl font-extrabold text-slate-100/15 transition-colors ${accent.watermark}`}>
+                  <span className={`absolute -end-2 -top-4 select-none text-7xl font-extrabold text-slate-100/15 transition-colors ${accent.watermark}`}>
                     <CountUp end={item.number} prefix="0" />
                   </span>
 
