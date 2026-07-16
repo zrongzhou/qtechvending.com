@@ -90,10 +90,10 @@ export default function SolutionsGrid() {
                     </ul>
                     <Link
                       href={`/${locale}${s.href}`}
-                      className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-brand-700 transition-all hover:gap-2"
+                      className="group/learn mt-6 inline-flex items-center gap-1 text-sm font-semibold text-brand-700 transition-colors hover:text-brand-800"
                     >
                       {t('solutions.learnMore')}
-                      <span aria-hidden="true">→</span>
+                      <span aria-hidden="true" className="transition-transform duration-300 group-hover/learn:translate-x-1">→</span>
                     </Link>
                   </div>
                 </div>

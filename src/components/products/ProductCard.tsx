@@ -31,7 +31,7 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/${locale}/products/${product.slug}`}
-      className="group relative flex h-full flex-col overflow-hidden rounded-2xl pro-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+      className="group relative flex h-full flex-col overflow-hidden rounded-2xl pro-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lift"
     >
       {/* Persistent brand-500 top accent bar — card memory point */}
       <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-brand-400 to-brand-700" />

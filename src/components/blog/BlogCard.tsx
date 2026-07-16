@@ -28,7 +28,7 @@ export default function BlogCard({ post }: { post: BlogPost }) {
   return (
     <Link
       href={`/${locale}/blog/${post.slug}`}
-      className="group relative flex flex-col overflow-hidden rounded-2xl pro-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+      className="group relative flex flex-col overflow-hidden rounded-2xl pro-card transition-all duration-300 hover:-translate-y-1 hover:shadow-lift"
     >
       {/* Persistent brand-500 top accent bar — card memory point */}
       <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-brand-400 to-brand-700" />
@@ -58,7 +58,7 @@ export default function BlogCard({ post }: { post: BlogPost }) {
           <IconTile
             icon={ArrowUpRight}
             className="h-4 w-4"
-            tileClassName="bg-brand-50 text-brand-600 p-1.5 transition group-hover:bg-brand-500 group-hover:text-white"
+            tileClassName="bg-brand-50 text-brand-600 p-1.5 transition group-hover:translate-x-1 group-hover:bg-brand-500 group-hover:text-white"
           />
         </div>
       </div>

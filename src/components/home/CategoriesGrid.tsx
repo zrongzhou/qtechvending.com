@@ -84,7 +84,7 @@ export default function CategoriesGrid({
               <RevealOnScroll key={cat.id} delay={i * 80} className="h-full">
                 <Link
                   href={`/${locale}/category/${cat.slug}`}
-                  className="group relative flex h-full min-w-[260px] snap-start flex-col overflow-hidden rounded-2xl pro-card p-0 transition hover:-translate-y-1 hover:shadow-xl sm:min-w-0"
+                  className="group relative flex h-full min-w-[260px] snap-start flex-col overflow-hidden rounded-2xl pro-card p-0 transition hover:-translate-y-1 hover:shadow-lift sm:min-w-0"
                 >
                   {/* Top accent bar — visual anchor */}
                   <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-brand-400 to-brand-700" aria-hidden="true" />
@@ -107,11 +107,11 @@ export default function CategoriesGrid({
 
                   {/* Body */}
                   <div className="flex flex-1 flex-col p-5">
-                    <h3 className="text-lg font-semibold text-ink-900">{name}</h3>
+                    <h3 className="text-lg font-semibold text-ink-900 transition-colors group-hover:text-brand-700">{name}</h3>
                     {description && <p className="mt-1 line-clamp-2 text-sm text-ink-500">{description}</p>}
                     <span className="mt-auto inline-flex items-center gap-1 pt-3 text-xs font-medium text-ink-500">
                       {count} {t('home.categories.productCount')}
-                      <span aria-hidden="true" className="transition group-hover:translate-x-0.5">→</span>
+                      <span aria-hidden="true" className="transition group-hover:translate-x-1">→</span>
                     </span>
                   </div>
                 </Link>
