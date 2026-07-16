@@ -40,10 +40,20 @@ export default function CtaSection() {
           </Link>
 
           {t('home.cta.proof') && (
-            <p className="mt-4 inline-flex items-center gap-1 text-sm text-white/70">
-              <IconTile icon={CheckCircle2} className="h-4 w-4" tileClassName="bg-white/25 text-white p-1.5" />
-              {t('home.cta.proof')}
-            </p>
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-white/70">
+              <span className="inline-flex items-center gap-1">
+                <IconTile icon={CheckCircle2} className="h-4 w-4" tileClassName="bg-white/25 text-white p-1.5" />
+                {t('home.cta.proof')}
+              </span>
+              <span className="hidden sm:inline text-white/30">|</span>
+              <span className="inline-flex items-center gap-0.5 font-medium text-white/90">
+                ISO &amp; CE Certified
+              </span>
+              <span className="hidden sm:inline text-white/30">|</span>
+              <span className="inline-flex items-center gap-0.5 font-medium text-white/90">
+                80+ Countries Served
+              </span>
+            </div>
           )}
         </div>
       </div>
