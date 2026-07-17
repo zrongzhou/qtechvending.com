@@ -1,6 +1,6 @@
 // QA: Verify crawler data files exist and meet minimum counts.
 //   products.json  >= 20
-//   categories.json == 11
+//   categories.json == 10
 //   blogs.json     >= 1
 import fs from 'node:fs';
 import path from 'node:path';
@@ -34,8 +34,8 @@ const bLen = report.blogs?.length ?? 0;
 if (pLen < 20) { ok = false; console.log(`FAIL products: ${pLen} < 20`); }
 else console.log(`OK   products: ${pLen} (>=20)`);
 
-if (cLen !== 11) { ok = false; console.log(`FAIL categories: ${cLen} != 11`); }
-else console.log(`OK   categories: ${cLen} (==11)`);
+if (cLen !== 10) { ok = false; console.log(`FAIL categories: ${cLen} != 10`); }
+else console.log(`OK   categories: ${cLen} (==10)`);
 
 if (bLen < 1) { ok = false; console.log(`FAIL blogs: ${bLen} < 1`); }
 else console.log(`OK   blogs: ${bLen} (>=1)`);

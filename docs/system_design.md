@@ -496,7 +496,7 @@ sequenceDiagram
 
 1. **产品标题来源**：假设 `docx_all.txt` 中已包含每个产品的英文标题，脚本按用户给定的 slug→model 映射重建；如 docx 标题不完整，需要产品/项目经理提供补齐。
 2. **CasesSection 与 PartnersSection 关系**：当前 `PartnersSection` 使用产品图作为「部署案例」。设计假设用新建的 `CasesSection` 替换 `PartnersSection`，以视频抽帧作为真实合作案例。如业务方希望两者并存，则改为在 `PartnersSection` 下方新增 `CasesSection`。
-3. **all-machines 分类**：假设仅作为导航「查看全部」别名保留在前端，不在 DB 新建 `all-machines` Category；当前 `public/images/categories/all-machines.png` 保留。
+3. **分类别名（V30.1 已删除）**：原前端「查看全部」分类别名已在 V30.1 移除；产品列表默认显示全部产品，分类数据仅保留 10 个真实 DB 分类（见 `scripts/data/categories.json`）。
 4. **证书图**：当前 `public/images/about/certificate-*.svg` 是矢量图，无 AI 水印。是否替换为资料夹里的 `证书.png` 由业务方决定；设计建议保留 SVG（清晰、轻量），或新增一张真实证书总览图作为补充。
 5. **阿拉伯语文案**：`ar` 版本可由脚本基于 `en` 生成占位，上线前需人工校对。设计已预留 `I18nString` 三语字段。
 6. **产品图片数量**：假设每个产品取 1-4 张官方图（资料夹中常见 1-5 张），脚本自动按顺序命名为 `1.webp`, `2.webp`…；如无足够图片，fallback 用分类图。

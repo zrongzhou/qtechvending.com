@@ -7,8 +7,8 @@
  * What it does:
  *   1. Upserts the 10 canonical categories (fresh-flower, pizza, cotton-candy,
  *      fruit-vegetable-egg, sugar-cane-juice, ice-maker, coffee, ice-cream,
- *      pet-washing, food) — preserving the `all-machines` "view all" alias which
- *      is frontend-only (no DB category).
+ *      pet-washing, food). There is no "view all" alias category — the product
+ *      list shows every product by default.
  *   2. Upserts the 20 canonical products, connecting each to its single
  *      category and deriving the `images` array from the actual WebP files on
  *      disk (so DB paths always match the generated assets).
@@ -47,7 +47,7 @@ interface ProductSeed {
   specs: { param: string; value: string }[];
 }
 
-// ── Categories (10 canonical; `all-machines` is frontend-only) ──────────────
+// ── Categories (10 canonical) ──────────────────────────────────────────────
 const CATEGORIES: { slug: string; name: I18n; description: I18n; order: number; icon: string }[] = [
   { slug: 'fresh-flower-vending-machine', name: i18n('Fresh Flower Vending Machine', '鲜花售货机'), description: i18n('Unattended fresh-flower vending for retail, transit and gifting.', '面向零售、交通与礼赠场景的无人鲜花售货。'), order: 1, icon: 'Flower2' },
   { slug: 'pizza-vending-machine', name: i18n('Pizza Vending Machine', '披萨售货机'), description: i18n('Hot-food pizza vending with frozen storage and on-demand heating.', '冷冻存储、按需加热的热食披萨售货机。'), order: 2, icon: 'Pizza' },

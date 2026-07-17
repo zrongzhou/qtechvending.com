@@ -7,6 +7,7 @@ import { localized } from '@/lib/localize';
 import ProductCard from '@/components/products/ProductCard';
 import ProductFaqSection from './ProductFaqSection';
 import ImageWithRetry from '@/components/ui/ImageWithRetry';
+import OceanGlassCard from '@/components/ui/OceanGlassCard';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
 import { ArrowLeft, Settings2 } from 'lucide-react';
@@ -81,9 +82,12 @@ export default function ProductDetailView({
       <div className="grid gap-10 lg:grid-cols-2">
         {/* Gallery — sticky on desktop so the main image stays in view while scrolling specs/description */}
         <div className="lg:sticky lg:top-24 lg:self-start">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm ring-1 ring-ocean-100">
-            <ImageWithRetry src={activeImage} alt={name} loading="eager" fetchPriority="high" className="h-full w-full object-cover" />
-          </div>
+          <OceanGlassCard ripple depth="md" hoverLift={false} className="relative overflow-hidden p-2 sm:p-3">
+            {/* Ocean top accent bar — card memory point */}
+            <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-ocean-400 to-brand-600" aria-hidden="true" />
+            <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-slate-100">
+              <ImageWithRetry src={activeImage} alt={name} loading="eager" fetchPriority="high" className="h-full w-full object-cover" />
+            </div>
           {images.length > 1 && (
             <div className="mt-4 flex flex-wrap gap-3">
               {images.map((img) => (
@@ -106,12 +110,13 @@ export default function ProductDetailView({
               ))}
             </div>
           )}
+          </OceanGlassCard>
         </div>
 
         {/* Info */}
         <div>
           {categoryName && (
-            <span className="inline-flex w-fit items-center rounded-md bg-gradient-to-r from-brand-50 to-brand-100 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-brand-700">
+            <span className="inline-flex w-fit items-center rounded-md bg-gradient-to-r from-ocean-50 to-brand-100 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-ocean-700">
               {categoryName}
             </span>
           )}
@@ -128,7 +133,7 @@ export default function ProductDetailView({
           <div className="mt-10">
             {specs.length > 0 ? (
               <RevealOnScroll>
-                <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+                <OceanGlassCard ripple depth="md" className="overflow-hidden">
                   {/* Gradient header */}
                   <div className="bg-gradient-to-r from-ocean-600 to-brand-700 px-6 py-4">
                     <h2 className="flex items-center gap-2.5 text-lg font-bold text-white">
@@ -153,7 +158,7 @@ export default function ProductDetailView({
                       </div>
                     ))}
                   </dl>
-                </div>
+                </OceanGlassCard>
               </RevealOnScroll>
             ) : (
               <RevealOnScroll>

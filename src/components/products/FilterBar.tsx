@@ -1,23 +1,10 @@
 'use client';
 
-import { Search, X, ChevronDown, Factory, Flower2, Pizza, Candy, Egg, CupSoda, Snowflake, Coffee, IceCream, PawPrint, UtensilsCrossed, type LucideIcon } from 'lucide-react';
+import { Search, X, ChevronDown, type LucideIcon } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
+import OceanGlassCard from '@/components/ui/OceanGlassCard';
 import type { Category } from '@/types';
-
-const CAT_ICON: Record<string, LucideIcon> = {
-  'all-machines': Factory,
-  'fresh-flower-vending-machine': Flower2,
-  'pizza-vending-machine': Pizza,
-  'cotton-candy-machine': Candy,
-  'fruit-vegetable-egg-vending-machine': Egg,
-  'sugar-cane-juice-vending-machine': CupSoda,
-  'ice-maker-vending-machine': Snowflake,
-  'coffee-vending-machine': Coffee,
-  'ice-cream-vending-machine': IceCream,
-  'pet-washing-machine': PawPrint,
-  'food-vending-machine': UtensilsCrossed,
-};
 
 interface FilterBarProps {
   categories: Category[];
@@ -44,9 +31,9 @@ export default function FilterBar({
   const hasFilters = selected.length > 0 || search.trim().length > 0;
 
   return (
-    <div className="pro-card relative overflow-hidden p-5">
-      {/* Brand top accent bar — aligns with the card design system */}
-      <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" aria-hidden="true" />
+    <OceanGlassCard ripple depth="md" hoverLift={false} className="relative overflow-hidden p-5">
+      {/* Ocean top accent bar — aligns with the ocean design system */}
+      <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-ocean-400 to-brand-600" aria-hidden="true" />
       <div className="flex flex-col gap-4">
         {/* Search */}
         <div className="relative">
@@ -129,6 +116,6 @@ export default function FilterBar({
           )}
         </div>
       </div>
-    </div>
-  );
+    </OceanGlassCard>
+   );
 }

@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import {
-  Factory,
   Flower2,
   Pizza,
   Candy,
@@ -25,7 +24,6 @@ import ImageWithRetry from '@/components/ui/ImageWithRetry';
 // Map each category slug to a lucide icon. Cards use a cohesive brand-tinted
 // glass surface (no per-card rainbow gradients) to keep the look premium.
 const ICON_MAP: Record<string, LucideIcon> = {
-  'all-machines': Factory,
   'fresh-flower-vending-machine': Flower2,
   'pizza-vending-machine': Pizza,
   'cotton-candy-machine': Candy,
@@ -40,7 +38,6 @@ const ICON_MAP: Record<string, LucideIcon> = {
 
 // Banner photo per category slug (generated visuals in public/images/categories).
 const IMAGE_MAP: Record<string, string> = {
-  'all-machines': '/images/categories/all-machines.png',
   'fresh-flower-vending-machine': '/images/categories/fresh-flower-vending-machine.png',
   'pizza-vending-machine': '/images/categories/pizza-vending-machine.png',
   'cotton-candy-machine': '/images/categories/cotton-candy-machine.png',
@@ -76,7 +73,7 @@ export default function CategoriesGrid({
           {categories.slice(0, 8).map((cat, i) => {
             const name = localized(cat.name, locale);
             const description = cat.description ? localized(cat.description, locale) : '';
-            const Icon = ICON_MAP[cat.slug] || Factory;
+            const Icon = ICON_MAP[cat.slug] || Flower2;
             const img = IMAGE_MAP[cat.slug];
             const count = counts[cat.slug] ?? 0;
 

@@ -6,6 +6,7 @@ import { useLocale } from '@/lib/i18n';
 import ProductCard from '@/components/products/ProductCard';
 import FilterBar from '@/components/products/FilterBar';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
+import OceanGlassCard from '@/components/ui/OceanGlassCard';
 import type { Category, Paginated, Product } from '@/types';
 
 interface ProductsClientProps {
@@ -105,11 +106,11 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
           />
         </aside>
 
-        <div>
+        <OceanGlassCard depth="sm" hoverLift={false} className="rounded-3xl p-4 sm:p-6">
           {data.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center text-ink-500">
+            <OceanGlassCard ripple depth="sm" className="border border-dashed border-ocean-300 bg-white/80 p-12 text-center text-ink-600">
               {t('products.noResults')}
-            </div>
+            </OceanGlassCard>
           ) : (
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
               {data.map((p, i) => (
@@ -143,7 +144,7 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
               </button>
             </div>
           )}
-        </div>
+        </OceanGlassCard>
       </div>
     </div>
   );

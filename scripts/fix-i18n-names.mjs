@@ -103,13 +103,6 @@ const PRODUCT_TR = {
 
 // ---- Category name + description translations (keyed by slug) ----
 const CATEGORY_TR = {
-  'all-machines': {
-    zh: '全部设备',
-    ar: 'كل الآلات',
-    descEn: 'Every machine we build, in one place.',
-    descZh: '我们制造的每一台设备，尽在于此。',
-    descAr: 'كل آلة نصنعها، في مكان واحد.',
-  },
   'fresh-flower-vending-machine': {
     zh: '鲜花售货机',
     ar: 'ماكينة بيع الزهور الطازجة',

@@ -26,7 +26,6 @@ const FETCH_TIMEOUT = 20000;
 
 // Emoji icons for the 11 categories (fallback; override if source provides one).
 const CATEGORY_ICONS = {
-  'all-machines': '🏭',
   'fresh-flower-vending-machine': '🌸',
   'pizza-vending-machine': '🍕',
   'cotton-candy-machine': '🍬',
@@ -146,7 +145,7 @@ async function scrapeProducts() {
         .map((_, el) => {
           const href = $(el).attr('href') || '';
           const s = slugFromUrl(href, 'product-category');
-          return s && s !== 'all-machines' ? s : null;
+          return s && CATEGORY_ICONS[s] ? s : null;
         })
         .get()
         .filter(Boolean);

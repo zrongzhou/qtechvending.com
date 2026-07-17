@@ -58,11 +58,6 @@ const COPY = {
     zh: '自动化热食售货机，供应薯条、炸鸡与预制餐，配备加热、冷藏与 24/7 服务。',
     ar: 'ماكينة طعام ساخن آلية للبطاطس المقلية والدجاج المقلي والوجبات المجهزة مع تسخين وتبريد وخدمة 24/7.',
   },
-  'all-machines': {
-    en: 'Versatile smart vending solution combining automated service, IoT monitoring and OEM customization for diverse markets.',
-    zh: '多功能智能售货方案，融合自动服务、IoT 监控与 OEM 定制，适配多元市场。',
-    ar: 'حل بيع ذكي متعدد الاستخدامات يجمع الخدمة الآلية ومراقبة إنترنت الأشياء وتخصيص OEM.',
-  },
 };
 
 function cleanSpec(specText) {
@@ -71,8 +66,8 @@ function cleanSpec(specText) {
 }
 
 data.forEach((p) => {
-  const cat = p.categories[0] || 'all-machines';
-  const tpl = COPY[cat] || COPY['all-machines'];
+  const cat = p.categories[0];
+  const tpl = cat ? COPY[cat] : null;
 
   // Strip "Description " from raw spec, keep as technical description
   const rawSpec = cleanSpec(p.shortDescription || '');
