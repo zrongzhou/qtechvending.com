@@ -15,6 +15,10 @@ export interface OceanGlassCardProps {
   ripple?: boolean;
   /** Ripple fill colour (rgba). Defaults to an ocean-cyan bloom. */
   rippleColor?: string;
+  /** Number of concentric rings emitted per hover (ocean mode = 3). */
+  rippleRings?: number;
+  /** Ripples originate at the pointer position on hover-enter. */
+  ripplePointer?: boolean;
   /** Forwarded to the ripple effect (disable under reduced-motion). */
   reduced?: boolean;
 }
@@ -32,6 +36,8 @@ export default function OceanGlassCard({
   hoverLift = true,
   ripple = false,
   rippleColor = 'rgba(8, 145, 178, 0.2)',
+  rippleRings = 1,
+  ripplePointer = false,
   reduced = false,
 }: OceanGlassCardProps) {
   const surface = `ocean-glass ocean-glass--${depth} ${hoverLift ? 'ocean-glass--hover' : ''}`;
@@ -39,7 +45,13 @@ export default function OceanGlassCard({
 
   if (ripple) {
     return (
-      <RippleOnHover className={`${surface} ${className}`} rippleColor={rippleColor} reduced={reduced}>
+      <RippleOnHover
+        className={`${surface} ${className}`}
+        rippleColor={rippleColor}
+        rings={rippleRings}
+        pointerDriven={ripplePointer}
+        reduced={reduced}
+      >
         {inner}
       </RippleOnHover>
     );

@@ -1,12 +1,12 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
 import { useLocale } from '@/lib/i18n';
 import ProductCard from '@/components/products/ProductCard';
 import FilterBar from '@/components/products/FilterBar';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import OceanGlassCard from '@/components/ui/OceanGlassCard';
+import OceanBubbles from '@/components/ui/OceanBubbles';
 import type { Category, Paginated, Product } from '@/types';
 
 interface ProductsClientProps {
@@ -79,86 +79,100 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
   const { data, totalPages } = result;
 
   return (
-    <div className="relative overflow-hidden bg-gradient-to-b from-sky-950 via-ocean-900/90 to-slate-900 py-12 lg:py-16">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-cyan-950 via-teal-900 to-slate-900">
+      {/* Sunlight sheen from the surface (upper-ocean glow) */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-sky-400/25 via-cyan-400/10 to-transparent" aria-hidden="true" />
+
+      {/* God rays — drifting light beams piercing the water */}
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+        <div className="god-ray god-ray--1" />
+        <div className="god-ray god-ray--2" />
+        <div className="god-ray god-ray--3" />
+        <div className="god-ray god-ray--4" />
+      </div>
+
+      {/* Rising bubbles behind the content */}
+      <OceanBubbles className="-z-10" />
+
       {/* Animated CSS ocean waves at the bottom of the hero area */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 overflow-hidden">
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-48 overflow-hidden" aria-hidden="true">
         <div className="ocean-wave ocean-wave--1" />
         <div className="ocean-wave ocean-wave--2" />
         <div className="ocean-wave ocean-wave--3" />
       </div>
-      <div className="container-qtech relative">
-      <RevealOnScroll className="mb-8 md:mb-10">
-        <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
-          {t('products.eyebrow')}
-        </p>
-        <h1 className="mt-3 text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">
-          {t('products.title')}
-        </h1>
-        {/* Animated ocean wave divider under the heading — visible, moving
-            gradient bar that reinforces the marine theme. */}
-        <span
-          className="wave-divider mt-4 block h-1 w-[200px] rounded-full bg-gradient-to-r from-cyan-400 via-teal-500 to-brand-600"
-          aria-hidden="true"
-        />
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-600">
-          {t('products.subtitle')}
-        </p>
-      </RevealOnScroll>
 
-      <div className="grid gap-8 lg:grid-cols-[320px_1fr]">
-        <aside className="lg:sticky lg:top-20 lg:self-start">
-          <FilterBar
-            categories={categories}
-            selected={selected}
-            onToggleCategory={toggleCategory}
-            search={search}
-            onSearch={setSearch}
-            onClear={clear}
-            total={result.total}
-            loading={loading}
+      <div className="container-qtech relative z-10 py-12 lg:py-16">
+        <RevealOnScroll className="mb-8 md:mb-10">
+          <p className="text-sm font-semibold uppercase tracking-wide text-cyan-200/90">
+            {t('products.eyebrow')}
+          </p>
+          <h1 className="mt-3 text-4xl font-bold tracking-tight text-white drop-shadow-sm sm:text-5xl">
+            {t('products.title')}
+          </h1>
+          {/* Animated ocean wave divider under the heading */}
+          <span
+            className="wave-divider mt-4 block h-1 w-[200px] rounded-full bg-gradient-to-r from-cyan-400 via-teal-300 to-sky-300"
+            aria-hidden="true"
           />
-        </aside>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-cyan-50/80">
+            {t('products.subtitle')}
+          </p>
+        </RevealOnScroll>
 
-        <OceanGlassCard depth="sm" hoverLift={false} className="rounded-3xl border border-white/15 bg-white/[0.06] p-4 backdrop-blur-xl sm:p-6">
-          {data.length === 0 ? (
-            <OceanGlassCard ripple depth="sm" className="border border-dashed border-white/25 bg-white/5 p-12 text-center text-white/80">
-              {t('products.noResults')}
-            </OceanGlassCard>
-          ) : (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-              {data.map((p, i) => (
-                <RevealOnScroll key={p.id} delay={(i % 9) * 60} className="h-full">
-                  <ProductCard product={p} dark />
-                </RevealOnScroll>
-              ))}
-            </div>
-          )}
+        <div className="grid gap-8 lg:grid-cols-[320px_1fr]">
+          <aside className="lg:sticky lg:top-20 lg:self-start">
+            <FilterBar
+              categories={categories}
+              selected={selected}
+              onToggleCategory={toggleCategory}
+              search={search}
+              onSearch={setSearch}
+              onClear={clear}
+              total={result.total}
+              loading={loading}
+            />
+          </aside>
 
-          {totalPages > 1 && (
-            <div className="mt-10 flex items-center justify-center gap-4">
-              <button
-                type="button"
-                disabled={page <= 1}
-                onClick={() => setPage((p) => Math.max(1, p - 1))}
-                className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:border-ocean-300 hover:bg-ocean-50 hover:text-ocean-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-slate-300 disabled:hover:bg-transparent disabled:hover:text-ink-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
-              >
-                {t('products.prev')}
-              </button>
-              <span className="text-sm text-ink-500">
-                {t('products.page')} {page} {t('products.of')} {totalPages}
-              </span>
-              <button
-                type="button"
-                disabled={page >= totalPages}
-                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:border-ocean-300 hover:bg-ocean-50 hover:text-ocean-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-slate-300 disabled:hover:bg-transparent disabled:hover:text-ink-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
-              >
-                {t('products.next')}
-              </button>
-            </div>
-          )}
-        </OceanGlassCard>
-      </div>
+          <OceanGlassCard depth="sm" hoverLift={false} className="rounded-3xl border border-white/15 bg-white/[0.06] p-4 backdrop-blur-xl sm:p-6">
+            {data.length === 0 ? (
+              <OceanGlassCard ripple depth="sm" className="border border-dashed border-white/25 bg-white/5 p-12 text-center text-white/80">
+                {t('products.noResults')}
+              </OceanGlassCard>
+            ) : (
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                {data.map((p, i) => (
+                  <RevealOnScroll key={p.id} delay={(i % 9) * 60} className="h-full">
+                    <ProductCard product={p} ocean />
+                  </RevealOnScroll>
+                ))}
+              </div>
+            )}
+
+            {totalPages > 1 && (
+              <div className="mt-10 flex items-center justify-center gap-4">
+                <button
+                  type="button"
+                  disabled={page <= 1}
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  className="rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:border-cyan-300 hover:bg-white/20 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-white/20 disabled:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-cyan-900"
+                >
+                  {t('products.prev')}
+                </button>
+                <span className="text-sm text-cyan-50/80">
+                  {t('products.page')} {page} {t('products.of')} {totalPages}
+                </span>
+                <button
+                  type="button"
+                  disabled={page >= totalPages}
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  className="rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:border-cyan-300 hover:bg-white/20 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-white/20 disabled:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-cyan-900"
+                >
+                  {t('products.next')}
+                </button>
+              </div>
+            )}
+          </OceanGlassCard>
+        </div>
       </div>
     </div>
   );

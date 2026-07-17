@@ -1,12 +1,18 @@
 <svg width="200" height="56" viewBox="0 0 200 56" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="lg" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#3b82f6"/>
-      <stop offset="0.5" stop-color="#2563eb"/>
-      <stop offset="1" stop-color="#1e40af"/>
+      <stop offset="0" stop-color="#00BCD4"/>
+      <stop offset="0.5" stop-color="#0EA5E9"/>
+      <stop offset="1" stop-color="#38BDF8"/>
     </linearGradient>
+    <radialGradient id="sh" cx="0.35" cy="0.28" r="0.55">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
   </defs>
-  <path d="M28 6 L33 22 L49 28 L33 34 L28 50 L23 34 L7 28 L23 22 Z" fill="url(#lg)"/>
-  <path d="M44 14 L47 24 L57 27 L47 30 L44 40 L41 30 L31 27 L41 24 Z" fill="url(#lg)" opacity="0.85"/>
-  <text x="66" y="37" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="800" fill="#1e40af">Qtech</text>
+  <circle cx="28" cy="28" r="24" fill="url(#lg)"/>
+  <circle cx="28" cy="28" r="24" fill="none" stroke="#bae6fd" stroke-opacity="0.6" stroke-width="1"/>
+  <ellipse cx="21" cy="16" rx="12" ry="9" fill="url(#sh)"/>
+  <text x="28" y="37" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="800" fill="#ffffff">Q</text>
+  <text x="66" y="37" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="800" fill="#0EA5E9">Qtech</text>
 </svg>

@@ -125,7 +125,7 @@ export default function ContactClient({
 
   const infoRow = (Icon: LucideIcon, label: string, value: string) => (
     <li className="flex items-start gap-3">
-      <IconTile icon={Icon} className="h-4 w-4" tileClassName="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-700" />
+      <IconTile icon={Icon} className="h-4 w-4" tileClassName="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-50 text-cyan-700" />
       <div>
         <p className="text-xs font-medium uppercase tracking-wide text-ink-500">{label}</p>
         <p className="mt-0.5 text-sm text-ink-700">{value}</p>
@@ -148,7 +148,7 @@ export default function ContactClient({
       <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
         <RevealOnScroll className="h-full">
           <form onSubmit={onSubmit} className="relative h-full space-y-5 overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-soft sm:p-8">
-            <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
+            <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-cyan-400 to-teal-600" />
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
                 <label className="mb-1.5 block text-sm font-medium text-ink-700">
@@ -223,7 +223,7 @@ export default function ContactClient({
           <aside className="space-y-6">
             {/* Contact info card */}
             <div className="pro-card relative overflow-hidden p-6">
-              <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
+              <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-cyan-400 to-teal-600" />
               <h2 className="text-lg font-semibold text-ink-900">{t('contact.info')}</h2>
               <ul className="mt-4 space-y-4 text-sm">
                 {infoRow(MapPin, t('contact.address'), '2nd Floor No. 131, Jinlong Road, Dalong street, Panyu, Guangzhou, China')}
@@ -276,7 +276,7 @@ export default function ContactClient({
 
             {/* Social media */}
             <div className="pro-card relative overflow-hidden p-6">
-              <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
+              <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-cyan-400 to-teal-600" />
               <h3 className="text-sm font-semibold uppercase tracking-wide text-ink-500">
                 {t('contact.connectWithUs')}
               </h3>
@@ -295,7 +295,7 @@ export default function ContactClient({
                       <IconTile
                         icon={Icon}
                         className="h-5 w-5"
-                        tileClassName="flex h-10 w-10 items-center justify-center rounded-full bg-brand-50 text-brand-700 transition hover:bg-brand-600 hover:text-white"
+                        tileClassName="flex h-10 w-10 items-center justify-center rounded-full bg-cyan-50 text-cyan-700 transition hover:bg-cyan-600 hover:text-white"
                       />
                     </a>
                   );
@@ -306,7 +306,7 @@ export default function ContactClient({
             {/* FAQ quick link */}
             <Link
               href={`/${locale}/faq`}
-              className="group flex items-center justify-between gap-2 rounded-2xl border border-brand-100 bg-brand-50 px-5 py-4 text-sm font-medium text-brand-700 transition hover:bg-brand-100"
+              className="group flex items-center justify-between gap-2 rounded-2xl border border-cyan-100 bg-cyan-50 px-5 py-4 text-sm font-medium text-cyan-700 transition hover:bg-cyan-100"
             >
               {t('contact.faqLink')}
               <span aria-hidden="true" className="transition group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5">→</span>

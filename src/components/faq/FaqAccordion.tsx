@@ -31,7 +31,7 @@ export default function FaqAccordion() {
       <div className="container-qtech py-20 md:py-28">
         {/* Header */}
         <div className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-700">
+          <span className="inline-flex items-center gap-2 rounded-full bg-cyan-50 px-4 py-1.5 text-sm font-medium text-cyan-700">
             <IconTile icon={HelpCircle} className="h-4 w-4" tileClassName="" />
             {t('faq.badge')}
           </span>
@@ -52,10 +52,10 @@ export default function FaqAccordion() {
                     setActive(tab.id);
                     setOpen({});
                   }}
-                  className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold outline-none transition focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 active:scale-95 ${
+                  className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold outline-none transition focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 active:scale-95 ${
                     isActive
-                      ? 'bg-brand-600 text-white shadow-sm'
-                      : 'text-ink-600 hover:bg-brand-50'
+                      ? 'bg-cyan-600 text-white shadow-sm'
+                      : 'text-ink-600 hover:bg-cyan-50'
                   }`}
                 >
                   {localized(tab.title, locale)}
@@ -71,7 +71,7 @@ export default function FaqAccordion() {
             <section key={cat.id} className={active === 'all' ? 'mb-10' : ''}>
               {active === 'all' && (
                 <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-ink-900">
-                  <span className="h-5 w-1.5 rounded-full bg-brand-500" />
+                  <span className="h-5 w-1.5 rounded-full bg-cyan-500" />
                   {localized(cat.title, locale)}
                 </h2>
               )}
@@ -91,11 +91,11 @@ export default function FaqAccordion() {
                           className="flex w-full items-center justify-between gap-4 rounded-xl px-5 py-4 text-start outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
                         >
                           <span className="flex items-center gap-3 text-base font-semibold text-ink-900">
-                            <IconTile icon={HelpCircle} className="h-4 w-4" tileClassName="bg-brand-50 text-brand-700 p-1.5" />
+                            <IconTile icon={HelpCircle} className="h-4 w-4" tileClassName="bg-cyan-50 text-cyan-700 p-1.5" />
                             {localized(item.question, locale)}
                           </span>
                           <ChevronDown
-                            className={`h-5 w-5 shrink-0 text-brand-700 transition-transform duration-300 ${
+                            className={`h-5 w-5 shrink-0 text-cyan-700 transition-transform duration-300 ${
                               isOpen ? 'rotate-180' : ''
                             }`}
                             strokeWidth={1.75}
@@ -123,7 +123,7 @@ export default function FaqAccordion() {
         </div>
 
         {/* Contact CTA */}
-        <div className="relative mt-16 overflow-hidden rounded-3xl bg-gradient-to-br from-brand-700 to-brand-600 px-8 py-14 text-center text-white shadow-lift">
+        <div className="relative mt-16 overflow-hidden rounded-3xl bg-gradient-to-br from-cyan-600 to-teal-600 px-8 py-14 text-center text-white shadow-lift">
           <div className="relative z-10">
             <h2 className="text-2xl font-bold sm:text-3xl">{t('faq.ctaTitle')}</h2>
             <p className="mx-auto mt-3 max-w-2xl text-white/90">{t('faq.ctaSubtitle')}</p>
