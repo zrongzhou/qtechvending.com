@@ -86,12 +86,13 @@ export default function StatsBand() {
                 />
                 <div className="flex h-full flex-col items-center gap-2 px-4 py-8 text-center">
                   <IconTile icon={Icon} className="h-7 w-7" tileClassName={`${ACCENTS[i].tile} p-3`} animate="float" />
-                  <div className="flex items-baseline gap-0.5 text-4xl font-black text-ink-900">
+                  {/* Gradient-clipped number so the stat reads in ocean→brand colour */}
+                  <div className="flex items-baseline gap-0.5 bg-gradient-to-br from-ocean-600 to-brand-600 bg-clip-text text-4xl font-extrabold text-transparent">
                     <CountUp end={s.value} />
-                    <span className="text-brand-700">{s.suffix}</span>
+                    <span>{s.suffix}</span>
                   </div>
                   <p className="text-sm font-semibold text-ink-700">{t(s.labelKey)}</p>
-                  <p className="text-xs leading-relaxed text-ink-500">{s.desc[locale] ?? s.desc.en}</p>
+                  <p className="text-sm leading-relaxed text-ink-500">{s.desc[locale] ?? s.desc.en}</p>
                 </div>
               </OceanGlassCard>
             );

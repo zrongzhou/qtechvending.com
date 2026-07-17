@@ -499,7 +499,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         <div className="pointer-events-none absolute -start-16 top-10 h-64 w-64 rounded-full bg-brand-100/60 blur-3xl" aria-hidden="true" />
         <div className="pointer-events-none absolute end-0 top-1/3 h-72 w-72 rounded-full bg-brand-200/50 blur-3xl" aria-hidden="true" />
 
-        <div className="container-qtech relative py-16 text-center lg:py-22">
+        <div className="container-qtech relative py-16 text-center lg:py-24">
           <span className="inline-flex items-center rounded-full bg-brand-100 px-4 py-1.5 text-sm font-medium text-brand-700">
             {t('about.badge') || 'About Qtech'}
           </span>
@@ -738,6 +738,40 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           </div>
         </RevealOnScroll>
 
+        {/* ════════ 5b. WORKSHOP GALLERY (factory photos grouped with Manufacturing) ════════ */}
+        <RevealOnScroll as="section">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
+              {locale === 'zh' ? '工厂空间' : locale === 'ar' ? 'أروقة المصنع' : 'Inside the Workshop'}
+            </p>
+            <h2 className="mt-3 text-3xl font-extrabold text-ink-900 sm:text-4xl">
+              {locale === 'zh' ? '从研发到交付的智造基地' : locale === 'ar' ? 'قاعدة التصنيع الذكي' : 'Our Smart Manufacturing Base'}
+            </h2>
+          </div>
+          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {WORKSHOP.map((w, i) => (
+              <RevealOnScroll key={w.img} delay={i * 60} className="h-full">
+                <div className="group overflow-hidden rounded-2xl ocean-glass ocean-glass--sm bg-white/95">
+                  <div className="aspect-[4/3] overflow-hidden bg-slate-100">
+                    <img
+                      src={w.img}
+                      alt={w.label[locale] || w.label.en}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = '/images/og-default.svg';
+                      }}
+                    />
+                  </div>
+                  <p className="px-4 py-3 text-center text-sm font-semibold text-ink-800">
+                    {w.label[locale] || w.label.en}
+                  </p>
+                </div>
+              </RevealOnScroll>
+            ))}
+          </div>
+        </RevealOnScroll>
+
         {/* ════════ 6. GLOBAL SUCCESS STORIES ════════ */}
         <RevealOnScroll as="section">
           <div className="mx-auto max-w-2xl text-center">
@@ -897,69 +931,27 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               );
             })}
           </div>
-        </RevealOnScroll>
 
-        {/* ════════ 9b. CERTIFICATE GALLERY ════════ */}
-        <RevealOnScroll as="section">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
-              {locale === 'zh' ? '证书展示' : locale === 'ar' ? 'معرض الشهادات' : 'Certificate Gallery'}
-            </p>
-            <h2 className="mt-3 text-3xl font-extrabold text-ink-900 sm:text-4xl">
-              {locale === 'zh' ? '资质与荣誉' : locale === 'ar' ? 'الاعتمادات والتكريم' : 'Awards & Accreditations'}
-            </h2>
-          </div>
-          <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3">
+          {/* Certificate photo strip — the same certificates shown as real
+              award photos, folded into the Certifications section so we avoid a
+              redundant standalone "Certificate Gallery" block. */}
+          <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
             {CERT_GALLERY.map((c, i) => (
               <RevealOnScroll key={c.img} delay={i * 60} className="h-full">
-                <div className="group overflow-hidden rounded-2xl ocean-glass ocean-glass--sm bg-white/95 transition hover:shadow-lift">
+                <div className="group relative overflow-hidden rounded-xl border border-ocean-200/60 bg-white/95 ocean-glass ocean-glass--sm">
                   <div className="aspect-[4/3] overflow-hidden bg-slate-100">
                     <img
                       src={c.img}
                       alt={c.label[locale] || c.label.en}
                       loading="lazy"
-                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                      className="h-full w-full object-contain p-2 transition duration-700 group-hover:scale-105"
                       onError={(e) => {
                         (e.currentTarget as HTMLImageElement).src = '/images/og-default.svg';
                       }}
                     />
                   </div>
-                  <p className="px-4 py-3 text-center text-sm font-semibold text-ink-800">
+                  <p className="px-3 py-2 text-center text-xs font-semibold text-ink-800">
                     {c.label[locale] || c.label.en}
-                  </p>
-                </div>
-              </RevealOnScroll>
-            ))}
-          </div>
-        </RevealOnScroll>
-
-        {/* ════════ 9c. WORKSHOP GALLERY ════════ */}
-        <RevealOnScroll as="section">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
-              {locale === 'zh' ? '工厂空间' : locale === 'ar' ? 'أروقة المصنع' : 'Inside the Workshop'}
-            </p>
-            <h2 className="mt-3 text-3xl font-extrabold text-ink-900 sm:text-4xl">
-              {locale === 'zh' ? '从研发到交付的智造基地' : locale === 'ar' ? 'قاعدة التصنيع الذكي' : 'Our Smart Manufacturing Base'}
-            </h2>
-          </div>
-          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {WORKSHOP.map((w, i) => (
-              <RevealOnScroll key={w.img} delay={i * 60} className="h-full">
-                <div className="group overflow-hidden rounded-2xl ocean-glass ocean-glass--sm bg-white/95">
-                  <div className="aspect-[4/3] overflow-hidden bg-slate-100">
-                    <img
-                      src={w.img}
-                      alt={w.label[locale] || w.label.en}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                      onError={(e) => {
-                        (e.currentTarget as HTMLImageElement).src = '/images/og-default.svg';
-                      }}
-                    />
-                  </div>
-                  <p className="px-4 py-3 text-center text-sm font-semibold text-ink-800">
-                    {w.label[locale] || w.label.en}
                   </p>
                 </div>
               </RevealOnScroll>

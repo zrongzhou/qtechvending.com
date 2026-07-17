@@ -1,6 +1,6 @@
 'use client';
 
-import { Check, Factory, Clock, Settings2, Globe, type LucideIcon } from 'lucide-react';
+import { CheckCircle2, Factory, Clock, Settings2, Globe, type LucideIcon } from 'lucide-react';
 import { useLocale, type Locale } from '@/lib/i18n';
 import CountUp from '@/components/ui/CountUp';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
@@ -120,8 +120,8 @@ export default function AdvantagesSection() {
                     {/* Supporting bullet points — makes each card substantive */}
                     <ul className="mt-5 space-y-2.5">
                       {points.map((p) => (
-                        <li key={p} className="flex items-start gap-2 text-sm leading-snug text-ink-700">
-                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-ocean-600" strokeWidth={2.5} />
+                        <li key={p} className="flex items-start gap-2 text-sm leading-relaxed text-ink-600">
+                          <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-ocean-500" strokeWidth={2.25} />
                           <span>{p}</span>
                         </li>
                       ))}

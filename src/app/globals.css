@@ -299,14 +299,42 @@ input[type='number']::-webkit-inner-spin-button {
 /* ===== V30 Ocean design system (added — never replaces brand/gold) ===== */
 @layer components {
   /* Ocean glass surface — aqua-tinted frosted panel for the product system,
-     CasesSection and other new components. */
+     CasesSection and other new components. V32: stronger, clearly-visible
+     frosted glass (higher translucency, solid blur, aqua glow + top highlight). */
   .ocean-glass {
-    @apply rounded-2xl border border-white/20 border-t-white/30 bg-gradient-to-br from-cyan-500/10 to-blue-600/10 shadow-ocean backdrop-blur-md;
+    position: relative;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow:
+      0 8px 32px rgba(8, 145, 178, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
   }
-  .ocean-glass--sm { @apply shadow-soft backdrop-blur-sm; }
-  .ocean-glass--md { @apply shadow-ocean backdrop-blur-md; }
-  .ocean-glass--lg { @apply shadow-ocean-lg backdrop-blur-lg; }
-  .ocean-glass--hover { @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-ocean-lg; }
+  .ocean-glass--sm {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .ocean-glass--md {
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+  .ocean-glass--lg {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  /* Hover lift + brighter glass + stronger aqua glow. */
+  .ocean-glass--hover {
+    transition: background 0.5s ease, box-shadow 0.5s ease, transform 0.5s ease;
+  }
+  .ocean-glass--hover:hover {
+    background: rgba(255, 255, 255, 0.65);
+    box-shadow:
+      0 16px 48px rgba(8, 145, 178, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    transform: translateY(-4px);
+  }
   .ocean-glass__title { @apply text-ink-900; }
   .ocean-glass__sub { @apply text-ink-600; }
   .ocean-glass__accent { @apply text-ocean-700; }
@@ -332,21 +360,25 @@ input[type='number']::-webkit-inner-spin-button {
   pointer-events: none;
 }
 @keyframes auroraFlowA {
-  0%   { transform: translate3d(-6%, 0, 0) scale(1.1); }
-  50%  { transform: translate3d(8%, 4%, 0) scale(1.25); }
-  100% { transform: translate3d(-6%, 0, 0) scale(1.1); }
+  0%   { transform: translate3d(-8%, 0, 0) scale(1.1); }
+  50%  { transform: translate3d(10%, 5%, 0) scale(1.32); }
+  100% { transform: translate3d(-8%, 0, 0) scale(1.1); }
 }
 @keyframes auroraFlowB {
-  0%   { transform: translate3d(6%, 2%, 0) scale(1.2); }
-  50%  { transform: translate3d(-8%, -4%, 0) scale(1.05); }
-  100% { transform: translate3d(6%, 2%, 0) scale(1.2); }
+  0%   { transform: translate3d(8%, 3%, 0) scale(1.25); }
+  50%  { transform: translate3d(-10%, -5%, 0) scale(1.05); }
+  100% { transform: translate3d(8%, 3%, 0) scale(1.25); }
 }
-.aurora__band--a { animation: auroraFlowA 16s ease-in-out infinite; transform-origin: center; }
-.aurora__band--b { animation: auroraFlowB 22s ease-in-out infinite; transform-origin: center; }
+.aurora__band--a { animation: auroraFlowA 12s ease-in-out infinite; transform-origin: center; }
+.aurora__band--b { animation: auroraFlowB 18s ease-in-out infinite; transform-origin: center; }
 
 /* Ripple on hover — radial-gradient bloom from the pointer (or center).
    The ripple visual is the ::after pseudo-element; the .ripple class itself is
-   only a positioning/overflow context so it must stay visible. */
+   only a positioning/overflow context so it must stay visible.
+
+   V32: slower 0.8s expand for a water-surface feel, brighter sky-400 default
+   colour and an expanding glow ring on activation so the bloom is clearly
+   visible. */
 .ripple {
   position: relative;
   overflow: hidden;
@@ -360,16 +392,28 @@ input[type='number']::-webkit-inner-spin-button {
   width: var(--ripple-size, 0px);
   height: var(--ripple-size, 0px);
   border-radius: 9999px;
-  background: radial-gradient(circle, var(--ripple-color, rgba(255, 255, 255, 0.35)) 0%, transparent 60%);
+  background: radial-gradient(circle, var(--ripple-color, rgba(56, 189, 248, 0.25)) 0%, transparent 65%);
   transform: translate(-50%, -50%) scale(0);
   opacity: 0;
   pointer-events: none;
-  transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+  transition: transform 0.8s ease-out, opacity 0.6s ease-out, box-shadow 0.8s ease-out;
   z-index: 0;
 }
 .ripple--active::after {
   transform: translate(-50%, -50%) scale(1);
   opacity: 1;
+  box-shadow: 0 0 24px var(--ripple-color, rgba(56, 189, 248, 0.25));
+}
+
+/* Animated wave divider — a moving sheen along a gradient bar used under
+   section headings (e.g. the Products page H1). */
+@keyframes waveShimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+.wave-divider {
+  background-size: 200% 100%;
+  animation: waveShimmer 3.5s linear infinite;
 }
 
 /* Gentle icon float */
@@ -390,18 +434,22 @@ input[type='number']::-webkit-inner-spin-button {
   animation: iconShimmer 2.8s linear infinite;
 }
 
-/* ============ prefers-reduced-motion — V30 additions ============ */
+/* ============ prefers-reduced-motion — V30 + V32 additions ============ */
 @media (prefers-reduced-motion: reduce) {
   .starfield,
   .aurora,
+  .aurora__band--a,
+  .aurora__band--b,
+  .wave-divider,
   .icon-float,
   .icon-shimmer {
     animation: none !important;
   }
+  /* Keep the static starfield / aurora visible but dimmed. */
+  .starfield { opacity: 0.7; }
+  .aurora { opacity: 0.7; }
   /* Keep the ripple container visible; only disable the bloom effect. */
   .ripple::after { display: none !important; }
-  /* Dim the static starfield / aurora rather than hide them. */
-  .starfield { opacity: 0.6; }
-  .aurora { opacity: 0.8; }
-  .ocean-glass--hover { transition: none !important; }
+  /* Disable glass hover lift/transition. */
+  .ocean-glass--hover { transition: none !important; transform: none !important; }
 }

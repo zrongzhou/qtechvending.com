@@ -116,7 +116,7 @@ export default function ProductDetailView({
         {/* Info */}
         <div>
           {categoryName && (
-            <span className="inline-flex w-fit items-center rounded-md bg-gradient-to-r from-ocean-50 to-brand-100 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-ocean-700">
+            <span className="inline-flex w-fit items-center rounded-md border border-ocean-200 bg-gradient-to-r from-cyan-50 to-teal-50 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-ocean-700">
               {categoryName}
             </span>
           )}

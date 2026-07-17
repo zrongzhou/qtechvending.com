@@ -35,7 +35,7 @@ export default function BlogCard({ post }: { post: BlogPost }) {
         {/* Persistent ocean top accent bar — card memory point */}
         <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-ocean-400 to-brand-600" />
 
-        <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+        <div className="relative aspect-video overflow-hidden bg-slate-100">
           <ImageWithRetry
             src={post.image || '/images/og-default.svg'}
             alt={title}

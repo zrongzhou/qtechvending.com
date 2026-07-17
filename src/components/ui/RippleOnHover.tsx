@@ -24,7 +24,7 @@ export default function RippleOnHover({
   children,
   className = '',
   pointerDriven = false,
-  rippleColor = 'rgba(255,255,255,0.35)',
+  rippleColor = 'rgba(56, 189, 248, 0.25)',
   reduced = false,
 }: RippleOnHoverProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -35,7 +35,8 @@ export default function RippleOnHover({
     const rect = el.getBoundingClientRect();
     const x = pointerDriven && e ? `${e.clientX - rect.left}px` : '50%';
     const y = pointerDriven && e ? `${e.clientY - rect.top}px` : '50%';
-    const size = Math.max(rect.width, rect.height) * (pointerDriven ? 2.2 : 1.6);
+    // V32: larger bloom so the water ripple is clearly visible on hover.
+    const size = Math.max(rect.width, rect.height) * (pointerDriven ? 3 : 2.2);
     el.style.setProperty('--ripple-x', x);
     el.style.setProperty('--ripple-y', y);
     el.style.setProperty('--ripple-size', `${size}px`);

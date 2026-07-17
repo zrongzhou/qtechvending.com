@@ -65,10 +65,11 @@ const TRUST: {
 ];
 
 /**
- * Flagship hero (V30 Ocean): a night-sky Starfield canvas behind the value
- * proposition, a faint real product photo for tangibility, and a row of
- * colourful frosted-glass trust badges. The real product photo is kept inside
- * a soft glass card on the right.
+ * Flagship hero (V32): a clean night-sky Starfield canvas behind the value
+ * proposition, with the real product visual kept inside a soft glass card on
+ * the right, and a row of colourful frosted-glass trust badges. The faint
+ * full-bleed product photo that previously bled through the sky has been
+ * removed so the left side is pure starfield on the ink-950 base.
  */
 export default function HeroSection({ products = [] }: { products?: Product[] }) {
   const { t, locale } = useLocale();
@@ -82,25 +83,15 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
 
   return (
     <section className="relative overflow-hidden bg-ink-950">
-      {/* Real product photo — faint moody backdrop on the ink base */}
-      <div className="absolute inset-0" aria-hidden="true">
-        <ImageWithRetry
-          src={imageSrc}
-          alt=""
-          loading="eager"
-          fetchPriority="high"
-          className="object-cover opacity-25"
-        />
-      </div>
-
       {/* Night-sky starfield canvas — lifted ABOVE the dark mask so the
           twinkling stars are clearly visible against the ink background. */}
-      <Starfield className="absolute inset-0 z-[1]" starCount={220} />
+      <Starfield className="absolute inset-0 z-[1]" starCount={350} />
 
-      {/* Dark gradient mask — keeps left-side white copy legible. Kept at a
-          low opacity and BEHIND the starfield (z-0) so the stars shine through. */}
+      {/* Dark gradient mask — keeps left-side white copy legible. Kept very
+          transparent and BEHIND the starfield (z-0) so the bright stars shine
+          through unobstructed. */}
       <div
-        className="absolute inset-0 z-0 bg-gradient-to-r from-ink-950/90 via-ink-950/30 to-ink-950/10 sm:via-ink-950/25 sm:to-ink-950/5"
+        className="absolute inset-0 z-0 bg-gradient-to-r from-ink-950/80 via-ink-950/20 to-ink-950/5 sm:via-ink-950/15 sm:to-ink-950/5"
         aria-hidden="true"
       />
 

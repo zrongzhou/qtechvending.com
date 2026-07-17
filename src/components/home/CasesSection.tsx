@@ -96,7 +96,7 @@ export default function CasesSection() {
             <RevealOnScroll key={c.image} delay={i * 80} className="h-full">
               <OceanGlassCard ripple depth="md" className="h-full rounded-2xl">
                 <div className="group flex h-full flex-col">
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-t-2xl bg-slate-100">
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-slate-100">
                     <ImageWithRetry
                       src={c.image}
                       alt={localized(c.title, locale)}
@@ -107,12 +107,12 @@ export default function CasesSection() {
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/70 via-ink-900/10 to-transparent" />
 
                     {/* Floating glass info bar — title + one-line description + arrow */}
-                    <div className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-3 rounded-xl border border-white/20 bg-white/10 px-3 py-2.5 backdrop-blur-md">
+                    <div className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-3 rounded-xl border border-white/30 bg-white/70 px-3 py-2.5 backdrop-blur-sm">
                       <div className="min-w-0">
-                        <p className="truncate text-sm font-semibold text-white">
+                        <p className="truncate text-sm font-semibold text-ink-900">
                           {localized(c.title, locale)}
                         </p>
-                        <p className="truncate text-[11px] leading-tight text-white/80">
+                        <p className="truncate text-[11px] leading-tight text-ink-600">
                           {localized(c.sub, locale)}
                         </p>
                       </div>

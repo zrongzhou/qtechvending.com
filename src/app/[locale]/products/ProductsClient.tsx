@@ -79,7 +79,7 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
   const { data, totalPages } = result;
 
   return (
-    <div className="container-qtech bg-gradient-to-b from-ocean-50/60 via-slate-50 to-white py-12 lg:py-16">
+    <div className="container-qtech bg-gradient-to-b from-ocean-100/90 via-cyan-50/60 to-slate-50 py-12 lg:py-16">
       <RevealOnScroll className="mb-8 md:mb-10">
         <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
           {t('products.eyebrow')}
@@ -87,8 +87,12 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
         <h1 className="mt-3 text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">
           {t('products.title')}
         </h1>
-        {/* Subtle ocean gradient accent line under the heading */}
-        <span className="mt-4 block h-1 w-20 rounded-full bg-gradient-to-r from-ocean-400 to-brand-600" aria-hidden="true" />
+        {/* Animated ocean wave divider under the heading — visible, moving
+            gradient bar that reinforces the marine theme. */}
+        <span
+          className="wave-divider mt-4 block h-1 w-[200px] rounded-full bg-gradient-to-r from-cyan-400 via-teal-500 to-brand-600"
+          aria-hidden="true"
+        />
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-600">
           {t('products.subtitle')}
         </p>

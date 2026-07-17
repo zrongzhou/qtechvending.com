@@ -36,7 +36,7 @@ export default function ProductCard({ product }: { product: Product }) {
       depth="md"
       hoverLift
       rippleColor="rgba(8, 145, 178, 0.2)"
-      className="group h-full border border-ocean-200/60 transition-all duration-300 hover:-translate-y-2 hover:shadow-ocean"
+      className="group h-full border border-ocean-200/60 transition-all duration-300 hover:-translate-y-2 hover:border-ocean-300/60 hover:shadow-ocean-lg"
     >
       <Link
         href={`/${locale}/products/${product.slug}`}
@@ -52,22 +52,22 @@ export default function ProductCard({ product }: { product: Product }) {
             className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
           />
 
-          {/* Gradient scrim for legibility */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/35 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+          {/* Gradient scrim for legibility — ocean-toned */}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ocean-900/40 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-          {/* Badge — compact, small radius */}
+          {/* Badge — bold ocean→teal pill with glow */}
           {badgeKey && (
             <span
-              className={`absolute start-3 top-3 z-10 inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-semibold shadow-sm ${badgeClass}`}
+              className={`absolute start-3 top-3 z-10 inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-bold text-white shadow-lg shadow-cyan-500/30 ${badgeClass}`}
             >
               {badgeKey === 'products.badgeHot' && <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />}
               {t(badgeKey)}
             </span>
           )}
 
-          {/* Hover overlay: View Details — ocean-tinted scrim */}
+          {/* Hover overlay: View Details — ocean gradient button */}
           <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-ocean-900/90 via-ocean-700/30 to-transparent p-4 transition-transform duration-300 group-hover:translate-y-0">
-            <span className="inline-flex items-center gap-1 text-sm font-semibold text-white">
+            <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-ocean-500 to-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-lg">
               {t('home.featured.viewDetails')}
               <span aria-hidden="true" className="transition-transform group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1">→</span>
             </span>
