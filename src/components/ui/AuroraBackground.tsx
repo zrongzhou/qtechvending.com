@@ -48,15 +48,15 @@ export default function AuroraBackground({
       >
         <defs>
           <linearGradient id="aurora-grad-a" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor={c1} stopOpacity="0.55" />
-            <stop offset="100%" stopColor={c2} stopOpacity="0.05" />
+            <stop offset="0%" stopColor={c1} stopOpacity="0.7" />
+            <stop offset="100%" stopColor={c2} stopOpacity="0.06" />
           </linearGradient>
           <linearGradient id="aurora-grad-b" x1="100%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor={c3} stopOpacity="0.5" />
-            <stop offset="100%" stopColor={c1} stopOpacity="0.04" />
+            <stop offset="0%" stopColor={c3} stopOpacity="0.65" />
+            <stop offset="100%" stopColor={c1} stopOpacity="0.05" />
           </linearGradient>
           <filter id="aurora-blur" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="60" />
+            <feGaussianBlur stdDeviation="45" />
           </filter>
         </defs>
         <g filter="url(#aurora-blur)" className={isReduced ? '' : 'aurora__band--a'}>

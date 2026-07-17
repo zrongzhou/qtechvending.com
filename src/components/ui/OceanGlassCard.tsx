@@ -13,6 +13,8 @@ export interface OceanGlassCardProps {
   hoverLift?: boolean;
   /** Wrap content in a RippleOnHover water-ripple effect. */
   ripple?: boolean;
+  /** Ripple fill colour (rgba). Defaults to an ocean-cyan bloom. */
+  rippleColor?: string;
   /** Forwarded to the ripple effect (disable under reduced-motion). */
   reduced?: boolean;
 }
@@ -29,14 +31,15 @@ export default function OceanGlassCard({
   depth = 'md',
   hoverLift = true,
   ripple = false,
+  rippleColor = 'rgba(8, 145, 178, 0.2)',
   reduced = false,
 }: OceanGlassCardProps) {
   const surface = `ocean-glass ocean-glass--${depth} ${hoverLift ? 'ocean-glass--hover' : ''}`;
-  const inner = <div className="relative z-10">{children}</div>;
+  const inner = <div className="relative z-10 h-full">{children}</div>;
 
   if (ripple) {
     return (
-      <RippleOnHover className={`${surface} ${className}`} reduced={reduced}>
+      <RippleOnHover className={`${surface} ${className}`} rippleColor={rippleColor} reduced={reduced}>
         {inner}
       </RippleOnHover>
     );

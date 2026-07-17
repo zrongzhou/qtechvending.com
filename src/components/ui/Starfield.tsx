@@ -62,14 +62,15 @@ export default function Starfield({
     let height = wrap.clientHeight;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    const layerAlpha = [0.45, 0.7, 1];
-    const layerRadius = [0.6, 1.1, 1.8];
+    // Brightened base alphas so stars read clearly against the ink background.
+    const layerAlpha = [0.55, 0.82, 1];
+    const layerRadius = [0.7, 1.2, 2.0];
     const layerDrift = [0.15, 0.35, 0.6];
 
     const stars: Star[] = [];
     const count = Math.max(
       20,
-      Math.min(starCount, Math.floor((width * height) / 6000)),
+      Math.min(starCount, Math.floor((width * height) / 4000)),
     );
     for (let i = 0; i < count; i += 1) {
       const layer = depth ? Math.floor(Math.random() * 3) : 1;
@@ -108,11 +109,11 @@ export default function Starfield({
         ctx.arc(px, py, s.r, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(186, 246, 250, ${alpha})`;
         ctx.fill();
-        // Soft glow halo for near stars only.
+        // Soft glow halo for near stars only (brighter so the sky feels alive).
         if (s.layer === 2) {
           ctx.beginPath();
-          ctx.arc(px, py, s.r * 2.4, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(45, 212, 191, ${alpha * 0.18})`;
+          ctx.arc(px, py, s.r * 2.6, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(56, 224, 208, ${alpha * 0.28})`;
           ctx.fill();
         }
       }

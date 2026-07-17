@@ -93,12 +93,14 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
         />
       </div>
 
-      {/* Night-sky starfield canvas (decorative, behind content) */}
-      <Starfield className="absolute inset-0 z-0" starCount={110} />
+      {/* Night-sky starfield canvas — lifted ABOVE the dark mask so the
+          twinkling stars are clearly visible against the ink background. */}
+      <Starfield className="absolute inset-0 z-[1]" starCount={220} />
 
-      {/* Dark gradient mask — keeps left-side white copy legible */}
+      {/* Dark gradient mask — keeps left-side white copy legible. Kept at a
+          low opacity and BEHIND the starfield (z-0) so the stars shine through. */}
       <div
-        className="absolute inset-0 z-0 bg-gradient-to-r from-ink-950 via-ink-950/90 to-ink-950/70 sm:via-ink-950/85 sm:to-ink-950/40"
+        className="absolute inset-0 z-0 bg-gradient-to-r from-ink-950/90 via-ink-950/30 to-ink-950/10 sm:via-ink-950/25 sm:to-ink-950/5"
         aria-hidden="true"
       />
 

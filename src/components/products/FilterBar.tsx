@@ -33,7 +33,7 @@ export default function FilterBar({
   return (
     <OceanGlassCard ripple depth="md" hoverLift={false} className="relative overflow-hidden p-5">
       {/* Ocean top accent bar — aligns with the ocean design system */}
-      <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-ocean-400 to-brand-600" aria-hidden="true" />
+      <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-ocean-400 via-teal-500 to-brand-600" aria-hidden="true" />
       <div className="flex flex-col gap-4">
         {/* Search */}
         <div className="relative">

@@ -1,10 +1,11 @@
 'use client';
 
 import { Globe, Users, CalendarClock, Boxes, type LucideIcon } from 'lucide-react';
-import { useLocale } from '@/lib/i18n';
+import { useLocale, type Locale } from '@/lib/i18n';
 import CountUp from '@/components/ui/CountUp';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
+import OceanGlassCard from '@/components/ui/OceanGlassCard';
 
 // V13 polish round: animated "by the numbers" trust band.
 // Reuses the brand design language (pro-card, IconTile, per-card accent, CountUp, hover lift).
@@ -15,18 +16,58 @@ const ACCENTS = [
   { bar: 'from-indigo-400 to-violet-500', tile: 'bg-indigo-50 text-indigo-600' },
 ];
 
-const STATS: { value: number; suffix: string; icon: LucideIcon; labelKey: string }[] = [
-  { value: 80, suffix: '+', icon: Globe, labelKey: 'home.stats.countries' },
-  { value: 500, suffix: '+', icon: Users, labelKey: 'home.stats.partners' },
-  { value: 10, suffix: '+', icon: CalendarClock, labelKey: 'home.stats.years' },
-  { value: 22, suffix: '', icon: Boxes, labelKey: 'home.stats.models' },
+const STATS: { value: number; suffix: string; icon: LucideIcon; labelKey: string; desc: Record<Locale, string> }[] = [
+  {
+    value: 80,
+    suffix: '+',
+    icon: Globe,
+    labelKey: 'home.stats.countries',
+    desc: {
+      zh: '覆盖六大洲 80+ 国家和地区',
+      en: 'Across 6 continents, 80+ countries & regions',
+      ar: 'عبر 6 قارات وأكثر من 80 دولة ومنطقة',
+    },
+  },
+  {
+    value: 500,
+    suffix: '+',
+    icon: Users,
+    labelKey: 'home.stats.partners',
+    desc: {
+      zh: '遍布全球的 500+ 合作伙伴',
+      en: '500+ partners running Qtech worldwide',
+      ar: 'أكثر من 500 شريك حول العالم',
+    },
+  },
+  {
+    value: 10,
+    suffix: '+',
+    icon: CalendarClock,
+    labelKey: 'home.stats.years',
+    desc: {
+      zh: '十年智能售货研发与制造经验',
+      en: 'A decade of smart-vending R&D',
+      ar: 'عقد من تطوير آلات البيع الذكية',
+    },
+  },
+  {
+    value: 22,
+    suffix: '',
+    icon: Boxes,
+    labelKey: 'home.stats.models',
+    desc: {
+      zh: '22+ 款标准化机型灵活可选',
+      en: '22+ standard models to choose from',
+      ar: 'أكثر من 22 طرازًا قياسيًا',
+    },
+  },
 ];
 
 export default function StatsBand() {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
 
   return (
-    <RevealOnScroll as="section" className="bg-white py-16 md:py-20">
+    <RevealOnScroll as="section" className="bg-gradient-to-b from-ocean-50/40 to-white py-16 md:py-20">
       <div className="container-qtech">
         <div className="section-head">
           <p className="eyebrow">{t('home.stats.eyebrow')}</p>
@@ -38,21 +79,21 @@ export default function StatsBand() {
           {STATS.map((s, i) => {
             const Icon = s.icon;
             return (
-              <div
-                key={s.labelKey}
-                className="pro-card group relative flex flex-col items-center gap-3 overflow-hidden rounded-2xl px-4 py-9 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lift"
-              >
+              <OceanGlassCard key={s.labelKey} depth="sm" hoverLift className="group relative h-full overflow-hidden">
                 <span
                   className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${ACCENTS[i].bar}`}
                   aria-hidden="true"
                 />
-                <IconTile icon={Icon} className="h-7 w-7" tileClassName={`${ACCENTS[i].tile} p-3`} animate="float" />
-                <div className="flex items-baseline gap-0.5 text-4xl font-black text-ink-900">
-                  <CountUp end={s.value} />
-                  <span className="text-brand-700">{s.suffix}</span>
+                <div className="flex h-full flex-col items-center gap-2 px-4 py-8 text-center">
+                  <IconTile icon={Icon} className="h-7 w-7" tileClassName={`${ACCENTS[i].tile} p-3`} animate="float" />
+                  <div className="flex items-baseline gap-0.5 text-4xl font-black text-ink-900">
+                    <CountUp end={s.value} />
+                    <span className="text-brand-700">{s.suffix}</span>
+                  </div>
+                  <p className="text-sm font-semibold text-ink-700">{t(s.labelKey)}</p>
+                  <p className="text-xs leading-relaxed text-ink-500">{s.desc[locale] ?? s.desc.en}</p>
                 </div>
-                <p className="text-sm font-medium text-ink-500">{t(s.labelKey)}</p>
-              </div>
+              </OceanGlassCard>
             );
           })}
         </div>

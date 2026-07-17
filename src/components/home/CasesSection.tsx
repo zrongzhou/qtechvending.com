@@ -94,7 +94,7 @@ export default function CasesSection() {
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {CASES.map((c, i) => (
             <RevealOnScroll key={c.image} delay={i * 80} className="h-full">
-              <OceanGlassCard ripple depth="md" className="h-full">
+              <OceanGlassCard ripple depth="md" className="h-full rounded-2xl">
                 <div className="group flex h-full flex-col">
                   <div className="relative aspect-[4/3] overflow-hidden rounded-t-2xl bg-slate-100">
                     <ImageWithRetry
@@ -103,15 +103,23 @@ export default function CasesSection() {
                       loading="lazy"
                       className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                     />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/50 via-transparent to-transparent" />
-                  </div>
-                  <div className="flex flex-1 flex-col p-5">
-                    <h3 className="text-base font-semibold text-ink-900 transition-colors group-hover:text-ocean-700">
-                      {localized(c.title, locale)}
-                    </h3>
-                    <p className="mt-2 line-clamp-2 text-sm text-ink-500">
-                      {localized(c.sub, locale)}
-                    </p>
+                    {/* Darkening scrim so the floating info bar stays legible */}
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/70 via-ink-900/10 to-transparent" />
+
+                    {/* Floating glass info bar — title + one-line description + arrow */}
+                    <div className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-3 rounded-xl border border-white/20 bg-white/10 px-3 py-2.5 backdrop-blur-md">
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-semibold text-white">
+                          {localized(c.title, locale)}
+                        </p>
+                        <p className="truncate text-[11px] leading-tight text-white/80">
+                          {localized(c.sub, locale)}
+                        </p>
+                      </div>
+                      <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-ocean-500 to-brand-600 text-white shadow-sm transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1">
+                        <span aria-hidden="true" className="text-base font-bold leading-none">→</span>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </OceanGlassCard>

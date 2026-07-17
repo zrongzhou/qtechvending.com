@@ -17,12 +17,14 @@ export default function CtaSection() {
 
   return (
     <RevealOnScroll as="section" className="container-qtech py-20 md:py-28">
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-ink-900 via-ocean-900 to-ink-950 shadow-lift">
-        {/* Ambient aurora layer (decorative, behind the glass panel) */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-ink-900/80 via-ocean-900/60 to-ink-950/80 shadow-lift">
+        {/* Ambient aurora layer — sits above the container base colour (z-0)
+            and below the glass panel (z-10) so the flowing light is visible. */}
         <AuroraBackground className="absolute inset-0 z-0" />
 
-        {/* Frosted glass content panel */}
-        <div className="relative z-10 rounded-3xl px-8 py-12 text-center text-white backdrop-blur-sm sm:px-16 sm:py-16">
+        {/* Frosted glass content panel — kept lightly tinted with minimal blur
+            so the aurora behind remains clearly visible. */}
+        <div className="relative z-10 rounded-3xl bg-white/5 px-8 py-12 text-center text-white backdrop-blur-[2px] sm:px-16 sm:py-16">
           <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-5 py-2 text-sm font-medium text-white">
             <IconTile icon={Sparkles} className="h-4 w-4" tileClassName="bg-white/20 text-white p-1.5" />
             {locale === 'zh' ? '立即开启合作'

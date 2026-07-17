@@ -82,7 +82,7 @@ export default function ProductDetailView({
       <div className="grid gap-10 lg:grid-cols-2">
         {/* Gallery — sticky on desktop so the main image stays in view while scrolling specs/description */}
         <div className="lg:sticky lg:top-24 lg:self-start">
-          <OceanGlassCard ripple depth="md" hoverLift={false} className="relative overflow-hidden p-2 sm:p-3">
+          <OceanGlassCard ripple depth="lg" hoverLift={false} rippleColor="rgba(8, 145, 178, 0.2)" className="relative overflow-hidden p-2 sm:p-3">
             {/* Ocean top accent bar — card memory point */}
             <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-ocean-400 to-brand-600" aria-hidden="true" />
             <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-slate-100">
@@ -133,7 +133,7 @@ export default function ProductDetailView({
           <div className="mt-10">
             {specs.length > 0 ? (
               <RevealOnScroll>
-                <OceanGlassCard ripple depth="md" className="overflow-hidden">
+                <OceanGlassCard ripple depth="md" rippleColor="rgba(8, 145, 178, 0.2)" className="overflow-hidden">
                   {/* Gradient header */}
                   <div className="bg-gradient-to-r from-ocean-600 to-brand-700 px-6 py-4">
                     <h2 className="flex items-center gap-2.5 text-lg font-bold text-white">

@@ -23,17 +23,24 @@ export default function ProductCard({ product }: { product: Product }) {
   const isHot = Boolean(product.featured);
   const isNew = !isHot && /2025/.test(product.slug);
   const badgeKey = isHot ? 'products.badgeHot' : isNew ? 'products.badgeNew' : null;
-  const badgeClass = isHot ? 'pill-hot' : 'pill-new';
+  // Ocean-tinted badge (cyan → teal) for an on-theme "HOT"/"NEW" tag.
+  const badgeClass = 'bg-gradient-to-r from-cyan-400 to-teal-500 text-white';
 
   // Bottom info line: model number (preferred) or category tag as a fallback.
   const modelSpec = product.specs?.find((s) => s.param.trim().toLowerCase() === 'model');
   const modelLabel = modelSpec?.value?.trim() || '';
 
   return (
-    <OceanGlassCard ripple depth="md" hoverLift className="h-full">
+    <OceanGlassCard
+      ripple
+      depth="md"
+      hoverLift
+      rippleColor="rgba(8, 145, 178, 0.2)"
+      className="group h-full border border-ocean-200/60 transition-all duration-300 hover:-translate-y-2 hover:shadow-ocean"
+    >
       <Link
         href={`/${locale}/products/${product.slug}`}
-        className="group relative flex h-full flex-col overflow-hidden rounded-2xl"
+        className="group/link relative flex h-full flex-col overflow-hidden rounded-2xl"
       >
         {/* Persistent ocean top accent bar — card memory point */}
         <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-ocean-400 to-brand-600" />
@@ -58,8 +65,8 @@ export default function ProductCard({ product }: { product: Product }) {
             </span>
           )}
 
-          {/* Hover overlay: View Details */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-ink-900/85 to-transparent p-4 transition-transform duration-300 group-hover:translate-y-0">
+          {/* Hover overlay: View Details — ocean-tinted scrim */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-ocean-900/90 via-ocean-700/30 to-transparent p-4 transition-transform duration-300 group-hover:translate-y-0">
             <span className="inline-flex items-center gap-1 text-sm font-semibold text-white">
               {t('home.featured.viewDetails')}
               <span aria-hidden="true" className="transition-transform group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1">→</span>
