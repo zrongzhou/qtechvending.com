@@ -83,7 +83,7 @@ export default function CasesSection() {
   const { t, locale } = useLocale();
 
   return (
-    <RevealOnScroll as="section" className="bg-gradient-to-b from-ocean-50/40 to-white py-20 md:py-28">
+    <RevealOnScroll as="section" className="bg-atmosphere-rose py-20 md:py-28">
       <div className="container-qtech">
         <div className="section-head">
           <p className="eyebrow">{t('home.partners.eyebrow')}</p>
@@ -94,37 +94,41 @@ export default function CasesSection() {
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {CASES.map((c, i) => (
             <RevealOnScroll key={c.image} delay={i * 80} className="h-full">
-              <OceanGlassCard ripple depth="md" className="h-full rounded-2xl">
-                {/* Warm accent bar — differentiates Cases from the ocean product cards */}
-                <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-orange-400 to-rose-500" aria-hidden="true" />
-                <div className="group flex h-full flex-col">
-                  <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-slate-100">
-                    <ImageWithRetry
-                      src={c.image}
-                      alt={localized(c.title, locale)}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                    />
-                    {/* Darkening scrim so the floating info bar stays legible */}
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/70 via-ink-900/10 to-transparent" />
+              <div className="relative h-full">
+                {/* Soft orange-rose glow behind the glass case card */}
+                <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-orange-400 to-rose-500 opacity-20 blur-xl" aria-hidden="true" />
+                <OceanGlassCard ripple depth="md" className="group relative z-10 h-full rounded-2xl">
+                  {/* Warm accent bar — differentiates Cases from the ocean product cards */}
+                  <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-orange-400 to-rose-500" aria-hidden="true" />
+                  <div className="group flex h-full flex-col">
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-slate-100">
+                      <ImageWithRetry
+                        src={c.image}
+                        alt={localized(c.title, locale)}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                      />
+                      {/* Darkening scrim so the floating info bar stays legible */}
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/70 via-ink-900/10 to-transparent" />
 
-                    {/* Floating glass info bar — title + one-line description + arrow */}
-                    <div className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-3 rounded-xl border border-white/30 bg-white/70 px-3 py-2.5 backdrop-blur-sm">
-                      <div className="min-w-0">
-                        <p className="truncate text-sm font-semibold text-ink-900">
-                          {localized(c.title, locale)}
-                        </p>
-                        <p className="truncate text-[11px] leading-tight text-ink-600">
-                          {localized(c.sub, locale)}
-                        </p>
+                      {/* Floating glass info bar — stronger frosted treatment */}
+                      <div className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-3 rounded-xl border border-white/40 bg-white/85 px-3 py-2.5 shadow-lg backdrop-blur-md">
+                        <div className="min-w-0">
+                          <p className="truncate text-sm font-semibold text-ink-900">
+                            {localized(c.title, locale)}
+                          </p>
+                          <p className="truncate text-[11px] leading-tight text-ink-600">
+                            {localized(c.sub, locale)}
+                          </p>
+                        </div>
+                        <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-orange-500 to-rose-500 text-white shadow-md transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1">
+                          <span aria-hidden="true" className="text-lg font-bold leading-none">→</span>
+                        </span>
                       </div>
-                      <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-orange-500 to-rose-500 text-white shadow-sm transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1">
-                        <span aria-hidden="true" className="text-base font-bold leading-none">→</span>
-                      </span>
                     </div>
                   </div>
-                </div>
-              </OceanGlassCard>
+                </OceanGlassCard>
+              </div>
             </RevealOnScroll>
           ))}
         </div>

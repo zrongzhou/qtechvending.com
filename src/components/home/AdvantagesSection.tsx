@@ -96,7 +96,7 @@ export default function AdvantagesSection() {
   ];
 
   return (
-    <section className="bg-gradient-to-b from-slate-50/80 to-white py-20 md:py-28">
+    <section className="bg-atmosphere-blue py-20 md:py-28">
       <div className="container-qtech">
         <div className="section-head">
           <p className="eyebrow">{t('home.advantages.eyebrow')}</p>
@@ -110,8 +110,11 @@ export default function AdvantagesSection() {
             const accent = ACCENTS[i];
             const points = POINTS[i][locale] ?? POINTS[i].en;
             return (
-              <RevealOnScroll key={item.titleKey} delay={i * 80} className="h-full">
-                <OceanGlassCard depth="md" hoverLift className={`group relative h-full border border-ocean-200/50 ${accent.glow}`}>
+            <RevealOnScroll key={item.titleKey} delay={i * 80} className="h-full">
+              <div className="relative h-full">
+                {/* Soft colored glow behind the glass card so it pops visually */}
+                <div className={`absolute -inset-1 rounded-2xl bg-gradient-to-br opacity-20 blur-xl ${accent.bar}`} aria-hidden="true" />
+                <OceanGlassCard depth="md" hoverLift className={`group relative z-10 h-full border border-ocean-200/50 ${accent.glow}`}>
                   <div className="flex h-full flex-col p-7">
                     {/* Top accent bar — per-card identity colour */}
                     <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${accent.bar}`} aria-hidden="true" />
@@ -145,7 +148,8 @@ export default function AdvantagesSection() {
                     <span className={`mt-auto block h-1 w-full rounded-full bg-gradient-to-r opacity-70 ${accent.bar}`} aria-hidden="true" />
                   </div>
                 </OceanGlassCard>
-              </RevealOnScroll>
+              </div>
+            </RevealOnScroll>
             );
           })}
         </div>

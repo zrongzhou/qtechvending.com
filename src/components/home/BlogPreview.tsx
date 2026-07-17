@@ -11,7 +11,7 @@ export default function BlogPreview({ posts }: { posts: BlogPost[] }) {
   if (!posts.length) return null;
 
   return (
-    <section className="bg-white py-20 md:py-28">
+    <section className="bg-atmosphere-ocean py-20 md:py-28">
       <div className="container-qtech">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div>

@@ -67,7 +67,7 @@ export default function StatsBand() {
   const { t, locale } = useLocale();
 
   return (
-    <RevealOnScroll as="section" className="bg-gradient-to-b from-ocean-50/40 to-white py-16 md:py-20">
+    <RevealOnScroll as="section" className="bg-atmosphere-warm py-16 md:py-20">
       <div className="container-qtech">
         <div className="section-head">
           <p className="eyebrow">{t('home.stats.eyebrow')}</p>
@@ -80,27 +80,31 @@ export default function StatsBand() {
             const Icon = s.icon;
             const accent = STAT_ACCENTS[i];
             return (
-              <OceanGlassCard
-                key={s.labelKey}
-                depth="sm"
-                hoverLift
-                className={`group relative h-full overflow-hidden border-s-4 ${accent.border}`}
-              >
-                <div className="flex h-full flex-col items-center gap-3 px-5 py-8 text-center">
-                  <div className="flex items-center gap-2">
-                    {/* Subtle glowing accent dot next to the icon */}
-                    <span className={`h-2.5 w-2.5 rounded-full ${accent.dot}`} aria-hidden="true" />
-                    <IconTile icon={Icon} className="h-6 w-6" tileClassName={accent.icon} animate="float" />
+              <div key={s.labelKey} className="relative h-full">
+                {/* Soft colored glow behind the glass stat card */}
+                <div className={`absolute -inset-1 rounded-2xl bg-gradient-to-br opacity-20 blur-xl ${accent.grad}`} aria-hidden="true" />
+                <OceanGlassCard
+                  depth="sm"
+                  hoverLift
+                  className={`group relative z-10 h-full overflow-hidden border-s-4 ${accent.border}`}
+                >
+                  <div className="flex h-full flex-col items-center gap-3 px-5 py-8 text-center">
+                    <div className="flex items-center gap-2">
+                      {/* Subtle glowing accent dot next to the icon */}
+                      <span className={`h-2.5 w-2.5 rounded-full ${accent.dot}`} aria-hidden="true" />
+                      <IconTile icon={Icon} className="h-6 w-6" tileClassName={accent.icon} animate="float" />
+                    </div>
+                    {/* Gradient-clipped, larger, slowly-travelling number in the
+                        card's accent colour so the figure feels alive. */}
+                    <div className={`stat-number-anim flex items-baseline gap-0.5 bg-gradient-to-r bg-clip-text text-5xl font-extrabold text-transparent ${accent.grad}`}>
+                      <CountUp end={s.value} />
+                      <span>{s.suffix}</span>
+                    </div>
+                    <p className="text-sm font-semibold text-ink-700">{t(s.labelKey)}</p>
+                    <p className="text-sm leading-relaxed text-ink-500">{s.desc[locale] ?? s.desc.en}</p>
                   </div>
-                  {/* Gradient-clipped number in the card's accent colour */}
-                  <div className={`flex items-baseline gap-0.5 bg-gradient-to-r bg-clip-text text-4xl font-extrabold text-transparent ${accent.grad}`}>
-                    <CountUp end={s.value} />
-                    <span>{s.suffix}</span>
-                  </div>
-                  <p className="text-sm font-semibold text-ink-700">{t(s.labelKey)}</p>
-                  <p className="text-sm leading-relaxed text-ink-500">{s.desc[locale] ?? s.desc.en}</p>
-                </div>
-              </OceanGlassCard>
+                </OceanGlassCard>
+              </div>
             );
           })}
         </div>
