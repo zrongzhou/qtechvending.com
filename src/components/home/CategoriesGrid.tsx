@@ -84,10 +84,10 @@ export default function CategoriesGrid({
               <RevealOnScroll key={cat.id} delay={i * 80} className="h-full">
                 <Link
                   href={`/${locale}/category/${cat.slug}`}
-                  className="group relative flex h-full min-w-[260px] snap-start flex-col overflow-hidden rounded-2xl pro-card p-0 transition hover:-translate-y-1 hover:shadow-lift sm:min-w-0"
+                  className="group relative flex h-full min-w-[260px] snap-start flex-col overflow-hidden rounded-2xl pro-card p-0 transition hover:-translate-y-1 hover:shadow-ocean sm:min-w-0"
                 >
                   {/* Top accent bar — visual anchor */}
-                  <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-brand-400 to-brand-700" aria-hidden="true" />
+                  <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-cyan-400 to-blue-600" aria-hidden="true" />
 
                   {/* Banner image with gradient overlay */}
                   <div className="relative aspect-[4/3] w-full overflow-hidden">
@@ -101,7 +101,7 @@ export default function CategoriesGrid({
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-ink-900/80 via-ink-900/20 to-transparent" />
                     <span className="absolute start-3 top-3">
-                      <IconTile icon={Icon} className="h-5 w-5" tileClassName="bg-gradient-to-br from-brand-600 to-brand-700 text-white shadow-md p-2.5" />
+                      <IconTile icon={Icon} className="h-5 w-5" variant="glossy" animate="float" />
                     </span>
                   </div>
 

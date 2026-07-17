@@ -295,3 +295,113 @@ input[type='number']::-webkit-inner-spin-button {
     transform: none !important;
   }
 }
+
+/* ===== V30 Ocean design system (added — never replaces brand/gold) ===== */
+@layer components {
+  /* Ocean glass surface — aqua-tinted frosted panel for the product system,
+     CasesSection and other new components. */
+  .ocean-glass {
+    @apply rounded-2xl border border-white/20 border-t-white/30 bg-gradient-to-br from-cyan-500/10 to-blue-600/10 shadow-ocean backdrop-blur-md;
+  }
+  .ocean-glass--sm { @apply shadow-soft backdrop-blur-sm; }
+  .ocean-glass--md { @apply shadow-ocean backdrop-blur-md; }
+  .ocean-glass--lg { @apply shadow-ocean-lg backdrop-blur-lg; }
+  .ocean-glass--hover { @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-ocean-lg; }
+  .ocean-glass__title { @apply text-ink-900; }
+  .ocean-glass__sub { @apply text-ink-600; }
+  .ocean-glass__accent { @apply text-ocean-700; }
+}
+
+/* Starfield container (Hero night-sky canvas) */
+.starfield {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.starfield canvas { display: block; width: 100%; height: 100%; }
+
+/* Aurora container (CTA) */
+.aurora {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+@keyframes auroraFlowA {
+  0%   { transform: translate3d(-6%, 0, 0) scale(1.1); }
+  50%  { transform: translate3d(8%, 4%, 0) scale(1.25); }
+  100% { transform: translate3d(-6%, 0, 0) scale(1.1); }
+}
+@keyframes auroraFlowB {
+  0%   { transform: translate3d(6%, 2%, 0) scale(1.2); }
+  50%  { transform: translate3d(-8%, -4%, 0) scale(1.05); }
+  100% { transform: translate3d(6%, 2%, 0) scale(1.2); }
+}
+.aurora__band--a { animation: auroraFlowA 16s ease-in-out infinite; transform-origin: center; }
+.aurora__band--b { animation: auroraFlowB 22s ease-in-out infinite; transform-origin: center; }
+
+/* Ripple on hover — radial-gradient bloom from the pointer (or center).
+   The ripple visual is the ::after pseudo-element; the .ripple class itself is
+   only a positioning/overflow context so it must stay visible. */
+.ripple {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.ripple::after {
+  content: '';
+  position: absolute;
+  left: var(--ripple-x, 50%);
+  top: var(--ripple-y, 50%);
+  width: var(--ripple-size, 0px);
+  height: var(--ripple-size, 0px);
+  border-radius: 9999px;
+  background: radial-gradient(circle, var(--ripple-color, rgba(255, 255, 255, 0.35)) 0%, transparent 60%);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+  z-index: 0;
+}
+.ripple--active::after {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+/* Gentle icon float */
+@keyframes iconFloatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.icon-float { animation: iconFloatY 4s ease-in-out infinite; }
+
+/* Glossy icon shimmer sweep */
+@keyframes iconShimmer {
+  0%   { background-position: -160% 0; }
+  100% { background-position: 160% 0; }
+}
+.icon-shimmer {
+  background-image: linear-gradient(110deg, rgba(255, 255, 255, 0) 35%, rgba(255, 255, 255, 0.55) 50%, rgba(255, 255, 255, 0) 65%);
+  background-size: 220% 100%;
+  animation: iconShimmer 2.8s linear infinite;
+}
+
+/* ============ prefers-reduced-motion — V30 additions ============ */
+@media (prefers-reduced-motion: reduce) {
+  .starfield,
+  .aurora,
+  .icon-float,
+  .icon-shimmer {
+    animation: none !important;
+  }
+  /* Keep the ripple container visible; only disable the bloom effect. */
+  .ripple::after { display: none !important; }
+  /* Dim the static starfield / aurora rather than hide them. */
+  .starfield { opacity: 0.6; }
+  .aurora { opacity: 0.8; }
+  .ocean-glass--hover { transition: none !important; }
+}

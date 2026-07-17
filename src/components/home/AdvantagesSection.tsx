@@ -94,8 +94,9 @@ export default function AdvantagesSection() {
                   <div className="relative">
                     <IconTile
                       icon={Icon}
-                      className="h-8 w-8 animate-icon-bounce"
+                      className="h-8 w-8"
                       tileClassName={`${accent.tint} p-4 transition-colors ${accent.hoverTile}`}
+                      animate="float"
                     />
                     <h3 className="mt-4 text-xl font-bold text-ink-900">{t(item.titleKey)}</h3>
                     <p className="mt-2 text-sm text-ink-600">{t(item.descKey)}</p>

@@ -16,26 +16,59 @@ import { localized } from '@/lib/localize';
 import ImageWithRetry from '@/components/ui/ImageWithRetry';
 import IconTile from '@/components/ui/IconTile';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
+import Starfield from '@/components/ui/Starfield';
 import type { Product } from '@/types';
 
 // A real, confirmed product photo (public/images/products/...) used as the
 // flagship hero visual so the first screen feels tangible and confident.
 const HERO_FALLBACK =
-  '/images/products/2025-popular-24-7-self-service-florist-flower-shop-vending-machine-sell-bouquet-of-rose/1.jpg';
+  '/images/products/2025-popular-24-7-self-service-florist-flower-shop-vending-machine-sell-bouquet-of-rose/1.webp';
 
-// Trust strip — four brand-blue micro-badges for instant B2B credibility.
-const TRUST: { icon: LucideIcon; valueKey: string; labelKey: string }[] = [
-  { icon: CalendarClock, valueKey: 'home.hero.trust1Value', labelKey: 'home.hero.trust1Label' },
-  { icon: Globe, valueKey: 'home.hero.trust2Value', labelKey: 'home.hero.trust2Label' },
-  { icon: ShieldCheck, valueKey: 'home.hero.trust3Value', labelKey: 'home.hero.trust3Label' },
-  { icon: Factory, valueKey: 'home.hero.trust4Value', labelKey: 'home.hero.trust4Label' },
+// Trust strip — four colourful glass micro-badges for instant B2B credibility.
+// Each item carries its own accent palette so the row reads "multicolour" while
+// staying cohesive with the ocean system.
+const TRUST: {
+  icon: LucideIcon;
+  valueKey: string;
+  labelKey: string;
+  bar: string;
+  tile: string;
+}[] = [
+  {
+    icon: CalendarClock,
+    valueKey: 'home.hero.trust1Value',
+    labelKey: 'home.hero.trust1Label',
+    bar: 'from-cyan-400 to-blue-500',
+    tile: 'from-cyan-500 to-blue-600',
+  },
+  {
+    icon: Globe,
+    valueKey: 'home.hero.trust2Value',
+    labelKey: 'home.hero.trust2Label',
+    bar: 'from-sky-400 to-cyan-500',
+    tile: 'from-sky-500 to-cyan-600',
+  },
+  {
+    icon: ShieldCheck,
+    valueKey: 'home.hero.trust3Value',
+    labelKey: 'home.hero.trust3Label',
+    bar: 'from-teal-400 to-emerald-500',
+    tile: 'from-teal-500 to-emerald-600',
+  },
+  {
+    icon: Factory,
+    valueKey: 'home.hero.trust4Value',
+    labelKey: 'home.hero.trust4Label',
+    bar: 'from-blue-400 to-indigo-500',
+    tile: 'from-blue-500 to-indigo-600',
+  },
 ];
 
 /**
- * Flagship hero (Clean Premium): light brand-tinted backdrop with a soft brand
- * glow, a confident value proposition that reveals on load (staggered), and the
- * real product photo inside a soft glass card on the right that gently scales
- * on hover — no dark overlays, no heavy decoration.
+ * Flagship hero (V30 Ocean): a night-sky Starfield canvas behind the value
+ * proposition, a faint real product photo for tangibility, and a row of
+ * colourful frosted-glass trust badges. The real product photo is kept inside
+ * a soft glass card on the right.
  */
 export default function HeroSection({ products = [] }: { products?: Product[] }) {
   const { t, locale } = useLocale();
@@ -49,29 +82,25 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
 
   return (
     <section className="relative overflow-hidden bg-ink-950">
-      {/* Soft brand glow — depth without heavy decoration */}
-      <div className="hero-glow pointer-events-none absolute inset-0" aria-hidden="true" />
-
-      {/* Ambient motion — drifting brand orbs + gradient sheen (decorative, behind content) */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-        <div className="hero-orb hero-orb--a -start-24 -top-24 h-72 w-72 bg-brand-300/40" />
-        <div className="hero-orb hero-orb--b -end-20 top-8 h-80 w-80 bg-sky-300/40" />
-        <div className="hero-orb hero-orb--c bottom-[-6rem] start-1/3 h-64 w-64 bg-teal-300/30" />
-        <div className="hero-flow" />
-      </div>
-
-      {/* Full-bleed real product photo — moody backdrop on the ink base */}
+      {/* Real product photo — faint moody backdrop on the ink base */}
       <div className="absolute inset-0" aria-hidden="true">
         <ImageWithRetry
           src={imageSrc}
           alt=""
           loading="eager"
           fetchPriority="high"
-          className="object-cover opacity-40"
+          className="object-cover opacity-25"
         />
       </div>
+
+      {/* Night-sky starfield canvas (decorative, behind content) */}
+      <Starfield className="absolute inset-0 z-0" starCount={110} />
+
       {/* Dark gradient mask — keeps left-side white copy legible */}
-      <div className="absolute inset-0 bg-gradient-to-r from-ink-950 via-ink-950/90 to-ink-950/70 sm:via-ink-950/85 sm:to-ink-950/40" aria-hidden="true" />
+      <div
+        className="absolute inset-0 z-0 bg-gradient-to-r from-ink-950 via-ink-950/90 to-ink-950/70 sm:via-ink-950/85 sm:to-ink-950/40"
+        aria-hidden="true"
+      />
 
       <div className="container-qtech relative z-10 grid items-center gap-12 py-20 lg:grid-cols-2 lg:py-28">
         {/* Left: value proposition */}
@@ -96,8 +125,8 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
           </RevealOnScroll>
 
           <RevealOnScroll delay={240} className="block">
-            <p className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-amber-300">
-              <span className="h-1.5 w-1.5 rounded-full bg-amber-400" aria-hidden="true" />
+            <p className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-cyan-300">
+              <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" aria-hidden="true" />
               {t('home.hero.tagline')}
             </p>
           </RevealOnScroll>
@@ -107,7 +136,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 href={`/${locale}/contact`}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-gold-gradient px-6 py-3 text-sm font-semibold text-ink-950 shadow-glow-gold transition hover:-translate-y-0.5 hover:shadow-lift active:scale-[0.97] group"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-ocean-500 to-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-ocean transition hover:-translate-y-0.5 hover:shadow-ocean-lg active:scale-[0.97] group"
               >
                 {t('home.hero.ctaPrimary')}
                 <ArrowRight
@@ -124,18 +153,25 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
             </div>
           </RevealOnScroll>
 
-          {/* Trust strip */}
+          {/* Trust strip — colourful frosted-glass badges */}
           <RevealOnScroll delay={400} className="block">
             <dl className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
               {TRUST.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <div key={item.valueKey} className="glass-dark">
+                  <div
+                    key={item.valueKey}
+                    className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/5 p-4 backdrop-blur transition duration-300 hover:bg-white/10"
+                  >
+                    <span
+                      className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${item.bar}`}
+                      aria-hidden="true"
+                    />
                     <div className="flex items-center justify-center">
                       <IconTile
                         icon={Icon}
-                        className="h-4 w-4"
-                        tileClassName="bg-amber-400/15 text-amber-300 p-2"
+                        className="h-5 w-5"
+                        tileClassName={`bg-gradient-to-br ${item.tile} text-white p-2 shadow-md`}
                       />
                     </div>
                     <dt className="mt-2 text-sm font-extrabold tracking-tight text-white">
@@ -170,7 +206,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
                   <span className="line-clamp-1 text-sm font-semibold leading-tight">
                     {heroName || t('home.hero.featuredLabel')}
                   </span>
-                  <span className="shrink-0 inline-flex items-center gap-1 text-xs font-semibold text-brand-700">
+                  <span className="shrink-0 inline-flex items-center gap-1 text-xs font-semibold text-ocean-700">
                     {t('home.featured.viewDetails')}
                     <span aria-hidden="true" className="rtl:-scale-x-100">→</span>
                   </span>
@@ -182,7 +218,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
                 <IconTile
                   icon={Star}
                   className="h-4 w-4"
-                  tileClassName="bg-gradient-to-br from-brand-600 to-brand-700 text-white p-1.5"
+                  tileClassName="bg-gradient-to-br from-ocean-500 to-brand-600 text-white p-1.5"
                 />
                 <div className="leading-tight">
                   <p className="text-sm font-extrabold tracking-tight text-white">4.9 / 5</p>

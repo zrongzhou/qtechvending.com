@@ -165,7 +165,7 @@ const NUMBERS: NumberItem[] = [
 /* ── Manufacturing process cards ── */
 const MANU_CARDS = [
   {
-    img: '/images/about/factory-assembly.png',
+    img: '/images/about/factory-assembly.webp',
     icon: Factory,
     title: { en: 'Automated Assembly Line', zh: '自动化装配线', ar: 'خط التجميع الآلي' },
     desc: {
@@ -175,7 +175,7 @@ const MANU_CARDS = [
     },
   },
   {
-    img: '/images/about/factory-rnd.png',
+    img: '/images/about/factory-rnd.webp',
     icon: Cog,
     title: { en: 'R&D & Innovation Center', zh: '研发与创新中心', ar: 'مركز البحث والتطوير والابتكار' },
     desc: {
@@ -185,7 +185,7 @@ const MANU_CARDS = [
     },
   },
   {
-    img: '/images/about/factory-qc.png',
+    img: '/images/about/factory-qc.webp',
     icon: ShieldCheck,
     title: { en: 'Strict QC Testing', zh: '严格质检体系', ar: 'نظام مراقبة الجودة الصارم' },
     desc: {
@@ -195,7 +195,7 @@ const MANU_CARDS = [
     },
   },
   {
-    img: '/images/about/factory-warehouse.png',
+    img: '/images/about/factory-warehouse.webp',
     icon: Globe2,
     title: { en: 'Global Logistics Hub', zh: '全球物流枢纽', ar: 'مركز لوجستي عالمي' },
     desc: {
@@ -209,8 +209,7 @@ const MANU_CARDS = [
 /* ── Global success stories (real deployments) ── */
 const STORIES = [
   {
-    image:
-      '/images/products/good-capacity-smart-locker-flower-vending-machine-selling-different-fresh-flowergift-in-subway/1.jpeg',
+    image: '/images/cases/flower-vending-feedback.webp',
     title: { en: 'Subway Fresh-Flower Kiosk', zh: '地铁鲜花自助柜', ar: 'كشك الزهور الطازجة في المترو' },
     sub: {
       en: 'Deployed across metro stations in Southeast Asia.',
@@ -219,8 +218,7 @@ const STORIES = [
     },
   },
   {
-    image:
-      '/images/products/hot-food-pizza-vending-machine-self-service-selling-and-heating-pizza-bring-convenience-to-people/1.jpeg',
+    image: '/images/cases/feedback.webp',
     title: { en: '24/7 Campus Pizza', zh: '校园 24/7 披萨', ar: 'بيتزا الحرم الجامعي 24/7' },
     sub: {
       en: 'Serving students late-night on a European campus.',
@@ -229,8 +227,7 @@ const STORIES = [
     },
   },
   {
-    image:
-      '/images/products/different-flavor-robot-service-ice-cream-vending-machine-support-logo-customized/1.jpeg',
+    image: '/images/cases/ice-cream-vending.webp',
     title: { en: 'Branded Ice-Cream Robot', zh: '品牌定制冰淇淋机器人', ar: 'روبوت آيس كريم بتصميم العلامة التجارية' },
     sub: {
       en: 'OEM branding for a Middle-East retail chain.',
@@ -239,8 +236,7 @@ const STORIES = [
     },
   },
   {
-    image:
-      '/images/products/2025-newest-instant-fast-hot-coffee-vending-machine-in-energy-saving-design/1.jpeg',
+    image: '/images/cases/feedback-video-1.webp',
     title: { en: 'Office Coffee Corner', zh: '办公室咖啡角', ar: 'مكتب قهوة المكاتب' },
     sub: {
       en: 'Energy-saving coffee in corporate lobbies.',
@@ -249,8 +245,7 @@ const STORIES = [
     },
   },
   {
-    image:
-      '/images/products/fresh-sugarcane-orange-juice-vending-machine-24-hours-self-service-with-system/1.jpeg',
+    image: '/images/cases/feedback-in-hospital.webp',
     title: { en: 'Juice Bar, Zero Staff', zh: '无人鲜榨果汁吧', ar: 'مفهوم عصير بلا موظفين' },
     sub: {
       en: 'Fresh juice vending in a beachside resort.',
@@ -259,8 +254,7 @@ const STORIES = [
     },
   },
   {
-    image:
-      '/images/products/the-hot-new-pet-intelligent-self-service-washing-and-grooming-vending-machine-with-convenient-payment-options/1.jpeg',
+    image: '/images/cases/pet-wash-demo.webp',
     title: { en: 'Pet Spa on the Street', zh: '街头宠物洗护站', ar: 'سبا للحيوانات في الشارع' },
     sub: {
       en: 'Self-service pet wash in a residential district.',
@@ -282,7 +276,7 @@ const STORY_CATS = [
 
 /* ── Company intro (brief copy) ── */
 const COMPANY_INTRO: { body: Record<string, string>; image: string } = {
-  image: '/images/about/factory-assembly.png',
+  image: '/images/about/factory-assembly.webp',
   body: {
     en: "Welcome to our official website. We're a Qiuyan (Qtech) vending company dedicated to developing, manufacturing, and selling vending machines. We're all about using innovative technology to offer convenient, efficient, and personalized vending solutions. Our main products are ice, fruit, cotton candy, pizza, and flower vending machines, which not only satisfy the market's appetite for novel experiences but also reflect our commitment to quality and service.",
     zh: '欢迎访问秋彦(Qtech)官方网站。我们致力于开发、制造和销售售货机，专注运用创新技术提供便捷高效个性化的售货解决方案。主要产品是冰激凌、水果、棉花糖、披萨和鲜花售货机。',
@@ -302,10 +296,10 @@ const CERT_GALLERY = [
 
 /* ── Workshop photo gallery ── */
 const WORKSHOP = [
-  { img: '/images/about/factory-assembly.png', label: { en: 'Assembly Line', zh: '装配车间', ar: 'خط التجميع' } },
-  { img: '/images/about/factory-rnd.png', label: { en: 'R&D Center', zh: '研发中心', ar: 'مركز البحث والتطوير' } },
-  { img: '/images/about/factory-qc.png', label: { en: 'QC Testing', zh: '质检车间', ar: 'اختبار الجودة' } },
-  { img: '/images/about/factory-warehouse.png', label: { en: 'Logistics Warehouse', zh: '物流仓储', ar: 'مستودع اللوجستيات' } },
+  { img: '/images/about/factory-assembly.webp', label: { en: 'Assembly Line', zh: '装配车间', ar: 'خط التجميع' } },
+  { img: '/images/about/factory-rnd.webp', label: { en: 'R&D Center', zh: '研发中心', ar: 'مركز البحث والتطوير' } },
+  { img: '/images/about/factory-qc.webp', label: { en: 'QC Testing', zh: '质检车间', ar: 'اختبار الجودة' } },
+  { img: '/images/about/factory-warehouse.webp', label: { en: 'Logistics Warehouse', zh: '物流仓储', ar: 'مستودع اللوجستيات' } },
 ];
 
 /* ── Company timeline ── */

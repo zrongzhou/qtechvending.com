@@ -1,0 +1,83 @@
+sequenceDiagram
+    autonumber
+    participant U as Browser
+    participant N as Next.js Server
+    participant D as Prisma/DB
+    participant HC as HeroSection(Client)
+    participant CC as CtaSection(Client)
+    participant CG as CategoriesGrid(Client)
+
+    U->>N: GET /[locale]
+    N->>N: HomePage (Server Component)
+    par
+        N->>D: getFeaturedProducts(6)
+        D-->>N: Product[]
+        N->>D: getCategories()
+        D-->>N: Category[]
+        N->>D: getCategoryProductCounts()
+        D-->>N: Record<slug, count>
+        N->>D: getLatestBlogs(3)
+        D-->>N: BlogPost[]
+    end
+    N-->>U: HTML (Server-rendered shell + RSC payload)
+    U->>HC: Hydrate HeroSection
+    HC->>HC: mount <canvas> Starfield
+    HC->>HC: requestAnimationFrame 粒子循环
+    U->>CC: Hydrate CtaSection
+    CC->>CC: render AuroraBackground SVG + CSS animation
+    U->>CG: Hydrate CategoriesGrid
+    CG->>CG: IntersectionObserver + hover states
+
+---
+
+sequenceDiagram
+    autonumber
+    participant U as Browser
+    participant N as Next.js Server
+    participant D as Prisma/DB
+    participant P as ProductDetailView(Client)
+    participant C as ProductCard(Client)
+
+    U->>N: GET /[locale]/products/[...slug]
+    N->>N: ProductPage (Server Component)
+    N->>D: getProductBySlug(slug)
+    D-->>N: Product | null
+    alt 命中产品
+        N->>D: getRelatedProducts(product, 4)
+        D-->>N: Product[]
+    else 404
+        N-->>U: 404
+    end
+    N-->>U: HTML + data
+    U->>P: Hydrate ProductDetailView
+    P->>P: activeImage state, gallery, OceanGlassCard
+    P->>P: ProductFaqSection
+    loop RelatedProducts
+        P->>C: render ProductCard (OceanGlassCard + RippleOnHover)
+        C->>C: hover -> ripple 动画
+    end
+
+---
+
+sequenceDiagram
+    autonumber
+    participant U as Browser
+    participant N as Next.js Server
+    participant D as Prisma/DB
+    participant A as AboutClient(Client)
+
+    U->>N: GET /[locale]/about
+    N->>N: AboutPage (Server Component)
+    N->>D: getCompanyInfo()
+    D-->>N: { sections: AboutSection[] } | null
+    alt DB 存在 sections
+        N->>N: sections = info.sections
+    else DB 为空或异常
+        N->>N: sections = DEFAULT_SECTIONS
+    end
+    N-->>U: HTML + sections
+    U->>A: Hydrate AboutClient
+    A->>A: localized(section.title, locale)
+    A->>A: localized(section.body, locale)
+    A->>A: render ImageWithRetry / IconTile / 卡片
+    Note over A: DB 与 DEFAULT_SECTIONS 图片路径必须保持一致，避免 fallback 时出现水印旧图

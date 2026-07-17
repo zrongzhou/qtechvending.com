@@ -4,7 +4,7 @@ import CategoriesGrid from '@/components/home/CategoriesGrid';
 import FeaturedProducts from '@/components/home/FeaturedProducts';
 import AdvantagesSection from '@/components/home/AdvantagesSection';
 import StatsBand from '@/components/home/StatsBand';
-import PartnersSection from '@/components/home/PartnersSection';
+import CasesSection from '@/components/home/CasesSection';
 import BlogPreview from '@/components/home/BlogPreview';
 import CtaSection from '@/components/home/CtaSection';
 import { getFeaturedProducts, getLatestBlogs, getCategories, getCategoryProductCounts } from '@/lib/data';
@@ -41,7 +41,7 @@ export default async function HomePage({ params: { locale } }: PageProps) {
       <FeaturedProducts products={featured} />
       <AdvantagesSection />
       <StatsBand />
-      <PartnersSection />
+      <CasesSection />
       <BlogPreview posts={blogs} />
       <CtaSection />
     </>

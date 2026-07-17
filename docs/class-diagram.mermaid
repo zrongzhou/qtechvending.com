@@ -1,0 +1,126 @@
+classDiagram
+    class I18nString {
+        +string en?
+        +string zh?
+        +string ar?
+    }
+    class I18nStringList {
+        +string[] en?
+        +string[] zh?
+        +string[] ar?
+    }
+    class ProductSpec {
+        +string param
+        +string value
+    }
+    class Category {
+        +string id
+        +string slug
+        +I18nString name
+        +string icon?
+        +I18nString description?
+        +number order
+        +string status
+        +string type
+        +Product[] products
+    }
+    class Product {
+        +string id
+        +string slug
+        +string sku
+        +I18nString name
+        +I18nString displayTitle?
+        +I18nString description?
+        +I18nString shortDescription?
+        +string[] images
+        +I18nStringList features?
+        +ProductSpec[] specs?
+        +string status
+        +boolean featured
+        +number order
+        +string[] relatedProducts
+        +I18nString seoTitle?
+        +I18nString seoDescription?
+        +I18nString seoKeywords?
+        +Category[] categories
+    }
+    class CompanyInfo {
+        +string id
+        +string slug
+        +AboutSection[] sections
+    }
+    class AboutSection {
+        +string key
+        +I18nString title
+        +I18nString body
+        +string image?
+    }
+    class DataService {
+        +getCategories() Promise~Category[]~
+        +getCategoryProductCounts() Promise~Record<string,number>~
+        +getFeaturedProducts(limit?) Promise~Product[]~
+        +getProducts(query?) Promise~PaginatedProduct~
+        +getProductBySlug(slug) Promise~Product|null~
+        +getRelatedProducts(product, limit?) Promise~Product[]~
+        +getCompanyInfo() Promise~CompanyInfo|null~
+    }
+    class Starfield {
+        -HTMLCanvasElement canvas
+        -Star[] stars
+        +render(): void
+        +draw(): void
+    }
+    class AuroraBackground {
+        -SVGSVGElement svg
+        +render(): void
+    }
+    class IconTile {
+        +LucideIcon icon
+        +string variant?
+        +string animate?
+        +render(): ReactNode
+    }
+    class RippleOnHover {
+        +ReactNode children
+        +boolean pointerDriven?
+        +string rippleColor?
+        +render(): ReactNode
+    }
+    class OceanGlassCard {
+        +ReactNode children
+        +string depth?
+        +boolean ripple?
+        +boolean hoverLift?
+        +render(): ReactNode
+    }
+    class ProductCard {
+        +Product product
+        +render(): ReactNode
+    }
+    class CasesSection {
+        +CaseItem[] cases
+        +render(): ReactNode
+    }
+    class AboutClient {
+        +AboutSection[] sections
+        +render(): ReactNode
+    }
+    class ProductDetailView {
+        +Product product
+        +Product[] related
+        +render(): ReactNode
+    }
+
+    Category "1" --> "*" Product : products
+    Product "*" --> "*" Category : categories
+    CompanyInfo "1" --> "*" AboutSection : sections
+    ProductCard ..> OceanGlassCard : uses
+    ProductCard ..> RippleOnHover : uses
+    CasesSection ..> OceanGlassCard : uses
+    AboutClient ..> IconTile : uses
+    ProductDetailView ..> ProductCard : uses
+    Starfield ..> HeroSection : used by
+    AuroraBackground ..> CtaSection : used by
+    DataService ..> Product : returns
+    DataService ..> Category : returns
+    DataService ..> CompanyInfo : returns

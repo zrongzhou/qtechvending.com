@@ -46,7 +46,7 @@ export default function StatsBand() {
                   className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${ACCENTS[i].bar}`}
                   aria-hidden="true"
                 />
-                <IconTile icon={Icon} className="h-7 w-7" tileClassName={`${ACCENTS[i].tile} p-3`} />
+                <IconTile icon={Icon} className="h-7 w-7" tileClassName={`${ACCENTS[i].tile} p-3`} animate="float" />
                 <div className="flex items-baseline gap-0.5 text-4xl font-black text-ink-900">
                   <CountUp end={s.value} />
                   <span className="text-brand-700">{s.suffix}</span>

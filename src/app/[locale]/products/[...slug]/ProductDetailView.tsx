@@ -81,7 +81,7 @@ export default function ProductDetailView({
       <div className="grid gap-10 lg:grid-cols-2">
         {/* Gallery — sticky on desktop so the main image stays in view while scrolling specs/description */}
         <div className="lg:sticky lg:top-24 lg:self-start">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm ring-1 ring-brand-100">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm ring-1 ring-ocean-100">
             <ImageWithRetry src={activeImage} alt={name} loading="eager" fetchPriority="high" className="h-full w-full object-cover" />
           </div>
           {images.length > 1 && (
@@ -94,7 +94,7 @@ export default function ProductDetailView({
                   aria-label={name}
                   aria-pressed={activeImage === img}
                   className={`group relative h-20 w-20 overflow-hidden rounded-xl border-2 transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 active:scale-95 ${
-                    activeImage === img ? 'border-brand-500 shadow-md' : 'border-transparent hover:border-slate-300 hover:shadow-sm'
+                    activeImage === img ? 'border-ocean-500 shadow-md' : 'border-transparent hover:border-slate-300 hover:shadow-sm'
                   }`}
                 >
                   {/* Wrapper span carries the hover-zoom so it never collides with
@@ -130,7 +130,7 @@ export default function ProductDetailView({
               <RevealOnScroll>
                 <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                   {/* Gradient header */}
-                  <div className="bg-gradient-to-r from-brand-600 to-brand-700 px-6 py-4">
+                  <div className="bg-gradient-to-r from-ocean-600 to-brand-700 px-6 py-4">
                     <h2 className="flex items-center gap-2.5 text-lg font-bold text-white">
                       <IconTile icon={Settings2} className="h-6 w-6" tileClassName="bg-white/20 text-white p-2" />
                       {t('product.specs')}

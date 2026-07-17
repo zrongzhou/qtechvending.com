@@ -56,7 +56,7 @@ export default function FilterBar({
             value={search}
             onChange={(e) => onSearch(e.target.value)}
             placeholder={t('products.searchPlaceholder')}
-            className="w-full rounded-lg border border-slate-300 bg-white py-2.5 ps-10 pe-4 text-sm outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
+            className="w-full rounded-lg border border-slate-300 bg-white py-2.5 ps-10 pe-4 text-sm outline-none transition focus:border-ocean-500 focus:ring-2 focus:ring-ocean-100"
           />
         </div>
 
@@ -74,7 +74,7 @@ export default function FilterBar({
                 if (v && !selected.includes(v)) onToggleCategory(v);
                 else if (!v && selected.length) selected.forEach((s) => onToggleCategory(s));
               }}
-              className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pe-10 ps-3 text-sm font-medium text-ink-700 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
+              className="w-full appearance-none rounded-lg border border-slate-300 bg-white py-2.5 pe-10 ps-3 text-sm font-medium text-ink-700 outline-none transition focus:border-ocean-500 focus:ring-2 focus:ring-ocean-100"
             >
               <option value="">{locale === 'zh' ? '全部品类' : locale === 'ar' ? 'كل الفئات' : 'All Categories'}</option>
               {categories.map((cat) => (
@@ -94,13 +94,13 @@ export default function FilterBar({
                 return (
                   <span
                     key={slug}
-                    className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700"
+                    className="inline-flex items-center gap-1 rounded-full bg-ocean-50 px-2.5 py-1 text-xs font-medium text-ocean-700"
                   >
                     {cat ? localized(cat.name, locale) : slug}
                     <button
                       type="button"
                       onClick={() => onToggleCategory(slug)}
-                      className="rounded-full p-0.5 hover:bg-brand-100"
+                      className="rounded-full p-0.5 hover:bg-ocean-100"
                       aria-label="remove"
                     >
                       <X className="h-3 w-3" />
@@ -121,7 +121,7 @@ export default function FilterBar({
             <button
               type="button"
               onClick={onClear}
-              className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-sm font-medium text-brand-700 transition hover:bg-brand-50"
+              className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-sm font-medium text-brand-700 transition hover:bg-ocean-50"
             >
               <X className="h-3.5 w-3.5" />
               {t('products.clear')}

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" role="img" aria-label="CERTIFICATE">
+  <defs>
+    <linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f0f6ff"/>
+      <stop offset="1" stop-color="#fbfdff"/>
+    </linearGradient>
+    <linearGradient id="brand1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0ea5e9"/>
+      <stop offset="1" stop-color="#0e7490"/>
+    </linearGradient>
+    <linearGradient id="seal1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f59e0b"/>
+      <stop offset="1" stop-color="#d97706"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="560" fill="url(#bg1)"/>
+  <rect x="18" y="18" width="764" height="524" rx="20" fill="#ffffff" stroke="url(#brand1)" stroke-width="3"/>
+  <rect x="30" y="30" width="740" height="500" rx="14" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="400" y="118" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="30" letter-spacing="8" fill="#0e7490">CERTIFICATE</text>
+  <text x="400" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" letter-spacing="4" fill="#64748b">证 书 · CERTIFICATE OF HONOR</text>
+  <line x1="310" y1="172" x2="490" y2="172" stroke="url(#brand1)" stroke-width="2"/>
+  <text x="400" y="278" text-anchor="middle" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-size="42" font-weight="700" fill="#0f172a">广州市纳税纳统奖牌</text>
+  <text x="400" y="328" text-anchor="middle" font-family="Arial, sans-serif" font-size="19" fill="#475569">Guangzhou Tax &amp; Statistics Medal</text>
+  <g transform="translate(400,430)">
+    <circle r="44" fill="none" stroke="url(#seal1)" stroke-width="3"/>
+    <circle r="34" fill="none" stroke="url(#seal1)" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="0" y="6" text-anchor="middle" font-family="Georgia, serif" font-size="20" fill="#d97706">Qtech</text>
+  </g>
+  <text x="400" y="512" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#94a3b8">Guangzhou Qiuyan Technology Co., Ltd.</text>
+</svg>
