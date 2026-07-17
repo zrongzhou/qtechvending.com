@@ -290,7 +290,7 @@ export default function ContactClient({
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={s.name}
-                      className="inline-flex"
+                      className="inline-flex rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 active:scale-95"
                     >
                       <IconTile
                         icon={Icon}
@@ -306,7 +306,7 @@ export default function ContactClient({
             {/* FAQ quick link */}
             <Link
               href={`/${locale}/faq`}
-              className="flex items-center justify-between gap-2 rounded-2xl border border-brand-100 bg-brand-50 px-5 py-4 text-sm font-medium text-brand-700 transition hover:bg-brand-100"
+              className="group flex items-center justify-between gap-2 rounded-2xl border border-brand-100 bg-brand-50 px-5 py-4 text-sm font-medium text-brand-700 transition hover:bg-brand-100"
             >
               {t('contact.faqLink')}
               <span aria-hidden="true" className="transition group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5">→</span>
