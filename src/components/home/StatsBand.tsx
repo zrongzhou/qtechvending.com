@@ -7,13 +7,13 @@ import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
 import OceanGlassCard from '@/components/ui/OceanGlassCard';
 
-// V13 polish round: animated "by the numbers" trust band.
-// Reuses the brand design language (pro-card, IconTile, per-card accent, CountUp, hover lift).
-const ACCENTS = [
-  { bar: 'from-brand-400 to-brand-600', tile: 'bg-brand-50 text-brand-700' },
-  { bar: 'from-amber-400 to-orange-500', tile: 'bg-amber-50 text-amber-600' },
-  { bar: 'from-emerald-400 to-teal-500', tile: 'bg-emerald-50 text-emerald-600' },
-  { bar: 'from-indigo-400 to-violet-500', tile: 'bg-indigo-50 text-indigo-600' },
+// V33: each stat gets its own accent (blue-cyan / amber-orange / emerald-green /
+// violet-purple) — gradient number, thin coloured left-border, glowing dot.
+const STAT_ACCENTS = [
+  { border: 'border-blue-400', grad: 'from-blue-500 to-cyan-500', dot: 'bg-blue-400 shadow-[0_0_12px_rgba(59,130,246,0.7)]', icon: 'text-blue-500' },
+  { border: 'border-amber-400', grad: 'from-amber-400 to-orange-500', dot: 'bg-amber-400 shadow-[0_0_12px_rgba(245,158,11,0.7)]', icon: 'text-amber-500' },
+  { border: 'border-emerald-400', grad: 'from-emerald-400 to-green-500', dot: 'bg-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.7)]', icon: 'text-emerald-500' },
+  { border: 'border-violet-400', grad: 'from-violet-500 to-purple-600', dot: 'bg-violet-400 shadow-[0_0_12px_rgba(139,92,246,0.7)]', icon: 'text-violet-500' },
 ];
 
 const STATS: { value: number; suffix: string; icon: LucideIcon; labelKey: string; desc: Record<Locale, string> }[] = [
@@ -78,16 +78,22 @@ export default function StatsBand() {
         <div className="mt-12 grid grid-cols-2 gap-6 lg:grid-cols-4">
           {STATS.map((s, i) => {
             const Icon = s.icon;
+            const accent = STAT_ACCENTS[i];
             return (
-              <OceanGlassCard key={s.labelKey} depth="sm" hoverLift className="group relative h-full overflow-hidden">
-                <span
-                  className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${ACCENTS[i].bar}`}
-                  aria-hidden="true"
-                />
-                <div className="flex h-full flex-col items-center gap-2 px-4 py-8 text-center">
-                  <IconTile icon={Icon} className="h-7 w-7" tileClassName={`${ACCENTS[i].tile} p-3`} animate="float" />
-                  {/* Gradient-clipped number so the stat reads in ocean→brand colour */}
-                  <div className="flex items-baseline gap-0.5 bg-gradient-to-br from-ocean-600 to-brand-600 bg-clip-text text-4xl font-extrabold text-transparent">
+              <OceanGlassCard
+                key={s.labelKey}
+                depth="sm"
+                hoverLift
+                className={`group relative h-full overflow-hidden border-s-4 ${accent.border}`}
+              >
+                <div className="flex h-full flex-col items-center gap-3 px-5 py-8 text-center">
+                  <div className="flex items-center gap-2">
+                    {/* Subtle glowing accent dot next to the icon */}
+                    <span className={`h-2.5 w-2.5 rounded-full ${accent.dot}`} aria-hidden="true" />
+                    <IconTile icon={Icon} className="h-6 w-6" tileClassName={accent.icon} animate="float" />
+                  </div>
+                  {/* Gradient-clipped number in the card's accent colour */}
+                  <div className={`flex items-baseline gap-0.5 bg-gradient-to-r bg-clip-text text-4xl font-extrabold text-transparent ${accent.grad}`}>
                     <CountUp end={s.value} />
                     <span>{s.suffix}</span>
                   </div>

@@ -375,7 +375,7 @@ const STORY_CATS = [
 
 /* ── Company intro (enriched, story-driven copy) ── */
 const COMPANY_INTRO: { body: Record<string, string>; image: string } = {
-  image: '/images/about/real-workshop.png',
+  image: '/images/about/real-building.png',
   body: {
     en: "Founded in Guangzhou in 2015 as Qiuyan (Qtech) Technology, we began with advertising display screens before pivoting to smart vending. Over the past decade we've grown into a specialist manufacturer of intelligent self-service equipment.\n\nFrom our Guangzhou production base we design and build fresh-flower, food, beverage and specialty vending machines — combining in-house R&D, strict QC and global logistics into every unit.\n\nToday Qtech machines run in 60+ countries across six continents, backed by a 2-year warranty and lifetime maintenance. And we're only getting started.",
     zh: 'Qtech（秋彦科技）2015 年成立于广州，最初从事广告屏制造，随后转型智能售货领域。十年间，我们已成长为专业的智能自助设备制造商。\n\n依托广州生产基地，我们自主研发并制造鲜花、食品、饮品与特种售货机，将研发实力、严格质检与全球物流融为一体。\n\n如今，Qtech 设备已服务于六大洲 60+ 国家和地区，并承诺两年质保与终身维护。我们的故事，才刚刚开始。',
@@ -383,23 +383,10 @@ const COMPANY_INTRO: { body: Record<string, string>; image: string } = {
   },
 };
 
-/* ── Certificate image gallery ── */
-const CERT_GALLERY = [
-  { img: '/images/about/certificate-1.svg', label: { en: 'Guangzhou Tax & Statistics Medal', zh: '广州市纳税纳统奖牌', ar: 'ميدالية الضرائب والإحصاء في غوانغتشو' } },
-  { img: '/images/about/certificate-2.svg', label: { en: 'High-Tech Enterprise', zh: '高新技术企业', ar: 'مؤسسة التكنولوجيا العالية' } },
-  { img: '/images/about/certificate-3.svg', label: { en: 'CE Certified', zh: 'CE 认证', ar: 'معتمد CE' } },
-  { img: '/images/about/certificate-4.svg', label: { en: 'ISO 9001 Certified', zh: 'ISO 认证', ar: 'معتمد ISO' } },
-  { img: '/images/about/certificate-5.svg', label: { en: 'AAA Credit Enterprise', zh: 'AAA 信用企业', ar: 'مؤسسة ائتمان AAA' } },
-  { img: '/images/about/certificate-6.svg', label: { en: 'Utility Model Patent', zh: '实用新型专利', ar: 'براءة اختراع لنموذج منفعة' } },
-];
-
-/* ── Workshop photo gallery (real photography) ── */
-const WORKSHOP = [
-  { img: '/images/about/real-workshop.png', label: { en: 'Assembly Line', zh: '装配车间', ar: 'خط التجميع' } },
-  { img: '/images/about/real-office.png', label: { en: 'R&D Center', zh: '研发中心', ar: 'مركز البحث والتطوير' } },
-  { img: '/images/about/real-building.png', label: { en: 'Logistics Warehouse', zh: '物流仓储', ar: 'مستودع اللوجستيات' } },
-  { img: '/images/about/real-history.png', label: { en: 'Our Facility', zh: '企业风貌', ar: 'مرفقنا' } },
-];
+/* ── Certifications are represented by the icon badge grid in section 9
+   (CERTS). The old CERT_GALLERY photo strip and WORKSHOP photo gallery were
+   removed in V33 to avoid repeating the same factory/office photos that
+   already appear in the Story, Company-Intro and Manufacturing sections. ── */
 
 /* ── Company timeline ── */
 const TIMELINE: MilestoneItem[] = [
@@ -529,8 +516,8 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
       </section>
 
       {/* ════════ 1b. COMPANY INTRO ════════ */}
-      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-20">
-        <div className="grid items-center gap-10 lg:grid-cols-2">
+      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
+        <div className="grid items-center gap-10 rounded-3xl bg-gradient-to-br from-ocean-50/70 via-white to-brand-50/40 px-8 py-14 shadow-soft lg:grid-cols-2 lg:px-12">
           <div>
             <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
               {locale === 'zh' ? '关于 Qtech' : locale === 'ar' ? 'عن Qtech' : 'About Qtech'}
@@ -562,7 +549,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
       <WaveDivider />
 
       {/* ════════ 2. MISSION (3 statements) ════════ */}
-      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-20">
+      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-brand-100 px-4 py-1.5 text-sm font-medium text-brand-700">
             <IconTile icon={Target} className="h-4 w-4" tileClassName="bg-brand-200 text-brand-700 p-1.5" />
@@ -599,7 +586,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
       <WaveDivider />
 
       {/* ════════ 3. VISION (3 statements) ════════ */}
-      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-20">
+      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-brand-100 px-4 py-1.5 text-sm font-medium text-brand-700">
             <IconTile icon={Eye} className="h-4 w-4" tileClassName="bg-brand-200 text-brand-700 p-1.5" />
@@ -636,7 +623,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
       <WaveDivider />
 
       {/* ════════ 4. STORY / CAPABILITY NARRATIVE (from DB) ════════ */}
-      <div className="container-qtech space-y-16 py-16 lg:py-20">
+      <div className="container-qtech space-y-16 py-16 lg:py-24">
         {narrative.map((section, idx) => {
           const title = localized(section.title, locale);
           const body = localized(section.body, locale);
@@ -735,40 +722,6 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                 </RevealOnScroll>
               );
             })}
-          </div>
-        </RevealOnScroll>
-
-        {/* ════════ 5b. WORKSHOP GALLERY (factory photos grouped with Manufacturing) ════════ */}
-        <RevealOnScroll as="section">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
-              {locale === 'zh' ? '工厂空间' : locale === 'ar' ? 'أروقة المصنع' : 'Inside the Workshop'}
-            </p>
-            <h2 className="mt-3 text-3xl font-extrabold text-ink-900 sm:text-4xl">
-              {locale === 'zh' ? '从研发到交付的智造基地' : locale === 'ar' ? 'قاعدة التصنيع الذكي' : 'Our Smart Manufacturing Base'}
-            </h2>
-          </div>
-          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {WORKSHOP.map((w, i) => (
-              <RevealOnScroll key={w.img} delay={i * 60} className="h-full">
-                <div className="group overflow-hidden rounded-2xl ocean-glass ocean-glass--sm bg-white/95">
-                  <div className="aspect-[4/3] overflow-hidden bg-slate-100">
-                    <img
-                      src={w.img}
-                      alt={w.label[locale] || w.label.en}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                      onError={(e) => {
-                        (e.currentTarget as HTMLImageElement).src = '/images/og-default.svg';
-                      }}
-                    />
-                  </div>
-                  <p className="px-4 py-3 text-center text-sm font-semibold text-ink-800">
-                    {w.label[locale] || w.label.en}
-                  </p>
-                </div>
-              </RevealOnScroll>
-            ))}
           </div>
         </RevealOnScroll>
 
@@ -879,23 +832,23 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
 
           <div className="relative mx-auto mt-12 max-w-3xl">
             {/* Vertical line */}
-            <div className="absolute top-0 bottom-0 start-[19px] hidden w-px bg-slate-200 md:block translate-x-1/2" />
+            <div className="absolute top-0 bottom-0 start-[19px] hidden w-0.5 bg-gradient-to-b from-orange-200 via-orange-300 to-rose-200 md:block translate-x-1/2" />
 
             <div className="space-y-8">
               {TIMELINE.map((m) => (
-                <div key={m.year} className="relative flex gap-5 ps-0 md:ps-12">
-                  {/* Dot */}
-                  <div className="absolute start-0 top-1 z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-500 text-xs font-bold shadow-lg shadow-brand-500/25 ring-4 ring-slate-100 md:start-0">
-                    {m.year.slice(-2)}
-                  </div>
-                  <div className="pro-card flex-1 rounded-xl p-5 ocean-glass ocean-glass--sm">
-                    <div className="flex items-baseline gap-3">
-                      <span className="text-xs font-mono uppercase tracking-wider text-brand-700">{m.year}</span>
-                      <h3 className="text-base font-semibold text-ink-900">{localeOr(m.title)}</h3>
-                    </div>
-                    <p className="mt-2 text-sm leading-relaxed text-ink-600">{localeOr(m.desc)}</p>
-                  </div>
+              <div key={m.year} className="relative flex gap-5 ps-0 md:ps-14">
+                {/* Dot marker — orange/rose to match the warm accent system */}
+                <div className="absolute start-0 top-1 z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-rose-500 text-[10px] font-bold text-white shadow-lg shadow-orange-500/30 ring-4 ring-slate-50 md:start-0">
+                  {m.year.slice(-2)}
                 </div>
+                <div className="pro-card flex-1 rounded-xl p-6 ocean-glass ocean-glass--sm">
+                  <div className="flex flex-wrap items-baseline gap-3">
+                    <span className="text-base font-extrabold tracking-tight text-orange-600">{m.year}</span>
+                    <h3 className="text-base font-bold text-ink-900">{localeOr(m.title)}</h3>
+                  </div>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-600">{localeOr(m.desc)}</p>
+                </div>
+              </div>
               ))}
             </div>
           </div>
@@ -930,32 +883,6 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                 </RevealOnScroll>
               );
             })}
-          </div>
-
-          {/* Certificate photo strip — the same certificates shown as real
-              award photos, folded into the Certifications section so we avoid a
-              redundant standalone "Certificate Gallery" block. */}
-          <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-            {CERT_GALLERY.map((c, i) => (
-              <RevealOnScroll key={c.img} delay={i * 60} className="h-full">
-                <div className="group relative overflow-hidden rounded-xl border border-ocean-200/60 bg-white/95 ocean-glass ocean-glass--sm">
-                  <div className="aspect-[4/3] overflow-hidden bg-slate-100">
-                    <img
-                      src={c.img}
-                      alt={c.label[locale] || c.label.en}
-                      loading="lazy"
-                      className="h-full w-full object-contain p-2 transition duration-700 group-hover:scale-105"
-                      onError={(e) => {
-                        (e.currentTarget as HTMLImageElement).src = '/images/og-default.svg';
-                      }}
-                    />
-                  </div>
-                  <p className="px-3 py-2 text-center text-xs font-semibold text-ink-800">
-                    {c.label[locale] || c.label.en}
-                  </p>
-                </div>
-              </RevealOnScroll>
-            ))}
           </div>
         </RevealOnScroll>
 

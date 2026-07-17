@@ -79,7 +79,14 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
   const { data, totalPages } = result;
 
   return (
-    <div className="container-qtech bg-gradient-to-b from-ocean-100/90 via-cyan-50/60 to-slate-50 py-12 lg:py-16">
+    <div className="relative overflow-hidden bg-gradient-to-b from-sky-950 via-ocean-900/90 to-slate-900 py-12 lg:py-16">
+      {/* Animated CSS ocean waves at the bottom of the hero area */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-48 overflow-hidden">
+        <div className="ocean-wave ocean-wave--1" />
+        <div className="ocean-wave ocean-wave--2" />
+        <div className="ocean-wave ocean-wave--3" />
+      </div>
+      <div className="container-qtech relative">
       <RevealOnScroll className="mb-8 md:mb-10">
         <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
           {t('products.eyebrow')}
@@ -112,16 +119,16 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
           />
         </aside>
 
-        <OceanGlassCard depth="sm" hoverLift={false} className="rounded-3xl p-4 sm:p-6">
+        <OceanGlassCard depth="sm" hoverLift={false} className="rounded-3xl border border-white/15 bg-white/[0.06] p-4 backdrop-blur-xl sm:p-6">
           {data.length === 0 ? (
-            <OceanGlassCard ripple depth="sm" className="border border-dashed border-ocean-300 bg-white/80 p-12 text-center text-ink-600">
+            <OceanGlassCard ripple depth="sm" className="border border-dashed border-white/25 bg-white/5 p-12 text-center text-white/80">
               {t('products.noResults')}
             </OceanGlassCard>
           ) : (
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
               {data.map((p, i) => (
                 <RevealOnScroll key={p.id} delay={(i % 9) * 60} className="h-full">
-                  <ProductCard product={p} />
+                  <ProductCard product={p} dark />
                 </RevealOnScroll>
               ))}
             </div>
@@ -151,6 +158,7 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
             </div>
           )}
         </OceanGlassCard>
+      </div>
       </div>
     </div>
   );

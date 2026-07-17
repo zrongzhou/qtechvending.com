@@ -301,16 +301,19 @@ input[type='number']::-webkit-inner-spin-button {
   /* Ocean glass surface — aqua-tinted frosted panel for the product system,
      CasesSection and other new components. V32: stronger, clearly-visible
      frosted glass (higher translucency, solid blur, aqua glow + top highlight). */
+  /* V33: true glass — semi-transparent white with strong blur, a crisp
+     top-edge highlight (glass reflection) and a soft inner shadow. */
   .ocean-glass {
     position: relative;
     border-radius: 1rem;
-    background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(16px) saturate(1.8);
+    -webkit-backdrop-filter: blur(16px) saturate(1.8);
+    border: 1px solid rgba(255, 255, 255, 0.35);
     box-shadow:
-      0 8px 32px rgba(8, 145, 178, 0.12),
-      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      0 8px 32px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.03);
   }
   .ocean-glass--sm {
     backdrop-filter: blur(8px);
@@ -329,10 +332,10 @@ input[type='number']::-webkit-inner-spin-button {
     transition: background 0.5s ease, box-shadow 0.5s ease, transform 0.5s ease;
   }
   .ocean-glass--hover:hover {
-    background: rgba(255, 255, 255, 0.65);
+    background: rgba(255, 255, 255, 0.58);
     box-shadow:
-      0 16px 48px rgba(8, 145, 178, 0.18),
-      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      0 20px 50px rgba(0, 0, 0, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
     transform: translateY(-4px);
   }
   .ocean-glass__title { @apply text-ink-900; }
@@ -358,19 +361,67 @@ input[type='number']::-webkit-inner-spin-button {
   height: 100%;
   overflow: hidden;
   pointer-events: none;
+  /* V33: blend luminously with the dark CTA background so the translucent
+     curtains read as ghost-light rather than a flat coloured panel. */
+  mix-blend-mode: screen;
 }
 @keyframes auroraFlowA {
-  0%   { transform: translate3d(-8%, 0, 0) scale(1.1); }
-  50%  { transform: translate3d(10%, 5%, 0) scale(1.32); }
-  100% { transform: translate3d(-8%, 0, 0) scale(1.1); }
+  0%   { transform: translate3d(-6%, 0, 0) scale(1.08); }
+  50%  { transform: translate3d(8%, 4%, 0) scale(1.22); }
+  100% { transform: translate3d(-6%, 0, 0) scale(1.08); }
 }
 @keyframes auroraFlowB {
-  0%   { transform: translate3d(8%, 3%, 0) scale(1.25); }
-  50%  { transform: translate3d(-10%, -5%, 0) scale(1.05); }
-  100% { transform: translate3d(8%, 3%, 0) scale(1.25); }
+  0%   { transform: translate3d(6%, 3%, 0) scale(1.18); }
+  50%  { transform: translate3d(-8%, -3%, 0) scale(1.0); }
+  100% { transform: translate3d(6%, 3%, 0) scale(1.18); }
 }
-.aurora__band--a { animation: auroraFlowA 12s ease-in-out infinite; transform-origin: center; }
-.aurora__band--b { animation: auroraFlowB 18s ease-in-out infinite; transform-origin: center; }
+@keyframes auroraFlowC {
+  0%   { transform: translate3d(-4%, -2%, 0) scale(1.12); }
+  50%  { transform: translate3d(5%, 6%, 0) scale(1.28); }
+  100% { transform: translate3d(-4%, -2%, 0) scale(1.12); }
+}
+@keyframes auroraFlowD {
+  0%   { transform: translate3d(4%, 0, 0) scale(1.2); }
+  50%  { transform: translate3d(-6%, -5%, 0) scale(1.05); }
+  100% { transform: translate3d(4%, 0, 0) scale(1.2); }
+}
+.aurora__band--a { animation: auroraFlowA 18s ease-in-out infinite; transform-origin: center; }
+.aurora__band--b { animation: auroraFlowB 25s ease-in-out infinite; transform-origin: center; }
+.aurora__band--c { animation: auroraFlowC 20s ease-in-out infinite; transform-origin: center; }
+.aurora__band--d { animation: auroraFlowD 22s ease-in-out infinite; transform-origin: center; }
+
+/* Gentle pill pulse — used by the "read more" CTA on blog cards (hover). */
+@keyframes pillPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+.pill-pulse { animation: pillPulse 1.6s ease-in-out infinite; }
+
+/* Animated ocean waves — layered, slowly-rolling wave shapes used as the
+   animated "ocean floor" on the Products page (V33). Each layer rolls at a
+   different speed/opacity for a living, deep-water feel. */
+@keyframes oceanWave {
+  0%   { transform: translateX(0) translateZ(0) scaleY(1); }
+  50%  { transform: translateX(-25%) translateZ(0) scaleY(0.8); }
+  100% { transform: translateX(-50%) translateZ(0) scaleY(1); }
+}
+.ocean-wave {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  border-radius: 50% 50% 0 0;
+  background: linear-gradient(
+    180deg,
+    rgba(56, 189, 248, 0.15) 0%,
+    rgba(8, 145, 178, 0.25) 50%,
+    rgba(6, 95, 124, 0.35) 100%
+  );
+}
+.ocean-wave--1 { animation: oceanWave 8s ease-in-out infinite; opacity: 0.6; }
+.ocean-wave--2 { animation: oceanWave 11s ease-in-out infinite reverse; opacity: 0.4; bottom: -10%; }
+.ocean-wave--3 { animation: oceanWave 14s ease-in-out infinite; opacity: 0.25; bottom: -20%; }
 
 /* Ripple on hover — radial-gradient bloom from the pointer (or center).
    The ripple visual is the ::after pseudo-element; the .ripple class itself is

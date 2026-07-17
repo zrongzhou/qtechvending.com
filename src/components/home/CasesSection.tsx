@@ -95,6 +95,8 @@ export default function CasesSection() {
           {CASES.map((c, i) => (
             <RevealOnScroll key={c.image} delay={i * 80} className="h-full">
               <OceanGlassCard ripple depth="md" className="h-full rounded-2xl">
+                {/* Warm accent bar — differentiates Cases from the ocean product cards */}
+                <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-orange-400 to-rose-500" aria-hidden="true" />
                 <div className="group flex h-full flex-col">
                   <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-slate-100">
                     <ImageWithRetry
@@ -116,7 +118,7 @@ export default function CasesSection() {
                           {localized(c.sub, locale)}
                         </p>
                       </div>
-                      <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-ocean-500 to-brand-600 text-white shadow-sm transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1">
+                      <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-orange-500 to-rose-500 text-white shadow-sm transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1">
                         <span aria-hidden="true" className="text-base font-bold leading-none">→</span>
                       </span>
                     </div>

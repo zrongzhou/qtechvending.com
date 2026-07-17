@@ -17,7 +17,7 @@ export default function CtaSection() {
 
   return (
     <RevealOnScroll as="section" className="container-qtech py-20 md:py-28">
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-ink-900/60 via-ocean-800/40 to-ink-900/60 shadow-lift">
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-ink-950 via-ink-900 to-ink-950 shadow-lift">
         {/* Ambient aurora layer — sits above the container base colour (z-0)
             and below the glass panel (z-10) so the flowing light is visible. */}
         <AuroraBackground className="absolute inset-0 z-0" />

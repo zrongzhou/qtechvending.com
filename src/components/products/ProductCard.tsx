@@ -12,7 +12,7 @@ function firstImage(images: string[] | undefined): string {
   return '/images/og-default.svg';
 }
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({ product, dark = false }: { product: Product; dark?: boolean }) {
   const { locale, t } = useLocale();
   const name = localized(product.name, locale);
   const short = localized(product.shortDescription, locale);
@@ -30,13 +30,23 @@ export default function ProductCard({ product }: { product: Product }) {
   const modelSpec = product.specs?.find((s) => s.param.trim().toLowerCase() === 'model');
   const modelLabel = modelSpec?.value?.trim() || '';
 
+  // Dark (products-page ocean theme) vs light (home / detail) presentation.
+  const surfaceBase = dark
+    ? 'bg-white/10 backdrop-blur-md border border-white/20 transition-all duration-300 hover:-translate-y-2 hover:bg-white/[0.18] hover:shadow-[0_24px_60px_rgba(56,189,248,0.25)]'
+    : 'border border-ocean-200/60 transition-all duration-300 hover:-translate-y-2 hover:border-ocean-300/60 hover:shadow-ocean-lg';
+  const titleClass = dark ? 'text-white' : 'text-ink-900';
+  const shortClass = dark ? 'text-white/70' : 'text-ink-500';
+  const catPillClass = dark ? 'from-white/15 to-white/10 text-white/80' : 'from-ocean-50 to-brand-100 text-ocean-700';
+  const chipClass = dark ? 'bg-white/10 text-white/70' : 'bg-slate-100 text-ink-600';
+  const ctaClass = dark ? 'text-cyan-300' : 'text-ocean-700';
+
   return (
     <OceanGlassCard
       ripple
       depth="md"
-      hoverLift
-      rippleColor="rgba(8, 145, 178, 0.2)"
-      className="group h-full border border-ocean-200/60 transition-all duration-300 hover:-translate-y-2 hover:border-ocean-300/60 hover:shadow-ocean-lg"
+      hoverLift={!dark}
+      rippleColor={dark ? 'rgba(56, 189, 248, 0.25)' : 'rgba(8, 145, 178, 0.2)'}
+      className={`group h-full ${surfaceBase}`}
     >
       <Link
         href={`/${locale}/products/${product.slug}`}
@@ -77,29 +87,29 @@ export default function ProductCard({ product }: { product: Product }) {
         <div className="flex flex-1 flex-col p-5">
           {/* Category pill */}
           {categoryName && (
-            <span className="inline-flex w-fit items-center rounded-md bg-gradient-to-r from-ocean-50 to-brand-100 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-ocean-700">
+            <span className={`inline-flex w-fit items-center rounded-md bg-gradient-to-r px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${catPillClass}`}>
               {categoryName}
             </span>
           )}
 
           {/* Title — single line, bold */}
-          <h3 className="mt-2 line-clamp-1 text-lg font-bold tracking-tight text-ink-900 transition-colors group-hover:text-ocean-700">
+          <h3 className={`mt-2 line-clamp-1 text-lg font-bold tracking-tight transition-colors group-hover:text-ocean-700 ${titleClass}`}>
             {name}
           </h3>
 
           {/* Description — muted, de-emphasised */}
-          {short && <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-ink-500">{short}</p>}
+          {short && <p className={`mt-2 line-clamp-2 text-xs leading-relaxed ${shortClass}`}>{short}</p>}
 
           {/* Bottom info — model number (preferred) or category tag */}
           <div className="mt-auto pt-4">
             {modelLabel ? (
-              <span className="inline-flex items-center gap-1.5 rounded-md bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-ink-600">
-                <span className="text-ink-500">{t('product.model')}</span>
+              <span className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-[11px] font-semibold ${chipClass}`}>
+                <span className={dark ? 'text-white/50' : 'text-ink-500'}>{t('product.model')}</span>
                 <span className="font-mono">{modelLabel}</span>
               </span>
             ) : (
               categoryName && (
-                <span className="inline-flex items-center rounded-md bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-ink-600">
+                <span className={`inline-flex items-center rounded-md px-2.5 py-1 text-[11px] font-semibold ${chipClass}`}>
                   {categoryName}
                 </span>
               )
@@ -108,8 +118,8 @@ export default function ProductCard({ product }: { product: Product }) {
 
           {/* Bottom action bar — clean slide-in */}
           <div className="mt-3 flex items-center justify-between transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1">
-            <span className="text-sm font-semibold text-ocean-700">{t('products.view')}</span>
-            <span aria-hidden="true" className="text-ocean-700 transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1">→</span>
+            <span className={`text-sm font-semibold ${ctaClass}`}>{t('products.view')}</span>
+            <span aria-hidden="true" className={`${ctaClass} transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1`}>→</span>
           </div>
         </div>
       </Link>

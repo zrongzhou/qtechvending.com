@@ -43,10 +43,17 @@ export default function BlogCard({ post }: { post: BlogPost }) {
           />
           {/* Ocean-tinted scrim for a cohesive, on-theme finish */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ocean-900/40 via-transparent to-transparent" />
-          {/* Date pill */}
+          {/* Hover gradient overlay — fades in to deepen the scene and reveal
+              the category tag below. */}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/85 via-ink-900/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+          {/* Date pill (persistent) */}
           <span className="absolute start-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-xs font-medium text-ink-600 shadow-sm backdrop-blur">
             <IconTile icon={CalendarDays} className="h-3.5 w-3.5" tileClassName="" />
             {formatDate(post.publishedAt, locale)}
+          </span>
+          {/* Category tag — revealed on hover */}
+          <span className="absolute bottom-3 start-3 inline-flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-brand-700 opacity-0 shadow-sm backdrop-blur transition-opacity duration-300 group-hover:opacity-100">
+            {locale === 'zh' ? '博客' : locale === 'ar' ? 'المدونة' : 'Blog'}
           </span>
         </div>
 
@@ -57,8 +64,8 @@ export default function BlogCard({ post }: { post: BlogPost }) {
           {excerpt && <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-ink-500">{excerpt}</p>}
 
           <div className="mt-auto flex items-center justify-between pt-4">
-            {/* Ocean primary "read more" pill */}
-            <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-ocean-500 to-brand-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition group-hover:shadow-ocean">
+            {/* Ocean primary "read more" pill — gently pulses on hover */}
+            <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-ocean-500 to-brand-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition group-hover:animate-[pillPulse_1.6s_ease-in-out_infinite] group-hover:shadow-ocean">
               {t('blog.readMore')}
               <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1" strokeWidth={2.25} />
             </span>

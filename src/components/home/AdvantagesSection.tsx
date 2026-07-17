@@ -7,39 +7,53 @@ import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
 import OceanGlassCard from '@/components/ui/OceanGlassCard';
 
-// V16 polish: per-card accent palette + tinted card surfaces break monotonous teal.
-// Each advantage gets its own identity while staying cohesive.
+// V33: each advantage gets a distinct accent identity (blue / amber / violet /
+// emerald) so the four cards no longer look like identical teal rectangles.
 interface AccentTheme {
   bar: string; // top accent bar gradient
-  tint: string; // icon tile tint
-  hoverTile: string; // icon tile darken on hover
+  tile: string; // icon tile gradient surface
+  check: string; // bullet check colour
+  leftBorder: string; // bullet left-border colour
+  glow: string; // hover box-shadow (coloured glow + glass highlight)
   watermark: string; // watermark number tint on hover
 }
 
 const ACCENTS: AccentTheme[] = [
   {
-    bar: 'from-brand-400 to-brand-600',
-    tint: 'bg-brand-50 text-brand-700',
-    hoverTile: 'group-hover:bg-brand-100',
-    watermark: 'group-hover:text-brand-200',
+    // Card 1 — 工厂直供 — blue/cyan (trust)
+    bar: 'from-blue-500 to-cyan-400',
+    tile: 'bg-gradient-to-br from-blue-500 to-cyan-400 text-white',
+    check: 'text-blue-500',
+    leftBorder: 'border-blue-400',
+    glow: 'hover:shadow-[0_20px_50px_rgba(59,130,246,0.28),inset_0_1px_0_rgba(255,255,255,0.6)]',
+    watermark: 'group-hover:text-blue-200',
   },
   {
+    // Card 2 — 24/7运营 — amber/orange (availability)
     bar: 'from-amber-400 to-orange-500',
-    tint: 'bg-amber-50 text-amber-600',
-    hoverTile: 'group-hover:bg-amber-100',
+    tile: 'bg-gradient-to-br from-amber-400 to-orange-500 text-white',
+    check: 'text-amber-500',
+    leftBorder: 'border-amber-400',
+    glow: 'hover:shadow-[0_20px_50px_rgba(245,158,11,0.28),inset_0_1px_0_rgba(255,255,255,0.6)]',
     watermark: 'group-hover:text-amber-200',
   },
   {
-    bar: 'from-emerald-400 to-teal-500',
-    tint: 'bg-emerald-50 text-emerald-600',
-    hoverTile: 'group-hover:bg-emerald-100',
-    watermark: 'group-hover:text-emerald-200',
+    // Card 3 — OEM定制 — violet/purple (creative custom)
+    bar: 'from-violet-500 to-purple-600',
+    tile: 'bg-gradient-to-br from-violet-500 to-purple-600 text-white',
+    check: 'text-violet-500',
+    leftBorder: 'border-violet-400',
+    glow: 'hover:shadow-[0_20px_50px_rgba(139,92,246,0.28),inset_0_1px_0_rgba(255,255,255,0.6)]',
+    watermark: 'group-hover:text-violet-200',
   },
   {
-    bar: 'from-indigo-400 to-violet-500',
-    tint: 'bg-indigo-50 text-indigo-600',
-    hoverTile: 'group-hover:bg-indigo-100',
-    watermark: 'group-hover:text-indigo-200',
+    // Card 4 — 全球发货 — emerald/teal (global)
+    bar: 'from-emerald-400 to-teal-500',
+    tile: 'bg-gradient-to-br from-emerald-400 to-teal-500 text-white',
+    check: 'text-emerald-500',
+    leftBorder: 'border-emerald-400',
+    glow: 'hover:shadow-[0_20px_50px_rgba(16,185,129,0.28),inset_0_1px_0_rgba(255,255,255,0.6)]',
+    watermark: 'group-hover:text-emerald-200',
   },
 ];
 
@@ -97,8 +111,8 @@ export default function AdvantagesSection() {
             const points = POINTS[i][locale] ?? POINTS[i].en;
             return (
               <RevealOnScroll key={item.titleKey} delay={i * 80} className="h-full">
-                <OceanGlassCard depth="md" hoverLift className="group relative h-full border border-ocean-200/50">
-                  <div className="flex h-full flex-col">
+                <OceanGlassCard depth="md" hoverLift className={`group relative h-full border border-ocean-200/50 ${accent.glow}`}>
+                  <div className="flex h-full flex-col p-7">
                     {/* Top accent bar — per-card identity colour */}
                     <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${accent.bar}`} aria-hidden="true" />
                     {/* Big progressive step number */}
@@ -109,19 +123,19 @@ export default function AdvantagesSection() {
                     <div className="relative">
                       <IconTile
                         icon={Icon}
-                        className="h-10 w-10"
-                        tileClassName={`${accent.tint} p-5 transition-colors ${accent.hoverTile}`}
+                        className="h-14 w-14"
+                        tileClassName={`${accent.tile} flex items-center justify-center rounded-2xl shadow-md transition-transform duration-300 group-hover:scale-110`}
                         animate="float"
                       />
-                      <h3 className="mt-4 text-xl font-bold text-ink-900">{t(item.titleKey)}</h3>
+                      <h3 className="mt-5 text-xl font-bold text-ink-900">{t(item.titleKey)}</h3>
                       <p className="mt-2 text-sm text-ink-600">{t(item.descKey)}</p>
                     </div>
 
-                    {/* Supporting bullet points — makes each card substantive */}
-                    <ul className="mt-5 space-y-2.5">
+                    {/* Supporting bullet points — each has a coloured left accent */}
+                    <ul className="mt-5 space-y-3">
                       {points.map((p) => (
-                        <li key={p} className="flex items-start gap-2 text-sm leading-relaxed text-ink-600">
-                          <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-ocean-500" strokeWidth={2.25} />
+                        <li key={p} className={`flex items-start gap-2 border-s-2 ps-3 text-sm leading-relaxed text-ink-600 ${accent.leftBorder}`}>
+                          <CheckCircle2 className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${accent.check}`} strokeWidth={2.25} />
                           <span>{p}</span>
                         </li>
                       ))}
