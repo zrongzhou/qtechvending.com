@@ -101,7 +101,7 @@ export default function CategoriesGrid({
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-ink-900/80 via-ink-900/20 to-transparent" />
                     <span className="absolute start-3 top-3">
-                      <IconTile icon={Icon} className="h-5 w-5" tileClassName="bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-md p-2.5" />
+                      <IconTile icon={Icon} className="h-5 w-5" tileClassName="bg-gradient-to-br from-brand-600 to-brand-700 text-white shadow-md p-2.5" />
                     </span>
                   </div>
 

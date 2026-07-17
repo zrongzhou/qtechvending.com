@@ -419,7 +419,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
       <RevealOnScroll as="section" className="container-qtech py-16 lg:py-20">
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
+            <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
               {locale === 'zh' ? '关于 Qtech' : locale === 'ar' ? 'عن Qtech' : 'About Qtech'}
             </p>
             <h2 className="mt-3 text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl">
@@ -474,7 +474,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               </div>
               <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200">
                 {/* Icon fallback layer */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-brand-500 to-brand-700 p-8 text-white">
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-brand-600 to-brand-700 p-8 text-white">
                   <IconTile icon={SectionIcon} className="h-14 w-14" tileClassName="bg-white/15 text-white p-5" />
                   <p className="mt-5 text-center text-lg font-semibold">{title}</p>
                   <div className="mt-3 h-1 w-16 rounded-full bg-white/30" />
@@ -535,7 +535,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     </div>
                     <div className="p-5">
                       <div className="flex items-center gap-3">
-                        <IconTile icon={Icon} className="h-4 w-4" tileClassName="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-600" />
+                        <IconTile icon={Icon} className="h-4 w-4" tileClassName="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-700" />
                         <h3 className="text-base font-semibold text-ink-900">{localized(card.title, locale)}</h3>
                       </div>
                       <p className="mt-2 text-sm leading-relaxed text-ink-600">{localized(card.desc, locale)}</p>
@@ -603,7 +603,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         {/* ════════ 5. CORE VALUES ════════ */}
         <RevealOnScroll as="section" className="rounded-3xl bg-gradient-to-br from-slate-50 via-white to-brand-50/30 px-8 py-14 lg:px-12">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
+            <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
               {t('about.valuesEyebrow') || 'Our Values'}
             </p>
             <h2 className="mt-3 text-3xl font-extrabold text-ink-900 sm:text-4xl">{t('about.valuesTitle') || 'Our Values'}</h2>
@@ -628,7 +628,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     <IconTile
                       icon={Icon}
                       className="h-7 w-7"
-                      tileClassName="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 text-white shadow-sm transition group-hover:scale-110 group-hover:shadow-lg"
+                      tileClassName="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-600 to-brand-700 text-white shadow-sm transition group-hover:scale-110 group-hover:shadow-lg"
                     />
                     <h3 className="relative mt-4 text-lg font-bold text-ink-900">{localized(v.title, locale)}</h3>
                     <p className="relative mt-2 text-sm leading-relaxed text-ink-500">{localized(v.desc, locale)}</p>
@@ -665,7 +665,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                   </div>
                   <div className="pro-card flex-1 rounded-xl p-5">
                     <div className="flex items-baseline gap-3">
-                      <span className="text-xs font-mono uppercase tracking-wider text-brand-600">{m.year}</span>
+                      <span className="text-xs font-mono uppercase tracking-wider text-brand-700">{m.year}</span>
                       <h3 className="text-base font-semibold text-ink-900">{localized(m.title, locale)}</h3>
                     </div>
                     <p className="mt-2 text-sm leading-relaxed text-ink-600">{localized(m.desc, locale)}</p>
@@ -679,7 +679,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         {/* ════════ 7. CERTIFICATIONS ════════ */}
         <RevealOnScroll as="section">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
+            <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
               {locale === 'zh' ? '资质认证' : locale === 'ar' ? 'شهادات الاعتماد' : 'Certifications & Compliance'}
             </p>
             <h2 className="mt-3 text-3xl font-extrabold text-ink-900 sm:text-4xl">
@@ -696,9 +696,9 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                 <RevealOnScroll key={cert.name} delay={i * 60} className="h-full">
                   <div className="pro-card group relative flex h-full flex-col items-center gap-2 p-5 text-center transition hover:border-brand-200 hover:shadow-lift">
                     <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
-                    <IconTile icon={CertIcon} className="h-8 w-8" tileClassName="text-brand-600" />
+                    <IconTile icon={CertIcon} className="h-8 w-8" tileClassName="text-brand-700" />
                     <span className="text-xs font-bold tracking-tight text-ink-900">{cert.name}</span>
-                    <span className="hidden text-[11px] leading-snug text-ink-400 group-hover:block">
+                    <span className="hidden text-[11px] leading-snug text-ink-500 group-hover:block">
                       {cert.full[locale] || cert.full.en}
                     </span>
                   </div>
@@ -711,7 +711,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         {/* ════════ 7b. CERTIFICATE GALLERY ════════ */}
         <RevealOnScroll as="section">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
+            <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
               {locale === 'zh' ? '证书展示' : locale === 'ar' ? 'معرض الشهادات' : 'Certificate Gallery'}
             </p>
             <h2 className="mt-3 text-3xl font-extrabold text-ink-900 sm:text-4xl">
@@ -745,7 +745,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         {/* ════════ 7c. WORKSHOP GALLERY ════════ */}
         <RevealOnScroll as="section">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
+            <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
               {locale === 'zh' ? '工厂空间' : locale === 'ar' ? 'أروقة المصنع' : 'Inside the Workshop'}
             </p>
             <h2 className="mt-3 text-3xl font-extrabold text-ink-900 sm:text-4xl">

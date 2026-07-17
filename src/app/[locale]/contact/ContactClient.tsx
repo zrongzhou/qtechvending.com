@@ -125,9 +125,9 @@ export default function ContactClient({
 
   const infoRow = (Icon: LucideIcon, label: string, value: string) => (
     <li className="flex items-start gap-3">
-      <IconTile icon={Icon} className="h-4 w-4" tileClassName="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-600" />
+      <IconTile icon={Icon} className="h-4 w-4" tileClassName="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-700" />
       <div>
-        <p className="text-xs font-medium uppercase tracking-wide text-ink-400">{label}</p>
+        <p className="text-xs font-medium uppercase tracking-wide text-ink-500">{label}</p>
         <p className="mt-0.5 text-sm text-ink-700">{value}</p>
       </div>
     </li>
@@ -137,7 +137,7 @@ export default function ContactClient({
     <div className="container-qtech py-12 lg:py-16">
       <RevealOnScroll>
         <header className="mb-8 text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
+          <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
             {t('contact.eyebrow')}
           </p>
           <h1 className="mt-3 text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">{t('contact.title')}</h1>
@@ -228,24 +228,24 @@ export default function ContactClient({
               <ul className="mt-4 space-y-4 text-sm">
                 {infoRow(MapPin, t('contact.address'), '2nd Floor No. 131, Jinlong Road, Dalong street, Panyu, Guangzhou, China')}
                 <li className="flex items-start gap-3">
-                  <IconTile icon={Mail} className="h-4 w-4" tileClassName="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600" />
+                  <IconTile icon={Mail} className="h-4 w-4" tileClassName="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-700" />
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wide text-ink-400">{t('contact.emailUs')}</p>
+                    <p className="text-xs font-medium uppercase tracking-wide text-ink-500">{t('contact.emailUs')}</p>
                     <a href="mailto:glvending.sabina@gmail.com" className="mt-0.5 block text-brand-700 hover:underline">glvending.sabina@gmail.com</a>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <IconTile icon={Phone} className="h-4 w-4" tileClassName="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600" />
+                  <IconTile icon={Phone} className="h-4 w-4" tileClassName="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-700" />
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wide text-ink-400">{t('contact.callUs')}</p>
+                    <p className="text-xs font-medium uppercase tracking-wide text-ink-500">{t('contact.callUs')}</p>
                     <p className="mt-0.5 text-ink-700">+86 183 1975 3992 (Anne)</p>
                     <p className="text-ink-700">+86 190 1516 9848 (Sabina)</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <IconTile icon={MessageCircle} className="h-4 w-4" tileClassName="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600" />
+                  <IconTile icon={MessageCircle} className="h-4 w-4" tileClassName="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-700" />
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wide text-ink-400">WhatsApp</p>
+                    <p className="text-xs font-medium uppercase tracking-wide text-ink-500">WhatsApp</p>
                     <p className="mt-0.5 text-ink-700">
                       <a href="https://wa.me/8618319753992" target="_blank" rel="noopener noreferrer" className="hover:text-brand-700">+86 183 1975 3992</a>
                       {' / '}
@@ -254,9 +254,9 @@ export default function ContactClient({
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <IconTile icon={MessageSquare} className="h-4 w-4" tileClassName="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600" />
+                  <IconTile icon={MessageSquare} className="h-4 w-4" tileClassName="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-700" />
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wide text-ink-400">WeChat</p>
+                    <p className="text-xs font-medium uppercase tracking-wide text-ink-500">WeChat</p>
                     <p className="mt-0.5 text-ink-700">Qtech Vending</p>
                   </div>
                 </li>
@@ -295,7 +295,7 @@ export default function ContactClient({
                       <IconTile
                         icon={Icon}
                         className="h-5 w-5"
-                        tileClassName="flex h-10 w-10 items-center justify-center rounded-full bg-brand-50 text-brand-600 transition hover:bg-brand-500 hover:text-white"
+                        tileClassName="flex h-10 w-10 items-center justify-center rounded-full bg-brand-50 text-brand-700 transition hover:bg-brand-600 hover:text-white"
                       />
                     </a>
                   );

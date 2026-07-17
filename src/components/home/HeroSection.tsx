@@ -182,7 +182,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
                 <IconTile
                   icon={Star}
                   className="h-4 w-4"
-                  tileClassName="bg-gradient-to-br from-brand-500 to-brand-700 text-white p-1.5"
+                  tileClassName="bg-gradient-to-br from-brand-600 to-brand-700 text-white p-1.5"
                 />
                 <div className="leading-tight">
                   <p className="text-sm font-extrabold tracking-tight text-white">4.9 / 5</p>

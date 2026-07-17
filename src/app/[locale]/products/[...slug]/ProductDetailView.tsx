@@ -64,7 +64,7 @@ export default function ProductDetailView({
       </Link>
 
       {/* Breadcrumb */}
-      <nav className="mb-6 mt-4 text-sm text-ink-400">
+      <nav className="mb-6 mt-4 text-sm text-ink-500">
         <Link href={`/${locale}`} className="hover:text-brand-700">Home</Link>
         <span className="mx-2">/</span>
         <Link href={`/${locale}/products`} className="hover:text-brand-700">{t('nav.products')}</Link>
@@ -130,7 +130,7 @@ export default function ProductDetailView({
               <RevealOnScroll>
                 <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                   {/* Gradient header */}
-                  <div className="bg-gradient-to-r from-brand-500 to-brand-700 px-6 py-4">
+                  <div className="bg-gradient-to-r from-brand-600 to-brand-700 px-6 py-4">
                     <h2 className="flex items-center gap-2.5 text-lg font-bold text-white">
                       <IconTile icon={Settings2} className="h-6 w-6" tileClassName="bg-white/20 text-white p-2" />
                       {t('product.specs')}
@@ -144,7 +144,7 @@ export default function ProductDetailView({
                         key={i}
                         className="flex flex-col gap-1 px-6 py-4 transition-colors even:bg-slate-50 hover:bg-brand-50/50 sm:flex-row sm:gap-6"
                       >
-                        <dt className="w-40 shrink-0 font-mono text-xs font-bold uppercase tracking-wider text-brand-600">
+                        <dt className="w-40 shrink-0 font-mono text-xs font-bold uppercase tracking-wider text-brand-700">
                           {s.param}
                         </dt>
                         <dd className="text-sm font-medium leading-relaxed text-ink-800">

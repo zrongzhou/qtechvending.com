@@ -22,7 +22,7 @@ export default function ProductFaqSection({ features }: { features: I18nStringLi
         <ul className="mt-4 space-y-3">
           {items.map((item, i) => (
             <li key={i} className="flex items-start gap-3 text-sm leading-relaxed text-ink-600">
-              <IconTile icon={Check} className="h-5 w-5 shrink-0" tileClassName="bg-brand-500 text-white" />
+              <IconTile icon={Check} className="h-5 w-5 shrink-0" tileClassName="bg-brand-600 text-white" />
               {item}
             </li>
           ))}

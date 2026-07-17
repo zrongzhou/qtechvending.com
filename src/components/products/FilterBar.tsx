@@ -50,7 +50,7 @@ export default function FilterBar({
       <div className="flex flex-col gap-4">
         {/* Search */}
         <div className="relative">
-          <Search className="pointer-events-none absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-400" />
+          <Search className="pointer-events-none absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-500" />
           <input
             type="text"
             value={search}
@@ -62,7 +62,7 @@ export default function FilterBar({
 
         {/* Category dropdown */}
         <div>
-          <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-ink-400">
+          <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-ink-500">
             {t('products.filterTitle')}
           </label>
           <div className="relative">
@@ -83,7 +83,7 @@ export default function FilterBar({
                 </option>
               ))}
             </select>
-            <ChevronDown className="pointer-events-none absolute end-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-400" />
+            <ChevronDown className="pointer-events-none absolute end-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-500" />
           </div>
 
           {/* Active filter chip */}
@@ -114,7 +114,7 @@ export default function FilterBar({
 
         {/* Result count + clear */}
         <div className="flex items-center justify-between border-t border-slate-100 pt-4">
-          <span className="text-sm text-ink-400">
+          <span className="text-sm text-ink-500">
             {loading ? t('products.loading') : `${total} ${t('products.results')}`}
           </span>
           {hasFilters && (

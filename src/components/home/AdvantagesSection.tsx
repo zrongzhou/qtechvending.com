@@ -20,7 +20,7 @@ interface AccentTheme {
 const ACCENTS: AccentTheme[] = [
   {
     bar: 'from-brand-400 to-brand-600',
-    tint: 'bg-brand-50 text-brand-600',
+    tint: 'bg-brand-50 text-brand-700',
     hoverBorder: 'hover:border-brand-300',
     hoverTile: 'group-hover:bg-brand-100',
     cardBg: 'from-brand-50/60 to-white',

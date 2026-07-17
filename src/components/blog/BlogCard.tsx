@@ -54,11 +54,11 @@ export default function BlogCard({ post }: { post: BlogPost }) {
         {excerpt && <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-ink-500">{excerpt}</p>}
 
         <div className="mt-auto flex items-center justify-between pt-4">
-          <span className="text-sm font-semibold text-brand-600">{t('blog.readMore')}</span>
+          <span className="text-sm font-semibold text-brand-700">{t('blog.readMore')}</span>
           <IconTile
             icon={ArrowUpRight}
             className="h-4 w-4"
-            tileClassName="bg-brand-50 text-brand-600 p-1.5 transition group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1 group-hover:bg-brand-500 group-hover:text-white"
+            tileClassName="bg-brand-50 text-brand-700 p-1.5 transition group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1 group-hover:bg-brand-600 group-hover:text-white"
           />
         </div>
       </div>

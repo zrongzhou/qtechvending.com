@@ -79,13 +79,13 @@ export default function ProductCard({ product }: { product: Product }) {
         </h3>
 
         {/* Description — muted, de-emphasised */}
-        {short && <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-ink-400">{short}</p>}
+        {short && <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-ink-500">{short}</p>}
 
         {/* Bottom info — model number (preferred) or category tag */}
         <div className="mt-auto pt-4">
           {modelLabel ? (
             <span className="inline-flex items-center gap-1.5 rounded-md bg-slate-100 px-2.5 py-1 text-[11px] font-semibold text-ink-600">
-              <span className="text-ink-400">{t('product.model')}</span>
+              <span className="text-ink-500">{t('product.model')}</span>
               <span className="font-mono">{modelLabel}</span>
             </span>
           ) : (
@@ -99,8 +99,8 @@ export default function ProductCard({ product }: { product: Product }) {
 
         {/* Bottom action bar — clean slide-in */}
         <div className="mt-3 flex items-center justify-between transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1">
-          <span className="text-sm font-semibold text-brand-600">{t('products.view')}</span>
-          <span aria-hidden="true" className="text-brand-600 transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1">→</span>
+          <span className="text-sm font-semibold text-brand-700">{t('products.view')}</span>
+          <span aria-hidden="true" className="text-brand-700 transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1">→</span>
         </div>
       </div>
     </Link>

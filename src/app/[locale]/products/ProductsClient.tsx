@@ -80,7 +80,7 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
   return (
     <div className="container-qtech bg-white py-12 lg:py-16">
       <RevealOnScroll className="mb-8 md:mb-10">
-        <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
+        <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
           {t('products.eyebrow')}
         </p>
         <h1 className="mt-3 text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">

@@ -9,7 +9,7 @@ import IconTile from '@/components/ui/IconTile';
 // V13 polish round: animated "by the numbers" trust band.
 // Reuses the brand design language (pro-card, IconTile, per-card accent, CountUp, hover lift).
 const ACCENTS = [
-  { bar: 'from-brand-400 to-brand-600', tile: 'bg-brand-50 text-brand-600' },
+  { bar: 'from-brand-400 to-brand-600', tile: 'bg-brand-50 text-brand-700' },
   { bar: 'from-amber-400 to-orange-500', tile: 'bg-amber-50 text-amber-600' },
   { bar: 'from-emerald-400 to-teal-500', tile: 'bg-emerald-50 text-emerald-600' },
   { bar: 'from-indigo-400 to-violet-500', tile: 'bg-indigo-50 text-indigo-600' },
@@ -49,7 +49,7 @@ export default function StatsBand() {
                 <IconTile icon={Icon} className="h-7 w-7" tileClassName={`${ACCENTS[i].tile} p-3`} />
                 <div className="flex items-baseline gap-0.5 text-4xl font-black text-ink-900">
                   <CountUp end={s.value} />
-                  <span className="text-brand-600">{s.suffix}</span>
+                  <span className="text-brand-700">{s.suffix}</span>
                 </div>
                 <p className="text-sm font-medium text-ink-500">{t(s.labelKey)}</p>
               </div>

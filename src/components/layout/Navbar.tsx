@@ -83,8 +83,8 @@ export default function Navbar() {
               aria-current={isActive(item.href) ? 'page' : undefined}
               className={`relative rounded-md px-3 py-2 text-sm font-medium transition-colors after:pointer-events-none after:absolute after:inset-x-3 after:bottom-1 after:h-0.5 after:origin-center after:rounded-full after:bg-gradient-to-r after:from-brand-400 after:to-brand-600 after:transition-transform after:duration-300 motion-reduce:after:transition-none ${
                 isActive(item.href)
-                  ? 'text-brand-600 after:scale-x-100'
-                  : 'text-ink-600 after:scale-x-0 hover:text-brand-600 hover:after:scale-x-100'
+                  ? 'text-brand-700 after:scale-x-100'
+                  : 'text-ink-600 after:scale-x-0 hover:text-brand-700 hover:after:scale-x-100'
               }`}
             >
               {t(item.key)}
@@ -123,7 +123,7 @@ export default function Navbar() {
                   role="menuitem"
                   onClick={() => switchLocale(l)}
                   className={`block w-full px-4 py-2 text-start text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-400 active:scale-[0.98] ${
-                    l === locale ? 'font-semibold text-brand-600' : 'text-ink-700 hover:bg-slate-50'
+                    l === locale ? 'font-semibold text-brand-700' : 'text-ink-700 hover:bg-slate-50'
                   }`}
                 >
                   {l === 'en' ? 'English' : l === 'zh' ? '中文' : 'العربية'}
@@ -171,8 +171,8 @@ export default function Navbar() {
                   aria-current={isActive(item.href) ? 'page' : undefined}
                   className={`rounded-md border-s-2 px-3 py-3 text-sm font-medium transition-colors ${
                     isActive(item.href)
-                      ? 'border-brand-500 bg-white text-brand-600'
-                      : 'border-transparent text-ink-700 hover:bg-white hover:text-brand-600'
+                      ? 'border-brand-500 bg-white text-brand-700'
+                      : 'border-transparent text-ink-700 hover:bg-white hover:text-brand-700'
                   }`}
                 >
                   {t(item.key)}

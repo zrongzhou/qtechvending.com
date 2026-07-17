@@ -18,7 +18,7 @@ interface IconTileProps {
 export default function IconTile({
   icon: Icon,
   className = '',
-  tileClassName = 'bg-brand-50 text-brand-600 p-3',
+  tileClassName = 'bg-brand-50 text-brand-700 p-3',
   size = 24,
 }: IconTileProps) {
   // Light tiles get a refined ring + soft shadow so every icon reads as a
