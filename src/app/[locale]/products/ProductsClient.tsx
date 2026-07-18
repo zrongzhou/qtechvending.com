@@ -79,11 +79,11 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
   const { data, totalPages } = result;
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-cyan-500/40 via-teal-400/30 to-sky-300/25">
-      {/* Deep ocean base layer behind the brighter overlay for depth (V39 lighter). */}
-      <div className="absolute inset-0 -z-20 bg-gradient-to-b from-cyan-600/60 via-teal-500/50 to-sky-400/45" aria-hidden="true" />
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-slate-900 via-cyan-950 to-teal-900">
+      {/* Deep ocean base layer behind the brighter overlay for depth (V40 dark). */}
+      <div className="absolute inset-0 -z-20 bg-gradient-to-b from-cyan-950/80 via-teal-900/70 to-slate-900/80" aria-hidden="true" />
       {/* Sunlight sheen from the surface (upper-ocean glow) */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-sky-400/25 via-cyan-400/10 to-transparent" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-cyan-300/15 via-cyan-400/5 to-transparent" aria-hidden="true" />
 
       {/* God rays — drifting light beams piercing the water */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">

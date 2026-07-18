@@ -137,10 +137,12 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-ink-950">
+    <section className="relative overflow-hidden bg-[#0a0e1a]">
       {/* Night-sky starfield canvas — lifted ABOVE the dark mask so the
-          twinkling stars are clearly visible against the ink background. */}
-      <Starfield className="absolute inset-0 z-[1]" starCount={350} />
+          twinkling stars are clearly visible against the profound black sky.
+          The canvas itself paints the deep-space base (#0a0e1a) so the hero is
+          genuinely cosmic black with subtle nebula depth. */}
+      <Starfield className="absolute inset-0 z-[1]" starCount={210} />
 
       {/* Dark gradient mask — keeps left-side white copy legible. Kept very
           transparent and BEHIND the starfield (z-0) so the bright stars shine

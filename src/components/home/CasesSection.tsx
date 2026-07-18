@@ -1,23 +1,27 @@
 'use client';
 
+import { Flower2, Pizza, Snowflake, Coffee, Apple, Dog, type LucideIcon } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
 import ImageWithRetry from '@/components/ui/ImageWithRetry';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
-import OceanGlassCard from '@/components/ui/OceanGlassCard';
+import RippleOnHover from '@/components/ui/RippleOnHover';
 import type { Locale } from '@/lib/i18n';
 
 interface CaseItem {
   image: string;
+  icon: LucideIcon;
   title: Record<Locale, string>;
   sub: Record<Locale, string>;
 }
 
-// V38: case image/title/sub are now semantically consistent. Each image is a
-// real product or deployment photo that matches the headline.
+// V40: case image/title/sub are semantically consistent and each card now
+// carries a refined icon that echoes the deployment, reinforcing the dark
+// glass aesthetic that matches the Hero starfield.
 const CASES: CaseItem[] = [
   {
     image: '/images/cases/case-1.webp',
+    icon: Flower2,
     title: { en: 'Fresh-Flower Kiosk', zh: '鲜花自助站', ar: 'Fresh-Flower Kiosk' },
     sub: {
       en: 'On-demand bouquets for commuters and last-minute gifts.',
@@ -27,6 +31,7 @@ const CASES: CaseItem[] = [
   },
   {
     image: '/images/products/12-inch-pizza-outdoor-waterproof-sun-resistant-and-insulated-pizza-vending-machine-can-be-used-in-gas-station/1.webp',
+    icon: Pizza,
     title: { en: '24/7 Campus Pizza', zh: '校园 24/7 披萨', ar: '24/7 Campus Pizza' },
     sub: {
       en: 'Serving students late-night hot pizza on a European campus.',
@@ -36,6 +41,7 @@ const CASES: CaseItem[] = [
   },
   {
     image: '/images/products/different-flavor-robot-service-ice-cream-vending-machine-support-logo-customized/1.webp',
+    icon: Snowflake,
     title: { en: 'Branded Ice-Cream Robot', zh: '品牌定制冰淇淋机器人', ar: 'Branded Ice-Cream Robot' },
     sub: {
       en: 'OEM-branded ice-cream robot for a Middle-East retail chain.',
@@ -45,6 +51,7 @@ const CASES: CaseItem[] = [
   },
   {
     image: '/images/products/2025-newest-instant-fast-hot-coffee-vending-machine-in-energy-saving-design/1.webp',
+    icon: Coffee,
     title: { en: 'Office Coffee Corner', zh: '办公室咖啡角', ar: 'Office Coffee Corner' },
     sub: {
       en: 'Energy-saving coffee station for corporate lobbies and offices.',
@@ -54,6 +61,7 @@ const CASES: CaseItem[] = [
   },
   {
     image: '/images/products/smart-vending-machine-with-weighing-sensor-technology-selling-fruitvegetableeggsnack-and-cold-drink/1.webp',
+    icon: Apple,
     title: { en: 'Hospital Lobby', zh: '医院大堂', ar: 'Hospital Lobby' },
     sub: {
       en: 'Round-the-clock snacks, drinks and fresh food for patients and visitors.',
@@ -63,6 +71,7 @@ const CASES: CaseItem[] = [
   },
   {
     image: '/images/products/the-hot-new-pet-intelligent-self-service-washing-and-grooming-vending-machine-with-convenient-payment-options/1.webp',
+    icon: Dog,
     title: { en: 'Pet Spa on the Street', zh: '街头宠物洗护站', ar: 'Pet Spa on the Street' },
     sub: {
       en: 'Self-service pet wash station in a residential district.',
@@ -73,32 +82,48 @@ const CASES: CaseItem[] = [
 ];
 
 /**
- * CasesSection (V38) — real product/deployment photos mapped to matching
- * titles and subtitles. Uses ocean-glass cards with a hover ripple.
+ * CasesSection (V40) — dark glass cards that echo the Hero starfield palette.
+ * Each card is a translucent dark surface with a refined per-case icon, a cyan
+ * → teal top accent, a subtle water-ripple on hover, and a lift + brand glow.
+ * The section itself sits on a deep-space background so the glass reads clearly.
  */
 export default function CasesSection() {
   const { t, locale } = useLocale();
 
   return (
-    <RevealOnScroll as="section" className="bg-atmosphere-rose py-20 md:py-28">
-      <div className="container-qtech">
+    <RevealOnScroll as="section" className="relative overflow-hidden bg-[#0a0e1a] py-20 md:py-28">
+      {/* Subtle deep-space nebula so the dark glass has colour to blur. */}
+      <div
+        className="pointer-events-none absolute -top-24 end-0 h-96 w-96 rounded-full bg-violet-700/10 blur-3xl"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute bottom-0 start-0 h-96 w-96 rounded-full bg-cyan-600/10 blur-3xl"
+        aria-hidden="true"
+      />
+
+      <div className="container-qtech relative">
         <div className="section-head">
           <p className="eyebrow">{t('home.partners.eyebrow')}</p>
-          <h2 className="section-title">{t('home.partners.title')}</h2>
-          <p className="section-subtitle">{t('home.partners.subtitle')}</p>
+          <h2 className="section-title text-white">{t('home.partners.title')}</h2>
+          <p className="section-subtitle text-white/70">{t('home.partners.subtitle')}</p>
         </div>
 
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {CASES.map((c, i) => (
-            <RevealOnScroll key={c.image} delay={i * 100} className="h-full">
-              <div className="relative h-full">
-                {/* Soft orange-rose glow behind the glass case card */}
-                <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-orange-400 to-rose-500 opacity-20 blur-xl" aria-hidden="true" />
-                <OceanGlassCard ripple depth="md" className="group relative z-10 h-full rounded-2xl transition-all duration-300 hover:scale-[1.03] hover:shadow-lift">
-                  {/* Warm accent bar — differentiates Cases from the ocean product cards */}
-                  <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-orange-400 to-rose-500" aria-hidden="true" />
+          {CASES.map((c, i) => {
+            const Icon = c.icon;
+            return (
+              <RevealOnScroll key={c.image} delay={i * 100} className="h-full">
+                <RippleOnHover
+                  pointerDriven
+                  rippleColor="rgba(34,211,238,0.22)"
+                  rings={2}
+                  className="group relative h-full glass-card-dark rounded-2xl transition-all duration-300 hover:-translate-y-2"
+                >
+                  {/* Cyan → teal accent bar — ties Cases to the ocean/dark theme. */}
+                  <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-cyan-500 to-teal-500" aria-hidden="true" />
                   <div className="group flex h-full flex-col">
-                    <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-slate-100">
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-ink-900/40">
                       <ImageWithRetry
                         src={c.image}
                         alt={localized(c.title, locale)}
@@ -106,28 +131,33 @@ export default function CasesSection() {
                         className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                       />
                       {/* Darkening scrim so the floating info bar stays legible */}
-                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/70 via-ink-900/10 to-transparent" />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/85 via-ink-900/20 to-transparent" />
 
-                      {/* Floating glass info bar — stronger frosted treatment */}
-                      <div className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-3 rounded-xl border border-white/40 bg-white/85 px-3 py-2.5 shadow-lg backdrop-blur-md">
+                      {/* Refined per-case icon badge */}
+                      <span className="absolute start-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-teal-500 text-white shadow-lg ring-1 ring-white/20">
+                        <Icon className="h-5 w-5" strokeWidth={1.75} />
+                      </span>
+
+                      {/* Floating glass info bar — dark frosted treatment */}
+                      <div className="absolute inset-x-3 bottom-3 flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 shadow-lg backdrop-blur-md">
                         <div className="min-w-0">
-                          <p className="truncate text-sm font-semibold text-ink-900">
+                          <p className="truncate text-sm font-semibold text-white">
                             {localized(c.title, locale)}
                           </p>
-                          <p className="truncate text-[11px] leading-tight text-ink-600">
+                          <p className="truncate text-[11px] leading-tight text-white/60">
                             {localized(c.sub, locale)}
                           </p>
                         </div>
-                        <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-orange-500 to-rose-500 text-white shadow-md transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1">
+                        <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-md transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1">
                           <span aria-hidden="true" className="text-lg font-bold leading-none">→</span>
                         </span>
                       </div>
                     </div>
                   </div>
-                </OceanGlassCard>
-              </div>
-            </RevealOnScroll>
-          ))}
+                </RippleOnHover>
+              </RevealOnScroll>
+            );
+          })}
         </div>
       </div>
     </RevealOnScroll>
