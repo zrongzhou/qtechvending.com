@@ -75,7 +75,9 @@ export default function Starfield({
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const isReduced = reduced ?? prefersReducedMotion();
+    // Brand ambient animations must always run (user explicitly wants animation).
+    // Only respect reduced-motion when the caller passes an EXPLICIT true prop.
+    const isReduced = reduced === true;
 
     let width = wrap.clientWidth;
     let height = wrap.clientHeight;
