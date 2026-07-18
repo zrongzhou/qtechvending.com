@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Sparkles, CheckCircle2, ShieldCheck, Globe2 } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
@@ -99,10 +99,11 @@ export default function CtaSection() {
           aria-hidden="true"
         />
 
-        {/* Frosted-glass observation pod — strong glass panel with dark copy */}
-        <div className="relative z-10 flex min-h-[520px] items-center justify-center px-6 py-12 sm:px-16 sm:py-16">
-          <div className="max-w-2xl rounded-2xl glass-card-strong px-8 py-10 text-center sm:px-12 sm:py-12">
-            <div className="inline-flex items-center gap-2 rounded-full bg-cyan-500/15 px-5 py-2 text-sm font-medium text-cyan-700 ring-1 ring-cyan-500/20">
+        {/* Deep-sea command pod — dark translucent glass that fills the tank
+            (immersive, not a floating white card). Aquarium motion stays behind. */}
+        <div className="relative z-10 flex min-h-[520px] items-center justify-center p-3 sm:p-5">
+          <div className="flex w-full min-h-[440px] flex-col items-center justify-center rounded-3xl border border-white/10 bg-slate-900/55 px-6 py-12 text-center shadow-lift backdrop-blur-2xl sm:px-16 sm:py-16">
+            <div className="inline-flex items-center gap-2 rounded-full bg-cyan-500/15 px-5 py-2 text-sm font-medium text-cyan-200 ring-1 ring-cyan-500/20">
               <IconTile icon={Sparkles} className="h-4 w-4" tileClassName="bg-gradient-to-br from-cyan-500 to-teal-500 text-white p-1.5" />
               <span className="font-semibold">
                 {locale === 'zh' ? '立即开启合作'
@@ -111,12 +112,12 @@ export default function CtaSection() {
               </span>
             </div>
 
-            <h2 className="mx-auto mt-7 text-3xl font-black leading-tight text-ink-900 sm:text-4xl lg:text-5xl">
+            <h2 className="mx-auto mt-7 text-4xl font-black leading-tight text-white drop-shadow-sm sm:text-5xl lg:text-6xl">
               {ctaTitle}
             </h2>
 
             {ctaSubtitle && (
-              <p className="mx-auto mt-4 line-clamp-2 max-w-xl text-base text-ink-600 sm:text-lg">
+              <p className="mx-auto mt-4 max-w-2xl text-base text-white/80 sm:text-lg">
                 {ctaSubtitle}
               </p>
             )}
@@ -130,18 +131,16 @@ export default function CtaSection() {
             </Link>
 
             {ctaProof && (
-              <div className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-ink-500">
-                <span className="inline-flex items-center gap-1">
-                  <IconTile icon={CheckCircle2} className="h-4 w-4" tileClassName="bg-emerald-500/20 text-emerald-600 p-1.5" />
+              <div className="mt-10 flex w-full flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-white/10 pt-6 text-sm text-white/70">
+                <span className="inline-flex items-center gap-1.5">
+                  <IconTile icon={CheckCircle2} className="h-4 w-4" tileClassName="bg-emerald-500/20 text-emerald-300 p-1.5" />
                   {ctaProof}
                 </span>
-                <span className="hidden sm:inline text-ink-300">|</span>
-                <span className="inline-flex items-center gap-0.5 font-medium text-ink-600">
-                  ISO &amp; CE Certified
+                <span className="inline-flex items-center gap-1.5 font-medium text-white/80">
+                  <ShieldCheck className="h-4 w-4 text-cyan-300" strokeWidth={1.75} /> ISO &amp; CE Certified
                 </span>
-                <span className="hidden sm:inline text-ink-300">|</span>
-                <span className="inline-flex items-center gap-0.5 font-medium text-ink-600">
-                  80+ Countries Served
+                <span className="inline-flex items-center gap-1.5 font-medium text-white/80">
+                  <Globe2 className="h-4 w-4 text-cyan-300" strokeWidth={1.75} /> 80+ Countries Served
                 </span>
               </div>
             )}

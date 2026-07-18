@@ -98,17 +98,19 @@ export default function Starfield({
     const layerTw = [0.6, 1.0, 1.6];
     const layerPulseAmp = [0.0, 0.2, 0.4]; // radius pulse amplitude
     const layerAlphaPulseAmp = [0.0, 0.25, 0.45]; // alpha pulse amplitude
-    // V40: thicker, longer cross rays for a stronger star-flare look.
-    const layerRayLen = [0, 7, 16]; // ray length = baseR * multiplier
-    const layerRayAlpha = [0, 0.4, 0.6]; // cross-ray opacity (raised)
+    // V41: thinner, shorter, dimmer cross rays — only the brightest near-layer
+    // stars read as delicate flares; the rest stay as quiet pinpoint dots.
+    const layerRayLen = [0, 5, 10]; // ray length = baseR * multiplier
+    const layerRayAlpha = [0, 0.25, 0.35]; // cross-ray opacity (calmed down)
     const layerGlowSpeed = [0.003, 0.01, 0.018];
 
     const stars: Star[] = [];
-    // V40: lower the area-density divisor (1400 → 2200) so large screens get
-    // far fewer stars, then the caller's starCount further caps the total.
+    // V41: raise the area-density divisor (2200 → 3500) so large screens get
+    // ~37% fewer stars for a calmer "quiet night sky" read, then the caller's
+    // starCount further caps the total (Hero passes ~30% fewer than V40).
     const count = Math.max(
       50,
-      Math.min(starCount, Math.floor((width * height) / 2200)),
+      Math.min(starCount, Math.floor((width * height) / 3500)),
     );
 
     // Allocate counts per layer: far 40%, mid 35%, near 25%.
@@ -224,20 +226,20 @@ export default function Starfield({
      */
     function drawMeteorCrossRay(px: number, py: number, color: string, vis: number) {
       if (!ctx) return;
-      const len = 14; // 12–16 px half-length (V40: longer)
-      const alpha = Math.min(0.75, vis * (0.45 + Math.random() * 0.25));
-      // Soft glow bloom behind the rays.
-      const bloomR = len * 1.1;
+      const len = 8; // 8 px half-length (V41: shorter, more refined)
+      const alpha = Math.min(0.55, vis * (0.35 + Math.random() * 0.2));
+      // Soft glow bloom behind the rays (V41: weaker).
+      const bloomR = len * 0.9;
       const bg = ctx.createRadialGradient(px, py, 0, px, py, bloomR);
-      bg.addColorStop(0, `${color}${alpha * 0.4})`);
+      bg.addColorStop(0, `${color}${alpha * 0.22})`);
       bg.addColorStop(1, `${color}0)`);
       ctx.fillStyle = bg;
       ctx.beginPath();
       ctx.arc(px, py, bloomR, 0, Math.PI * 2);
       ctx.fill();
-      // Thick cross rays (V40: 2.5px).
+      // Delicate cross rays (V41: 1.2px instead of 2.5px).
       ctx.save();
-      ctx.lineWidth = 2.5;
+      ctx.lineWidth = 1.2;
       ctx.lineCap = 'round';
       ctx.strokeStyle = `${color}${alpha})`;
       ctx.beginPath();
@@ -357,7 +359,7 @@ export default function Starfield({
       // Soft glow bloom behind the rays so bright stars halo.
       const glowR = len * 0.9;
       const gGrad = ctx.createRadialGradient(px, py, 0, px, py, glowR);
-      gGrad.addColorStop(0, `rgba(${color}, ${alpha * rayAlpha * 0.35})`);
+      gGrad.addColorStop(0, `rgba(${color}, ${alpha * rayAlpha * 0.25})`);
       gGrad.addColorStop(1, `rgba(${color}, 0)`);
       ctx.fillStyle = gGrad;
       ctx.beginPath();
@@ -375,8 +377,8 @@ export default function Starfield({
       vGrad.addColorStop(0.5, `rgba(${color}, ${alpha * rayAlpha})`);
       vGrad.addColorStop(1, `rgba(${color}, 0)`);
 
-      // V40: thicker lines (≈2–3px) for a stronger star-flare read.
-      ctx.lineWidth = Math.max(1.4, radius * 0.9);
+      // V41: finer lines (≈0.5–0.8px scale) for a delicate, refined star-flare.
+      ctx.lineWidth = Math.max(0.8, radius * 0.5);
       ctx.lineCap = 'round';
 
       ctx.strokeStyle = hGrad;
@@ -486,8 +488,9 @@ export default function Starfield({
           if (flareTimer <= 0) flareIndex = -1;
         }
 
-        // Cross-shaped rays on mid and near stars (skip reduced motion).
-        if (!isReduced && s.layer > 0) {
+        // Cross-shaped rays ONLY on the brightest near-layer stars (baseR > 2.0);
+        // the many dim/far stars stay as quiet pinpoint dots ("less but refined").
+        if (!isReduced && s.baseR > 2.0) {
           drawCrossRays(px, py, radius, s.rayLen, alpha, s.rayAlpha, s.color);
         }
 

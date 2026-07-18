@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Palette,
   ShieldCheck,
@@ -33,7 +34,6 @@ import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
 import CiPaiFrame from '@/components/ui/CiPaiFrame';
 import OceanBubbles from '@/components/ui/OceanBubbles';
-import AuroraBackground from '@/components/ui/AuroraBackground';
 import type { Locale } from '@/lib/i18n';
 
 export interface AboutSection {
@@ -91,7 +91,7 @@ const SECTION_ICONS: Record<string, LucideIcon> = {
   capability: Cog,
 };
 
-/* ── Six company strengths (user-specified) ── */
+/* ── Six company strengths ── */
 const STRENGTHS: ValueItem[] = [
   {
     icon: Palette,
@@ -225,7 +225,7 @@ const VALUES: ValueItem[] = [
   },
 ];
 
-/* ── Key facts ── */
+/* ── Key facts (reference data) ── */
 const NUMBERS: NumberItem[] = [
   { end: 11, suffix: '+', label: { en: 'Product categories', zh: '产品品类', ar: 'فئات المنتجات' } },
   { end: 60, suffix: '+', label: { en: 'Countries served', zh: '服务国家', ar: 'دول نخدمها' } },
@@ -233,7 +233,7 @@ const NUMBERS: NumberItem[] = [
   { end: 24, suffix: '/7', label: { en: 'Self-service operation', zh: '无人自助运营', ar: 'تشغيل ذاتي' } },
 ];
 
-/* ── Manufacturing process cards (no watermarked photos) ── */
+/* ── Manufacturing process cards ── */
 const MANU_CARDS = [
   {
     icon: Factory,
@@ -293,7 +293,7 @@ const MANU_CARDS = [
   },
 ];
 
-/* ── Mission statements (3 concrete commitments) ── */
+/* ── Mission statements ── */
 const MISSION_STATEMENTS: StatementItem[] = [
   {
     icon: Target,
@@ -324,7 +324,7 @@ const MISSION_STATEMENTS: StatementItem[] = [
   },
 ];
 
-/* ── Vision statements (3 aspirations) ── */
+/* ── Vision statements ── */
 const VISION_STATEMENTS: StatementItem[] = [
   {
     icon: Globe2,
@@ -414,12 +414,22 @@ const CERTS: CertBadge[] = [
   { name: 'Patents 20+', icon: 'Award', full: { en: '20+ Patents', zh: '20+ 项专利', ar: 'أكثر من 20 براءة اختراع' } },
 ];
 
-/* ── Hero stat cards (under hero) ── */
+/* ── Hero stat cards ── */
 const HERO_STATS = [
   { end: 11, suffix: '+', icon: Factory, key: 'hero.statCategories' },
   { end: 60, suffix: '+', icon: Globe2, key: 'hero.statCountries' },
   { end: 500, suffix: '+', icon: Users, key: 'hero.statPartners' },
   { end: 24, suffix: '/7', icon: Clock, key: 'hero.statService' },
+];
+
+/* ── Global impact data wall ── */
+const IMPACT = [
+  { icon: Globe2, value: '80+', label: { en: 'Countries served', zh: '服务国家', ar: 'دول نخدمها' }, accent: 0 },
+  { icon: Users, value: '500+', label: { en: 'Global partners', zh: '全球合作伙伴', ar: 'شركاء عالميون' }, accent: 1 },
+  { icon: Package, value: '22+', label: { en: 'Machine models', zh: '机型种类', ar: 'طرازات الآلات' }, accent: 2 },
+  { icon: Clock, value: '24/7', label: { en: 'Always-on support', zh: '全天候支持', ar: 'دعم على مدار الساعة' }, accent: 3 },
+  { icon: TrendingUp, value: '98%', label: { en: 'Client satisfaction', zh: '客户满意度', ar: 'رضا العملاء' }, accent: 0 },
+  { icon: Award, value: 'ISO', label: { en: 'Internationally certified', zh: '国际认证', ar: 'معتمد دوليًا' }, accent: 1 },
 ];
 
 /** Rotating accent identity for icon tiles & decorative lines. */
@@ -430,491 +440,422 @@ const ACCENTS = [
   { tile: 'from-amber-500 to-orange-500', text: 'text-amber-600', border: 'border-amber-400', glow: 'hover:shadow-amber-500/30', color: 'amber', shadow: 'shadow-amber-500/20' },
 ];
 
+/** Real photography used in the alternating company-story panels (next/image). */
+const STORY_IMAGES = [
+  '/images/cases/partnership.webp',
+  '/images/cases/ice-cream-vending.webp',
+  '/images/cases/pet-wash-demo.webp',
+];
+
 export default function AboutClient({ sections }: { sections: AboutSection[] }) {
   const { t, locale } = useLocale();
 
   const narrative = sections.filter((s) => s.key === 'story' || s.key === 'capability');
-
   const localeOr = <T extends string>(rec: Record<string, T>): T => (rec[locale] as T) ?? (rec.en as T);
 
   return (
     <div className="bg-gradient-to-b from-[#0a0e1a] via-[#0b1120] to-[#0a0e1a]">
-      {/* ════════ 1. HERO ════════ */}
-      <section className="relative isolate overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-950 to-cyan-950 text-white">
-        {/* Decorative deep-space blobs */}
-        <div className="pointer-events-none absolute -start-16 top-10 h-64 w-64 rounded-full bg-white/10 blur-3xl" aria-hidden="true" />
-        <div className="pointer-events-none absolute end-0 top-1/3 h-72 w-72 rounded-full bg-cyan-300/20 blur-3xl" aria-hidden="true" />
-        {/* Rising ocean bubbles behind the hero content. */}
+      {/* ══════════════════ 1. HERO ══════════════════ */}
+      <section className="relative isolate overflow-hidden bg-gradient-to-b from-[#0a0e1a] via-[#0f172a] to-[#0c1929] text-white">
+        {/* Deep-space colour glows for atmosphere. */}
+        <div className="pointer-events-none absolute -start-24 top-10 h-72 w-72 rounded-full bg-cyan-500/10 blur-3xl" aria-hidden="true" />
+        <div className="pointer-events-none absolute end-0 top-1/3 h-80 w-80 rounded-full bg-indigo-500/10 blur-3xl" aria-hidden="true" />
+
+        {/* Rising ocean bubbles — brand ambient, always animating. */}
         <OceanBubbles className="-z-10" reduced={false} />
 
-        <div className="container-qtech relative py-20 text-center lg:py-28">
-          <span className="inline-flex items-center rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium text-white ring-1 ring-white/15">
+        <div className="container-qtech relative py-24 text-center lg:py-32">
+          <span className="inline-flex items-center rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium text-white/90 ring-1 ring-white/15">
             {t('about.badge') || 'About Qtech'}
           </span>
-          <h1 className="mt-5 text-4xl font-extrabold tracking-tight drop-shadow-sm sm:text-5xl lg:text-6xl">
+          <h1 className="mx-auto mt-6 max-w-4xl text-4xl font-extrabold tracking-tight drop-shadow-sm sm:text-5xl lg:text-6xl">
             {t('about.title')}
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-white/85">{t('about.subtitle')}</p>
+          <p className="mx-auto mt-5 max-w-2xl text-lg text-white/75">
+            {t('about.subtitle')}
+          </p>
 
-          {/* Brand ci-pai plaque — vertical brand identifier above the stats. */}
-          <div className="mt-6 flex justify-center">
+          {/* Brand ci-pai plaque — vertical brand identifier. */}
+          <div className="mt-8 flex justify-center">
             <CiPaiFrame label="秋彦" subLabel="Qtech" accent="cyan" />
           </div>
 
-          {/* Brand-accent stat cards — horizontal, colour-rotated (dark glass) */}
-          <div className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
+          {/* Stat strip with animated counters. */}
+          <div className="mx-auto mt-14 grid max-w-4xl grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
             {HERO_STATS.map((s, i) => {
               const Icon = s.icon;
               const accent = ACCENTS[i % ACCENTS.length];
               return (
                 <RevealOnScroll key={s.key} delay={i * 80} className="h-full">
-                  <div className="glass-card-dark group flex h-full min-h-[160px] flex-col items-center justify-center gap-3 overflow-hidden rounded-2xl p-5 text-center transition-all duration-300 hover:-translate-y-1">
-                    <span className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${accent.tile} ${accent.shadow} shadow-lg transition-transform duration-500 group-hover:rotate-6`}>
-                      <Icon className="h-7 w-7" strokeWidth={1.8} />
+                  <div className="glass-card-dark flex h-full min-h-[160px] flex-col items-center justify-center gap-3 rounded-2xl p-5 text-center">
+                    <span className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${accent.tile} ${accent.shadow} shadow-lg`}>
+                      <Icon className="h-6 w-6" strokeWidth={1.8} />
                     </span>
                     <dt className="text-3xl font-extrabold tracking-tight text-white drop-shadow-sm">
                       <CountUp end={s.end} suffix={s.suffix} />
                     </dt>
-                    <dd className="text-sm font-medium text-white/85">{t(s.key)}</dd>
+                    <dd className="text-sm font-medium text-white/80">{t(s.key)}</dd>
                   </div>
                 </RevealOnScroll>
               );
             })}
           </div>
         </div>
-        {/* ════════ 1b. COMPANY INTRODUCTION (dark glass) ════════ */}
-        <div className="container-qtech pb-12">
-          <div className="glass-card-dark mx-auto max-w-3xl rounded-2xl p-8 text-center sm:p-10">
-            <p className="text-base leading-relaxed text-white/90 sm:text-lg">
-              {locale === 'zh'
-                ? '广州秋彦科技（Qtech）专注于智能售货设备的研发与制造，为全球 80+ 国家和地区的合作伙伴提供定制化的自助零售解决方案。从鲜花保鲜柜到披萨自动售货机，我们以匠心打磨每一台设备。'
-                : locale === 'ar'
-                  ? 'تتركز تقنية تشيوان (Qtech) على البحث والتطوير وتصنيع آلات البيع الذكية، وتقدم حلولاً مخصصة للبيع بالتجزئة الذاتية لشركاء في أكثر من 80 دولة ومنطقة حول العالم.'
-                  : 'Guangzhou Qiuyan Technology (Qtech) specializes in R&D and manufacturing of smart vending machines, delivering customized self-service retail solutions to partners in 80+ countries worldwide.'}
-            </p>
-            <Link href={`/${locale}/contact`} className="mt-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 px-6 py-2.5 text-sm font-semibold text-white transition hover:from-cyan-400 hover:to-teal-400">
-              {locale === 'zh' ? '获取报价' : locale === 'ar' ? 'اطلب عرض سعر' : 'Get a Quote'} →
-            </Link>
-          </div>
-        </div>
-
       </section>
 
-      {/* ════════ 1c. AURORA NIGHT-SKY SCENE (F9) ════════ */}
+      {/* ══════════════════ 2. COMPANY INTRO ══════════════════ */}
       <section className="container-qtech py-16 lg:py-24">
-        <div className="relative min-h-[440px] overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 shadow-lift">
-          {/* Aurora ribbons — always animating (brand animations always run). */}
-          <AuroraBackground className="absolute inset-0" reduced={false} />
-
-          {/* Sparse star layer — CSS-only twinkling dots, above the aurora. */}
-          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-            {[...Array(22)].map((_, i) => (
-              <span
-                key={i}
-                className="absolute h-1 w-1 rounded-full bg-white village-star"
-                style={{
-                  top: `${4 + Math.random() * 60}%`,
-                  left: `${3 + Math.random() * 94}%`,
-                  opacity: 0.25 + Math.random() * 0.55,
-                  animationDelay: `${Math.random() * 4}s`,
-                  animationDuration: `${2.5 + Math.random() * 3}s`,
-                }}
-              />
-            ))}
-          </div>
-
-          {/* Centered frosted-glass content panel. */}
-          <div className="relative z-10 flex min-h-[440px] items-center justify-center px-6 py-12 sm:px-16 sm:py-16">
-            <div className="max-w-2xl rounded-2xl bg-white/[0.06] px-8 py-10 text-center text-white backdrop-blur-xl ring-1 ring-white/10 sm:px-12 sm:py-12">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-2 text-sm font-medium text-white ring-1 ring-white/10">
-                <Sparkles className="h-4 w-4" strokeWidth={1.75} />
-                {locale === 'zh' ? '夜空下的北极光' : locale === 'ar' ? 'تحت الشفق القطبي' : 'Under the Aurora'}
-              </span>
-              <h2 className="mx-auto mt-7 text-3xl font-black leading-tight sm:text-4xl lg:text-5xl">
-                {locale === 'zh' ? '在星空下，看见更远的未来'
-                  : locale === 'ar' ? 'تحت النجوم، نرى مستقبلاً أبعد'
-                  : 'Beneath the Stars, a Vision Beyond'}
-              </h2>
-              <p className="mx-auto mt-4 max-w-xl text-base text-white/80 sm:text-lg">
-                {locale === 'zh'
-                  ? '正如极光在夜空中静静铺展，Qtech 以耐心与匠心，把每一台设备打磨成值得信赖的伙伴。'
-                  : locale === 'ar'
-                    ? 'وكما يمتد الشفق القطبي بهدوء في السماء الليلية، تصقل Qtech كل آلة بصبر وإتقان لتكون شريكًا موثوقًا.'
-                    : 'Just as the aurora unfolds quietly across the night sky, Qtech shapes every machine with patience and craft into a partner you can trust.'}
-              </p>
-            </div>
-          </div>
+        <div className="glass-card-dark mx-auto max-w-3xl rounded-3xl p-8 text-center sm:p-10">
+          <p className="text-base leading-relaxed text-white/85 sm:text-lg">
+            {locale === 'zh'
+              ? '广州秋彦科技（Qtech）专注于智能售货设备的研发与制造，为全球 80+ 国家和地区的合作伙伴提供定制化的自助零售解决方案。从鲜花保鲜柜到披萨自动售货机，我们以匠心打磨每一台设备。'
+              : locale === 'ar'
+                ? 'تتركز تقنية تشيوان (Qtech) على البحث والتطوير وتصنيع آلات البيع الذكية، وتقدم حلولاً مخصصة للبيع بالتجزئة الذاتية لشركاء في أكثر من 80 دولة ومنطقة حول العالم.'
+                : 'Guangzhou Qiuyan Technology (Qtech) specializes in R&D and manufacturing of smart vending machines, delivering customized self-service retail solutions to partners in 80+ countries worldwide.'}
+          </p>
+          <Link
+            href={`/${locale}/contact`}
+            className="mt-7 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-teal-500/25 transition hover:-translate-y-0.5 hover:from-cyan-400 hover:to-teal-400"
+          >
+            {locale === 'zh' ? '获取报价' : locale === 'ar' ? 'اطلب عرض سعر' : 'Get a Quote'} →
+          </Link>
         </div>
       </section>
 
-      {/* ════════ 2. OUR STRENGTHS (6 icon cards) ════════ */}
-      <RevealOnScroll as="section" className="bg-slate-900/40 py-16 lg:py-24">
-        <div className="container-qtech">
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full bg-cyan-500/15 px-4 py-1.5 text-sm font-medium text-cyan-300 ring-1 ring-cyan-500/20">
-              <IconTile icon={ShieldCheck} className="h-4 w-4" tileClassName="bg-gradient-to-br from-cyan-500 to-teal-500 text-white p-1.5" />
-              {locale === 'zh' ? '我们的优势' : locale === 'ar' ? 'نقاط قوتنا' : 'Our Strengths'}
-            </span>
-            <h2 className="mt-5 text-3xl font-extrabold text-white sm:text-4xl">
-              {locale === 'zh' ? '六大核心竞争力'
-                : locale === 'ar' ? 'ست نقاط قوة تنافسية'
-                : 'Six Core Strengths'}
-            </h2>
-          </div>
-
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {STRENGTHS.map((s, i) => {
-              const Icon = s.icon;
-              const a = ACCENTS[i % ACCENTS.length];
-              return (
-                <RevealOnScroll key={localeOr(s.title)} delay={i * 80} className="h-full">
-                  <div className="glass-card-dark group relative h-full animate-float-gentle hover:[animation-play-state:paused]" style={{ animationDelay: `${i * 0.5}s` }}>
-                    <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile} flow-bar`} aria-hidden="true" />
-                    <IconTile
-                      icon={Icon}
-                      className="h-9 w-9"
-                      tileClassName={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 icon-pulse ${a.glow}`}
-                    />
-                    <h3 className="mt-5 text-xl font-bold text-white">{localeOr(s.title)}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-white/70">{localeOr(s.desc)}</p>
-                    <Link href={`/${locale}/products`} className={`mt-4 inline-flex items-center text-sm font-semibold ${a.text} relative after:absolute after:bottom-0 after:start-0 after:h-0.5 after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full`}>
-                      {locale === 'zh' ? '了解更多' : locale === 'ar' ? 'اعرف المزيد' : 'Learn more'} →
-                    </Link>
-                  </div>
-                </RevealOnScroll>
-              );
-            })}
-          </div>
-        </div>
-      </RevealOnScroll>
-
-      {/* ════════ 3. MISSION (3 statements) ─ cyan ambience ════════ */}
-      <RevealOnScroll as="section" className="bg-slate-900/40 py-16 lg:py-24">
-        <div className="container-qtech">
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full bg-cyan-500/15 px-4 py-1.5 text-sm font-medium text-cyan-300 ring-1 ring-cyan-500/20">
-              <IconTile icon={Target} className="h-4 w-4" tileClassName="bg-gradient-to-br from-cyan-500 to-teal-500 text-white p-1.5" />
-              {locale === 'zh' ? '我们的使命' : locale === 'ar' ? 'مهمتنا' : 'Our Mission'}
-            </span>
-            <h2 className="mt-5 text-3xl font-extrabold text-white sm:text-4xl">
-              {locale === 'zh' ? '让智能自助真正创造价值'
-                : locale === 'ar' ? 'جعل الخدمة الذاتية تخلق قيمة حقيقية'
-                : 'Making Self-Service Create Real Value'}
-            </h2>
-          </div>
-
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {MISSION_STATEMENTS.map((m, i) => {
-              const Icon = m.icon;
-              const a = ACCENTS[i % ACCENTS.length];
-              return (
-                <RevealOnScroll key={localeOr(m.title)} delay={i * 80} className="h-full">
-                  <div className="glass-card-dark group relative h-full animate-float-gentle hover:[animation-play-state:paused]">
-                    <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile} flow-bar`} aria-hidden="true" />
-                    <IconTile
-                      icon={Icon}
-                      className="h-9 w-9"
-                      tileClassName={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 icon-pulse ${a.glow}`}
-                    />
-                    <h3 className="mt-5 text-xl font-bold text-white">{localeOr(m.title)}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-white/70">{localeOr(m.desc)}</p>
-                    <Link href={`/${locale}/products`} className={`mt-4 inline-flex items-center text-sm font-semibold ${a.text} relative after:absolute after:bottom-0 after:start-0 after:h-0.5 after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full`}>
-                      {locale === 'zh' ? '了解更多' : locale === 'ar' ? 'اعرف المزيد' : 'Learn more'} →
-                    </Link>
-                  </div>
-                </RevealOnScroll>
-              );
-            })}
-          </div>
-        </div>
-      </RevealOnScroll>
-
-      {/* ════════ 4. VISION (3 statements) ─ emerald/violet/amber ambience ════════ */}
-      <RevealOnScroll as="section" className="bg-teal-950/30 py-16 lg:py-24">
-        <div className="container-qtech">
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full bg-teal-500/15 px-4 py-1.5 text-sm font-medium text-teal-300 ring-1 ring-teal-500/20">
-              <IconTile icon={Globe2} className="h-4 w-4" tileClassName="bg-gradient-to-br from-teal-500 to-emerald-500 text-white p-1.5" />
-              {locale === 'zh' ? '我们的愿景' : locale === 'ar' ? 'رؤيتنا' : 'Our Vision'}
-            </span>
-            <h2 className="mt-5 text-3xl font-extrabold text-white sm:text-4xl">
-              {locale === 'zh' ? '让世界随处可享智能服务'
-                : locale === 'ar' ? 'لنجعل الخدمة الذكية في كل مكان'
-                : 'Smart Service, Everywhere'}
-            </h2>
-          </div>
-
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {VISION_STATEMENTS.map((v, i) => {
-              const Icon = v.icon;
-              const a = ACCENTS[(i + 1) % ACCENTS.length];
-              return (
-                <RevealOnScroll key={localeOr(v.title)} delay={i * 80} className="h-full">
-                  <div className="glass-card-dark group relative h-full animate-float-gentle hover:[animation-play-state:paused]">
-                    <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile} flow-bar`} aria-hidden="true" />
-                    <IconTile
-                      icon={Icon}
-                      className="h-9 w-9"
-                      tileClassName={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 icon-pulse ${a.glow}`}
-                    />
-                    <h3 className="mt-5 text-xl font-bold text-white">{localeOr(v.title)}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-white/70">{localeOr(v.desc)}</p>
-                    <Link href={`/${locale}/contact`} className={`mt-4 inline-flex items-center text-sm font-semibold ${a.text} relative after:absolute after:bottom-0 after:start-0 after:h-0.5 after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full`}>
-                      {locale === 'zh' ? '了解更多' : locale === 'ar' ? 'اعرف المزيد' : 'Learn more'} →
-                    </Link>
-                  </div>
-                </RevealOnScroll>
-              );
-            })}
-          </div>
-        </div>
-      </RevealOnScroll>
-
-      {/* ════════ 5. STORY / CAPABILITY NARRATIVE (from DB, no images) ════════ */}
-      <div className="container-qtech space-y-16 py-16 lg:py-24">
-        {narrative.map((section, idx) => {
-          const title = localized(section.title, locale);
-          const body = localized(section.body, locale);
-          const SectionIcon = SECTION_ICONS[section.key] || Factory;
-          const a = ACCENTS[idx % ACCENTS.length];
-          return (
-            <RevealOnScroll
-              key={section.key}
-              as="section"
-              className="grid items-center gap-10 lg:grid-cols-2"
-            >
-              <div className={idx % 2 === 1 ? 'lg:order-2' : ''}>
-                <span className={`inline-flex items-center gap-2 rounded-full bg-gradient-to-r ${a.tile} px-4 py-1.5 text-sm font-medium text-white`}>
-                  <IconTile icon={SectionIcon} className="h-4 w-4" tileClassName="bg-white/20 text-white p-1.5" />
-                  {title}
-                </span>
-                <h2 className="mt-4 text-2xl font-bold tracking-tight text-white sm:text-3xl">{title}</h2>
-                <div className="prose-qtech mt-4">
-                  {body
-                    .split(/\n{2,}/)
-                    .map((p) => p.trim())
-                    .filter(Boolean)
-                    .map((p, i) => (
-                      <p key={i} className="mb-4 leading-relaxed text-white/70">{p}</p>
-                    ))}
-                </div>
-              </div>
-              <div className={`relative flex min-h-[260px] items-center justify-center rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.02] shadow-lift ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
-                <IconTile
-                  icon={SectionIcon}
-                  className="h-16 w-16"
-                  tileClassName={`flex h-28 w-28 items-center justify-center rounded-3xl bg-gradient-to-br ${a.tile} text-white shadow-xl`}
-                />
-              </div>
-            </RevealOnScroll>
-          );
-        })}
-
-        {/* ════════ 6. MANUFACTURING & QUALITY — icon cards, no watermarked photos ════════ */}
-        <RevealOnScroll as="section" className="overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900/50 via-cyan-950/30 to-slate-900/50 px-8 py-14 lg:px-12">
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="inline-flex items-center gap-2 rounded-full bg-sky-500/15 px-4 py-1.5 text-sm font-medium text-sky-300 ring-1 ring-sky-500/20">
-              <IconTile icon={Factory} className="h-4 w-4" tileClassName="bg-gradient-to-br from-sky-500 to-cyan-500 text-white p-1.5" />
-              {locale === 'zh' ? '智造实力' : locale === 'ar' ? 'قدرات التصنيع' : 'Manufacturing Capability'}
-            </span>
-            <h2 className="mt-5 text-3xl font-extrabold text-white sm:text-4xl">
-              {locale === 'zh' ? '从研发到交付的全链路品质保障'
-                : locale === 'ar' ? 'ضمان الجودة من البحث حتى التسليم'
-                : 'End-to-End Quality from R&D to Delivery'}
-            </h2>
-            <p className="mt-3 text-white/70">
-              {locale === 'zh'
-                ? '位于广州的现代化生产基地，配备自动化产线、专业研发团队与严格质检体系。'
-                : locale === 'ar'
-                  ? 'منشأة إنتاجية حديثة في غوانغتشو مجهزة بخط إنتاج آلي وفريق بحث متخصص ونظام مراقبة جودة صارم.'
-                  : 'Our modern production base in Guangzhou features automated assembly lines, dedicated R&D teams, and rigorous QC protocols.'}
-            </p>
-          </div>
-
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
-            {MANU_CARDS.map((card, i) => {
-              const Icon = card.icon;
-              const tags = card.tags[locale] ?? card.tags.en;
-              const a = ACCENTS[i % ACCENTS.length];
-              return (
-                <RevealOnScroll key={localeOr(card.title)} delay={i * 80} className="h-full">
-                  <div className="glass-card-dark group flex h-full flex-col">
-                    <div className="flex items-center gap-4">
-                      <IconTile icon={Icon} className="h-5 w-5" tileClassName={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-md transition-transform duration-300 group-hover:scale-110`} />
-                      <h3 className="text-lg font-semibold text-white">{localeOr(card.title)}</h3>
-                    </div>
-                    <p className="mt-3 text-sm leading-relaxed text-white/70">{localeOr(card.desc)}</p>
-                    <div className="mt-auto flex flex-wrap gap-2 pt-4">
-                      {tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium text-cyan-200"
-                        >
-                          {tag}
-                        </span>
+      {/* ══════════════════ 3. COMPANY STORY (DB-driven, alternating + photos) ══════════════════ */}
+      <section className="container-qtech space-y-20 py-8 lg:py-12">
+        {narrative.length === 0 ? (
+          <p className="text-center text-white/60">—</p>
+        ) : (
+          narrative.map((section, idx) => {
+            const title = localized(section.title, locale);
+            const body = localized(section.body, locale);
+            const SectionIcon = SECTION_ICONS[section.key] || Factory;
+            const a = ACCENTS[idx % ACCENTS.length];
+            const img = STORY_IMAGES[idx % STORY_IMAGES.length];
+            return (
+              <RevealOnScroll
+                key={section.key}
+                as="section"
+                className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
+              >
+                <div className={idx % 2 === 1 ? 'lg:order-2' : ''}>
+                  <span className={`inline-flex items-center gap-2 rounded-full bg-gradient-to-r ${a.tile} px-4 py-1.5 text-sm font-medium text-white`}>
+                    <IconTile icon={SectionIcon} className="h-4 w-4" tileClassName="bg-white/20 text-white p-1.5" />
+                    {title}
+                  </span>
+                  <h2 className="mt-4 text-2xl font-bold tracking-tight text-white sm:text-3xl">{title}</h2>
+                  <div className="mt-4 space-y-4">
+                    {body
+                      .split(/\n{2,}/)
+                      .map((p) => p.trim())
+                      .filter(Boolean)
+                      .map((p, i) => (
+                        <p key={i} className="text-base leading-relaxed text-white/70">{p}</p>
                       ))}
-                    </div>
                   </div>
-                </RevealOnScroll>
-              );
-            })}
-          </div>
-        </RevealOnScroll>
+                </div>
+                <div className={`relative min-h-[280px] overflow-hidden rounded-3xl border border-white/10 ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
+                  <Image
+                    src={img}
+                    alt={title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e1a]/70 via-transparent to-transparent" aria-hidden="true" />
+                </div>
+              </RevealOnScroll>
+            );
+          })
+        )}
+      </section>
 
-        {/* ════════ 7. GLOBAL IMPACT DATA WALL (replaced repetitive stories) ════════ */}
-        <RevealOnScroll as="section" className="bg-gradient-to-br from-cyan-950/30 via-slate-900/40 to-teal-950/30 py-16 lg:py-24">
-          <div className="container-qtech">
-            <div className="mx-auto max-w-2xl text-center">
-              <span className="inline-flex items-center rounded-full bg-cyan-500/15 px-4 py-1.5 text-sm font-medium text-cyan-300 ring-1 ring-cyan-500/20">
-                <IconTile icon={Globe2} className="h-4 w-4" tileClassName="bg-gradient-to-br from-cyan-500 to-teal-500 text-white p-1.5" />
-                {locale === 'zh' ? '全球影响力' : 'Global Impact'}
-              </span>
-              <h2 className="mt-5 text-3xl font-extrabold text-white sm:text-4xl">
-                {locale === 'zh' ? '数据见证实力' : 'Numbers Speak'}
-              </h2>
-            </div>
+      {/* ══════════════════ 4. MANUFACTURING CAPABILITY ══════════════════ */}
+      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full bg-sky-500/15 px-4 py-1.5 text-sm font-medium text-sky-300 ring-1 ring-sky-500/20">
+            <IconTile icon={Factory} className="h-4 w-4" tileClassName="bg-gradient-to-br from-sky-500 to-cyan-500 text-white p-1.5" />
+            {locale === 'zh' ? '智造实力' : locale === 'ar' ? 'قدرات التصنيع' : 'Manufacturing Capability'}
+          </span>
+          <h2 className="mt-5 text-3xl font-extrabold text-white sm:text-4xl">
+            {locale === 'zh' ? '从研发到交付的全链路品质保障'
+              : locale === 'ar' ? 'ضمان الجودة من البحث حتى التسليم'
+              : 'End-to-End Quality from R&D to Delivery'}
+          </h2>
+        </div>
 
-            {/* 2×3 impact metrics grid */}
-            <div className="mt-12 grid grid-cols-2 gap-6 lg:grid-cols-3">
-              {[
-                { icon: Globe2, value: '80+', label: locale === 'zh' ? '服务国家' : 'Countries', accent: ACCENTS[0] },
-                { icon: Users, value: '500+', label: locale === 'zh' ? '合作伙伴' : 'Partners', accent: ACCENTS[1] },
-                { icon: Package, value: '22+', label: locale === 'zh' ? '机型种类' : 'Models', accent: ACCENTS[2] },
-                { icon: Clock, value: '24/7', label: locale === 'zh' ? '全天候支持' : 'Support', accent: ACCENTS[3] },
-                { icon: TrendingUp, value: '98%', label: locale === 'zh' ? '客户满意度' : 'Satisfaction', accent: ACCENTS[4 % ACCENTS.length] },
-                { icon: Award, value: 'ISO', label: locale === 'zh' ? '国际认证' : 'Certified', accent: ACCENTS[5 % ACCENTS.length] },
-              ].map((item, i) => (
-                <RevealOnScroll key={i} delay={i * 80}>
-                  <div className="glass-card-dark group flex flex-col items-center rounded-2xl p-8 text-center animate-float-gentle hover:[animation-play-state:paused]" style={{ animationDelay: `${i * 0.5}s` }}>
-                    <span className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${item.accent.tile} text-white shadow-lg`}>
-                      <item.icon className="h-7 w-7" />
-                    </span>
-                    <dt className="mt-4 text-3xl font-extrabold text-white">{item.value}</dt>
-                    <dd className="mt-1 text-sm font-medium text-white/60">{item.label}</dd>
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
+          {MANU_CARDS.map((card, i) => {
+            const Icon = card.icon;
+            const tags = card.tags[locale] ?? card.tags.en;
+            const a = ACCENTS[i % ACCENTS.length];
+            return (
+              <RevealOnScroll key={localeOr(card.title)} delay={i * 80} className="h-full">
+                <div className="glass-card-dark flex h-full flex-col">
+                  <div className="flex items-center gap-4">
+                    <IconTile icon={Icon} className="h-5 w-5" tileClassName={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-md`} />
+                    <h3 className="text-lg font-semibold text-white">{localeOr(card.title)}</h3>
                   </div>
-                </RevealOnScroll>
-              ))}
-            </div>
-          </div>
-        </RevealOnScroll>
-
-        {/* ════════ 8. CORE VALUES — 8-grid with colored top border ════════ */}
-        <RevealOnScroll as="section" className="rounded-3xl bg-gradient-to-br from-slate-900/50 via-cyan-950/30 to-slate-900/50 px-8 py-14 lg:px-12">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-wide text-cyan-300">
-              {t('about.valuesEyebrow') || 'Our Values'}
-            </p>
-            <h2 className="mt-3 text-3xl font-extrabold text-white sm:text-4xl">{t('about.valuesTitle') || 'Our Values'}</h2>
-            <p className="mt-2 text-white/60">{t('about.valuesSubtitle') || 'What drives us forward every day.'}</p>
-          </div>
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {VALUES.map((v, i) => {
-              const Icon = v.icon;
-              const a = ACCENTS[i % ACCENTS.length];
-              return (
-                <RevealOnScroll key={localeOr(v.title)} delay={i * 80} className="h-full">
-                  <div className={`glass-card-dark group relative flex h-full flex-col p-6 text-center border-t-4 ${a.border} animate-float-slow`}>
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute -end-2 -top-2 select-none text-6xl font-black text-white/10"
-                    >
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-
-                    <IconTile
-                      icon={Icon}
-                      className="h-7 w-7"
-                      tileClassName={`mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-md transition group-hover:scale-110 group-hover:shadow-lg icon-pulse`}
-                    />
-                    <h3 className="relative mt-4 text-lg font-bold text-white">{localeOr(v.title)}</h3>
-                    <p className="relative mt-2 text-sm leading-relaxed text-white/60">{localeOr(v.desc)}</p>
-                    <Link href={`/${locale}/products`} className={`relative mt-4 inline-flex items-center justify-center text-sm font-semibold ${a.text} relative after:absolute after:bottom-0 after:start-0 after:h-0.5 after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full`}>
-                      {locale === 'zh' ? '了解更多' : locale === 'ar' ? 'اعرف المزيد' : 'Learn more'} →
-                    </Link>
+                  <p className="mt-3 text-sm leading-relaxed text-white/70">{localeOr(card.desc)}</p>
+                  <div className="mt-auto flex flex-wrap gap-2 pt-4">
+                    {tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium text-cyan-200"
+                      >
+                        {tag}
+                      </span>
+                    ))}
                   </div>
-                </RevealOnScroll>
-              );
-            })}
-          </div>
-        </RevealOnScroll>
+                </div>
+              </RevealOnScroll>
+            );
+          })}
+        </div>
+      </RevealOnScroll>
 
-        {/* ════════ 9. COMPANY TIMELINE — alternating vertical ════════ */}
-        <RevealOnScroll as="section" className="rounded-3xl bg-gradient-to-br from-cyan-950/30 via-slate-900/40 to-teal-950/30 px-8 py-14 lg:px-12">
+      {/* ══════════════════ 5. CORE STRENGTHS (6) ══════════════════ */}
+      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full bg-cyan-500/15 px-4 py-1.5 text-sm font-medium text-cyan-300 ring-1 ring-cyan-500/20">
+            <IconTile icon={ShieldCheck} className="h-4 w-4" tileClassName="bg-gradient-to-br from-cyan-500 to-teal-500 text-white p-1.5" />
+            {locale === 'zh' ? '我们的优势' : locale === 'ar' ? 'نقاط قوتنا' : 'Our Strengths'}
+          </span>
+          <h2 className="mt-5 text-3xl font-extrabold text-white sm:text-4xl">
+            {locale === 'zh' ? '六大核心竞争力' : locale === 'ar' ? 'ست نقاط قوة تنافسية' : 'Six Core Strengths'}
+          </h2>
+        </div>
+
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {STRENGTHS.map((s, i) => {
+            const Icon = s.icon;
+            const a = ACCENTS[i % ACCENTS.length];
+            return (
+              <RevealOnScroll key={localeOr(s.title)} delay={i * 80} className="h-full">
+                <div className="glass-card-dark group relative h-full">
+                  <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile} flow-bar`} aria-hidden="true" />
+                  <IconTile
+                    icon={Icon}
+                    className="h-9 w-9"
+                    tileClassName={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 icon-pulse ${a.glow}`}
+                  />
+                  <h3 className="mt-5 text-xl font-bold text-white">{localeOr(s.title)}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-white/70">{localeOr(s.desc)}</p>
+                </div>
+              </RevealOnScroll>
+            );
+          })}
+        </div>
+      </RevealOnScroll>
+
+      {/* ══════════════════ 6. MISSION (3) ══════════════════ */}
+      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full bg-cyan-500/15 px-4 py-1.5 text-sm font-medium text-cyan-300 ring-1 ring-cyan-500/20">
+            <IconTile icon={Target} className="h-4 w-4" tileClassName="bg-gradient-to-br from-cyan-500 to-teal-500 text-white p-1.5" />
+            {locale === 'zh' ? '我们的使命' : locale === 'ar' ? 'مهمتنا' : 'Our Mission'}
+          </span>
+          <h2 className="mt-5 text-3xl font-extrabold text-white sm:text-4xl">
+            {locale === 'zh' ? '让智能自助真正创造价值' : locale === 'ar' ? 'جعل الخدمة الذاتية تخلق قيمة حقيقية' : 'Making Self-Service Create Real Value'}
+          </h2>
+        </div>
+
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {MISSION_STATEMENTS.map((m, i) => {
+            const Icon = m.icon;
+            const a = ACCENTS[i % ACCENTS.length];
+            return (
+              <RevealOnScroll key={localeOr(m.title)} delay={i * 80} className="h-full">
+                <div className="glass-card-dark group relative h-full">
+                  <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile} flow-bar`} aria-hidden="true" />
+                  <IconTile
+                    icon={Icon}
+                    className="h-9 w-9"
+                    tileClassName={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 icon-pulse ${a.glow}`}
+                  />
+                  <h3 className="mt-5 text-xl font-bold text-white">{localeOr(m.title)}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-white/70">{localeOr(m.desc)}</p>
+                </div>
+              </RevealOnScroll>
+            );
+          })}
+        </div>
+      </RevealOnScroll>
+
+      {/* ══════════════════ 7. VISION (3) ══════════════════ */}
+      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full bg-teal-500/15 px-4 py-1.5 text-sm font-medium text-teal-300 ring-1 ring-teal-500/20">
+            <IconTile icon={Globe2} className="h-4 w-4" tileClassName="bg-gradient-to-br from-teal-500 to-emerald-500 text-white p-1.5" />
+            {locale === 'zh' ? '我们的愿景' : locale === 'ar' ? 'رؤيتنا' : 'Our Vision'}
+          </span>
+          <h2 className="mt-5 text-3xl font-extrabold text-white sm:text-4xl">
+            {locale === 'zh' ? '让世界随处可享智能服务' : locale === 'ar' ? 'لنجعل الخدمة الذكية في كل مكان' : 'Smart Service, Everywhere'}
+          </h2>
+        </div>
+
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {VISION_STATEMENTS.map((v, i) => {
+            const Icon = v.icon;
+            const a = ACCENTS[(i + 1) % ACCENTS.length];
+            return (
+              <RevealOnScroll key={localeOr(v.title)} delay={i * 80} className="h-full">
+                <div className="glass-card-dark group relative h-full">
+                  <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile} flow-bar`} aria-hidden="true" />
+                  <IconTile
+                    icon={Icon}
+                    className="h-9 w-9"
+                    tileClassName={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 icon-pulse ${a.glow}`}
+                  />
+                  <h3 className="mt-5 text-xl font-bold text-white">{localeOr(v.title)}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-white/70">{localeOr(v.desc)}</p>
+                </div>
+              </RevealOnScroll>
+            );
+          })}
+        </div>
+      </RevealOnScroll>
+
+      {/* ══════════════════ 8. GLOBAL IMPACT DATA WALL ══════════════════ */}
+      <RevealOnScroll as="section" className="bg-gradient-to-br from-cyan-950/30 via-slate-900/40 to-teal-950/30 py-16 lg:py-24">
+        <div className="container-qtech">
           <div className="mx-auto max-w-2xl text-center">
             <span className="inline-flex items-center rounded-full bg-cyan-500/15 px-4 py-1.5 text-sm font-medium text-cyan-300 ring-1 ring-cyan-500/20">
-              {locale === 'zh' ? '发展历程' : locale === 'ar' ? 'رحلتنا الزمنية' : 'Our Journey'}
+              <IconTile icon={Globe2} className="h-4 w-4" tileClassName="bg-gradient-to-br from-cyan-500 to-teal-500 text-white p-1.5" />
+              {locale === 'zh' ? '全球影响力' : 'Global Impact'}
             </span>
             <h2 className="mt-5 text-3xl font-extrabold text-white sm:text-4xl">
-              {locale === 'zh' ? '十年深耕，从广州走向世界'
-                : locale === 'ar' ? 'عقد من الخبرة: من غوانغتشو إلى العالم'
-                : 'A Decade of Excellence, From Guangzhou to the World'}
+              {locale === 'zh' ? '数据见证实力' : 'Numbers Speak'}
             </h2>
           </div>
 
-          <div className="relative mx-auto mt-12 max-w-4xl">
-            <div className="absolute top-0 bottom-0 start-6 w-0.5 bg-gradient-to-b from-cyan-400 via-teal-400 to-sky-400 md:start-1/2 md:-translate-x-1/2" aria-hidden="true" />
+          <div className="mt-12 grid grid-cols-2 gap-6 lg:grid-cols-3">
+            {IMPACT.map((item, i) => {
+              const a = ACCENTS[item.accent % ACCENTS.length];
+              return (
+                <RevealOnScroll key={i} delay={i * 80}>
+                  <div className="glass-card-dark group flex h-full flex-col items-center rounded-2xl p-8 text-center">
+                    <span className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-lg`}>
+                      <item.icon className="h-7 w-7" />
+                    </span>
+                    <dt className="mt-4 text-3xl font-extrabold text-white sm:text-4xl">{item.value}</dt>
+                    <dd className="mt-1 text-sm font-medium text-white/60">{item.label[locale] ?? item.label.en}</dd>
+                  </div>
+                </RevealOnScroll>
+              );
+            })}
+          </div>
+        </div>
+      </RevealOnScroll>
 
-            <div className="space-y-8">
-              {TIMELINE.map((m, i) => {
-                const left = i % 2 === 0;
-                return (
-                  <div key={m.year} className="relative ps-16 md:ps-0">
-                    <div className="absolute start-0 top-1 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 text-[11px] font-bold text-white shadow-lg ring-4 ring-[#0a0e1a] md:start-1/2 md:-translate-x-1/2">
-                      {m.year}
-                    </div>
-                    <div className="md:grid md:grid-cols-2 md:gap-10">
-                      <div className={left ? 'md:col-start-1' : 'md:col-start-2'}>
-                        <div className="glass-card-dark group relative">
-                          <div className="flex flex-wrap items-baseline gap-3">
-                            <span className="text-base font-extrabold tracking-tight text-cyan-300">{m.year}</span>
-                            <h3 className="text-lg font-bold text-white">{localeOr(m.title)}</h3>
-                          </div>
-                          <p className="mt-2 text-sm leading-relaxed text-white/70">{localeOr(m.desc)}</p>
+      {/* ══════════════════ 9. CORE VALUES (8) ══════════════════ */}
+      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-sm font-semibold uppercase tracking-wide text-cyan-300">
+            {t('about.valuesEyebrow') || 'Our Values'}
+          </p>
+          <h2 className="mt-3 text-3xl font-extrabold text-white sm:text-4xl">{t('about.valuesTitle') || 'Our Values'}</h2>
+          <p className="mt-2 text-white/60">{t('about.valuesSubtitle') || 'What drives us forward every day.'}</p>
+        </div>
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {VALUES.map((v, i) => {
+            const Icon = v.icon;
+            const a = ACCENTS[i % ACCENTS.length];
+            return (
+              <RevealOnScroll key={localeOr(v.title)} delay={i * 80} className="h-full">
+                <div className={`glass-card-dark group relative flex h-full flex-col p-6 text-center border-t-4 ${a.border}`}>
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -end-2 -top-2 select-none text-6xl font-black text-white/10"
+                  >
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <IconTile
+                    icon={Icon}
+                    className="h-7 w-7"
+                    tileClassName={`mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-md transition group-hover:scale-110 group-hover:shadow-lg icon-pulse`}
+                  />
+                  <h3 className="relative mt-4 text-lg font-bold text-white">{localeOr(v.title)}</h3>
+                  <p className="relative mt-2 text-sm leading-relaxed text-white/60">{localeOr(v.desc)}</p>
+                </div>
+              </RevealOnScroll>
+            );
+          })}
+        </div>
+      </RevealOnScroll>
+
+      {/* ══════════════════ 10. TIMELINE ══════════════════ */}
+      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center rounded-full bg-cyan-500/15 px-4 py-1.5 text-sm font-medium text-cyan-300 ring-1 ring-cyan-500/20">
+            {locale === 'zh' ? '发展历程' : locale === 'ar' ? 'رحلتنا الزمنية' : 'Our Journey'}
+          </span>
+          <h2 className="mt-5 text-3xl font-extrabold text-white sm:text-4xl">
+            {locale === 'zh' ? '十年深耕，从广州走向世界' : locale === 'ar' ? 'عقد من الخبرة: من غوانغتشو إلى العالم' : 'A Decade of Excellence, From Guangzhou to the World'}
+          </h2>
+        </div>
+
+        <div className="relative mx-auto mt-12 max-w-4xl">
+          <div className="absolute top-0 bottom-0 start-6 w-0.5 bg-gradient-to-b from-cyan-400 via-teal-400 to-sky-400 md:start-1/2 md:-translate-x-1/2" aria-hidden="true" />
+
+          <div className="space-y-8">
+            {TIMELINE.map((m, i) => {
+              const left = i % 2 === 0;
+              return (
+                <div key={m.year} className="relative ps-16 md:ps-0">
+                  <div className="absolute start-0 top-1 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 text-[11px] font-bold text-white shadow-lg ring-4 ring-[#0a0e1a] md:start-1/2 md:-translate-x-1/2">
+                    {m.year}
+                  </div>
+                  <div className="md:grid md:grid-cols-2 md:gap-10">
+                    <div className={left ? 'md:col-start-1' : 'md:col-start-2'}>
+                      <div className="glass-card-dark group relative">
+                        <div className="flex flex-wrap items-baseline gap-3">
+                          <span className="text-base font-extrabold tracking-tight text-cyan-300">{m.year}</span>
+                          <h3 className="text-lg font-bold text-white">{localeOr(m.title)}</h3>
                         </div>
+                        <p className="mt-2 text-sm leading-relaxed text-white/70">{localeOr(m.desc)}</p>
                       </div>
                     </div>
                   </div>
-                );
-              })}
-            </div>
-          </div>
-        </RevealOnScroll>
-
-        {/* ════════ 10. CERTIFICATIONS — icon grid ════════ */}
-        <RevealOnScroll as="section">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-wide text-cyan-300">
-              {locale === 'zh' ? '资质认证' : locale === 'ar' ? 'شهادات الاعتماد' : 'Certifications & Compliance'}
-            </p>
-            <h2 className="mt-3 text-3xl font-extrabold text-white sm:text-4xl">
-              {locale === 'zh' ? '国际标准，品质保证'
-                : locale === 'ar' ? 'معايير دولية، ضمان الجودة'
-                : 'International Standards, Guaranteed Quality'}
-            </h2>
-          </div>
-
-          <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-            {CERTS.map((cert, i) => {
-              const CertIcon = CERT_ICON[cert.icon] || ShieldCheck;
-              const a = ACCENTS[i % ACCENTS.length];
-              return (
-                <RevealOnScroll key={cert.name} delay={i * 60} className="h-full">
-                  <div className="glass-card-dark group relative flex h-full flex-col items-center gap-2 p-5 text-center">
-                    <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile}`} />
-                    <IconTile icon={CertIcon} className="h-8 w-8" tileClassName={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-md transition-transform duration-300 group-hover:scale-110`} />
-                    <span className="text-xs font-bold tracking-tight text-white">{cert.name}</span>
-                    <span className="hidden text-[11px] leading-snug text-white/60 group-hover:block">
-                      {cert.full[locale] || cert.full.en}
-                    </span>
-                  </div>
-                </RevealOnScroll>
+                </div>
               );
             })}
           </div>
-        </RevealOnScroll>
+        </div>
+      </RevealOnScroll>
 
-        {/* ════════ 11. CTA — gradient + two buttons ════════ */}
-        <RevealOnScroll as="section" className="rounded-3xl bg-gradient-to-br from-cyan-900 via-teal-900 to-slate-900 px-8 py-16 text-center text-white">
+      {/* ══════════════════ 11. CERTIFICATIONS (horizontal scroll) ══════════════════ */}
+      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-sm font-semibold uppercase tracking-wide text-cyan-300">
+            {locale === 'zh' ? '资质认证' : locale === 'ar' ? 'شهادات الاعتماد' : 'Certifications & Compliance'}
+          </p>
+          <h2 className="mt-3 text-3xl font-extrabold text-white sm:text-4xl">
+            {locale === 'zh' ? '国际标准，品质保证' : locale === 'ar' ? 'معايير دولية، ضمان الجودة' : 'International Standards, Guaranteed Quality'}
+          </h2>
+        </div>
+
+        {/* Horizontal scrolling cert strip — swipe on touch / trackpad. */}
+        <div className="no-scrollbar mt-10 flex gap-5 overflow-x-auto pb-4">
+          {CERTS.map((cert, i) => {
+            const CertIcon = CERT_ICON[cert.icon] || ShieldCheck;
+            const a = ACCENTS[i % ACCENTS.length];
+            return (
+              <div key={cert.name} className="glass-card-dark relative flex min-w-[180px] flex-col items-center gap-3 p-6 text-center">
+                <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile}`} />
+                <IconTile icon={CertIcon} className="h-8 w-8" tileClassName={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-md`} />
+                <span className="text-sm font-bold tracking-tight text-white">{cert.name}</span>
+                <span className="text-[11px] leading-snug text-white/60">{cert.full[locale] || cert.full.en}</span>
+              </div>
+            );
+          })}
+        </div>
+      </RevealOnScroll>
+
+      {/* ══════════════════ 12. CTA ══════════════════ */}
+      <RevealOnScroll as="section" className="container-qtech pb-20 lg:pb-28">
+        <div className="rounded-3xl bg-gradient-to-br from-cyan-900 via-teal-900 to-slate-900 px-8 py-16 text-center text-white">
           <h2 className="text-3xl font-bold drop-shadow-sm sm:text-4xl">{t('about.cta') || 'Ready to Partner with Qtech?'}</h2>
           <p className="mx-auto mt-3 max-w-xl text-white/85">
             {locale === 'zh'
@@ -934,8 +875,8 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               {t('nav.products') || 'Products'}
             </Link>
           </div>
-        </RevealOnScroll>
-      </div>
+        </div>
+      </RevealOnScroll>
     </div>
   );
 }

@@ -15,6 +15,31 @@ interface CaseItem {
   sub: Record<Locale, string>;
 }
 
+/** Per-card accent theme so every case reads as its own colour story. */
+interface CaseTheme {
+  /** Tailwind gradient stops for the accent bar / icon / button. */
+  accent: string;
+  /** Ripple fill colour (rgba). */
+  ripple: string;
+  /** Hover glow shadow value (Tailwind arbitrary, spaces as underscores). */
+  glow: string;
+  /** Hover border colour (rgba). */
+  border: string;
+}
+
+// V41: each card gets a distinct palette — Flower→rose, Pizza→orange,
+// Ice-Cream→violet, Coffee→amber, Hospital→sky, Pet Spa→emerald.
+// NOTE: hover shadow/border are written as FULL literal class strings so
+// Tailwind's JIT scanner can see and generate them.
+const CASE_THEMES: CaseTheme[] = [
+  { accent: 'from-rose-500 to-pink-500', ripple: 'rgba(244,63,94,0.22)', glow: 'hover:shadow-[0_0_30px_rgba(244,63,94,0.28)]', border: 'hover:border-[rgba(244,63,94,0.5)]' },
+  { accent: 'from-orange-500 to-amber-500', ripple: 'rgba(245,158,11,0.22)', glow: 'hover:shadow-[0_0_30px_rgba(245,158,11,0.28)]', border: 'hover:border-[rgba(245,158,11,0.5)]' },
+  { accent: 'from-violet-500 to-purple-600', ripple: 'rgba(139,92,246,0.22)', glow: 'hover:shadow-[0_0_30px_rgba(139,92,246,0.28)]', border: 'hover:border-[rgba(139,92,246,0.5)]' },
+  { accent: 'from-amber-600 to-orange-600', ripple: 'rgba(217,119,6,0.22)', glow: 'hover:shadow-[0_0_30px_rgba(217,119,6,0.28)]', border: 'hover:border-[rgba(217,119,6,0.5)]' },
+  { accent: 'from-sky-500 to-blue-500', ripple: 'rgba(14,165,233,0.22)', glow: 'hover:shadow-[0_0_30px_rgba(14,165,233,0.28)]', border: 'hover:border-[rgba(14,165,233,0.5)]' },
+  { accent: 'from-emerald-500 to-green-500', ripple: 'rgba(16,185,129,0.22)', glow: 'hover:shadow-[0_0_30px_rgba(16,185,129,0.28)]', border: 'hover:border-[rgba(16,185,129,0.5)]' },
+];
+
 // V40: case image/title/sub are semantically consistent and each card now
 // carries a refined icon that echoes the deployment, reinforcing the dark
 // glass aesthetic that matches the Hero starfield.
@@ -112,16 +137,17 @@ export default function CasesSection() {
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {CASES.map((c, i) => {
             const Icon = c.icon;
+            const theme = CASE_THEMES[i] ?? CASE_THEMES[0];
             return (
               <RevealOnScroll key={c.image} delay={i * 100} className="h-full">
                 <RippleOnHover
                   pointerDriven
-                  rippleColor="rgba(34,211,238,0.22)"
+                  rippleColor={theme.ripple}
                   rings={2}
-                  className="group relative h-full glass-card-dark rounded-2xl transition-all duration-300 hover:-translate-y-2"
+                  className={`group relative h-full glass-card-dark rounded-2xl transition-all duration-300 hover:-translate-y-2 ${theme.glow} ${theme.border}`}
                 >
-                  {/* Cyan → teal accent bar — ties Cases to the ocean/dark theme. */}
-                  <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-cyan-500 to-teal-500" aria-hidden="true" />
+                  {/* Per-card accent bar — colour identity for each case. */}
+                  <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${theme.accent}`} aria-hidden="true" />
                   <div className="group flex h-full flex-col">
                     <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-ink-900/40">
                       <ImageWithRetry
@@ -133,8 +159,8 @@ export default function CasesSection() {
                       {/* Darkening scrim so the floating info bar stays legible */}
                       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/85 via-ink-900/20 to-transparent" />
 
-                      {/* Refined per-case icon badge */}
-                      <span className="absolute start-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-teal-500 text-white shadow-lg ring-1 ring-white/20">
+                      {/* Refined per-case icon badge — themed colour */}
+                      <span className={`absolute start-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${theme.accent} text-white shadow-lg ring-1 ring-white/20`}>
                         <Icon className="h-5 w-5" strokeWidth={1.75} />
                       </span>
 
@@ -148,7 +174,7 @@ export default function CasesSection() {
                             {localized(c.sub, locale)}
                           </p>
                         </div>
-                        <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-md transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1">
+                        <span className={`inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-r ${theme.accent} text-white shadow-md transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1`}>
                           <span aria-hidden="true" className="text-lg font-bold leading-none">→</span>
                         </span>
                       </div>

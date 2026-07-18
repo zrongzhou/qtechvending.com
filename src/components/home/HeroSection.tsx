@@ -142,7 +142,8 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
           twinkling stars are clearly visible against the profound black sky.
           The canvas itself paints the deep-space base (#0a0e1a) so the hero is
           genuinely cosmic black with subtle nebula depth. */}
-      <Starfield className="absolute inset-0 z-[1]" starCount={210} />
+      {/* V41: star count cut ~30% (210 → 150) for a calmer, less-busy sky. */}
+      <Starfield className="absolute inset-0 z-[1]" starCount={150} />
 
       {/* Dark gradient mask — keeps left-side white copy legible. Kept very
           transparent and BEHIND the starfield (z-0) so the bright stars shine

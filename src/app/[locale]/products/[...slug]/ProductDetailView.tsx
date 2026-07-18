@@ -12,7 +12,7 @@ import OceanBubbles from '@/components/ui/OceanBubbles';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
 import { ArrowLeft, Settings2 } from 'lucide-react';
-import type { Product } from '@/types';
+import type { Product, I18nStringList } from '@/types';
 
 function renderParagraphs(text: string) {
   // Split into readable paragraphs: first by blank lines, then by sentence
@@ -31,6 +31,116 @@ function renderParagraphs(text: string) {
         {p}
       </p>
     ));
+}
+
+type TabId = 'features' | 'specs' | 'description';
+
+/**
+ * V41: combines Specifications / Key Features / Description into a single
+ * dark-glass Tab switcher. The active tab is highlighted with a brand-coloured
+ * (cyan→teal) underline; inactive tabs are muted. Switching fades the panel in.
+ * The tab bar scrolls horizontally on small screens (no-scrollbar).
+ */
+function ProductDetailTabs({
+  specs,
+  features,
+  description,
+  t,
+}: {
+  specs: Product['specs'];
+  features: I18nStringList | null;
+  description: string;
+  t: (key: string) => string;
+}) {
+  const [active, setActive] = useState<TabId>('features');
+  const specList = specs ?? [];
+
+  const tabs: { id: TabId; label: string }[] = [
+    { id: 'features', label: t('product.features') },
+    { id: 'specs', label: t('product.specs') },
+  ];
+  if (description) tabs.push({ id: 'description', label: t('product.description') });
+
+  return (
+    <div className="mt-10">
+      {/* Tab bar — dark glass, brand-coloured active underline */}
+      <div className="glass-card-dark flex gap-1 overflow-x-auto rounded-2xl p-1.5 no-scrollbar">
+        {tabs.map((tab) => {
+          const isActive = active === tab.id;
+          return (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => setActive(tab.id)}
+              aria-pressed={isActive}
+              className={`relative whitespace-nowrap rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors ${
+                isActive
+                  ? 'bg-gradient-to-r from-cyan-500/20 to-teal-500/20 text-white ring-1 ring-cyan-400/40'
+                  : 'text-white/55 hover:text-white/85'
+              }`}
+            >
+              {tab.label}
+              {isActive && (
+                <span
+                  className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-gradient-to-r from-cyan-400 to-teal-400"
+                  aria-hidden="true"
+                />
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Panel — soft fade on every switch */}
+      <div key={active} className="mt-4 animate-fade-in">
+        {active === 'features' && <ProductFaqSection features={features} />}
+
+        {active === 'specs' &&
+          (specList.length > 0 ? (
+            <OceanGlassCard
+              ripple
+              depth="md"
+              rippleRings={3}
+              ripplePointer
+              rippleColor="rgba(56,189,248,0.28)"
+              className="overflow-hidden rounded-2xl border border-white/15 bg-white/[0.12] backdrop-blur-xl transition-shadow duration-500"
+            >
+              <div className="bg-gradient-to-r from-ocean-500/80 to-brand-600/80 px-6 py-4">
+                <h2 className="flex items-center gap-2.5 text-lg font-bold text-white">
+                  <IconTile icon={Settings2} className="h-6 w-6" tileClassName="bg-white/20 text-white p-2" />
+                  {t('product.specs')}
+                </h2>
+              </div>
+              <dl className="divide-y divide-white/10">
+                {specList.map((s, i) => (
+                  <div
+                    key={i}
+                    className="flex flex-col gap-1 px-6 py-4 transition-colors even:bg-white/8 hover:bg-white/15 sm:flex-row sm:gap-6"
+                  >
+                    <dt className="w-40 shrink-0 font-mono text-xs font-bold uppercase tracking-wider text-cyan-200">
+                      {s.param}
+                    </dt>
+                    <dd className="text-sm font-medium leading-relaxed text-white/90">{s.value || '—'}</dd>
+                  </div>
+                ))}
+              </dl>
+            </OceanGlassCard>
+          ) : (
+            <div className="flex items-center gap-3 rounded-2xl border border-dashed border-cyan-200/40 bg-white/5 px-6 py-5">
+              <IconTile icon={Settings2} className="h-6 w-6" tileClassName="bg-cyan-500/30 text-cyan-100 p-2" />
+              <p className="text-sm font-medium text-cyan-50/80">{t('product.contactForSpecs')}</p>
+            </div>
+          ))}
+
+        {active === 'description' && description && (
+          <OceanGlassCard depth="sm" className="border border-white/15 bg-white/[0.06] p-7">
+            <h2 className="text-2xl font-bold tracking-tight text-white">{t('product.description')}</h2>
+            <div className="mt-4 max-w-none">{renderParagraphs(description)}</div>
+          </OceanGlassCard>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default function ProductDetailView({
@@ -154,61 +264,16 @@ export default function ProductDetailView({
               {t('product.inquire')}
             </Link>
 
-            <div className="mt-10">
-              {specs.length > 0 ? (
-                <RevealOnScroll>
-                  <OceanGlassCard ripple depth="md" rippleRings={3} ripplePointer rippleColor="rgba(56,189,248,0.28)" className="overflow-hidden rounded-2xl border border-white/15 bg-white/[0.12] backdrop-blur-xl transition-shadow duration-500">
-                    {/* Gradient header */}
-                    <div className="bg-gradient-to-r from-ocean-500/80 to-brand-600/80 px-6 py-4">
-                      <h2 className="flex items-center gap-2.5 text-lg font-bold text-white">
-                        <IconTile icon={Settings2} className="h-6 w-6" tileClassName="bg-white/20 text-white p-2" />
-                        {t('product.specs')}
-                      </h2>
-                    </div>
-
-                    {/* Clean spec rows — alternating bands, monospace params, hover highlight */}
-                    <dl className="divide-y divide-white/10">
-                      {specs.map((s, i) => (
-                        <div
-                          key={i}
-                          className="flex flex-col gap-1 px-6 py-4 transition-colors even:bg-white/8 hover:bg-white/15 sm:flex-row sm:gap-6"
-                        >
-                          <dt className="w-40 shrink-0 font-mono text-xs font-bold uppercase tracking-wider text-cyan-200">
-                            {s.param}
-                          </dt>
-                          <dd className="text-sm font-medium leading-relaxed text-white/90">
-                            {s.value || '—'}
-                          </dd>
-                        </div>
-                      ))}
-                    </dl>
-                  </OceanGlassCard>
-                </RevealOnScroll>
-              ) : (
-                <RevealOnScroll>
-                  <div className="flex items-center gap-3 rounded-2xl border border-dashed border-cyan-200/40 bg-white/5 px-6 py-5">
-                    <IconTile icon={Settings2} className="h-6 w-6" tileClassName="bg-cyan-500/30 text-cyan-100 p-2" />
-                    <p className="text-sm font-medium text-cyan-50/80">{t('product.contactForSpecs')}</p>
-                  </div>
-                </RevealOnScroll>
-              )}
-            </div>
-
-            <RevealOnScroll className="mt-6">
-              <ProductFaqSection features={product.features} />
-            </RevealOnScroll>
+            {/* V41: Specifications / Key Features / Description combined into a
+                single dark-glass Tab switcher (default first tab = Key Features). */}
+            <ProductDetailTabs
+              specs={specs}
+              features={product.features}
+              description={description}
+              t={t}
+            />
           </div>
         </div>
-
-        {/* Description */}
-        {description && (
-          <RevealOnScroll as="section" className="mt-12 md:mt-16">
-            <OceanGlassCard depth="sm" className="border border-white/15 bg-white/[0.06] p-7">
-              <h2 className="text-2xl font-bold tracking-tight text-white">{t('product.description')}</h2>
-              <div className="mt-4 max-w-none">{renderParagraphs(description)}</div>
-            </OceanGlassCard>
-          </RevealOnScroll>
-        )}
 
         {/* Related */}
         {related.length > 0 && (

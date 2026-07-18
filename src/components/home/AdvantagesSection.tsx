@@ -119,7 +119,9 @@ export default function AdvantagesSection() {
               <div className="relative h-full animate-float-gentle hover:[animation-play-state:paused]" style={{ animationDelay: `${i * 0.6}s` }}>
                 {/* Soft colored glow behind the glass card so it pops visually */}
                 <div className={`absolute -inset-1 rounded-2xl bg-gradient-to-br opacity-20 blur-xl ${accent.bar}`} aria-hidden="true" />
-                <OceanGlassCard depth="md" hoverLift={false} className={`group relative z-10 h-full border border-ocean-200/50 border-l-4 ${accent.leftBorder} ${accent.glow} transition-all duration-300 hover:-translate-y-3 hover:scale-[1.02] hover:shadow-2xl`}>
+                {/* V41: calmer card — lighter blur (depth sm), higher opacity fill,
+                    solid 2px border + coloured left edge, higher text contrast. */}
+                <OceanGlassCard depth="sm" hoverLift={false} className={`group relative z-10 h-full border-2 border-slate-200/80 border-l-4 ${accent.leftBorder} ${accent.glow} bg-white/80 transition-all duration-300 hover:-translate-y-3 hover:scale-[1.02] hover:shadow-2xl`}>
                   <div className="flex h-full flex-col p-7">
                     {/* Top accent bar — per-card identity colour */}
                     <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${accent.bar}`} aria-hidden="true" />
@@ -136,13 +138,14 @@ export default function AdvantagesSection() {
                         animate="float"
                       />
                       <h3 className="mt-5 text-xl font-bold text-ink-900">{t(item.titleKey)}</h3>
-                      <p className="mt-2 text-sm text-ink-600">{t(item.descKey)}</p>
+                      {/* V41: deeper contrast (ink-600 → ink-800) so copy reads crisp. */}
+                      <p className="mt-2 text-sm text-ink-800">{t(item.descKey)}</p>
                     </div>
 
                     {/* Supporting bullet points — each has a coloured left accent */}
                     <ul className="mt-5 space-y-3">
                       {points.map((p) => (
-                        <li key={p} className={`flex items-start gap-2 border-s-2 ps-3 text-sm leading-relaxed text-ink-600 ${accent.leftBorder}`}>
+                        <li key={p} className={`flex items-start gap-2 border-s-2 ps-3 text-sm leading-relaxed text-ink-800 ${accent.leftBorder}`}>
                           <CheckCircle2 className={`mt-0.5 h-3.5 w-3.5 shrink-0 ${accent.check}`} strokeWidth={2.25} />
                           <span>{p}</span>
                         </li>
