@@ -12,7 +12,7 @@ export interface RippleOnHoverProps {
   rippleColor?: string;
   /** Number of concentric rings emitted per hover (1 = single bloom). */
   rings?: number;
-  /** Per-ring stagger in seconds (controls the "2–3 concentric circles" feel). */
+  /** Per-ring stagger in seconds. */
   ringDelay?: number;
   /** Disable the effect entirely (e.g. reduced-motion). */
   reduced?: boolean;
@@ -28,9 +28,9 @@ interface RippleState {
 /**
  * Container that emits one or more soft radial "water ripple" rings on hover.
  * In pointer-driven mode the rings originate at the cursor; otherwise they
- * expand from the center. Each ring is a lightweight child <span> animated with
- * pure CSS (@keyframes rippleRing in globals.css), so there is no layout cost
- * and re-triggering works reliably by remounting the spans via a token key.
+ * expand from the center. Each ring is a lightweight child <span class="water-ripple__ring">
+ * animated with pure CSS (@keyframes waterRippleExpand in globals.css), so there is
+ * no layout cost and re-triggering works reliably by remounting the spans via a token key.
  *
  * When `reduced` is set — or the user prefers reduced motion — the effect is a
  * no-op.
@@ -41,7 +41,7 @@ export default function RippleOnHover({
   pointerDriven = false,
   rippleColor = 'rgba(56, 189, 248, 0.25)',
   rings = 1,
-  ringDelay = 0.18,
+  ringDelay = 0.3,
   reduced = false,
 }: RippleOnHoverProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -53,8 +53,8 @@ export default function RippleOnHover({
     const rect = el.getBoundingClientRect();
     const x = pointerDriven && e ? e.clientX - rect.left : rect.width / 2;
     const y = pointerDriven && e ? e.clientY - rect.top : rect.height / 2;
-    // Generous bloom so the water ripple is clearly visible on hover.
-    const size = Math.max(rect.width, rect.height) * 3;
+    // Ring expands to ~3x the container diagonal at scale 2.5, clearly visible on hover.
+    const size = Math.max(rect.width, rect.height) * 1.2;
     setRipple((prev) => ({ x, y, size, token: prev.token + 1 }));
   };
 
@@ -64,7 +64,7 @@ export default function RippleOnHover({
   return (
     <div
       ref={ref}
-      className={`ripple ${className}`}
+      className={`water-ripple ${className}`}
       style={
         {
           '--ripple-color': rippleColor,
@@ -80,7 +80,7 @@ export default function RippleOnHover({
         Array.from({ length: ringCount }).map((_, i) => (
           <span
             key={`${ripple.token}-${i}`}
-            className="ripple-ring"
+            className="water-ripple__ring"
             style={{ animationDelay: `${i * ringDelay}s` }}
             aria-hidden="true"
           />

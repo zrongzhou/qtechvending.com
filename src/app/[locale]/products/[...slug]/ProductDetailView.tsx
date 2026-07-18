@@ -55,9 +55,11 @@ export default function ProductDetailView({
   const [activeImage, setActiveImage] = useState(images[0]);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-cyan-950 via-teal-900 to-slate-900">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-cyan-800/50 via-teal-600/30 to-sky-400/20">
+      {/* Deep ocean base layer behind the brighter overlay for depth */}
+      <div className="absolute inset-0 -z-20 bg-gradient-to-b from-cyan-950 via-teal-900 to-slate-900" aria-hidden="true" />
       {/* Sunlight sheen from the surface */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-sky-400/20 via-cyan-400/10 to-transparent" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-sky-400/25 via-cyan-400/10 to-transparent" aria-hidden="true" />
       {/* God rays */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
         <div className="god-ray god-ray--1" />

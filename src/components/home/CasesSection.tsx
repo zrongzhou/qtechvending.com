@@ -18,7 +18,7 @@ interface CaseItem {
 // NOTE: Arabic (ar) copy mirrors English as a placeholder — pending human review.
 const CASES: CaseItem[] = [
   {
-    image: '/images/cases/flower-vending-feedback.webp',
+    image: '/images/cases/case-1.webp',
     title: { en: 'Fresh-Flower Kiosk', zh: '鲜花自助站', ar: 'Fresh-Flower Kiosk' },
     sub: {
       en: 'On-demand bouquets for commuters and last-minute gifts.',
@@ -27,7 +27,7 @@ const CASES: CaseItem[] = [
     },
   },
   {
-    image: '/images/cases/feedback.webp',
+    image: '/images/cases/case-2.webp',
     title: { en: '24/7 Campus Pizza', zh: '校园 24/7 披萨', ar: '24/7 Campus Pizza' },
     sub: {
       en: 'Serving students late-night on a European campus.',
@@ -36,7 +36,7 @@ const CASES: CaseItem[] = [
     },
   },
   {
-    image: '/images/cases/ice-cream-vending.webp',
+    image: '/images/cases/case-3.webp',
     title: { en: 'Branded Ice-Cream Robot', zh: '品牌定制冰淇淋机器人', ar: 'Branded Ice-Cream Robot' },
     sub: {
       en: 'OEM branding for a Middle-East retail chain.',
@@ -45,7 +45,7 @@ const CASES: CaseItem[] = [
     },
   },
   {
-    image: '/images/cases/feedback-video-1.webp',
+    image: '/images/cases/case-4.webp',
     title: { en: 'Office Coffee Corner', zh: '办公室咖啡角', ar: 'Office Coffee Corner' },
     sub: {
       en: 'Energy-saving coffee in corporate lobbies.',
@@ -54,7 +54,7 @@ const CASES: CaseItem[] = [
     },
   },
   {
-    image: '/images/cases/feedback-in-hospital.webp',
+    image: '/images/cases/case-5.webp',
     title: { en: 'Hospital Lobby', zh: '医院大堂', ar: 'Hospital Lobby' },
     sub: {
       en: 'Round-the-clock snacks and drinks for patients and visitors.',
@@ -63,7 +63,7 @@ const CASES: CaseItem[] = [
     },
   },
   {
-    image: '/images/cases/pet-wash-demo.webp',
+    image: '/images/cases/case-6.webp',
     title: { en: 'Pet Spa on the Street', zh: '街头宠物洗护站', ar: 'Pet Spa on the Street' },
     sub: {
       en: 'Self-service pet wash in a residential district.',
@@ -97,7 +97,7 @@ export default function CasesSection() {
               <div className="relative h-full">
                 {/* Soft orange-rose glow behind the glass case card */}
                 <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-orange-400 to-rose-500 opacity-20 blur-xl" aria-hidden="true" />
-                <OceanGlassCard ripple depth="md" className="group relative z-10 h-full rounded-2xl">
+                <OceanGlassCard ripple depth="md" className="group relative z-10 h-full rounded-2xl transition-all duration-300 hover:scale-[1.03] hover:shadow-lift">
                   {/* Warm accent bar — differentiates Cases from the ocean product cards */}
                   <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-orange-400 to-rose-500" aria-hidden="true" />
                   <div className="group flex h-full flex-col">

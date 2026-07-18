@@ -20,12 +20,16 @@ export interface StarfieldProps {
 interface Star {
   x: number; // 0..1
   y: number; // 0..1
-  r: number;
+  baseR: number; // base radius
   layer: number; // 0 far, 1 mid, 2 near
   baseAlpha: number;
-  phase: number;
-  drift: number;
-  twSpeed: number;
+  phase: number; // drift/twinkle phase
+  glowPhase: number; // independent pulsing phase
+  drift: number; // drift amplitude
+  twSpeed: number; // twinkle cadence
+  color: string; // white / faint warm-white
+  rayLen: number; // cross-ray length multiplier
+  rayAlpha: number; // cross-ray opacity
 }
 
 interface Meteor {
@@ -47,23 +51,11 @@ function prefersReducedMotion(): boolean {
 }
 
 /**
- * Night-sky starfield rendered on a <canvas>.
- *
- * V34 — a *cinematic* sky:
- *  - Every star now TWINKLES with a full 0→baseAlpha opacity swing so the sky
- *    visibly shimmers (V33's 0.09–0.27 far-layer alpha was essentially
- *    invisible).
- *  - Mid + near layer stars carry soft glow halos; near-layer halos are large
- *    and bright for a real "star light" feel.
- *  - A METEOR SHOWER system: slow, colorful (cyan / gold / pink / white)
- *    meteors randomly streak down the upper sky and cross the screen over
- *    2.5–6 seconds.
- *  - Stronger parallax: the far layer barely moves while the near layer drifts
- *    noticeably, giving clear far/near depth.
- *  - Occasional "star flare" events: a random near star flares to 3× size /
- *    full brightness for a beat, then smoothly fades back — catching the eye.
- * Capped at ~30fps; under reduced-motion a single static frame is drawn (no
- * meteors / flares).
+ * Cinematic starfield canvas (V36).
+ *  - Cross-shaped rays on mid and near-layer stars, with opacity fading outward.
+ *  - Per-star independent glow phase: radius and alpha breathe between 70-130% and 50-100%.
+ *  - When meteors are active, a global pale-blue overlay brightens to 0.25 and fades back to 0.
+ *  - Three distinct parallax layers: far (tiny, dim, slow), mid (moderate, weak rays), near (bright, strong rays, halo).
  */
 export default function Starfield({
   className = '',
@@ -89,17 +81,52 @@ export default function Starfield({
     let height = wrap.clientHeight;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    // V34: brighter base alphas so ALL layers are clearly visible.
-    const layerAlpha = [0.4, 0.7, 1.0];
-    // Tiny pin-points (far/mid) with a brighter near layer.
-    const layerRadius = [0.6, 1.4, 3];
-    // V34: stronger parallax separation — far barely moves, near shifts a lot.
-    const layerDrift = [0.05, 0.2, 0.5];
-    // Per-layer twinkle cadence so the sky shimmers unevenly.
-    const layerTw = [0.7, 1.0, 1.5];
+    // Layer definitions — tuned for clear depth and visual rhythm.
+    const layerAlpha = [0.18, 0.45, 0.85];
+    const layerRadius = [0.55, 1.25, 2.4];
+    const layerDrift = [0.02, 0.08, 0.2];
+    const layerTw = [0.6, 1.0, 1.6];
+    const layerPulseAmp = [0.0, 0.2, 0.35]; // radius pulse amplitude
+    const layerAlphaPulseAmp = [0.0, 0.25, 0.4]; // alpha pulse amplitude
+    const layerRayLen = [0, 3.5, 6]; // ray length = baseR * multiplier
+    const layerRayAlpha = [0, 0.22, 0.32];
+    const layerGlowSpeed = [0.003, 0.01, 0.018];
+
+    const stars: Star[] = [];
+    const count = Math.max(
+      60,
+      Math.min(starCount, Math.floor((width * height) / 1400)),
+    );
+
+    // Allocate counts per layer: far 40%, mid 35%, near 25%.
+    const farCount = Math.floor(count * 0.4);
+    const midCount = Math.floor(count * 0.35);
+    const nearCount = Math.max(0, count - farCount - midCount);
+
+    function createStar(layer: number): Star {
+      const baseR = layerRadius[layer] * (0.8 + Math.random() * 0.4);
+      return {
+        x: Math.random(),
+        y: Math.random(),
+        baseR,
+        layer,
+        baseAlpha: layerAlpha[layer] * (0.85 + Math.random() * 0.3),
+        phase: Math.random() * Math.PI * 2,
+        glowPhase: Math.random() * Math.PI * 2,
+        drift: (Math.random() - 0.5) * layerDrift[layer],
+        twSpeed: layerTw[layer] * (0.8 + Math.random() * 0.4),
+        color: Math.random() > 0.85 ? '210, 230, 255' : '255, 255, 255', // occasional faint blue-white
+        rayLen: layerRayLen[layer],
+        rayAlpha: layerRayAlpha[layer] * (0.7 + Math.random() * 0.6),
+      };
+    }
+
+    for (let i = 0; i < farCount; i += 1) stars.push(createStar(0));
+    for (let i = 0; i < midCount; i += 1) stars.push(createStar(1));
+    for (let i = 0; i < nearCount; i += 1) stars.push(createStar(2));
 
     // Pre-computed indices of near-layer stars (for flare events).
-    const nearIndices: number[] = [];
+    const nearIndices = stars.map((s, i) => (s.layer === 2 ? i : -1)).filter((i) => i !== -1);
 
     // Cached nebula gradient (recomputed on resize).
     let nebula: CanvasGradient | null = null;
@@ -111,11 +138,11 @@ export default function Starfield({
         0,
         width * 0.5,
         height * 0.55,
-        Math.max(width, height) * 0.85,
+        Math.max(width, height) * 0.9,
       );
       g.addColorStop(0, 'rgba(99, 102, 241, 0)');
-      g.addColorStop(0.6, 'rgba(99, 102, 241, 0.012)');
-      g.addColorStop(1, 'rgba(99, 102, 241, 0.03)');
+      g.addColorStop(0.55, 'rgba(99, 102, 241, 0.015)');
+      g.addColorStop(1, 'rgba(99, 102, 241, 0.04)');
       nebula = g;
     }
 
@@ -125,35 +152,14 @@ export default function Starfield({
       ctx.save();
       ctx.translate(width / 2, height / 2);
       ctx.rotate(-Math.PI / 6);
-      const bandW = Math.max(width, height) * 0.55;
+      const bandW = Math.max(width, height) * 0.6;
       const g = ctx.createLinearGradient(-bandW / 2, 0, bandW / 2, 0);
       g.addColorStop(0, 'rgba(255, 255, 255, 0)');
-      g.addColorStop(0.5, 'rgba(180, 200, 255, 0.05)');
+      g.addColorStop(0.5, 'rgba(180, 200, 255, 0.06)');
       g.addColorStop(1, 'rgba(255, 255, 255, 0)');
       ctx.fillStyle = g;
-      ctx.fillRect(-bandW / 2, -height * 0.17, bandW, height * 0.34);
+      ctx.fillRect(-bandW / 2, -height * 0.18, bandW, height * 0.36);
       ctx.restore();
-    }
-
-    const stars: Star[] = [];
-    const count = Math.max(
-      40,
-      Math.min(starCount, Math.floor((width * height) / 1800)),
-    );
-    for (let i = 0; i < count; i += 1) {
-      const rnd = Math.random();
-      const layer = depth ? (rnd < 0.8 ? 0 : rnd < 0.95 ? 1 : 2) : 1;
-      stars.push({
-        x: Math.random(),
-        y: Math.random(),
-        r: layerRadius[layer] * (0.7 + Math.random() * 0.5),
-        layer,
-        baseAlpha: layerAlpha[layer],
-        phase: Math.random() * Math.PI * 2,
-        drift: (Math.random() - 0.5) * layerDrift[layer],
-        twSpeed: layerTw[layer],
-      });
-      if (layer === 2) nearIndices.push(i);
     }
 
     // ---- Meteor shower system -------------------------------------------
@@ -191,8 +197,7 @@ export default function Starfield({
         const py = m.y * height;
         const tailX = px - Math.cos(m.angle) * m.length;
         const tailY = py - Math.sin(m.angle) * m.length;
-        // Fade in over the first 36 frames and out over the last 36 frames so
-        // meteors don't pop in/out abruptly.
+        // Fade in over the first 36 frames and out over the last 36 frames.
         const fadeOut = Math.min(1, m.life / 36);
         const fadeIn = Math.min(1, (m.maxLife - m.life) / 36);
         const vis = m.alpha * Math.min(fadeIn, fadeOut);
@@ -228,6 +233,9 @@ export default function Starfield({
     let flareTimer = 0;
     let nextFlare = 200 + Math.random() * 300;
 
+    // Global meteor brightness overlay.
+    let meteorBrightness = 0;
+
     function resize() {
       if (!wrap || !canvas || !ctx) return;
       width = wrap.clientWidth;
@@ -238,6 +246,44 @@ export default function Starfield({
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       buildNebula();
+    }
+
+    function drawCrossRays(
+      px: number,
+      py: number,
+      radius: number,
+      rayLen: number,
+      alpha: number,
+      rayAlpha: number,
+      color: string,
+    ) {
+      if (!ctx || rayLen <= 0 || rayAlpha <= 0) return;
+      const len = radius * rayLen;
+      // Horizontal ray gradient.
+      const hGrad = ctx.createLinearGradient(px - len, py, px + len, py);
+      hGrad.addColorStop(0, `rgba(${color}, 0)`);
+      hGrad.addColorStop(0.5, `rgba(${color}, ${alpha * rayAlpha})`);
+      hGrad.addColorStop(1, `rgba(${color}, 0)`);
+      // Vertical ray gradient.
+      const vGrad = ctx.createLinearGradient(px, py - len, px, py + len);
+      vGrad.addColorStop(0, `rgba(${color}, 0)`);
+      vGrad.addColorStop(0.5, `rgba(${color}, ${alpha * rayAlpha})`);
+      vGrad.addColorStop(1, `rgba(${color}, 0)`);
+
+      ctx.lineWidth = Math.max(0.5, radius * 0.4);
+      ctx.lineCap = 'round';
+
+      ctx.strokeStyle = hGrad;
+      ctx.beginPath();
+      ctx.moveTo(px - len, py);
+      ctx.lineTo(px + len, py);
+      ctx.stroke();
+
+      ctx.strokeStyle = vGrad;
+      ctx.beginPath();
+      ctx.moveTo(px, py - len);
+      ctx.lineTo(px, py + len);
+      ctx.stroke();
     }
 
     let frame = 0;
@@ -270,64 +316,98 @@ export default function Starfield({
         nextFlare = frame + 200 + Math.random() * 300; // 200–500 frames
       }
 
+      // Update meteor brightness based on any active meteor.
+      if (!isReduced) {
+        const anyMeteorActive = meteors.some((m) => m.active);
+        if (anyMeteorActive) {
+          meteorBrightness = Math.min(0.25, meteorBrightness + 0.25 / 60);
+        } else {
+          meteorBrightness = Math.max(0, meteorBrightness - meteorBrightness / 90);
+        }
+      }
+
       for (let i = 0; i < stars.length; i += 1) {
         const s = stars[i];
         const driftX = isReduced ? 0 : s.drift * Math.sin(t * 0.0002 + s.phase) * 0.5;
         const px = (s.x + driftX) * width;
         const py = s.y * height;
-        // V34: full 0→baseAlpha twinkle swing — clearly visible on every layer.
-        const tw =
-          twinkle && !isReduced
-            ? 0.5 + 0.5 * Math.sin(t * 0.0018 * speed * s.twSpeed + s.phase)
-            : 1;
-        let alpha = Math.max(0, Math.min(1, s.baseAlpha * tw));
-        let radius = s.r;
+
+        // Base twinkle from global time.
+        const tw = twinkle && !isReduced
+          ? 0.5 + 0.5 * Math.sin(t * 0.0018 * speed * s.twSpeed + s.phase)
+          : 1;
+
+        // Independent per-star pulsing glow.
+        if (!isReduced) {
+          s.glowPhase += layerGlowSpeed[s.layer] * s.twSpeed;
+        }
+        const glow = isReduced ? 1 : 0.5 + 0.5 * Math.sin(s.glowPhase);
+        const pulseRadius = 1 - layerPulseAmp[s.layer] + layerPulseAmp[s.layer] * 2 * glow;
+        const pulseAlpha = 1 - layerAlphaPulseAmp[s.layer] + layerAlphaPulseAmp[s.layer] * 2 * glow;
+
+        let alpha = Math.max(0, Math.min(1, s.baseAlpha * tw * pulseAlpha));
+        let radius = Math.max(0.2, s.baseR * pulseRadius);
 
         // Flare override for the chosen near-layer star.
         if (i === flareIndex && flareTimer > 0) {
           const f = flareTimer / 80; // 1 → 0
-          radius = s.r * (1 + 2 * f); // up to 3× size
+          radius = s.baseR * (1 + 2 * f); // up to 3× size
           alpha = Math.min(1, alpha + (1 - alpha) * f); // up to full brightness
           flareTimer -= 1;
           if (flareTimer <= 0) flareIndex = -1;
         }
 
-        // Mid-layer stars: a small soft glow halo.
-        if (s.layer === 1) {
-          ctx.beginPath();
-          ctx.arc(px, py, s.r * 1.6, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(200, 220, 255, ${alpha * 0.08})`;
-          ctx.fill();
+        // Cross-shaped rays on mid and near stars (skip reduced motion).
+        if (!isReduced && s.layer > 0) {
+          drawCrossRays(px, py, radius, s.rayLen, alpha, s.rayAlpha, s.color);
         }
 
-        // Stars are white / faint warm-white — never cyan.
-        ctx.beginPath();
-        ctx.arc(px, py, radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
-        ctx.fill();
-
-        // Near-layer stars: bright warm-white core + a LARGE, bright halo.
-        if (s.layer === 2) {
+        // Halo / glow layers.
+        if (s.layer === 1) {
+          ctx.beginPath();
+          ctx.arc(px, py, radius * 2.2, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(200, 220, 255, ${alpha * 0.08})`;
+          ctx.fill();
+        } else if (s.layer === 2) {
           // Outer soft halo.
           ctx.beginPath();
-          ctx.arc(px, py, radius * 4, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(190, 210, 255, ${alpha * 0.06})`;
+          ctx.arc(px, py, radius * 4.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(190, 210, 255, ${alpha * 0.07})`;
           ctx.fill();
           // Inner brighter halo.
           ctx.beginPath();
-          ctx.arc(px, py, radius * 2.5, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(190, 210, 255, ${alpha * 0.15})`;
+          ctx.arc(px, py, radius * 2.8, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(190, 210, 255, ${alpha * 0.16})`;
           ctx.fill();
+          // Occasional large glimmer ring.
+          if (Math.sin(s.glowPhase * 0.7) > 0.85) {
+            ctx.beginPath();
+            ctx.arc(px, py, radius * 3.2, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.06})`;
+            ctx.fill();
+          }
           // Warm-white core.
           ctx.beginPath();
           ctx.arc(px, py, radius * 0.55, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255, 248, 235, ${Math.min(1, alpha * 0.9)})`;
+          ctx.fillStyle = `rgba(255, 248, 235, ${Math.min(1, alpha * 0.95)})`;
           ctx.fill();
         }
+
+        // Star body.
+        ctx.beginPath();
+        ctx.arc(px, py, radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${s.color}, ${alpha})`;
+        ctx.fill();
       }
 
       // Meteors render on top of the star field.
       if (!isReduced) drawMeteors();
+
+      // Global brightness overlay when meteors are active.
+      if (meteorBrightness > 0.001) {
+        ctx.fillStyle = `rgba(180, 220, 255, ${meteorBrightness})`;
+        ctx.fillRect(0, 0, width, height);
+      }
     }
 
     resize();
@@ -343,7 +423,7 @@ export default function Starfield({
     }
 
     if (isReduced) {
-      draw(0); // single static frame (no meteors / flares)
+      draw(0); // single static frame (no meteors / flares / pulse)
     } else {
       raf = requestAnimationFrame(loop);
     }

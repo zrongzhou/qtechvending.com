@@ -2,26 +2,26 @@
 
 import Link from 'next/link';
 import {
-  Lightbulb,
+  Palette,
   ShieldCheck,
+  Cpu,
+  BadgeDollarSign,
   Headphones,
-  Factory,
-  Target,
-  Eye,
-  Cog,
-  Award,
-  Clock,
-  Globe2,
-  Users,
-  TrendingUp,
-  BadgeCheck,
-  Leaf,
-  Radio,
-  Microscope,
+  ArrowUpCircle,
+  Lightbulb,
   BarChart3,
+  TrendingUp,
   RefreshCw,
-  Store,
+  BadgeCheck,
+  Factory,
+  Cog,
+  Globe2,
+  Target,
   Sparkles,
+  Store,
+  Leaf,
+  Users,
+  Clock,
   type LucideIcon,
 } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
@@ -30,6 +30,7 @@ import CountUp from '@/components/ui/CountUp';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
 import OceanGlassCard from '@/components/ui/OceanGlassCard';
+import ImageWithRetry from '@/components/ui/ImageWithRetry';
 import type { Locale } from '@/lib/i18n';
 
 export interface AboutSection {
@@ -74,99 +75,158 @@ const CERT_ICON: Record<string, LucideIcon> = {
   ShieldCheck,
   BadgeCheck,
   Leaf,
-  Radio,
-  Microscope,
-  Award,
+  Cpu,
+  Microscope: ShieldCheck,
+  Award: BadgeCheck,
 };
 
-/** Icon mapping — used when section photo is missing */
+/** Icon mapping — used for narrative sections (no photos). */
 const SECTION_ICONS: Record<string, LucideIcon> = {
   story: Factory,
   mission: Target,
-  vision: Eye,
+  vision: Globe2,
   capability: Cog,
 };
 
-/** Real photography replaces the old AI-generated placeholder webp files. */
-const REAL_IMG: Record<string, string> = {
-  story: '/images/about/real-workshop.png',
-  mission: '/images/about/real-office.png',
-  vision: '/images/about/real-building.png',
-  capability: '/images/about/real-history.png',
+/* ── Company intro (user-provided V36 copy) ── */
+const COMPANY_INTRO: { body: Record<string, string> } = {
+  body: {
+    en: "Welcome to our official website. We're a Qiuyan (Qtech) vending company dedicated to developing, manufacturing, and selling vending machines. We're all about using innovative technology to offer convenient, efficient, and personalized vending solutions.\n\nOur main products are ice, fruit, cotton candy, pizza, and flower vending machines, which not only satisfy the market's appetite for novel experiences but also reflect our commitment to quality and service.\n\nWe focus on innovating and refining vending machines, paying close attention to every detail to ensure our products stand out and perform well in the market. Here's what makes us strong: creative design, premium materials, smart management, affordable quality, all-round service, and continuous improvement.",
+    zh: '欢迎来到我们的官方网站。我们是广州秋彦科技（Qtech）——一家致力于研发、制造和销售自动售货机的公司。我们运用创新科技，为全球客户提供便捷、高效、个性化的自动售卖解决方案。\n\n我们的主营产品包括冰品、水果、棉花糖、披萨和鲜花自动售货机，既满足市场对新颖体验的需求，也体现了我们对品质和服务的承诺。\n\n我们专注于创新与打磨自动售货机，关注每一个细节，确保产品在市场上脱颖而出、表现优异。我们的优势：创意设计、优质材料、智能管理、高性价比、全程服务、持续改进。',
+    ar: 'مرحبًا بكم في موقعنا الرسمي. نحن شركة تشيويان (Qtech) للآلات الذكية، متخصصون في تطوير وتصنيع وبيع آلات البيع. نهدف إلى تقديم حلول بيع آلية مريحة وفعالة وشخصية من خلال التكنولوجيا المبتكرة.\n\nتشمل منتجاتنا الرئيسية آلات بيع الثلج والفواكه والحلوى القطنية والبيتزا والزهور، التي تلبي رغبة السوق في تجارب جديدة وتعكس التزامنا بالجودة والخدمة.\n\nنركز على الابتكار وتحسين آلات البيع، مع الاهتمام بكل التفاصيل لضمان تميز منتجاتنا وأدائها في السوق. نقاط قوتنا: التصميم الإبداعي، المواد الممتازة، الإدارة الذكية، الجودة بأسعار معقولة، الخدمة الشاملة، والتحسين المستمر.',
+  },
 };
 
-/* ── Six company strengths (migrated from source site) ── */
-const VALUES: ValueItem[] = [
+/* ── Six company strengths (user-specified) ── */
+const STRENGTHS: ValueItem[] = [
   {
-    icon: Lightbulb,
+    icon: Palette,
     title: { en: 'Creative Design', zh: '创意设计', ar: 'تصميم إبداعي' },
     desc: {
-      en: 'Our designs stay fresh and on-trend, giving every machine a distinctive, market-ready look.',
+      en: 'Our designs are always fresh and keep up with the latest trends, giving every machine a distinctive, market-ready look.',
       zh: '设计始终新颖、紧跟潮流，让每台设备都拥有独特且契合市场的外观。',
       ar: 'تصاميمنا دائمًا حديثة وتواكب الاتجاهات، مما يمنح كل آلة مظهرًا مميزًا وجاهزًا للسوق.',
     },
   },
   {
     icon: ShieldCheck,
-    title: { en: 'Premium Materials', zh: '优质材料', ar: 'مواد فاخرة' },
+    title: { en: 'Premium Materials', zh: '优质材料', ar: 'مواد ممتازة' },
     desc: {
-      en: 'We build with the best-grade components so machines last through years of daily operation.',
+      en: 'We use the best-grade components so machines last through years of daily operation.',
       zh: '采用最优等级零部件制造，确保设备在长年日常运营中经久耐用。',
-      ar: 'نبني بأفضل المكونات لتبقى الآلات صامدة عبر سنوات من التشغيل اليومي.',
+      ar: 'نستخدم أفضل المكونات لتبقى الآلات صامدة عبر سنوات من التشغيل اليومي.',
     },
   },
   {
-    icon: BarChart3,
+    icon: Cpu,
     title: { en: 'Smart Management', zh: '智能管理', ar: 'إدارة ذكية' },
     desc: {
-      en: 'Remote control and monitoring systems let operators manage fleets from anywhere.',
+      en: 'Our machines are smart with systems for remote control and monitoring, letting operators manage fleets from anywhere.',
       zh: '远程控制与监控系统让运营者随时随地管理设备集群。',
-      ar: 'أنظمة التحكم والمراقبة عن بُعد تتيح للمشغلين إدارة الأساطيل من أي مكان.',
+      ar: 'آلاتنا ذكية مع أنظمة للتحكم والمراقبة عن بُعد، مما يتيح للمشغلين إدارة الأساطيل من أي مكان.',
     },
   },
   {
-    icon: TrendingUp,
+    icon: BadgeDollarSign,
     title: { en: 'Affordable Quality', zh: '高性价比', ar: 'جودة بأسعار معقولة' },
     desc: {
-      en: 'We keep costs down through vertical integration without sacrificing build quality.',
-      zh: '通过垂直整合控制成本，同时绝不牺牲制造品质。',
-      ar: 'نخفض التكاليف عبر التكامل الرأسي دون التضحية بجودة البناء.',
+      en: 'We find ways to keep costs down without sacrificing quality, so you get lasting value.',
+      zh: '在控制成本的同时绝不牺牲制造品质，为客户带来持久价值。',
+      ar: 'نوفر السيولة مع الحفاظ على الجودة، لتقديم قيمة دائمة لعملائنا.',
     },
   },
   {
     icon: Headphones,
     title: { en: 'All-Round Service', zh: '全程服务', ar: 'خدمة شاملة' },
     desc: {
-      en: 'Advice and support from first inquiry to after-sales, in English, Chinese and Arabic.',
-      zh: '从首次咨询到售后，提供中文、英文与阿拉伯语全程支持。',
-      ar: 'استشارات ودعم من أول استفسار حتى ما بعد البيع بالإنجليزية والصينية والعربية.',
+      en: "We're there for you with advice and support from first inquiry to after-sales service.",
+      zh: '从首次咨询到售后服务，提供全程专业建议与支持。',
+      ar: 'نقدم الاستشارات والدعم من أول استفسار حتى ما بعد البيع.',
+    },
+  },
+  {
+    icon: ArrowUpCircle,
+    title: { en: 'Continuous Improvement', zh: '持续改进', ar: 'تحسين مستمر' },
+    desc: {
+      en: 'We keep working on our machines to make them even better, release after release.',
+      zh: '在每一代产品中持续打磨，让设备越来越出色。',
+      ar: 'نواصل تحسين آلاتنا إصدارًا بعد إصدار لتصبح أفضل.',
+    },
+  },
+];
+
+/* ── Core values (8-grid) ── */
+const VALUES: ValueItem[] = [
+  {
+    icon: Lightbulb,
+    title: { en: 'Creative Design', zh: '创意设计', ar: 'تصميم إبداعي' },
+    desc: {
+      en: 'Fresh, trend-forward designs that make every machine stand out in any location.',
+      zh: '新颖、紧跟潮流的设计，让每台设备在任何场景都脱颖而出。',
+      ar: 'تصاميم حديثة ومتقدمة تجعل كل آلة تبرز في أي موقع.',
+    },
+  },
+  {
+    icon: ShieldCheck,
+    title: { en: 'Premium Materials', zh: '优质材料', ar: 'مواد ممتازة' },
+    desc: {
+      en: 'Top-grade components chosen for durability and long-term operation.',
+      zh: '精选高等级零部件，确保耐用与长期稳定运行。',
+      ar: 'مكونات عالية الجودة مختارة للمتانة والتشغيل طويل الأمد.',
+    },
+  },
+  {
+    icon: BarChart3,
+    title: { en: 'Smart Management', zh: '智能管理', ar: 'إدارة ذكية' },
+    desc: {
+      en: 'Remote monitoring and control systems that keep your fleet running efficiently.',
+      zh: '远程监控与控制系统，让设备集群高效运转。',
+      ar: 'أنظمة مراقبة وتحكم عن بُعد تبقي أسطولك يعمل بكفاءة.',
+    },
+  },
+  {
+    icon: TrendingUp,
+    title: { en: 'Affordable Quality', zh: '高性价比', ar: 'جودة بأسعار معقولة' },
+    desc: {
+      en: 'Smart engineering and vertical integration that keep costs down without cutting corners.',
+      zh: '通过智能工程与垂直整合，在不牺牲品质的前提下控制成本。',
+      ar: 'هندسة ذكية وتكامل رأسي يخفضان التكاليف دون المساس بالجودة.',
+    },
+  },
+  {
+    icon: Headphones,
+    title: { en: 'All-Round Service', zh: '全程服务', ar: 'خدمة شاملة' },
+    desc: {
+      en: 'Support in English, Chinese and Arabic from inquiry through installation and beyond.',
+      zh: '从咨询、安装到售后，提供中英文与阿拉伯语全程支持。',
+      ar: 'دعم بالإنجليزية والصينية والعربية من الاستفسار حتى التركيب وما بعده.',
     },
   },
   {
     icon: RefreshCw,
     title: { en: 'Continuous Improvement', zh: '持续改进', ar: 'تحسين مستمر' },
     desc: {
-      en: 'We keep refining our machines release after release to stay ahead of the market.',
-      zh: '我们在一代又一代产品中持续打磨，始终领先市场。',
-      ar: 'نواصل تحسين آلاتنا إصدارًا بعد إصدار لتبقى في المقدمة.',
+      en: 'Every product generation refines performance, reliability and user experience.',
+      zh: '每一代产品都在性能、可靠性与体验上持续精进。',
+      ar: 'يتم تحسين الأداء والموثوقية وتجربة المستخدم في كل جيل من المنتجات.',
     },
   },
   {
     icon: BadgeCheck,
     title: { en: 'Quality Assurance', zh: '品质保证', ar: 'ضمان الجودة' },
     desc: {
-      en: 'Strict QC and a 2-year warranty back every machine we ship from Guangzhou.',
-      zh: '严格的质检与两年保修，为每一台出厂设备保驾护航。',
-      ar: 'رقابة جودة صارمة وضمان لمدة عامين يدعمان كل آلة نشحنها من غوانغتشو.',
+      en: 'Strict QC, burn-in testing and a 2-year warranty back every machine.',
+      zh: '严格质检、老化测试与两年保修，为每一台设备保驾护航。',
+      ar: 'رقابة جودة صارمة واختبار الاحتراق وضمان لمدة عامين لكل آلة.',
     },
   },
   {
     icon: ShieldCheck,
     title: { en: 'International Certifications', zh: '国际认证', ar: 'شهادات دولية' },
     desc: {
-      en: 'Our machines are built to ISO and CE standards for smooth global compliance.',
-      zh: '设备依据 ISO 与 CE 标准制造，满足全球合规要求。',
-      ar: 'تُصنع آلاتنا وفق معايير ISO وCE لامتثال عالمي سلس.',
+      en: 'Built to ISO and CE standards for smooth global compliance.',
+      zh: '按 ISO 与 CE 标准制造，满足全球合规要求。',
+      ar: 'تُصنع وفق معايير ISO وCE لامتثال عالمي سلس.',
     },
   },
 ];
@@ -179,16 +239,15 @@ const NUMBERS: NumberItem[] = [
   { end: 24, suffix: '/7', label: { en: 'Self-service operation', zh: '无人自助运营', ar: 'تشغيل ذاتي' } },
 ];
 
-/* ── Manufacturing process cards (real factory photography) ── */
+/* ── Manufacturing process cards (no watermarked photos) ── */
 const MANU_CARDS = [
   {
-    img: '/images/about/real-workshop.png',
     icon: Factory,
     title: { en: 'Automated Assembly Line', zh: '自动化装配线', ar: 'خط التجميع الآلي' },
     desc: {
-      en: 'Robotic arms & skilled technicians assemble every cabinet on our ISO-certified production line in Guangzhou.',
+      en: 'Robotic arms and skilled technicians assemble every cabinet on our ISO-certified production line in Guangzhou.',
       zh: '在广州的 ISO 认证生产线上，由机械臂与熟练技师组装每一台设备。',
-      ar: 'ذراعات آلية وفنيون ماهرون يجمعون كل خزانة على خط الإنتاج المعتمد من ISO في غوانغتشو.',
+      ar: 'تجمع ذراعات آلية وفنيون ماهرون كل خزانة على خط الإنتاج المعتمد من ISO في غوانغتشو.',
     },
     tags: {
       zh: ['ISO 9001 认证产线', '月产能 1000+ 台', '机械臂 + 熟练技工'],
@@ -197,13 +256,12 @@ const MANU_CARDS = [
     },
   },
   {
-    img: '/images/about/real-office.png',
     icon: Cog,
     title: { en: 'R&D & Innovation Center', zh: '研发与创新中心', ar: 'مركز البحث والتطوير والابتكار' },
     desc: {
       en: '20+ engineers drive continuous improvement in smart payment, IoT monitoring and energy-efficient cooling systems.',
       zh: '20+ 名工程师持续推进智能支付、IoT 监控和节能制冷系统的迭代升级。',
-      ar: 'أكثر من 20 مهندسًا يقودون التحسين المستمر للدفع الذكي ومراقبة إنترنت الأشياء وأنظمة التبريد الموفرة للطاقة.',
+      ar: 'أكثر من 20 مهندسًا يقودون التحسين المستمر في الدفع الذكي ومراقبة إنترنت الأشياء وأنظمة التبريد الموفرة للطاقة.',
     },
     tags: {
       zh: ['20+ 研发工程师', '智能支付与 IoT', '节能制冷系统'],
@@ -212,13 +270,12 @@ const MANU_CARDS = [
     },
   },
   {
-    img: '/images/about/real-workshop.png',
     icon: ShieldCheck,
     title: { en: 'Strict QC Testing', zh: '严格质检体系', ar: 'نظام مراقبة الجودة الصارم' },
     desc: {
-      en: 'Each unit undergoes 48-hour burn-in testing, drop test, and environmental simulation before leaving the factory.',
+      en: 'Each unit undergoes 48-hour burn-in testing, drop test and environmental simulation before leaving the factory.',
       zh: '每台设备在出厂前经过 48 小时老化测试、跌落试验和环境模拟测试。',
-      ar: 'خضعت كل وحدة لاختبار الاحتراق لمدة 48 ساعة وسقوط ومحاكاة بيئية قبل مغادرة المصنع.',
+      ar: 'تخضع كل وحدة لاختبار الاحتراق لمدة 48 ساعة وسقوط ومحاكاة بيئية قبل مغادرة المصنع.',
     },
     tags: {
       zh: ['48 小时老化测试', '跌落与环境模拟', '出厂全检'],
@@ -227,7 +284,6 @@ const MANU_CARDS = [
     },
   },
   {
-    img: '/images/about/real-building.png',
     icon: Globe2,
     title: { en: 'Global Logistics Hub', zh: '全球物流枢纽', ar: 'مركز لوجستي عالمي' },
     desc: {
@@ -249,27 +305,27 @@ const MISSION_STATEMENTS: StatementItem[] = [
     icon: Target,
     title: { en: 'Profit for Operators', zh: '让设备成为利润中心', ar: 'ربحية للمشغلين' },
     desc: {
-      en: 'Make every Qtech machine a profit center for operators — through reliable uptime and low running cost.',
-      zh: '让每一台 Qtech 设备都成为运营商的利润中心——以稳定在线与低运营成本实现。',
-      ar: 'اجعل كل آلة Qtech مركز ربح للمشغلين — عبر التشغيل المستقر وتكلفة التشغيل المنخفضة.',
+      en: 'Make every Qtech machine a reliable profit center for operators. Through stable uptime, low running costs and smart inventory management, we help partners turn any location into a revenue stream.',
+      zh: '让每一台 Qtech 设备都成为运营商可靠的利润中心。通过稳定在线、低运营成本与智能库存管理，帮助合作伙伴把任何地点变成收入来源。',
+      ar: 'اجعل كل آلة Qtech مركز ربح موثوق للمشغلين. عبر التشغيل المستقر وتكلفة التشغيل المنخفضة وإدارة المخزون الذكية، نساعد الشركاء على تحويل أي موقع إلى مصدر دخل.',
     },
   },
   {
     icon: ShieldCheck,
     title: { en: 'Industrial-Grade Quality', zh: '工业级品质', ar: 'جودة صناعية' },
     desc: {
-      en: 'Redefine unattended retail with industrial-grade build quality and dependable components.',
-      zh: '以工业级制造品质与可靠部件，重新定义无人零售。',
-      ar: 'أعد تعريف البيع الذاتي بجودة بناء صناعية ومكونات موثوقة.',
+      en: 'Redefine unattended retail with industrial-grade build quality and dependable components. Every weld, board and sensor is tested so machines keep working in real-world conditions.',
+      zh: '以工业级制造品质与可靠部件重新定义无人零售。每一道焊接、每一块电路板、每一个传感器都经过测试，确保设备在真实环境中持续运行。',
+      ar: 'أعد تعريف البيع الذاتي بجودة بناء صناعية ومكونات موثوقة. كل لحام ولوحة وحساس يتم اختباره لضمان عمل الآلات في الظروف الحقيقية.',
     },
   },
   {
     icon: Sparkles,
     title: { en: 'Tech for Everyone', zh: '技术普惠', ar: 'تقنية للجميع' },
     desc: {
-      en: 'Democratize smart vending — SMEs deserve the same intelligent solutions as large operators.',
-      zh: '技术普惠——让中小企业也能拥有与大运营商同级的智能售货方案。',
-      ar: 'إتاحة التقنية الذكية — للشركات الصغيرة نفس الحلول الذكية للمشغلين الكبار.',
+      en: 'Democratize smart vending. SMEs deserve the same intelligent payment, remote monitoring and data analytics as large operators, without enterprise-level budgets or complexity.',
+      zh: '技术普惠——让中小企业也能拥有与大运营商同级的智能支付、远程监控与数据分析能力，无需企业级预算与复杂度。',
+      ar: 'إتاحة التقنية الذكية للجميع. الشركات الصغيرة تستحق نفس الدفع الذكي والمراقبة عن بُعد وتحليل البيانات التي يستخدمها المشغلون الكبار، دون ميزانيات أو تعقيدات على مستوى المؤسسات.',
     },
   },
 ];
@@ -280,44 +336,44 @@ const VISION_STATEMENTS: StatementItem[] = [
     icon: Globe2,
     title: { en: 'Most Trusted Partner', zh: '最值得信赖的伙伴', ar: 'الشريك الأكثر موثوقية' },
     desc: {
-      en: 'Become the most trusted partner for intelligent self-service equipment worldwide.',
-      zh: '成为全球运营商最信赖的智能自助设备伙伴。',
-      ar: 'أن نكون الشريك الأكثر موثوقية لمعدات الخدمة الذاتية الذكية عالميًا.',
+      en: 'Become the most trusted partner for intelligent self-service equipment worldwide. We build relationships that last longer than the machines themselves, with honest service and transparent support.',
+      zh: '成为全球智能自助设备领域最值得信赖的伙伴。我们建立比设备本身更长久的关系，以真诚服务与透明支持赢得客户。',
+      ar: 'أن نكون الشريك الأكثر موثوقية لمعدات الخدمة الذاتية الذكية عالميًا. نبني علاقات تدوم أطول من الآلات نفسها، مع خدمة صادقة ودعم شفاف.',
     },
   },
   {
     icon: Store,
     title: { en: 'Any Space, 24/7', zh: '任意空间即门店', ar: 'أي مكان نقطة بيع' },
     desc: {
-      en: 'Turn any space into a 24/7 automated retail and service point.',
-      zh: '把任意空间变成 24/7 的自动化零售与服务触点。',
-      ar: 'حوّل أي مكان إلى نقطة بيع وخدمة آلية على مدار الساعة.',
+      en: 'Turn any space into a 24/7 automated retail and service point. From offices and campuses to transit hubs and resorts, Qtech machines make service available whenever customers need it.',
+      zh: '把任意空间变成 24/7 的自动化零售与服务触点。从办公室、校园到交通枢纽与度假村，Qtech 设备让客户随时获得服务。',
+      ar: 'حوّل أي مكان إلى نقطة بيع وخدمة آلية على مدار الساعة. من المكاتس والحرم الجامعي إلى محاور النقل والمنتجعات، تجعل آلات Qtech الخدمة متاحة وقتما يحتاجها العملاء.',
     },
   },
   {
     icon: Leaf,
     title: { en: 'Sustainable by Design', zh: '绿色可持续', ar: 'استدامة بالتصميم' },
     desc: {
-      en: 'Drive sustainable operations with green, energy-saving vending technology.',
-      zh: '以绿色节能的售货技术，推动可持续运营。',
-      ar: 'تشغيل مستدام بتقنية بيع خضراء موفرة للطاقة.',
+      en: 'Drive sustainable operations with green, energy-saving vending technology. Lower power consumption, smarter refrigeration and durable materials reduce environmental impact across the product lifecycle.',
+      zh: '以绿色节能的售货技术推动可持续运营。更低的功耗、更智能的制冷与更耐用的材料，降低产品全生命周期的环境影响。',
+      ar: 'تشغيل مستدام بتقنية بيع خضراء موفرة للطاقة. تقليل استهلاك الطاقة والتبريد الأكثر ذكاءً والمواد المتينة تقلل التأثير البيئي على مدى دورة حياة المنتج.',
     },
   },
 ];
 
-/* ── Global success stories (real deployments) ── */
+/* ── Global success stories (new V36 high-resolution images) ── */
 const STORIES = [
   {
-    image: '/images/cases/flower-vending-feedback.webp',
-    title: { en: 'Subway Fresh-Flower Kiosk', zh: '地铁鲜花自助柜', ar: 'كشك الزهور الطازجة في المترو' },
+    image: '/images/cases/case-1.webp',
+    title: { en: 'Fresh-Flower Kiosk', zh: '鲜花自助站', ar: 'كشك الزهور الطازجة' },
     sub: {
-      en: 'Deployed across metro stations in Southeast Asia.',
-      zh: '已落地东南亚多个地铁站。',
-      ar: 'تم نشره في محطات المترو في جنوب شرق آسيا.',
+      en: 'On-demand bouquets for commuters and last-minute gifts.',
+      zh: '为通勤族与临时送礼提供即时鲜花。',
+      ar: 'باقات عند الطلب للركاب والهدايا في اللحظة الأخيرة.',
     },
   },
   {
-    image: '/images/cases/feedback.webp',
+    image: '/images/cases/case-2.webp',
     title: { en: '24/7 Campus Pizza', zh: '校园 24/7 披萨', ar: 'بيتزا الحرم الجامعي 24/7' },
     sub: {
       en: 'Serving students late-night on a European campus.',
@@ -326,7 +382,7 @@ const STORIES = [
     },
   },
   {
-    image: '/images/cases/ice-cream-vending.webp',
+    image: '/images/cases/case-3.webp',
     title: { en: 'Branded Ice-Cream Robot', zh: '品牌定制冰淇淋机器人', ar: 'روبوت آيس كريم بتصميم العلامة التجارية' },
     sub: {
       en: 'OEM branding for a Middle-East retail chain.',
@@ -335,7 +391,7 @@ const STORIES = [
     },
   },
   {
-    image: '/images/cases/feedback-video-1.webp',
+    image: '/images/cases/case-4.webp',
     title: { en: 'Office Coffee Corner', zh: '办公室咖啡角', ar: 'مكتب قهوة المكاتب' },
     sub: {
       en: 'Energy-saving coffee in corporate lobbies.',
@@ -344,16 +400,16 @@ const STORIES = [
     },
   },
   {
-    image: '/images/cases/feedback-in-hospital.webp',
-    title: { en: 'Juice Bar, Zero Staff', zh: '无人鲜榨果汁吧', ar: 'مفهوم عصير بلا موظفين' },
+    image: '/images/cases/case-5.webp',
+    title: { en: 'Hospital Lobby', zh: '医院大堂', ar: 'بهو المستشفى' },
     sub: {
-      en: 'Fresh juice vending in a beachside resort.',
-      zh: '海滨度假村的鲜榨果汁售货。',
-      ar: 'بيع عصير طازج في منتجع على الشاطئ.',
+      en: 'Round-the-clock snacks and drinks for patients and visitors.',
+      zh: '为患者与访客提供全天候零食与饮品。',
+      ar: 'وجبات خفيفة ومشروبات على مدار الساعة للمرضى والزوار.',
     },
   },
   {
-    image: '/images/cases/pet-wash-demo.webp',
+    image: '/images/cases/case-6.webp',
     title: { en: 'Pet Spa on the Street', zh: '街头宠物洗护站', ar: 'سبا للحيوانات في الشارع' },
     sub: {
       en: 'Self-service pet wash in a residential district.',
@@ -363,7 +419,7 @@ const STORIES = [
   },
 ];
 
-/* ── Category tag per story (keeps image ↔ copy consistent) ── */
+/* ── Category tag per story ── */
 const STORY_CATS = [
   { en: 'Flower Vending', zh: '鲜花售货', ar: 'بيع الزهور' },
   { en: 'Pizza Vending', zh: '披萨售货', ar: 'بيع البيتزا' },
@@ -372,21 +428,6 @@ const STORY_CATS = [
   { en: 'Juice Vending', zh: '果汁售货', ar: 'بيع العصير' },
   { en: 'Pet Wash', zh: '宠物洗护', ar: 'غسيل الحيوانات' },
 ];
-
-/* ── Company intro (enriched, story-driven copy) ── */
-const COMPANY_INTRO: { body: Record<string, string>; image: string } = {
-  image: '/images/about/real-building.png',
-  body: {
-    en: "Founded in Guangzhou in 2015 as Qiuyan (Qtech) Technology, we began with advertising display screens before pivoting to smart vending. Over the past decade we've grown into a specialist manufacturer of intelligent self-service equipment.\n\nFrom our Guangzhou production base we design and build fresh-flower, food, beverage and specialty vending machines — combining in-house R&D, strict QC and global logistics into every unit.\n\nToday Qtech machines run in 60+ countries across six continents, backed by a 2-year warranty and lifetime maintenance. And we're only getting started.",
-    zh: 'Qtech（秋彦科技）2015 年成立于广州，最初从事广告屏制造，随后转型智能售货领域。十年间，我们已成长为专业的智能自助设备制造商。\n\n依托广州生产基地，我们自主研发并制造鲜花、食品、饮品与特种售货机，将研发实力、严格质检与全球物流融为一体。\n\n如今，Qtech 设备已服务于六大洲 60+ 国家和地区，并承诺两年质保与终身维护。我们的故事，才刚刚开始。',
-    ar: 'تأسست Qtech (تشيويان للتكنولوجيا) في غوانغتشو عام 2015، وبدأت بإنتاج شاشات العرض الإعلانية قبل التحول إلى آلات البيع الذكية. وعبر العقد الماضي أصبحنا مصنعًا متخصصًا في معدات الخدمة الذاتية الذكية.\n\nمن قاعدة إنتاجنا في غوانغتشو نصمم ونبني آلات بيع الزهور والطعام والمشروبات والمتخصصة — نجمع بين البحث والتطوير الداخلي ومراقبة الجودة واللوجستيات العالمية في كل وحدة.\n\nاليوم تعمل آلات Qtech في أكثر من 60 دولة عبر ست قارات، مدعومة بضمان لمدة عامين وصيانة مدى الحياة. وما زلنا في البداية فقط.',
-  },
-};
-
-/* ── Certifications are represented by the icon badge grid in section 9
-   (CERTS). The old CERT_GALLERY photo strip and WORKSHOP photo gallery were
-   removed in V33 to avoid repeating the same factory/office photos that
-   already appear in the Story, Company-Intro and Manufacturing sections. ── */
 
 /* ── Company timeline ── */
 const TIMELINE: MilestoneItem[] = [
@@ -442,7 +483,7 @@ const CERTS: CertBadge[] = [
   { name: 'CE', icon: 'ShieldCheck', full: { en: 'CE Certified', zh: 'CE 认证', ar: 'معتمد CE' } },
   { name: 'ISO 9001', icon: 'BadgeCheck', full: { en: 'ISO 9001 Quality System', zh: 'ISO 9001 质量管理体系', ar: 'نظام جودة ISO 9001' } },
   { name: 'RoHS', icon: 'Leaf', full: { en: 'RoHS Compliant', zh: 'RoHS 环保合规', ar: 'متوافق مع RoHS' } },
-  { name: 'FCC', icon: 'Radio', full: { en: 'FCC Approved', zh: 'FCC 认证', ar: 'معتمد FCC' } },
+  { name: 'FCC', icon: 'Cpu', full: { en: 'FCC Approved', zh: 'FCC 认证', ar: 'معتمد FCC' } },
   { name: 'SGS', icon: 'Microscope', full: { en: 'SGS Tested', zh: 'SGS 检测认证', ar: 'تم اختباره بواسطة SGS' } },
   { name: 'Patents 20+', icon: 'Award', full: { en: '20+ Patents', zh: '20+ 项专利', ar: 'أكثر من 20 براءة اختراع' } },
 ];
@@ -455,7 +496,7 @@ const HERO_STATS = [
   { end: 24, suffix: '/7', icon: Clock, key: 'hero.statService' },
 ];
 
-/** Rotating accent identity for icon tiles & decorative lines (V35). */
+/** Rotating accent identity for icon tiles & decorative lines. */
 const ACCENTS = [
   { tile: 'from-cyan-500 to-blue-500', text: 'text-cyan-600', border: 'border-cyan-400', glow: 'hover:shadow-cyan-500/30' },
   { tile: 'from-emerald-500 to-teal-500', text: 'text-emerald-600', border: 'border-emerald-400', glow: 'hover:shadow-emerald-500/30' },
@@ -466,8 +507,6 @@ const ACCENTS = [
 export default function AboutClient({ sections }: { sections: AboutSection[] }) {
   const { t, locale } = useLocale();
 
-  // Only the narrative story / capability blocks use the DB copy; Mission &
-  // Vision are presented as dedicated 3-statement sections below.
   const narrative = sections.filter((s) => s.key === 'story' || s.key === 'capability');
 
   const localeOr = <T extends string>(rec: Record<string, T>): T => (rec[locale] as T) ?? (rec.en as T);
@@ -489,18 +528,24 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-white/85">{t('about.subtitle')}</p>
 
-          {/* Floating glass stat band under hero */}
+          {/* Chinese-style name-plaque stat cards */}
           <div className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
             {HERO_STATS.map((s, i) => {
               const Icon = s.icon;
               return (
                 <RevealOnScroll key={s.key} delay={i * 80} className="h-full">
-                  <div className="group flex h-full flex-col rounded-2xl border border-white/30 bg-white/15 p-5 shadow-lift backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:bg-white/25">
-                    <IconTile icon={Icon} className="h-6 w-6" tileClassName="flex h-11 w-11 items-center justify-center rounded-xl bg-white/25 text-cyan-100 transition-transform duration-300 group-hover:scale-110" />
-                    <dt className="mt-3 text-3xl font-extrabold text-white">
-                      <CountUp end={s.end} suffix={s.suffix} />
-                    </dt>
-                    <dd className="mt-0.5 text-sm text-white/85">{t(s.key)}</dd>
+                  <div className="name-plaque group relative flex h-full min-h-[180px] flex-col items-center justify-between overflow-hidden rounded-2xl border border-stone-300/60 bg-gradient-to-b from-amber-50/90 to-orange-50/80 p-4 text-center shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-lift">
+                    <span className="seal absolute start-3 top-3 rounded-sm bg-red-700 px-1.5 py-0.5 text-[11px] font-bold text-white shadow-sm">
+                      {locale === 'zh' ? '秋彦' : 'Qtech'}
+                    </span>
+                    <Icon className="h-6 w-6 text-stone-500 opacity-80" strokeWidth={1.5} />
+                    <div className="writing-vertical mx-auto flex flex-col items-center gap-2">
+                      <dt className="text-2xl font-extrabold tracking-tight text-stone-800">
+                        <CountUp end={s.end} suffix={s.suffix} />
+                      </dt>
+                      <dd className="text-xs font-medium text-stone-600">{t(s.key)}</dd>
+                    </div>
+                    <p className="mt-2 text-[10px] text-stone-400">广州秋彦科技 · Qtech Vending</p>
                   </div>
                 </RevealOnScroll>
               );
@@ -511,37 +556,68 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
 
       {/* ════════ 1b. COMPANY INTRO ════════ */}
       <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
-        <div className="grid items-center gap-10 rounded-3xl bg-gradient-to-br from-ocean-50/80 via-white to-brand-50/60 px-8 py-14 shadow-soft lg:grid-cols-2 lg:px-12">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
-              {locale === 'zh' ? '关于 Qtech' : locale === 'ar' ? 'عن Qtech' : 'About Qtech'}
-            </p>
-            <h2 className="mt-3 text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl">
-              {locale === 'zh' ? '创新科技，便捷服务' : locale === 'ar' ? 'تكنولوجيا مبتكرة، خدمة مريحة' : 'Innovative Tech, Convenient Service'}
-            </h2>
-            <div className="prose-qtech mt-4">
-              {COMPANY_INTRO.body[locale].split(/\n{2,}/).map((p) => p.trim()).filter(Boolean).map((p, i) => (
-                <p key={i} className="mb-4 leading-relaxed text-ink-600">{p}</p>
-              ))}
-            </div>
-            <Link href={`/${locale}/contact`} className="btn-primary mt-6">
-              {t('nav.getQuote') || 'Get a Quote'}
-            </Link>
+        <div className="rounded-3xl bg-gradient-to-br from-ocean-50/80 via-white to-brand-50/60 px-8 py-14 text-center shadow-soft lg:px-12">
+          <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
+            {locale === 'zh' ? '关于 Qtech' : locale === 'ar' ? 'عن Qtech' : 'About Qtech'}
+          </p>
+          <h2 className="mx-auto mt-3 max-w-3xl text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl lg:text-4xl">
+            {locale === 'zh' ? '欢迎来到 Qtech'
+              : locale === 'ar' ? 'مرحبًا بكم في Qtech'
+              : 'Welcome to Qtech'}
+          </h2>
+          <div className="prose-qtech mx-auto mt-6 max-w-3xl text-left">
+            {COMPANY_INTRO.body[locale].split(/\n{2,}/).map((p) => p.trim()).filter(Boolean).map((p, i) => (
+              <p key={i} className="mb-4 leading-relaxed text-ink-600">{p}</p>
+            ))}
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-ocean-200/60 shadow-ocean">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={COMPANY_INTRO.image}
-              alt="Qtech factory"
-              className="h-full w-full object-cover"
-              loading="lazy"
-              decoding="async"
-            />
+          <Link href={`/${locale}/contact`} className="btn-primary mt-8">
+            {t('nav.getQuote') || 'Get a Quote'}
+          </Link>
+        </div>
+      </RevealOnScroll>
+
+      {/* ════════ 2. OUR STRENGTHS (6 icon cards) ════════ */}
+      <RevealOnScroll as="section" className="bg-cyan-50/50 py-16 lg:py-24">
+        <div className="container-qtech">
+          <div className="mx-auto max-w-2xl text-center">
+            <span className="inline-flex items-center gap-2 rounded-full bg-cyan-100 px-4 py-1.5 text-sm font-medium text-cyan-700">
+              <IconTile icon={ShieldCheck} className="h-4 w-4" tileClassName="bg-cyan-500 text-white p-1.5" />
+              {locale === 'zh' ? '我们的优势' : locale === 'ar' ? 'نقاط قوتنا' : 'Our Strengths'}
+            </span>
+            <h2 className="mt-5 text-3xl font-extrabold text-ink-900 sm:text-4xl">
+              {locale === 'zh' ? '六大核心竞争力'
+                : locale === 'ar' ? 'ست نقاط قوة تنافسية'
+                : 'Six Core Strengths'}
+            </h2>
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {STRENGTHS.map((s, i) => {
+              const Icon = s.icon;
+              const a = ACCENTS[i % ACCENTS.length];
+              return (
+                <RevealOnScroll key={localeOr(s.title)} delay={i * 80} className="h-full">
+                  <div className="glass-card-strong group relative h-full">
+                    <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile} flow-bar`} aria-hidden="true" />
+                    <IconTile
+                      icon={Icon}
+                      className="h-9 w-9"
+                      tileClassName={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 icon-pulse ${a.glow}`}
+                    />
+                    <h3 className="mt-5 text-xl font-bold text-ink-900">{localeOr(s.title)}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-ink-600">{localeOr(s.desc)}</p>
+                    <Link href={`/${locale}/products`} className={`mt-4 inline-flex items-center text-sm font-semibold ${a.text} hover:underline`}>
+                      {locale === 'zh' ? '了解更多' : locale === 'ar' ? 'اعرف المزيد' : 'Learn more'} →
+                    </Link>
+                  </div>
+                </RevealOnScroll>
+              );
+            })}
           </div>
         </div>
       </RevealOnScroll>
 
-      {/* ════════ 2. MISSION (3 statements) — cyan ambience ════════ */}
+      {/* ════════ 3. MISSION (3 statements) ─ cyan ambience ════════ */}
       <RevealOnScroll as="section" className="bg-cyan-50/50 py-16 lg:py-24">
         <div className="container-qtech">
           <div className="mx-auto max-w-2xl text-center">
@@ -550,7 +626,9 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               {locale === 'zh' ? '我们的使命' : locale === 'ar' ? 'مهمتنا' : 'Our Mission'}
             </span>
             <h2 className="mt-5 text-3xl font-extrabold text-ink-900 sm:text-4xl">
-              {locale === 'zh' ? '让智能自助真正创造价值' : locale === 'ar' ? 'جعل الخدمة الذاتية تخلق قيمة حقيقية' : 'Making Self-Service Create Real Value'}
+              {locale === 'zh' ? '让智能自助真正创造价值'
+                : locale === 'ar' ? 'جعل الخدمة الذاتية تخلق قيمة حقيقية'
+                : 'Making Self-Service Create Real Value'}
             </h2>
           </div>
 
@@ -560,15 +638,18 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               const a = ACCENTS[i % ACCENTS.length];
               return (
                 <RevealOnScroll key={localeOr(m.title)} delay={i * 80} className="h-full">
-                  <div className="glass-card-strong group relative h-full">
-                    <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile}`} aria-hidden="true" />
+                  <div className="glass-card-strong group relative h-full animate-float-slow">
+                    <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile} flow-bar`} aria-hidden="true" />
                     <IconTile
                       icon={Icon}
                       className="h-9 w-9"
-                      tileClassName={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 ${a.glow}`}
+                      tileClassName={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 icon-pulse ${a.glow}`}
                     />
                     <h3 className="mt-5 text-xl font-bold text-ink-900">{localeOr(m.title)}</h3>
                     <p className="mt-3 text-sm leading-relaxed text-ink-600">{localeOr(m.desc)}</p>
+                    <Link href={`/${locale}/products`} className={`mt-4 inline-flex items-center text-sm font-semibold ${a.text} hover:underline`}>
+                      {locale === 'zh' ? '了解更多' : locale === 'ar' ? 'اعرف المزيد' : 'Learn more'} →
+                    </Link>
                   </div>
                 </RevealOnScroll>
               );
@@ -577,16 +658,18 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         </div>
       </RevealOnScroll>
 
-      {/* ════════ 3. VISION (3 statements) — emerald/violet/amber ambience ════════ */}
+      {/* ════════ 4. VISION (3 statements) ─ emerald/violet/amber ambience ════════ */}
       <RevealOnScroll as="section" className="bg-teal-50/50 py-16 lg:py-24">
         <div className="container-qtech">
           <div className="mx-auto max-w-2xl text-center">
             <span className="inline-flex items-center gap-2 rounded-full bg-teal-100 px-4 py-1.5 text-sm font-medium text-teal-700">
-              <IconTile icon={Eye} className="h-4 w-4" tileClassName="bg-teal-500 text-white p-1.5" />
+              <IconTile icon={Globe2} className="h-4 w-4" tileClassName="bg-teal-500 text-white p-1.5" />
               {locale === 'zh' ? '我们的愿景' : locale === 'ar' ? 'رؤيتنا' : 'Our Vision'}
             </span>
             <h2 className="mt-5 text-3xl font-extrabold text-ink-900 sm:text-4xl">
-              {locale === 'zh' ? '让世界随处可享智能服务' : locale === 'ar' ? 'لنجعل الخدمة الذكية في كل مكان' : 'Smart Service, Everywhere'}
+              {locale === 'zh' ? '让世界随处可享智能服务'
+                : locale === 'ar' ? 'لنجعل الخدمة الذكية في كل مكان'
+                : 'Smart Service, Everywhere'}
             </h2>
           </div>
 
@@ -596,15 +679,18 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               const a = ACCENTS[(i + 1) % ACCENTS.length];
               return (
                 <RevealOnScroll key={localeOr(v.title)} delay={i * 80} className="h-full">
-                  <div className="glass-card-strong group relative h-full">
-                    <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile}`} aria-hidden="true" />
+                  <div className="glass-card-strong group relative h-full animate-float-slow">
+                    <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile} flow-bar`} aria-hidden="true" />
                     <IconTile
                       icon={Icon}
                       className="h-9 w-9"
-                      tileClassName={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 ${a.glow}`}
+                      tileClassName={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 icon-pulse ${a.glow}`}
                     />
                     <h3 className="mt-5 text-xl font-bold text-ink-900">{localeOr(v.title)}</h3>
                     <p className="mt-3 text-sm leading-relaxed text-ink-600">{localeOr(v.desc)}</p>
+                    <Link href={`/${locale}/contact`} className={`mt-4 inline-flex items-center text-sm font-semibold ${a.text} hover:underline`}>
+                      {locale === 'zh' ? '了解更多' : locale === 'ar' ? 'اعرف المزيد' : 'Learn more'} →
+                    </Link>
                   </div>
                 </RevealOnScroll>
               );
@@ -613,23 +699,21 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         </div>
       </RevealOnScroll>
 
-      {/* ════════ 4. STORY / CAPABILITY NARRATIVE (from DB) ════════ */}
+      {/* ════════ 5. STORY / CAPABILITY NARRATIVE (from DB, no images) ════════ */}
       <div className="container-qtech space-y-16 py-16 lg:py-24">
         {narrative.map((section, idx) => {
           const title = localized(section.title, locale);
           const body = localized(section.body, locale);
           const SectionIcon = SECTION_ICONS[section.key] || Factory;
-          const img = REAL_IMG[section.key] || section.image || REAL_IMG.story;
+          const a = ACCENTS[idx % ACCENTS.length];
           return (
             <RevealOnScroll
               key={section.key}
               as="section"
-              className={`grid items-center gap-10 lg:grid-cols-2 ${
-                idx % 2 === 1 ? 'lg:[&>*:first-child]:order-2' : ''
-              }`}
+              className="grid items-center gap-10 lg:grid-cols-2"
             >
-              <div>
-                <span className={`inline-flex items-center gap-2 rounded-full bg-gradient-to-r ${ACCENTS[idx % ACCENTS.length].tile} px-4 py-1.5 text-sm font-medium text-white`}>
+              <div className={idx % 2 === 1 ? 'lg:order-2' : ''}>
+                <span className={`inline-flex items-center gap-2 rounded-full bg-gradient-to-r ${a.tile} px-4 py-1.5 text-sm font-medium text-white`}>
                   <IconTile icon={SectionIcon} className="h-4 w-4" tileClassName="bg-white/20 text-white p-1.5" />
                   {title}
                 </span>
@@ -644,21 +728,18 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     ))}
                 </div>
               </div>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-ocean-200/60 shadow-ocean">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={img}
-                  alt={title}
-                  className="absolute inset-0 h-full w-full object-cover"
-                  loading="lazy"
-                  decoding="async"
+              <div className={`relative flex min-h-[260px] items-center justify-center rounded-2xl border border-ocean-200/60 bg-gradient-to-br from-ocean-50/60 to-white shadow-ocean ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
+                <IconTile
+                  icon={SectionIcon}
+                  className="h-16 w-16"
+                  tileClassName={`flex h-28 w-28 items-center justify-center rounded-3xl bg-gradient-to-br ${a.tile} text-white shadow-xl`}
                 />
               </div>
             </RevealOnScroll>
           );
         })}
 
-        {/* ════════ 5. MANUFACTURING & QUALITY — sky ambience ════════ */}
+        {/* ════════ 6. MANUFACTURING & QUALITY — icon cards, no watermarked photos ════════ */}
         <RevealOnScroll as="section" className="overflow-hidden rounded-3xl bg-gradient-to-br from-sky-50 via-white to-brand-50 px-8 py-14 lg:px-12">
           <div className="mx-auto max-w-2xl text-center">
             <span className="inline-flex items-center gap-2 rounded-full bg-sky-100 px-4 py-1.5 text-sm font-medium text-sky-700">
@@ -683,37 +764,24 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             {MANU_CARDS.map((card, i) => {
               const Icon = card.icon;
               const tags = card.tags[locale] ?? card.tags.en;
+              const a = ACCENTS[i % ACCENTS.length];
               return (
                 <RevealOnScroll key={localeOr(card.title)} delay={i * 80} className="h-full">
-                  <div className="glass-card-strong group flex h-full flex-col overflow-hidden">
-                    <div className="aspect-[16/10] overflow-hidden">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={card.img}
-                        alt={localeOr(card.title)}
-                        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-ink-900/50 via-transparent to-transparent" />
+                  <div className="glass-card-strong group flex h-full flex-col">
+                    <div className="flex items-center gap-4">
+                      <IconTile icon={Icon} className="h-5 w-5" tileClassName={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-md transition-transform duration-300 group-hover:scale-110`} />
+                      <h3 className="text-lg font-semibold text-ink-900">{localeOr(card.title)}</h3>
                     </div>
-                    <div className="flex flex-1 flex-col p-5">
-                      <div className="flex items-center gap-3">
-                        <IconTile icon={Icon} className="h-4 w-4" tileClassName="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-50 text-brand-700" />
-                        <h3 className="text-base font-semibold text-ink-900">{localeOr(card.title)}</h3>
-                      </div>
-                      <p className="mt-2 text-sm leading-relaxed text-ink-600">{localeOr(card.desc)}</p>
-                      {/* Capability tags — brand chips */}
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="inline-flex items-center rounded-full border border-ocean-200/70 bg-ocean-50/70 px-2.5 py-1 text-[11px] font-medium text-ocean-700"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
+                    <p className="mt-3 text-sm leading-relaxed text-ink-600">{localeOr(card.desc)}</p>
+                    <div className="mt-auto flex flex-wrap gap-2 pt-4">
+                      {tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="inline-flex items-center rounded-full border border-ocean-200/70 bg-ocean-50/70 px-2.5 py-1 text-[11px] font-medium text-ocean-700"
+                        >
+                          {tag}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </RevealOnScroll>
@@ -722,7 +790,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           </div>
         </RevealOnScroll>
 
-        {/* ════════ 6. GLOBAL SUCCESS STORIES ════════ */}
+        {/* ════════ 7. GLOBAL SUCCESS STORIES ════════ */}
         <RevealOnScroll as="section">
           <div className="mx-auto max-w-2xl text-center">
             <span className="inline-flex items-center rounded-full bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-700">
@@ -744,22 +812,16 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               const cat = STORY_CATS[i];
               return (
                 <RevealOnScroll key={localeOr(s.title)} delay={i * 80} className="h-full">
-                  <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl pro-card">
-                    {/* Persistent brand-500 top accent bar — card memory point */}
+                  <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl pro-card transition-all duration-300 hover:scale-[1.03] hover:shadow-lift">
                     <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
                     <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                      <ImageWithRetry
                         src={s.image}
                         alt={s.title[locale] || s.title.en}
                         loading="lazy"
                         className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                        onError={(e) => {
-                          (e.currentTarget as HTMLImageElement).src = '/images/og-default.svg';
-                        }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-ink-900/60 via-transparent to-transparent" />
-                      {/* Category tag overlay */}
                       <span className="absolute start-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-brand-700 shadow-sm backdrop-blur">
                         {cat[locale] || cat.en}
                       </span>
@@ -775,7 +837,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           </div>
         </RevealOnScroll>
 
-        {/* ════════ 7. CORE VALUES — 8-grid with colored top border ════════ */}
+        {/* ════════ 8. CORE VALUES — 8-grid with colored top border ════════ */}
         <RevealOnScroll as="section" className="rounded-3xl bg-gradient-to-br from-violet-50/50 via-white to-brand-50/40 px-8 py-14 lg:px-12">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
@@ -790,8 +852,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               const a = ACCENTS[i % ACCENTS.length];
               return (
                 <RevealOnScroll key={localeOr(v.title)} delay={i * 80} className="h-full">
-                  <div className={`glass-card-strong group relative flex h-full flex-col p-6 text-center border-t-4 ${a.border}`}>
-                    {/* Oversized index watermark */}
+                  <div className={`glass-card-strong group relative flex h-full flex-col p-6 text-center border-t-4 ${a.border} animate-float-slow`}>
                     <span
                       aria-hidden="true"
                       className="pointer-events-none absolute -end-2 -top-2 select-none text-6xl font-black text-slate-100/50"
@@ -802,10 +863,13 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     <IconTile
                       icon={Icon}
                       className="h-7 w-7"
-                      tileClassName={`mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-md transition group-hover:scale-110 group-hover:shadow-lg`}
+                      tileClassName={`mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-md transition group-hover:scale-110 group-hover:shadow-lg icon-pulse`}
                     />
                     <h3 className="relative mt-4 text-lg font-bold text-ink-900">{localeOr(v.title)}</h3>
                     <p className="relative mt-2 text-sm leading-relaxed text-ink-500">{localeOr(v.desc)}</p>
+                    <Link href={`/${locale}/products`} className={`relative mt-4 inline-flex items-center justify-center text-sm font-semibold ${a.text} hover:underline`}>
+                      {locale === 'zh' ? '了解更多' : locale === 'ar' ? 'اعرف المزيد' : 'Learn more'} →
+                    </Link>
                   </div>
                 </RevealOnScroll>
               );
@@ -813,7 +877,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           </div>
         </RevealOnScroll>
 
-        {/* ════════ 8. COMPANY TIMELINE — alternating vertical ════════ */}
+        {/* ════════ 9. COMPANY TIMELINE — alternating vertical ════════ */}
         <RevealOnScroll as="section" className="rounded-3xl bg-gradient-to-br from-cyan-50/60 via-white to-teal-50/50 px-8 py-14 lg:px-12">
           <div className="mx-auto max-w-2xl text-center">
             <span className="inline-flex items-center rounded-full bg-cyan-100 px-4 py-1.5 text-sm font-medium text-cyan-700">
@@ -827,7 +891,6 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           </div>
 
           <div className="relative mx-auto mt-12 max-w-4xl">
-            {/* Center / left vertical line */}
             <div className="absolute top-0 bottom-0 start-6 w-0.5 bg-gradient-to-b from-cyan-300 via-teal-300 to-sky-300 md:start-1/2 md:-translate-x-1/2" aria-hidden="true" />
 
             <div className="space-y-8">
@@ -835,7 +898,6 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                 const left = i % 2 === 0;
                 return (
                   <div key={m.year} className="relative ps-16 md:ps-0">
-                    {/* Year node on the line */}
                     <div className="absolute start-0 top-1 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 text-[11px] font-bold text-white shadow-lg ring-4 ring-white md:start-1/2 md:-translate-x-1/2">
                       {m.year}
                     </div>
@@ -857,7 +919,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           </div>
         </RevealOnScroll>
 
-        {/* ════════ 9. CERTIFICATIONS — icon grid ════════ */}
+        {/* ════════ 10. CERTIFICATIONS — icon grid ════════ */}
         <RevealOnScroll as="section">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
@@ -887,21 +949,6 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                 </RevealOnScroll>
               );
             })}
-          </div>
-        </RevealOnScroll>
-
-        {/* ════════ 10. KEY NUMBERS ════════ */}
-        <RevealOnScroll as="section" className="overflow-hidden rounded-3xl bg-ocean-50 px-8 py-12 text-center">
-          <h2 className="text-2xl font-bold text-ink-900 sm:text-3xl">{t('about.statsTitle') || 'Qtech by Numbers'}</h2>
-          <div className="mt-8 grid grid-cols-2 gap-8 lg:grid-cols-4">
-            {NUMBERS.map((n) => (
-              <div key={localeOr(n.label)}>
-                <dt className="text-4xl font-extrabold text-ink-900">
-                  <CountUp end={n.end} suffix={n.suffix} />
-                </dt>
-                <dd className="mt-2 text-sm text-ink-600">{localeOr(n.label)}</dd>
-              </div>
-            ))}
           </div>
         </RevealOnScroll>
 

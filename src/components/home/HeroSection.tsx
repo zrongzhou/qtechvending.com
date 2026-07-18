@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -24,9 +25,16 @@ import type { Product } from '@/types';
 const HERO_FALLBACK =
   '/images/products/2025-popular-24-7-self-service-florist-flower-shop-vending-machine-sell-bouquet-of-rose/1.webp';
 
+const HERO_IMAGES = [
+  '/images/hero/hero-product-1.webp',
+  '/images/hero/hero-product-2.webp',
+  '/images/hero/hero-product-3.webp',
+  '/images/hero/hero-product-4.webp',
+  '/images/hero/hero-product-5.webp',
+  '/images/hero/hero-product-6.webp',
+];
+
 // Trust strip — four colourful glass micro-badges for instant B2B credibility.
-// Each item carries its own accent palette so the row reads "multicolour" while
-// staying cohesive with the ocean system.
 const TRUST: {
   icon: LucideIcon;
   valueKey: string;
@@ -65,11 +73,9 @@ const TRUST: {
 ];
 
 /**
- * Flagship hero (V32): a clean night-sky Starfield canvas behind the value
- * proposition, with the real product visual kept inside a soft glass card on
- * the right, and a row of colourful frosted-glass trust badges. The faint
- * full-bleed product photo that previously bled through the sky has been
- * removed so the left side is pure starfield on the ink-950 base.
+ * Flagship hero (V36): a cinematic starfield behind the value proposition, and
+ * a 6-image auto-rotating product carousel on the right with fade + scale
+ * transitions and dot indicators.
  */
 export default function HeroSection({ products = [] }: { products?: Product[] }) {
   const { t, locale } = useLocale();
@@ -80,6 +86,15 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
     ? `/${locale}/products/${heroProduct.slug}`
     : `/${locale}/products`;
   const imageSrc = (heroProduct?.images?.[0] || HERO_FALLBACK) as string;
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section className="relative overflow-hidden bg-ink-950">
@@ -178,33 +193,57 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
           </RevealOnScroll>
         </div>
 
-        {/* Right: real product visual inside a light glass card */}
+        {/* Right: 6-image auto-rotating carousel inside a glass card */}
         <RevealOnScroll delay={200} className="block">
           <div className="group relative">
             <div className="glass-dark relative overflow-hidden p-3 shadow-lift">
-              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-slate-100">
-                <ImageWithRetry
-                  src={imageSrc}
-                  alt={heroName || t('home.hero.featuredLabel')}
-                  loading="eager"
-                  fetchPriority="high"
-                  className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.04]"
-                />
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-slate-100 shadow-2xl shadow-brand-300/20">
+                {HERO_IMAGES.map((src, i) => (
+                  <ImageWithRetry
+                    key={src}
+                    src={src}
+                    alt={locale === 'zh' ? `Qtech 产品展示 ${i + 1}` : locale === 'ar' ? `عرض المنتج Qtech ${i + 1}` : `Qtech product showcase ${i + 1}`}
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    fetchPriority={i === 0 ? 'high' : undefined}
+                    className={`absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-1000 ease-out ${
+                      i === currentIndex
+                        ? 'opacity-100 scale-100'
+                        : 'opacity-0 scale-[1.02]'
+                    }`}
+                  />
+                ))}
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/30 via-transparent to-transparent" />
 
-                <Link
-                  href={heroHref}
-                  className="absolute inset-x-4 bottom-4 inline-flex items-center justify-between gap-2 rounded-xl bg-white/90 px-4 py-2.5 text-ink-900 shadow-lg backdrop-blur transition hover:bg-white"
-                >
-                  <span className="line-clamp-1 text-sm font-semibold leading-tight">
-                    {heroName || t('home.hero.featuredLabel')}
-                  </span>
-                  <span className="shrink-0 inline-flex items-center gap-1 text-xs font-semibold text-ocean-700">
-                    {t('home.featured.viewDetails')}
-                    <span aria-hidden="true" className="rtl:-scale-x-100">→</span>
-                  </span>
-                </Link>
+                {/* Dot indicators */}
+                <div className="absolute inset-x-0 bottom-4 z-10 flex items-center justify-center gap-2">
+                  {HERO_IMAGES.map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setCurrentIndex(i)}
+                      aria-label={`${locale === 'zh' ? '切换到第' : locale === 'ar' ? 'الانتقال إلى' : 'Go to slide'} ${i + 1}`}
+                      className={`h-2 rounded-full transition-all duration-300 ${
+                        i === currentIndex
+                          ? 'w-6 bg-white'
+                          : 'w-2 bg-white/40 hover:bg-white/70'
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
+
+              <Link
+                href={heroHref}
+                className="absolute inset-x-4 bottom-12 inline-flex items-center justify-between gap-2 rounded-xl bg-white/90 px-4 py-2.5 text-ink-900 shadow-lg backdrop-blur transition hover:bg-white"
+              >
+                <span className="line-clamp-1 text-sm font-semibold leading-tight">
+                  {heroName || t('home.hero.featuredLabel')}
+                </span>
+                <span className="shrink-0 inline-flex items-center gap-1 text-xs font-semibold text-ocean-700">
+                  {t('home.featured.viewDetails')}
+                  <span aria-hidden="true" className="rtl:-scale-x-100">→</span>
+                </span>
+              </Link>
 
               {/* Floating credibility badge */}
               <div className="float-soft absolute -start-4 -top-4 hidden items-center gap-2 rounded-2xl border border-white/15 bg-ink-900/80 px-4 py-2.5 shadow-lift backdrop-blur sm:inline-flex">
