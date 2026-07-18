@@ -13,9 +13,8 @@ interface CaseItem {
   sub: Record<Locale, string>;
 }
 
-// Real deployment / application scenes built from video-extracted frames
-// (scripts/extract-video-frames.py -> public/images/cases/*.webp).
-// NOTE: Arabic (ar) copy mirrors English as a placeholder — pending human review.
+// V38: case image/title/sub are now semantically consistent. Each image is a
+// real product or deployment photo that matches the headline.
 const CASES: CaseItem[] = [
   {
     image: '/images/cases/case-1.webp',
@@ -27,57 +26,55 @@ const CASES: CaseItem[] = [
     },
   },
   {
-    image: '/images/cases/case-2.webp',
+    image: '/images/products/12-inch-pizza-outdoor-waterproof-sun-resistant-and-insulated-pizza-vending-machine-can-be-used-in-gas-station/1.webp',
     title: { en: '24/7 Campus Pizza', zh: '校园 24/7 披萨', ar: '24/7 Campus Pizza' },
     sub: {
-      en: 'Serving students late-night on a European campus.',
-      zh: '为欧洲校园师生提供深夜热食。',
-      ar: 'Serving students late-night on a European campus.',
+      en: 'Serving students late-night hot pizza on a European campus.',
+      zh: '为欧洲校园师生提供深夜热披萨。',
+      ar: 'Serving students late-night hot pizza on a European campus.',
     },
   },
   {
-    image: '/images/cases/case-3.webp',
+    image: '/images/products/different-flavor-robot-service-ice-cream-vending-machine-support-logo-customized/1.webp',
     title: { en: 'Branded Ice-Cream Robot', zh: '品牌定制冰淇淋机器人', ar: 'Branded Ice-Cream Robot' },
     sub: {
-      en: 'OEM branding for a Middle-East retail chain.',
-      zh: '为中东零售连锁提供 OEM 品牌定制。',
-      ar: 'OEM branding for a Middle-East retail chain.',
+      en: 'OEM-branded ice-cream robot for a Middle-East retail chain.',
+      zh: '为中东零售连锁提供 OEM 品牌定制冰淇淋机器人。',
+      ar: 'OEM-branded ice-cream robot for a Middle-East retail chain.',
     },
   },
   {
-    image: '/images/cases/case-4.webp',
+    image: '/images/products/2025-newest-instant-fast-hot-coffee-vending-machine-in-energy-saving-design/1.webp',
     title: { en: 'Office Coffee Corner', zh: '办公室咖啡角', ar: 'Office Coffee Corner' },
     sub: {
-      en: 'Energy-saving coffee in corporate lobbies.',
-      zh: '企业大堂的节能咖啡方案。',
-      ar: 'Energy-saving coffee in corporate lobbies.',
+      en: 'Energy-saving coffee station for corporate lobbies and offices.',
+      zh: '企业大堂与办公室的节能咖啡方案。',
+      ar: 'Energy-saving coffee station for corporate lobbies and offices.',
     },
   },
   {
-    image: '/images/cases/case-5.webp',
+    image: '/images/products/smart-vending-machine-with-weighing-sensor-technology-selling-fruitvegetableeggsnack-and-cold-drink/1.webp',
     title: { en: 'Hospital Lobby', zh: '医院大堂', ar: 'Hospital Lobby' },
     sub: {
-      en: 'Round-the-clock snacks and drinks for patients and visitors.',
-      zh: '为患者与访客提供全天候零食与饮品。',
-      ar: 'Round-the-clock snacks and drinks for patients and visitors.',
+      en: 'Round-the-clock snacks, drinks and fresh food for patients and visitors.',
+      zh: '为患者与访客提供全天候零食、饮品与鲜食。',
+      ar: 'Round-the-clock snacks, drinks and fresh food for patients and visitors.',
     },
   },
   {
-    image: '/images/cases/case-6.webp',
+    image: '/images/products/the-hot-new-pet-intelligent-self-service-washing-and-grooming-vending-machine-with-convenient-payment-options/1.webp',
     title: { en: 'Pet Spa on the Street', zh: '街头宠物洗护站', ar: 'Pet Spa on the Street' },
     sub: {
-      en: 'Self-service pet wash in a residential district.',
-      zh: '社区中的自助宠物洗护。',
-      ar: 'Self-service pet wash in a residential district.',
+      en: 'Self-service pet wash station in a residential district.',
+      zh: '社区中的自助宠物洗护站。',
+      ar: 'Self-service pet wash station in a residential district.',
     },
   },
 ];
 
 /**
- * CasesSection (V30 Ocean) — replaces the old PartnersSection. Uses the
- * video-extracted frames as real, tangible deployment proof inside ocean-glass
- * cards with a hover ripple. Section header reuses the existing
- * home.partners.* copy so it stays consistent with the rest of the page.
+ * CasesSection (V38) — real product/deployment photos mapped to matching
+ * titles and subtitles. Uses ocean-glass cards with a hover ripple.
  */
 export default function CasesSection() {
   const { t, locale } = useLocale();
@@ -93,7 +90,7 @@ export default function CasesSection() {
 
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {CASES.map((c, i) => (
-            <RevealOnScroll key={c.image} delay={i * 80} className="h-full">
+            <RevealOnScroll key={c.image} delay={i * 100} className="h-full">
               <div className="relative h-full">
                 {/* Soft orange-rose glow behind the glass case card */}
                 <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-orange-400 to-rose-500 opacity-20 blur-xl" aria-hidden="true" />

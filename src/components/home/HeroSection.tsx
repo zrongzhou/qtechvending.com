@@ -20,22 +20,59 @@ import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import Starfield from '@/components/ui/Starfield';
 import type { Product } from '@/types';
 
-// A real, confirmed product photo (public/images/products/...) used as the
-// flagship hero visual so the first screen feels tangible and confident.
+// A real, confirmed product photo used as the flagship hero visual so the
+// first screen feels tangible and confident.
 const HERO_FALLBACK =
   '/images/products/2025-popular-24-7-self-service-florist-flower-shop-vending-machine-sell-bouquet-of-rose/1.webp';
 
-// V37: the rotating hero visuals are now the user-supplied Cases / feedback
-// photos. The "View Details" CTA still points to the flagship product (products[0])
-// and is intentionally untouched.
+// V38: the rotating hero visuals are the six user-supplied product photos
+// converted to 576×1024 portrait webp. The "View Details" CTA still points to
+// the flagship product (products[0]) and is intentionally untouched.
 const HERO_IMAGES = [
-  '/images/cases/case-1.webp',
-  '/images/cases/case-2.webp',
-  '/images/cases/case-3.webp',
-  '/images/cases/case-4.webp',
-  '/images/cases/case-5.webp',
-  '/images/cases/case-6.webp',
+  '/images/hero/hero-product-1.webp', // 圆形花柜 (FLORALISTRY)
+  '/images/hero/hero-product-2.webp', // 矩形 9 格花柜
+  '/images/hero/hero-product-3.webp', // 宠物售货机（狗头造型）
+  '/images/hero/hero-product-4.webp', // 零食薯条机 (SNACK UP)
+  '/images/hero/hero-product-5.webp', // 三台白柜并排
+  '/images/hero/hero-product-6.webp', // 黑色圆形花柜
 ];
+
+// Descriptive alt text for each hero image, localised by locale.
+function heroAlt(index: number, locale: string): string {
+  const labels: Record<number, Record<string, string>> = {
+    0: {
+      zh: '圆形花柜 FLORALISTRY 鲜花自助售货机',
+      en: 'Round floral cabinet — FLORALISTRY fresh-flower vending kiosk',
+      ar: 'خزانة زهور دائرية — كشك بيع الزهور FLORALISTRY',
+    },
+    1: {
+      zh: '矩形 9 格鲜花自助售货机',
+      en: 'Rectangular 9-compartment flower vending machine',
+      ar: 'آلة بيع الزهور المستطيلة بـ 9 أقسام',
+    },
+    2: {
+      zh: '宠物造型智能售货机（狗头造型）',
+      en: 'Pet-shaped smart vending machine (dog-head design)',
+      ar: 'آلة بيع ذكية على شكل حيوان أليف (تصميم رأس كلب)',
+    },
+    3: {
+      zh: '零食薯条机 SNACK UP',
+      en: 'Snack and fries vending machine (SNACK UP)',
+      ar: 'آلة بيع الوجبات الخفيفة والبطاطس (SNACK UP)',
+    },
+    4: {
+      zh: '三台白柜并排展示',
+      en: 'Three white vending cabinets side by side',
+      ar: 'ثلاث خزائن بيضاء للبيع الآلي بجانب بعضها',
+    },
+    5: {
+      zh: '黑色圆形花柜',
+      en: 'Black round floral cabinet',
+      ar: 'خزانة زهور دائرية سوداء',
+    },
+  };
+  return labels[index]?.[locale] ?? labels[index]?.en ?? `Qtech product ${index + 1}`;
+}
 
 // Trust strip — four colourful glass micro-badges for instant B2B credibility.
 const TRUST: {
@@ -76,7 +113,7 @@ const TRUST: {
 ];
 
 /**
- * Flagship hero (V36): a cinematic starfield behind the value proposition, and
+ * Flagship hero (V38): a cinematic starfield behind the value proposition, and
  * a 6-image auto-rotating product carousel on the right with fade + scale
  * transitions and dot indicators.
  */
@@ -210,7 +247,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
                   >
                     <ImageWithRetry
                       src={src}
-                      alt={locale === 'zh' ? `Qtech 产品展示 ${i + 1}` : locale === 'ar' ? `عرض المنتج Qtech ${i + 1}` : `Qtech product showcase ${i + 1}`}
+                      alt={heroAlt(i, locale)}
                       loading={i === 0 ? 'eager' : 'lazy'}
                       fetchPriority={i === 0 ? 'high' : undefined}
                       className="absolute inset-0 h-full w-full object-cover"

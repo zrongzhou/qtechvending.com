@@ -13,9 +13,10 @@ interface AccentTheme {
   bar: string; // top accent bar gradient
   tile: string; // icon tile gradient surface
   check: string; // bullet check colour
-  leftBorder: string; // bullet left-border colour
+  leftBorder: string; // card left-border colour
   glow: string; // hover box-shadow (coloured glow + glass highlight)
   watermark: string; // watermark number tint on hover
+  text: string; // "learn more" link colour
 }
 
 const ACCENTS: AccentTheme[] = [
@@ -27,6 +28,7 @@ const ACCENTS: AccentTheme[] = [
     leftBorder: 'border-blue-400',
     glow: 'hover:shadow-[0_20px_50px_rgba(59,130,246,0.28),inset_0_1px_0_rgba(255,255,255,0.6)]',
     watermark: 'group-hover:text-blue-200',
+    text: 'text-blue-600',
   },
   {
     // Card 2 — 24/7运营 — amber/orange (availability)
@@ -36,6 +38,7 @@ const ACCENTS: AccentTheme[] = [
     leftBorder: 'border-amber-400',
     glow: 'hover:shadow-[0_20px_50px_rgba(245,158,11,0.28),inset_0_1px_0_rgba(255,255,255,0.6)]',
     watermark: 'group-hover:text-amber-200',
+    text: 'text-amber-600',
   },
   {
     // Card 3 — OEM定制 — violet/purple (creative custom)
@@ -45,6 +48,7 @@ const ACCENTS: AccentTheme[] = [
     leftBorder: 'border-violet-400',
     glow: 'hover:shadow-[0_20px_50px_rgba(139,92,246,0.28),inset_0_1px_0_rgba(255,255,255,0.6)]',
     watermark: 'group-hover:text-violet-200',
+    text: 'text-violet-600',
   },
   {
     // Card 4 — 全球发货 — emerald/teal (global)
@@ -54,6 +58,7 @@ const ACCENTS: AccentTheme[] = [
     leftBorder: 'border-emerald-400',
     glow: 'hover:shadow-[0_20px_50px_rgba(16,185,129,0.28),inset_0_1px_0_rgba(255,255,255,0.6)]',
     watermark: 'group-hover:text-emerald-200',
+    text: 'text-emerald-600',
   },
 ];
 
@@ -62,7 +67,7 @@ const POINTS: Record<Locale, string[]>[] = [
   {
     zh: ['广州自有工厂，价格更具竞争力', '品控全程可控，质量有保障', '支持小批量试单与 OEM 定制'],
     en: ['Guangzhou-owned factory for sharper pricing', 'End-to-end quality control you can trust', 'Low-MOQ trial orders & full OEM custom'],
-    ar: ['مصنع خاص في غوانغتشو بأسعار أفضل', 'تحكم كامل في الجودة من البداية للنهاية', 'طلبات تجريبية بكميات صغيرة وتخصيص OEM'],
+    ar: ['مصنع خاص في غوانغشو بأسعار أفضل', 'تحكم كامل في الجودة من البداية للنهاية', 'طلبات تجريبية بكميات صغيرة وتخصيص OEM'],
   },
   {
     zh: ['无人值守，降低人工运营成本', '远程监控与故障告警，运营无忧', '适配商场、社区、校园等公共场景'],
@@ -110,11 +115,11 @@ export default function AdvantagesSection() {
             const accent = ACCENTS[i];
             const points = POINTS[i][locale] ?? POINTS[i].en;
             return (
-            <RevealOnScroll key={item.titleKey} delay={i * 80} className="h-full">
+            <RevealOnScroll key={item.titleKey} delay={i * 100} className="h-full">
               <div className="relative h-full">
                 {/* Soft colored glow behind the glass card so it pops visually */}
                 <div className={`absolute -inset-1 rounded-2xl bg-gradient-to-br opacity-20 blur-xl ${accent.bar}`} aria-hidden="true" />
-                <OceanGlassCard depth="md" hoverLift className={`group relative z-10 h-full border border-ocean-200/50 ${accent.glow}`}>
+                <OceanGlassCard depth="md" hoverLift={false} className={`group relative z-10 h-full border border-ocean-200/50 border-l-4 ${accent.leftBorder} ${accent.glow} transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02]`}>
                   <div className="flex h-full flex-col p-7">
                     {/* Top accent bar — per-card identity colour */}
                     <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${accent.bar}`} aria-hidden="true" />
@@ -127,7 +132,7 @@ export default function AdvantagesSection() {
                       <IconTile
                         icon={Icon}
                         className="h-14 w-14"
-                        tileClassName={`${accent.tile} flex items-center justify-center rounded-2xl shadow-md transition-transform duration-300 group-hover:scale-110`}
+                        tileClassName={`${accent.tile} flex items-center justify-center rounded-2xl shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6`}
                         animate="float"
                       />
                       <h3 className="mt-5 text-xl font-bold text-ink-900">{t(item.titleKey)}</h3>
@@ -143,6 +148,14 @@ export default function AdvantagesSection() {
                         </li>
                       ))}
                     </ul>
+
+                    {/* Learn more with slide-in underline in accent colour */}
+                    <a
+                      href={`/${locale}/products`}
+                      className={`relative mt-4 inline-flex w-fit items-center text-sm font-semibold ${accent.text} transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full`}
+                    >
+                      {locale === 'zh' ? '了解更多' : locale === 'ar' ? 'اعرف المزيد' : 'Learn more'} →
+                    </a>
 
                     {/* Bottom decorative gradient line */}
                     <span className={`mt-auto block h-1 w-full rounded-full bg-gradient-to-r opacity-70 ${accent.bar}`} aria-hidden="true" />

@@ -90,15 +90,6 @@ const SECTION_ICONS: Record<string, LucideIcon> = {
   capability: Cog,
 };
 
-/* ── Company intro (user-provided V36 copy) ── */
-const COMPANY_INTRO: { body: Record<string, string> } = {
-  body: {
-    en: "Welcome to our official website. We're a Qiuyan (Qtech) vending company dedicated to developing, manufacturing, and selling vending machines. We're all about using innovative technology to offer convenient, efficient, and personalized vending solutions.\n\nOur main products are ice, fruit, cotton candy, pizza, and flower vending machines, which not only satisfy the market's appetite for novel experiences but also reflect our commitment to quality and service.\n\nWe focus on innovating and refining vending machines, paying close attention to every detail to ensure our products stand out and perform well in the market. Here's what makes us strong: creative design, premium materials, smart management, affordable quality, all-round service, and continuous improvement.",
-    zh: '欢迎来到我们的官方网站。我们是广州秋彦科技（Qtech）——一家致力于研发、制造和销售自动售货机的公司。我们运用创新科技，为全球客户提供便捷、高效、个性化的自动售卖解决方案。\n\n我们的主营产品包括冰品、水果、棉花糖、披萨和鲜花自动售货机，既满足市场对新颖体验的需求，也体现了我们对品质和服务的承诺。\n\n我们专注于创新与打磨自动售货机，关注每一个细节，确保产品在市场上脱颖而出、表现优异。我们的优势：创意设计、优质材料、智能管理、高性价比、全程服务、持续改进。',
-    ar: 'مرحبًا بكم في موقعنا الرسمي. نحن شركة تشيويان (Qtech) للآلات الذكية، متخصصون في تطوير وتصنيع وبيع آلات البيع. نهدف إلى تقديم حلول بيع آلية مريحة وفعالة وشخصية من خلال التكنولوجيا المبتكرة.\n\nتشمل منتجاتنا الرئيسية آلات بيع الثلج والفواكه والحلوى القطنية والبيتزا والزهور، التي تلبي رغبة السوق في تجارب جديدة وتعكس التزامنا بالجودة والخدمة.\n\nنركز على الابتكار وتحسين آلات البيع، مع الاهتمام بكل التفاصيل لضمان تميز منتجاتنا وأدائها في السوق. نقاط قوتنا: التصميم الإبداعي، المواد الممتازة، الإدارة الذكية، الجودة بأسعار معقولة، الخدمة الشاملة، والتحسين المستمر.',
-  },
-};
-
 /* ── Six company strengths (user-specified) ── */
 const STRENGTHS: ValueItem[] = [
   {
@@ -363,7 +354,7 @@ const VISION_STATEMENTS: StatementItem[] = [
   },
 ];
 
-/* ── Global success stories (new V36 high-resolution images) ── */
+/* ── Global success stories (V38: image/title/sub consistent) ── */
 const STORIES = [
   {
     image: '/images/cases/case-1.webp',
@@ -375,48 +366,48 @@ const STORIES = [
     },
   },
   {
-    image: '/images/cases/case-2.webp',
+    image: '/images/products/12-inch-pizza-outdoor-waterproof-sun-resistant-and-insulated-pizza-vending-machine-can-be-used-in-gas-station/1.webp',
     title: { en: '24/7 Campus Pizza', zh: '校园 24/7 披萨', ar: 'بيتزا الحرم الجامعي 24/7' },
     sub: {
-      en: 'Serving students late-night on a European campus.',
-      zh: '为欧洲校园师生提供深夜热食。',
-      ar: 'تقديم الطعام الساخن لطلاب الحرم الجامعي في وقت متأخر.',
+      en: 'Serving students late-night hot pizza on a European campus.',
+      zh: '为欧洲校园师生提供深夜热披萨。',
+      ar: 'تقديم البيتزا الساخنة لطلاب الحرم الجامعي في وقت متأخر.',
     },
   },
   {
-    image: '/images/cases/case-3.webp',
+    image: '/images/products/different-flavor-robot-service-ice-cream-vending-machine-support-logo-customized/1.webp',
     title: { en: 'Branded Ice-Cream Robot', zh: '品牌定制冰淇淋机器人', ar: 'روبوت آيس كريم بتصميم العلامة التجارية' },
     sub: {
-      en: 'OEM branding for a Middle-East retail chain.',
-      zh: '为中东零售连锁提供 OEM 品牌定制。',
-      ar: 'تخصيص OEM لسلسلة بيع بالتجزئة في الشرق الأوسط.',
+      en: 'OEM-branded ice-cream robot for a Middle-East retail chain.',
+      zh: '为中东零售连锁提供 OEM 品牌定制冰淇淋机器人。',
+      ar: 'روبوت آيس كريم بتصميم OEM لسلسلة بيع بالتجزئة في الشرق الأوسط.',
     },
   },
   {
-    image: '/images/cases/case-4.webp',
+    image: '/images/products/2025-newest-instant-fast-hot-coffee-vending-machine-in-energy-saving-design/1.webp',
     title: { en: 'Office Coffee Corner', zh: '办公室咖啡角', ar: 'مكتب قهوة المكاتب' },
     sub: {
-      en: 'Energy-saving coffee in corporate lobbies.',
-      zh: '企业大堂的节能咖啡方案。',
-      ar: 'قهوة موفرة للطاقة في بهو الشركات.',
+      en: 'Energy-saving coffee station for corporate lobbies and offices.',
+      zh: '企业大堂与办公室的节能咖啡方案。',
+      ar: 'محطة قهوة موفرة للطاقة لبهو الشركات والمكاتب.',
     },
   },
   {
-    image: '/images/cases/case-5.webp',
+    image: '/images/products/smart-vending-machine-with-weighing-sensor-technology-selling-fruitvegetableeggsnack-and-cold-drink/1.webp',
     title: { en: 'Hospital Lobby', zh: '医院大堂', ar: 'بهو المستشفى' },
     sub: {
-      en: 'Round-the-clock snacks and drinks for patients and visitors.',
-      zh: '为患者与访客提供全天候零食与饮品。',
-      ar: 'وجبات خفيفة ومشروبات على مدار الساعة للمرضى والزوار.',
+      en: 'Round-the-clock snacks, drinks and fresh food for patients and visitors.',
+      zh: '为患者与访客提供全天候零食、饮品与鲜食。',
+      ar: 'وجبات خفيفة ومشروبات وطعام طازج على مدار الساعة للمرضى والزوار.',
     },
   },
   {
-    image: '/images/cases/case-6.webp',
+    image: '/images/products/the-hot-new-pet-intelligent-self-service-washing-and-grooming-vending-machine-with-convenient-payment-options/1.webp',
     title: { en: 'Pet Spa on the Street', zh: '街头宠物洗护站', ar: 'سبا للحيوانات في الشارع' },
     sub: {
-      en: 'Self-service pet wash in a residential district.',
-      zh: '社区中的自助宠物洗护。',
-      ar: 'غسيل حيوانات ذاتي في حي سكني.',
+      en: 'Self-service pet wash station in a residential district.',
+      zh: '社区中的自助宠物洗护站。',
+      ar: 'محطة غسيل حيوانات ذاتي في حي سكني.',
     },
   },
 ];
@@ -530,7 +521,12 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-white/85">{t('about.subtitle')}</p>
 
-          {/* Brand-accent stat cards — horizontal, colour-rotated (no ci-pai) */}
+          {/* Brand ci-pai plaque — vertical brand identifier above the stats. */}
+          <div className="mt-6 flex justify-center">
+            <CiPaiFrame label="秋彦" subLabel="Qtech" accent="cyan" />
+          </div>
+
+          {/* Brand-accent stat cards — horizontal, colour-rotated */}
           <div className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
             {HERO_STATS.map((s, i) => {
               const Icon = s.icon;
@@ -553,29 +549,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         </div>
       </section>
 
-      {/* ════════ 1b. COMPANY INTRO ════════ */}
-      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
-        <div className="rounded-3xl bg-gradient-to-br from-ocean-50/80 via-white to-brand-50/60 px-8 py-14 text-center shadow-soft lg:px-12">
-          <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
-            {locale === 'zh' ? '关于 Qtech' : locale === 'ar' ? 'عن Qtech' : 'About Qtech'}
-          </p>
-          <h2 className="mx-auto mt-3 max-w-3xl text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl lg:text-4xl">
-            {locale === 'zh' ? '欢迎来到 Qtech'
-              : locale === 'ar' ? 'مرحبًا بكم في Qtech'
-              : 'Welcome to Qtech'}
-          </h2>
-          <div className="prose-qtech mx-auto mt-6 max-w-3xl text-left">
-            {COMPANY_INTRO.body[locale].split(/\n{2,}/).map((p) => p.trim()).filter(Boolean).map((p, i) => (
-              <p key={i} className="mb-4 leading-relaxed text-ink-600">{p}</p>
-            ))}
-          </div>
-          <Link href={`/${locale}/contact`} className="btn-primary mt-8">
-            {t('nav.getQuote') || 'Get a Quote'}
-          </Link>
-        </div>
-      </RevealOnScroll>
-
-      {/* ════════ 1c. AURORA NIGHT-SKY SCENE (F9) ════════ */}
+      {/* ════════ 1b. AURORA NIGHT-SKY SCENE (F9) ════════ */}
       <section className="container-qtech py-16 lg:py-24">
         <div className="relative min-h-[440px] overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 shadow-lift">
           {/* Aurora ribbons — always animating (brand animations always run). */}

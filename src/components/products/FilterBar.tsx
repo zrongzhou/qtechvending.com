@@ -61,11 +61,13 @@ export default function FilterBar({
                 if (v && !selected.includes(v)) onToggleCategory(v);
                 else if (!v && selected.length) selected.forEach((s) => onToggleCategory(s));
               }}
-              className="w-full appearance-none rounded-lg border border-white/20 bg-white/10 py-2.5 pe-10 ps-3 text-sm font-medium text-white outline-none transition focus:border-ocean-300 focus:ring-2 focus:ring-ocean-500/30"
+              className="w-full appearance-none rounded-lg border border-white/20 bg-slate-800/90 py-2.5 pe-10 ps-3 text-sm font-medium text-white outline-none transition focus:border-ocean-300 focus:ring-2 focus:ring-ocean-500/30"
             >
-              <option value="">{locale === 'zh' ? '全部品类' : locale === 'ar' ? 'كل الفئات' : 'All Categories'}</option>
+              <option value="" className="bg-slate-800 text-white/90">
+                {locale === 'zh' ? '全部品类' : locale === 'ar' ? 'كل الفئات' : 'All Categories'}
+              </option>
               {categories.map((cat) => (
-                <option key={cat.id} value={cat.slug}>
+                <option key={cat.id} value={cat.slug} className="bg-slate-800 text-white">
                   {localized(cat.name, locale)}
                 </option>
               ))}
@@ -117,5 +119,5 @@ export default function FilterBar({
         </div>
       </div>
     </OceanGlassCard>
-   );
+  );
 }

@@ -35,8 +35,8 @@ interface Star {
 interface Meteor {
   x: number; // start X (0..1, beyond right edge)
   y: number; // start Y (0..0.4, upper sky only)
-  length: number; // trail length in px (80–200)
-  speed: number; // px per frame (0.8–2.0 = SLOW)
+  length: number; // trail length in px (120–300)
+  speed: number; // px per frame (2.0–5.0)
   angle: number; // radians (2.0–2.8 = falling left-to-right, downward)
   color: string; // stroke colour prefix e.g. 'rgba(56,189,248,'
   alpha: number; // trail opacity (0.4–0.7)
@@ -51,10 +51,11 @@ function prefersReducedMotion(): boolean {
 }
 
 /**
- * Cinematic starfield canvas (V36).
+ * Cinematic starfield canvas (V38).
  *  - Cross-shaped rays on mid and near-layer stars, with opacity fading outward.
  *  - Per-star independent glow phase: radius and alpha breathe between 70-130% and 50-100%.
- *  - When meteors are active, a global pale-blue overlay brightens to 0.25 and fades back to 0.
+ *  - When meteors are active, a warm-white overlay brightens subtly to 0.08 and also lifts
+ *    every star's base alpha by up to 30%, so the whole sky feels alive rather than washed out.
  *  - Three distinct parallax layers: far (tiny, dim, slow), mid (moderate, weak rays), near (bright, strong rays, halo).
  */
 export default function Starfield({
@@ -164,7 +165,7 @@ export default function Starfield({
       ctx.restore();
     }
 
-    // ---- Meteor shower system -------------------------------------------
+    // ---- Meteor shower system (V38 enhanced) ---------------------------------
     const METEOR_COLORS = [
       'rgba(56,189,248,', // cyan
       'rgba(250,204,21,', // gold
@@ -172,16 +173,23 @@ export default function Starfield({
       'rgba(255,255,255,', // white
     ];
     const meteors: Meteor[] = [];
-    let nextSpawn = 120 + Math.random() * 180; // first spawn 120–300 frames
-    function spawnMeteor() {
+    let nextSpawn = 60 + Math.random() * 120; // first spawn 60–180 frames
+    let nextBurst = 400 + Math.random() * 200; // 400–600 frames
+    let burstRemaining = 0;
+    let burstX = 0;
+    let burstY = 0;
+
+    function spawnMeteor(cx?: number, cy?: number) {
       const activeCount = meteors.reduce((n, m) => n + (m.active ? 1 : 0), 0);
-      if (activeCount >= 3) return; // keep <= 3 on screen at once
+      if (activeCount >= 6) return; // keep <= 6 on screen at once
       const maxLife = 180 + Math.random() * 220; // 180–400 frames (~6–13s)
+      const x = cx !== undefined ? cx + (Math.random() - 0.5) * 0.15 : 0.7 + Math.random() * 0.6;
+      const y = cy !== undefined ? cy + (Math.random() - 0.5) * 0.1 : Math.random() * 0.3;
       meteors.push({
-        x: 0.7 + Math.random() * 0.6, // 0.7–1.3 (right side, sometimes off-screen)
-        y: Math.random() * 0.3, // 0–0.3 (upper sky)
-        length: 80 + Math.random() * 120, // 80–200 px trail
-        speed: 0.8 + Math.random() * 1.2, // 0.8–2.0 px/frame (SLOW)
+        x,
+        y,
+        length: 120 + Math.random() * 180, // 120–300 px trail
+        speed: 2.0 + Math.random() * 3.0, // 2.0–5.0 px/frame (fast streak)
         angle: 2.0 + Math.random() * 0.8, // 2.0–2.8 rad (fall L→R, downward)
         color: METEOR_COLORS[Math.floor(Math.random() * METEOR_COLORS.length)],
         alpha: 0.4 + Math.random() * 0.3, // 0.4–0.7
@@ -209,7 +217,7 @@ export default function Starfield({
         grad.addColorStop(0.18, `${m.color}${vis * 0.55})`);
         grad.addColorStop(1, `${m.color}0)`);
         ctx.strokeStyle = grad;
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 2.5;
         ctx.lineCap = 'round';
         ctx.beginPath();
         ctx.moveTo(px, py);
@@ -218,7 +226,7 @@ export default function Starfield({
 
         // Bright head dot.
         ctx.beginPath();
-        ctx.arc(px, py, 2.2, 0, Math.PI * 2);
+        ctx.arc(px, py, 3.0, 0, Math.PI * 2);
         ctx.fillStyle = `${m.color}${Math.min(1, vis + 0.25)})`;
         ctx.fill();
 
@@ -303,11 +311,25 @@ export default function Starfield({
 
       frame += 1;
 
-      // Schedule meteor spawns (only when not reduced).
+      // Schedule meteor spawns and occasional mini-bursts (only when not reduced).
       if (!isReduced) {
-        if (frame >= nextSpawn) {
-          spawnMeteor();
-          nextSpawn = frame + 120 + Math.random() * 180; // 120–300 frames
+        if (burstRemaining > 0) {
+          if (frame >= nextSpawn) {
+            spawnMeteor(burstX, burstY);
+            burstRemaining -= 1;
+            nextSpawn = frame + 5 + Math.floor(Math.random() * 8); // 5–12 frames apart
+          }
+        } else {
+          if (frame >= nextSpawn) {
+            spawnMeteor();
+            nextSpawn = frame + 60 + Math.random() * 120; // 60–180 frames (~2–6s)
+          }
+          if (frame >= nextBurst) {
+            burstRemaining = 2 + Math.floor(Math.random() * 2); // 2–3 meteors
+            burstX = 0.7 + Math.random() * 0.5;
+            burstY = 0.05 + Math.random() * 0.2;
+            nextBurst = frame + 400 + Math.random() * 200; // 400–600 frames
+          }
         }
       }
 
@@ -322,7 +344,7 @@ export default function Starfield({
       if (!isReduced) {
         const anyMeteorActive = meteors.some((m) => m.active);
         if (anyMeteorActive) {
-          meteorBrightness = Math.min(0.25, meteorBrightness + 0.25 / 60);
+          meteorBrightness = Math.min(0.08, meteorBrightness + 0.25 / 60);
         } else {
           meteorBrightness = Math.max(0, meteorBrightness - meteorBrightness / 90);
         }
@@ -347,7 +369,8 @@ export default function Starfield({
         const pulseRadius = 1 - layerPulseAmp[s.layer] + layerPulseAmp[s.layer] * 2 * glow;
         const pulseAlpha = 1 - layerAlphaPulseAmp[s.layer] + layerAlphaPulseAmp[s.layer] * 2 * glow;
 
-        let alpha = Math.max(0, Math.min(1, s.baseAlpha * tw * pulseAlpha));
+        // Stars also participate in the meteor-triggered global brightening.
+        let alpha = Math.max(0, Math.min(1, s.baseAlpha * tw * pulseAlpha * (1 + meteorBrightness * 0.3)));
         let radius = Math.max(0.2, s.baseR * pulseRadius);
 
         // Flare override for the chosen near-layer star.
@@ -405,9 +428,9 @@ export default function Starfield({
       // Meteors render on top of the star field.
       if (!isReduced) drawMeteors();
 
-      // Global brightness overlay when meteors are active.
+      // Global subtle brightness overlay when meteors are active.
       if (meteorBrightness > 0.001) {
-        ctx.fillStyle = `rgba(180, 220, 255, ${meteorBrightness})`;
+        ctx.fillStyle = `rgba(255, 245, 220, ${meteorBrightness})`;
         ctx.fillRect(0, 0, width, height);
       }
     }

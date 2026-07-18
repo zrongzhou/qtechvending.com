@@ -55,9 +55,9 @@ export default function ProductDetailView({
   const [activeImage, setActiveImage] = useState(images[0]);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-cyan-700/60 via-teal-500/40 to-sky-400/30">
-      {/* Deep ocean base layer behind the brighter overlay for depth */}
-      <div className="absolute inset-0 -z-20 bg-gradient-to-b from-cyan-800 via-teal-700 to-sky-600" aria-hidden="true" />
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-cyan-600/50 via-teal-500/35 to-sky-400/25">
+      {/* Deep ocean base layer behind the brighter overlay for depth (V38 lighter). */}
+      <div className="absolute inset-0 -z-20 bg-gradient-to-b from-cyan-700 via-teal-600 to-sky-500" aria-hidden="true" />
       {/* Sunlight sheen from the surface */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-sky-400/25 via-cyan-400/10 to-transparent" aria-hidden="true" />
       {/* God rays */}
@@ -66,7 +66,7 @@ export default function ProductDetailView({
         <div className="god-ray god-ray--2" />
         <div className="god-ray god-ray--3" />
       </div>
-      {/* Rising bubbles */}
+      {/* Rising bubbles — rendered behind the content layer via -z-10. */}
       <OceanBubbles className="-z-10" />
       {/* Bottom ocean waves */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-48 overflow-hidden" aria-hidden="true">

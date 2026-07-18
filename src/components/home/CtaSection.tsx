@@ -5,11 +5,13 @@ import { ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
+import AuroraBackground from '@/components/ui/AuroraBackground';
 
 /**
- * Closing call-to-action (V36): a quiet night village.
- * Deep indigo/slate sky, a crescent moon, a village silhouette with glowing
- * windows, drifting stars and fireflies, and a frosted glass panel for the copy.
+ * Closing call-to-action (V38): deep-space aurora scene.
+ * Replaces the previous quiet night village with a cosmic aurora gradient,
+ * a few faint stars and a subtle bottom glow, while keeping the frosted-glass
+ * content panel and primary button unchanged.
  */
 export default function CtaSection() {
   const { t, locale } = useLocale();
@@ -21,17 +23,20 @@ export default function CtaSection() {
 
   return (
     <RevealOnScroll as="section" className="container-qtech py-20 md:py-28">
-      <div className="relative min-h-[460px] overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 shadow-lift">
-        {/* Stars — sparse, CSS-only twinkling dots */}
+      <div className="relative min-h-[460px] overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-indigo-950/90 to-slate-900 shadow-lift">
+        {/* Aurora ribbons — always animating (brand ambient always runs). */}
+        <AuroraBackground className="absolute inset-0" reduced={false} />
+
+        {/* Faint star layer — reduced to 8–10 sparse dots. */}
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          {[...Array(18)].map((_, i) => (
+          {[...Array(10)].map((_, i) => (
             <span
               key={i}
-              className="absolute h-1 w-1 rounded-full bg-white village-star"
+              className="absolute h-1 w-1 rounded-full bg-white"
               style={{
-                top: `${6 + Math.random() * 54}%`,
+                top: `${6 + Math.random() * 52}%`,
                 left: `${4 + Math.random() * 92}%`,
-                opacity: 0.25 + Math.random() * 0.55,
+                opacity: 0.2 + Math.random() * 0.45,
                 animationDelay: `${Math.random() * 4}s`,
                 animationDuration: `${2.5 + Math.random() * 3}s`,
               }}
@@ -39,84 +44,15 @@ export default function CtaSection() {
           ))}
         </div>
 
-        {/* Crescent moon — top right */}
-        <div className="pointer-events-none absolute end-6 top-6 sm:end-10 sm:top-10" aria-hidden="true">
-          <svg
-            width="72"
-            height="72"
-            viewBox="0 0 72 72"
-            fill="none"
-            className="moon-glow drop-shadow-[0_0_18px_rgba(254,243,199,0.45)]"
-          >
-            <path
-              d="M58 58c0-18.778-15.222-34-34-34-.83 0-1.65.03-2.46.09C27.16 12.23 40.61 2 56.5 2 65.06 2 72 8.94 72 17.5 72 40.03 53.03 59 30.5 59c-1.06 0-2.1-.05-3.13-.15C28.16 64.83 34.4 69 41.5 69c9.11 0 16.5-7.39 16.5-16.5V58Z"
-              fill="#FEF3C7"
-            />
-          </svg>
-        </div>
-
-        {/* Fireflies — small yellow-green glow dots drifting slowly */}
-        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-          {[...Array(5)].map((_, i) => (
-            <span
-              key={i}
-              className="firefly absolute h-1.5 w-1.5 rounded-full bg-yellow-200 shadow-[0_0_6px_2px_rgba(253,224,71,0.6)]"
-              style={{
-                top: `${45 + Math.random() * 40}%`,
-                left: `${10 + Math.random() * 80}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${8 + Math.random() * 8}s`,
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Village silhouette — hills and houses */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0" aria-hidden="true">
-          <svg
-            viewBox="0 0 1200 140"
-            preserveAspectRatio="xMidYMax slice"
-            className="h-auto w-full min-w-[800px]"
-          >
-            {/* Back hills */}
-            <path
-              d="M0 140 L0 70 C180 40 320 90 500 60 C680 30 820 70 1000 55 C1100 45 1160 60 1200 50 L1200 140 Z"
-              fill="rgba(15,23,42,0.85)"
-            />
-            {/* Foreground hill + village ground */}
-            <path
-              d="M0 140 L0 100 C220 75 380 115 600 95 C780 78 920 108 1100 90 C1150 86 1180 95 1200 92 L1200 140 Z"
-              fill="rgba(2,6,23,0.95)"
-            />
-            {/* House 1 */}
-            <rect x="160" y="73" width="34" height="28" fill="rgba(15,23,42,0.98)" />
-            <path d="M153 73 L177 55 L201 73 Z" fill="rgba(15,23,42,0.98)" />
-            <rect x="167" y="80" width="8" height="8" fill="rgba(251,191,36,0.35)" className="window-glow" />
-            <rect x="179" y="80" width="8" height="8" fill="rgba(251,191,36,0.35)" className="window-glow" style={{ animationDelay: '0.5s' }} />
-            {/* House 2 */}
-            <rect x="220" y="66" width="42" height="35" fill="rgba(15,23,42,0.98)" />
-            <path d="M212 66 L241 48 L270 66 Z" fill="rgba(15,23,42,0.98)" />
-            <rect x="228" y="74" width="10" height="10" fill="rgba(251,191,36,0.35)" className="window-glow" style={{ animationDelay: '1.2s' }} />
-            <rect x="244" y="74" width="10" height="10" fill="rgba(251,191,36,0.35)" className="window-glow" style={{ animationDelay: '2.1s' }} />
-            <rect x="236" y="88" width="10" height="10" fill="rgba(251,191,36,0.32)" className="window-glow" style={{ animationDelay: '0.8s' }} />
-            {/* House 3 (tall narrow) */}
-            <rect x="780" y="58" width="26" height="43" fill="rgba(15,23,42,0.98)" />
-            <path d="M775 58 L793 45 L811 58 Z" fill="rgba(15,23,42,0.98)" />
-            <rect x="786" y="65" width="7" height="7" fill="rgba(251,191,36,0.35)" className="window-glow" style={{ animationDelay: '1.5s' }} />
-            <rect x="786" y="78" width="7" height="7" fill="rgba(251,191,36,0.35)" className="window-glow" style={{ animationDelay: '2.8s' }} />
-            <rect x="786" y="91" width="7" height="7" fill="rgba(251,191,36,0.3)" className="window-glow" style={{ animationDelay: '0.3s' }} />
-            {/* House 4 */}
-            <rect x="850" y="72" width="38" height="29" fill="rgba(15,23,42,0.98)" />
-            <path d="M843 72 L869 56 L895 72 Z" fill="rgba(15,23,42,0.98)" />
-            <rect x="858" y="79" width="9" height="9" fill="rgba(251,191,36,0.35)" className="window-glow" style={{ animationDelay: '1.8s' }} />
-            <rect x="873" y="79" width="9" height="9" fill="rgba(251,191,36,0.35)" className="window-glow" style={{ animationDelay: '0.6s' }} />
-            {/* Small tree silhouettes */}
-            <circle cx="130" cy="95" r="10" fill="rgba(2,6,23,0.9)" />
-            <circle cx="145" cy="98" r="7" fill="rgba(2,6,23,0.9)" />
-            <circle cx="920" cy="94" r="9" fill="rgba(2,6,23,0.9)" />
-            <circle cx="935" cy="97" r="6" fill="rgba(2,6,23,0.9)" />
-          </svg>
-        </div>
+        {/* Bottom-centered brand-cyan/teal glow for depth. */}
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-cyan-500/10 via-teal-500/5 to-transparent"
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute bottom-0 left-1/2 h-64 w-[600px] -translate-x-1/2 rounded-full bg-gradient-radial from-cyan-400/20 via-teal-400/10 to-transparent blur-3xl"
+          aria-hidden="true"
+        />
 
         {/* Frosted glass content panel */}
         <div className="relative z-10 flex min-h-[460px] items-center justify-center px-6 py-12 sm:px-16 sm:py-16">

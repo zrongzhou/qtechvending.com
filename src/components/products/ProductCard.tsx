@@ -60,7 +60,8 @@ export default function ProductCard({
     ? 'bg-white/10 backdrop-blur-md border border-white/20 transition-all duration-300 hover:-translate-y-2 hover:bg-white/[0.18] hover:shadow-[0_24px_60px_rgba(56,189,248,0.25)]'
     : 'border border-ocean-200/60 transition-all duration-300 hover:-translate-y-2 hover:border-ocean-300/60 hover:shadow-ocean-lg';
   const titleClass = oceanMode ? 'text-white' : 'text-ink-900';
-  const shortClass = oceanMode ? 'text-white/70' : 'text-ink-500';
+  // V38: lift description opacity for better hover readability in ocean mode.
+  const shortClass = oceanMode ? 'text-white/85' : 'text-ink-500';
   const catPillClass = oceanMode ? 'from-white/15 to-white/10 text-white/80' : accent.pill;
   const chipClass = oceanMode ? 'bg-white/10 text-white/70' : 'bg-slate-100 text-ink-600';
   const ctaClass = oceanMode ? 'text-cyan-200 drop-shadow-[0_0_10px_rgba(56,189,248,0.55)]' : 'text-ocean-700';
@@ -129,12 +130,12 @@ export default function ProductCard({
             </span>
           )}
 
-          {/* Title — single line, bold */}
-          <h3 className={`mt-2 line-clamp-1 text-lg font-bold tracking-tight transition-colors group-hover:text-ocean-700 ${titleClass}`}>
+          {/* Title — single line, bold, always fully opaque on hover. */}
+          <h3 className={`mt-2 line-clamp-1 text-lg font-bold tracking-tight transition-colors group-hover:text-white ${titleClass}`}>
             {name}
           </h3>
 
-          {/* Description — muted, de-emphasised */}
+          {/* Description — muted but readable. */}
           {short && <p className={`mt-2 line-clamp-2 text-xs leading-relaxed ${shortClass}`}>{short}</p>}
 
           {/* Bottom info — model number (preferred) or category tag */}

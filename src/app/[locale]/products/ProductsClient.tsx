@@ -79,9 +79,9 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
   const { data, totalPages } = result;
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-cyan-700/60 via-teal-500/40 to-sky-400/30">
-      {/* Deep ocean base layer behind the brighter overlay for depth */}
-      <div className="absolute inset-0 -z-20 bg-gradient-to-b from-cyan-800 via-teal-700 to-sky-600" aria-hidden="true" />
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-cyan-600/50 via-teal-500/35 to-sky-400/25">
+      {/* Deep ocean base layer behind the brighter overlay for depth (V38 lighter). */}
+      <div className="absolute inset-0 -z-20 bg-gradient-to-b from-cyan-700 via-teal-600 to-sky-500" aria-hidden="true" />
       {/* Sunlight sheen from the surface (upper-ocean glow) */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-sky-400/25 via-cyan-400/10 to-transparent" aria-hidden="true" />
 
@@ -143,7 +143,7 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
             ) : (
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
                 {data.map((p, i) => (
-                  <RevealOnScroll key={p.id} delay={(i % 9) * 60} className="h-full">
+                  <RevealOnScroll key={p.id} delay={(i % 9) * 100} className="h-full">
                     <ProductCard product={p} ocean />
                   </RevealOnScroll>
                 ))}
