@@ -25,13 +25,16 @@ import type { Product } from '@/types';
 const HERO_FALLBACK =
   '/images/products/2025-popular-24-7-self-service-florist-flower-shop-vending-machine-sell-bouquet-of-rose/1.webp';
 
+// V37: the rotating hero visuals are now the user-supplied Cases / feedback
+// photos. The "View Details" CTA still points to the flagship product (products[0])
+// and is intentionally untouched.
 const HERO_IMAGES = [
-  '/images/hero/hero-product-1.webp',
-  '/images/hero/hero-product-2.webp',
-  '/images/hero/hero-product-3.webp',
-  '/images/hero/hero-product-4.webp',
-  '/images/hero/hero-product-5.webp',
-  '/images/hero/hero-product-6.webp',
+  '/images/cases/case-1.webp',
+  '/images/cases/case-2.webp',
+  '/images/cases/case-3.webp',
+  '/images/cases/case-4.webp',
+  '/images/cases/case-5.webp',
+  '/images/cases/case-6.webp',
 ];
 
 // Trust strip — four colourful glass micro-badges for instant B2B credibility.

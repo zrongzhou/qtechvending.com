@@ -31,6 +31,8 @@ import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
 import OceanGlassCard from '@/components/ui/OceanGlassCard';
 import ImageWithRetry from '@/components/ui/ImageWithRetry';
+import CiPaiFrame from '@/components/ui/CiPaiFrame';
+import AuroraBackground from '@/components/ui/AuroraBackground';
 import type { Locale } from '@/lib/i18n';
 
 export interface AboutSection {
@@ -573,6 +575,53 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         </div>
       </RevealOnScroll>
 
+      {/* ════════ 1c. AURORA NIGHT-SKY SCENE (F9) ════════ */}
+      <section className="container-qtech py-16 lg:py-24">
+        <div className="relative min-h-[440px] overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 shadow-lift">
+          {/* Aurora ribbons — always animating (brand animations always run). */}
+          <AuroraBackground className="absolute inset-0" reduced={false} />
+
+          {/* Sparse star layer — CSS-only twinkling dots, above the aurora. */}
+          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+            {[...Array(22)].map((_, i) => (
+              <span
+                key={i}
+                className="absolute h-1 w-1 rounded-full bg-white village-star"
+                style={{
+                  top: `${4 + Math.random() * 60}%`,
+                  left: `${3 + Math.random() * 94}%`,
+                  opacity: 0.25 + Math.random() * 0.55,
+                  animationDelay: `${Math.random() * 4}s`,
+                  animationDuration: `${2.5 + Math.random() * 3}s`,
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Centered frosted-glass content panel. */}
+          <div className="relative z-10 flex min-h-[440px] items-center justify-center px-6 py-12 sm:px-16 sm:py-16">
+            <div className="max-w-2xl rounded-2xl bg-white/[0.06] px-8 py-10 text-center text-white backdrop-blur-xl ring-1 ring-white/10 sm:px-12 sm:py-12">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-2 text-sm font-medium text-white ring-1 ring-white/10">
+                <Sparkles className="h-4 w-4" strokeWidth={1.75} />
+                {locale === 'zh' ? '夜空下的北极光' : locale === 'ar' ? 'تحت الشفق القطبي' : 'Under the Aurora'}
+              </span>
+              <h2 className="mx-auto mt-7 text-3xl font-black leading-tight sm:text-4xl lg:text-5xl">
+                {locale === 'zh' ? '在星空下，看见更远的未来'
+                  : locale === 'ar' ? 'تحت النجوم، نرى مستقبلاً أبعد'
+                  : 'Beneath the Stars, a Vision Beyond'}
+              </h2>
+              <p className="mx-auto mt-4 max-w-xl text-base text-white/80 sm:text-lg">
+                {locale === 'zh'
+                  ? '正如极光在夜空中静静铺展，Qtech 以耐心与匠心，把每一台设备打磨成值得信赖的伙伴。'
+                  : locale === 'ar'
+                    ? 'وكما يمتد الشفق القطبي بهدوء في السماء الليلية، تصقل Qtech كل آلة بصبر وإتقان لتكون شريكًا موثوقًا.'
+                    : 'Just as the aurora unfolds quietly across the night sky, Qtech shapes every machine with patience and craft into a partner you can trust.'}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ════════ 2. OUR STRENGTHS (6 icon cards) ════════ */}
       <RevealOnScroll as="section" className="bg-cyan-50/50 py-16 lg:py-24">
         <div className="container-qtech">
@@ -812,12 +861,14 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                   <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl pro-card transition-all duration-300 hover:scale-[1.03] hover:shadow-lift">
                     <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
                     <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
-                      <ImageWithRetry
-                        src={s.image}
-                        alt={s.title[locale] || s.title.en}
-                        loading="lazy"
-                        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                      />
+                      <CiPaiFrame label="秋彦" subLabel="Qtech" className="block h-full w-full">
+                        <ImageWithRetry
+                          src={s.image}
+                          alt={s.title[locale] || s.title.en}
+                          loading="lazy"
+                          className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                        />
+                      </CiPaiFrame>
                       <div className="absolute inset-0 bg-gradient-to-t from-ink-900/60 via-transparent to-transparent" />
                       <span className="absolute start-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-brand-700 shadow-sm backdrop-blur">
                         {cat[locale] || cat.en}

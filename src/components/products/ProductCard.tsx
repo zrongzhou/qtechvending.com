@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
+import { accentForCategory } from '@/lib/accents';
 import ImageWithRetry from '@/components/ui/ImageWithRetry';
 import OceanGlassCard from '@/components/ui/OceanGlassCard';
 import type { Product } from '@/types';
@@ -37,6 +38,8 @@ export default function ProductCard({
   const short = localized(product.shortDescription, locale);
   const category = product.categories?.[0];
   const categoryName = category ? localized(category.name, locale) : '';
+  // Per-category accent (F6): same category shares a color, different categories differ.
+  const accent = accentForCategory(product.categories?.[0]?.slug);
 
   // ---- Derived display signals (badge) ----
   const isHot = Boolean(product.featured);
@@ -45,8 +48,8 @@ export default function ProductCard({
   // Ocean-tinted badge (cyan → teal) for an on-theme "HOT"/"NEW" tag, with a
   // soft cyan glow ring in ocean mode.
   const badgeClass = oceanMode
-    ? 'bg-gradient-to-r from-cyan-400 to-teal-500 text-white shadow-[0_0_18px_rgba(34,211,238,0.55)]'
-    : 'bg-gradient-to-r from-cyan-400 to-teal-500 text-white';
+    ? `bg-gradient-to-r ${accent.badge} text-white shadow-[0_0_18px_rgba(34,211,238,0.55)]`
+    : `bg-gradient-to-r ${accent.badge} text-white`;
 
   // Bottom info line: model number (preferred) or category tag as a fallback.
   const modelSpec = product.specs?.find((s) => s.param.trim().toLowerCase() === 'model');
@@ -58,7 +61,7 @@ export default function ProductCard({
     : 'border border-ocean-200/60 transition-all duration-300 hover:-translate-y-2 hover:border-ocean-300/60 hover:shadow-ocean-lg';
   const titleClass = oceanMode ? 'text-white' : 'text-ink-900';
   const shortClass = oceanMode ? 'text-white/70' : 'text-ink-500';
-  const catPillClass = oceanMode ? 'from-white/15 to-white/10 text-white/80' : 'from-ocean-50 to-brand-100 text-ocean-700';
+  const catPillClass = oceanMode ? 'from-white/15 to-white/10 text-white/80' : accent.pill;
   const chipClass = oceanMode ? 'bg-white/10 text-white/70' : 'bg-slate-100 text-ink-600';
   const ctaClass = oceanMode ? 'text-cyan-200 drop-shadow-[0_0_10px_rgba(56,189,248,0.55)]' : 'text-ocean-700';
 
@@ -69,7 +72,7 @@ export default function ProductCard({
       rippleRings={oceanMode ? 3 : 1}
       depth="md"
       hoverLift={!oceanMode}
-      rippleColor={oceanMode ? 'rgba(56, 189, 248, 0.28)' : 'rgba(8, 145, 178, 0.2)'}
+      rippleColor={oceanMode ? accent.ripple : 'rgba(8, 145, 178, 0.2)'}
       className={`group h-full ${surfaceBase}`}
     >
       <Link
@@ -77,7 +80,7 @@ export default function ProductCard({
         className="group/link relative flex h-full flex-col overflow-hidden rounded-2xl"
       >
         {/* Persistent ocean top accent bar — card memory point */}
-        <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-ocean-400 to-brand-600" />
+        <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${accent.topBar}`} />
 
         <div
           className="relative aspect-[4/3] overflow-hidden bg-slate-100"

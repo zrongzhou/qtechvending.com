@@ -8,7 +8,7 @@ interface LogoProps {
   markOnly?: boolean;
   /** Text color of the wordmark ("Qtech"). */
   textClassName?: string;
-  /** Color of the "Tool Cabinet" subtitle. */
+  /** Color of the "Vending Machines" subtitle. */
   subTextColor?: string;
 }
 
@@ -87,7 +87,7 @@ export default function Logo({
               textTransform: 'uppercase',
             }}
           >
-            Tool Cabinet
+            Vending Machines
           </span>
         </span>
       )}
