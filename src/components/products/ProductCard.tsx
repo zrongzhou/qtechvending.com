@@ -57,7 +57,7 @@ export default function ProductCard({
 
   // Dark (products-page ocean theme) vs light (home / detail) presentation.
   const surfaceBase = oceanMode
-    ? 'bg-white/10 backdrop-blur-md border border-white/20 transition-all duration-300 hover:-translate-y-2 hover:bg-white/[0.14] hover:shadow-[0_24px_60px_rgba(56,189,248,0.25)]'
+    ? 'bg-white/14 backdrop-blur-md border border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] transition-all duration-300 hover:-translate-y-2 hover:bg-white/20 hover:shadow-[0_24px_60px_rgba(56,189,248,0.30)]'
     : 'border border-ocean-200/60 transition-all duration-300 hover:-translate-y-2 hover:border-ocean-300/60 hover:shadow-ocean-lg';
   const titleClass = oceanMode ? 'text-white' : 'text-ink-900';
   // V38: lift description opacity for better hover readability in ocean mode.

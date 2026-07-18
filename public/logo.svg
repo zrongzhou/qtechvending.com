@@ -3,7 +3,7 @@
     <linearGradient id="g" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
       <stop stop-color="#22d3ee"/>
       <stop offset="0.5" stop-color="#0ea5e9"/>
-      <stop offset="1" stop-color="#0891b2"/>
+      <stop offset="1" stop-color="#3b82f6"/>
     </linearGradient>
   </defs>
   <path d="M20 3 L23.2 16.8 L37 20 L23.2 23.2 L20 37 L16.8 23.2 L3 20 L16.8 16.8 Z" fill="url(#g)"/>

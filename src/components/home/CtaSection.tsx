@@ -31,16 +31,16 @@ export default function CtaSection() {
   };
   const BUBBLES = Array.from({ length: 14 }, (_, i) => ({
     left: rand(i) * 100,
-    size: 6 + rand(i + 50) * 18,
-    dur: 9 + rand(i + 100) * 8,
-    delay: rand(i + 150) * 10,
+    size: 4 + rand(i + 50) * 20,
+    dur: 5 + rand(i + 100) * 6,
+    delay: rand(i + 150) * 9,
   }));
-  const PLANKTON = Array.from({ length: 10 }, (_, i) => ({
+  const PLANKTON = Array.from({ length: 15 }, (_, i) => ({
     left: rand(i + 200) * 100,
-    top: 18 + rand(i + 250) * 70,
-    size: 2 + rand(i + 300) * 3,
-    dur: 9 + rand(i + 350) * 7,
-    dx: (rand(i + 400) - 0.5) * 36,
+    top: 14 + rand(i + 250) * 74,
+    size: 2 + rand(i + 300) * 4,
+    dur: 8 + rand(i + 350) * 6,
+    dx: (rand(i + 400) - 0.5) * 40,
     delay: rand(i + 450) * 8,
   }));
 
@@ -102,7 +102,7 @@ export default function CtaSection() {
         {/* Deep-sea command pod — dark translucent glass that fills the tank
             (immersive, not a floating white card). Aquarium motion stays behind. */}
         <div className="relative z-10 flex min-h-[520px] items-center justify-center p-3 sm:p-5">
-          <div className="flex w-full min-h-[440px] flex-col items-center justify-center rounded-3xl border border-white/10 bg-slate-900/55 px-6 py-12 text-center shadow-lift backdrop-blur-2xl sm:px-16 sm:py-16">
+          <div className="mx-auto flex w-full max-w-4xl min-h-[440px] flex-col items-center justify-center rounded-3xl border border-white/10 bg-slate-900/35 px-6 py-12 text-center shadow-lift backdrop-blur-sm sm:px-16 sm:py-16">
             <div className="inline-flex items-center gap-2 rounded-full bg-cyan-500/15 px-5 py-2 text-sm font-medium text-cyan-200 ring-1 ring-cyan-500/20">
               <IconTile icon={Sparkles} className="h-4 w-4" tileClassName="bg-gradient-to-br from-cyan-500 to-teal-500 text-white p-1.5" />
               <span className="font-semibold">

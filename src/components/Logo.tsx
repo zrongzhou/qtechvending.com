@@ -13,10 +13,23 @@ interface LogoProps {
 }
 
 /**
- * Qtech brand mark — a glossy sphere (circle) filled with a tech light-blue
- * gradient (#00BCD4 → #0EA5E9 → #38BDF8) carrying a white "Q" letter.
- * Replaces the previous blue diamond / double-star mark (V35).
+ * Qtech brand mark — a glossy sphere (circle) filled with a sky-cyan gradient
+ * (#22d3ee → #0ea5e9 → #3b82f6) carrying a twin white sparkle (double-star)
+ * mark. Replaces the previous light-blue sphere with a "Q" letter.
  */
+function sparkle(cx: number, cy: number, r: number): string {
+  // A four-pointed "sparkle" drawn with quadratic curves bowing toward the
+  // centre: N → E → S → W → N. Stays crisp at any size.
+  return [
+    `M ${cx} ${cy - r}`,
+    `Q ${cx} ${cy} ${cx + r} ${cy}`,
+    `Q ${cx} ${cy} ${cx} ${cy + r}`,
+    `Q ${cx} ${cy} ${cx - r} ${cy}`,
+    `Q ${cx} ${cy} ${cx} ${cy - r}`,
+    'Z',
+  ].join(' ');
+}
+
 export default function Logo({
   className = '',
   size = 44,
@@ -42,9 +55,9 @@ export default function Logo({
         <defs>
           {/* Tech light-blue sphere gradient */}
           <linearGradient id={sphereId} x1="6" y1="4" x2="44" y2="46" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#00BCD4" />
-            <stop offset="0.5" stopColor="#0EA5E9" />
-            <stop offset="1" stopColor="#38BDF8" />
+            <stop stopColor="#22d3ee" />
+            <stop offset="0.5" stopColor="#0ea5e9" />
+            <stop offset="1" stopColor="#3b82f6" />
           </linearGradient>
           {/* Soft top sheen for a 3-D sphere feel */}
           <radialGradient id={sheenId} cx="0.35" cy="0.28" r="0.55">
@@ -60,18 +73,9 @@ export default function Logo({
         {/* Glossy top sheen */}
         <ellipse cx="18" cy="14" rx="11" ry="8" fill={`url(#${sheenId})`} />
 
-        {/* White "Q" letter mark */}
-        <text
-          x="24"
-          y="32"
-          textAnchor="middle"
-          fontFamily="Arial, Helvetica, sans-serif"
-          fontSize="26"
-          fontWeight="800"
-          fill="#ffffff"
-        >
-          Q
-        </text>
+        {/* Double-star (sparkle) brand mark — two white four-point stars */}
+        <path d={sparkle(19, 22, 11)} fill="#ffffff" />
+        <path d={sparkle(31, 30, 6)} fill="#ffffff" fillOpacity="0.85" />
       </svg>
 
       {!markOnly && (

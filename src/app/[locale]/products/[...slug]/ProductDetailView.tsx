@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
@@ -9,9 +9,10 @@ import ProductFaqSection from './ProductFaqSection';
 import ImageWithRetry from '@/components/ui/ImageWithRetry';
 import OceanGlassCard from '@/components/ui/OceanGlassCard';
 import OceanBubbles from '@/components/ui/OceanBubbles';
+import RippleOnHover from '@/components/ui/RippleOnHover';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
-import { ArrowLeft, Settings2 } from 'lucide-react';
+import { ArrowLeft, Settings2, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Product, I18nStringList } from '@/types';
 
 function renderParagraphs(text: string) {
@@ -54,6 +55,10 @@ function ProductDetailTabs({
 }) {
   const [active, setActive] = useState<TabId>('features');
   const specList = specs ?? [];
+  // Shared dark-glass surface for every tab panel (V42: never a white
+  // background, even on the light product-detail page).
+  const tabPanel =
+    'relative overflow-hidden rounded-2xl border border-white/10 bg-slate-800/70 backdrop-blur-xl shadow-lift';
 
   const tabs: { id: TabId; label: string }[] = [
     { id: 'features', label: t('product.features') },
@@ -91,19 +96,18 @@ function ProductDetailTabs({
         })}
       </div>
 
-      {/* Panel — soft fade on every switch */}
+      {/* Panel — dark glass, soft fade on every switch (V42: never a white
+          background, even on the light product-detail page). */}
       <div key={active} className="mt-4 animate-fade-in">
         {active === 'features' && <ProductFaqSection features={features} />}
 
         {active === 'specs' &&
           (specList.length > 0 ? (
-            <OceanGlassCard
-              ripple
-              depth="md"
-              rippleRings={3}
-              ripplePointer
+            <RippleOnHover
+              pointerDriven
               rippleColor="rgba(56,189,248,0.28)"
-              className="overflow-hidden rounded-2xl border border-white/15 bg-white/[0.12] backdrop-blur-xl transition-shadow duration-500"
+              rings={3}
+              className={tabPanel}
             >
               <div className="bg-gradient-to-r from-ocean-500/80 to-brand-600/80 px-6 py-4">
                 <h2 className="flex items-center gap-2.5 text-lg font-bold text-white">
@@ -115,7 +119,7 @@ function ProductDetailTabs({
                 {specList.map((s, i) => (
                   <div
                     key={i}
-                    className="flex flex-col gap-1 px-6 py-4 transition-colors even:bg-white/8 hover:bg-white/15 sm:flex-row sm:gap-6"
+                    className="flex flex-col gap-1 px-6 py-4 transition-colors even:bg-white/5 hover:bg-white/10 sm:flex-row sm:gap-6"
                   >
                     <dt className="w-40 shrink-0 font-mono text-xs font-bold uppercase tracking-wider text-cyan-200">
                       {s.param}
@@ -124,19 +128,19 @@ function ProductDetailTabs({
                   </div>
                 ))}
               </dl>
-            </OceanGlassCard>
+            </RippleOnHover>
           ) : (
-            <div className="flex items-center gap-3 rounded-2xl border border-dashed border-cyan-200/40 bg-white/5 px-6 py-5">
+            <div className="flex items-center gap-3 rounded-2xl border border-dashed border-cyan-200/30 bg-slate-800/70 px-6 py-5">
               <IconTile icon={Settings2} className="h-6 w-6" tileClassName="bg-cyan-500/30 text-cyan-100 p-2" />
               <p className="text-sm font-medium text-cyan-50/80">{t('product.contactForSpecs')}</p>
             </div>
           ))}
 
         {active === 'description' && description && (
-          <OceanGlassCard depth="sm" className="border border-white/15 bg-white/[0.06] p-7">
+          <div className={`${tabPanel} p-7`}>
             <h2 className="text-2xl font-bold tracking-tight text-white">{t('product.description')}</h2>
             <div className="mt-4 max-w-none">{renderParagraphs(description)}</div>
-          </OceanGlassCard>
+          </div>
         )}
       </div>
     </div>
@@ -163,6 +167,31 @@ export default function ProductDetailView({
 
   const images = product.images && product.images.length ? product.images : ['/images/og-default.svg'];
   const [activeImage, setActiveImage] = useState(images[0]);
+
+  // V42: click-to-zoom lightbox (hand-built, no third-party dependency).
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+  const openLightbox = (index: number) => {
+    const clamped = Math.max(0, Math.min(images.length - 1, index));
+    setLightboxIndex(clamped);
+    setLightboxOpen(true);
+  };
+  const closeLightbox = () => setLightboxOpen(false);
+  const stepLightbox = (dir: number) => {
+    if (images.length <= 1) return;
+    setLightboxIndex((i) => (i + dir + images.length) % images.length);
+  };
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowLeft') stepLightbox(-1);
+      else if (e.key === 'ArrowRight') stepLightbox(1);
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lightboxOpen]);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-cyan-600/50 via-teal-500/35 to-sky-400/25">
@@ -216,10 +245,21 @@ export default function ProductDetailView({
             <OceanGlassCard ripple depth="lg" hoverLift={false} rippleRings={3} ripplePointer rippleColor="rgba(56,189,248,0.28)" className="relative overflow-hidden p-2 sm:p-3">
               {/* Ocean top accent bar — card memory point */}
               <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-ocean-400 to-brand-600" aria-hidden="true" />
-              <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-slate-100"
+              <div
+                className="relative aspect-[4/3] cursor-zoom-in overflow-hidden rounded-xl bg-slate-100"
                 style={{
                   WebkitMaskImage: 'linear-gradient(to bottom, #000 80%, transparent)',
                   maskImage: 'linear-gradient(to bottom, #000 80%, transparent)',
+                }}
+                role="button"
+                tabIndex={0}
+                aria-label={t('product.zoom') || 'View larger image'}
+                onClick={() => openLightbox(images.indexOf(activeImage))}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openLightbox(images.indexOf(activeImage));
+                  }
                 }}
               >
                 <ImageWithRetry src={activeImage} alt={name} loading="eager" fetchPriority="high" className="h-full w-full object-cover" />
@@ -230,7 +270,10 @@ export default function ProductDetailView({
                   <button
                     key={img}
                     type="button"
-                    onClick={() => setActiveImage(img)}
+                    onClick={() => {
+                      setActiveImage(img);
+                      openLightbox(images.indexOf(img));
+                    }}
                     aria-label={name}
                     aria-pressed={activeImage === img}
                     className={`group relative h-20 w-20 overflow-hidden rounded-xl border-2 transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-cyan-900 active:scale-95 ${
@@ -285,6 +328,69 @@ export default function ProductDetailView({
               ))}
             </div>
           </RevealOnScroll>
+        )}
+
+        {/* Lightbox — click any product image to zoom (hand-built, no deps) */}
+        {lightboxOpen && (
+          <div
+            className="fixed inset-0 z-[70] flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm animate-fade-in"
+            onClick={closeLightbox}
+            role="dialog"
+            aria-modal="true"
+            aria-label={name}
+          >
+            <button
+              type="button"
+              onClick={closeLightbox}
+              aria-label={t('product.close') || 'Close'}
+              className="absolute end-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+            >
+              <X className="h-6 w-6" />
+            </button>
+
+            {images.length > 1 && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  stepLightbox(-1);
+                }}
+                aria-label={t('product.prev') || 'Previous'}
+                className="absolute start-4 top-1/2 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rtl:-scale-x-100"
+              >
+                <ChevronLeft className="h-7 w-7" />
+              </button>
+            )}
+            {images.length > 1 && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  stepLightbox(1);
+                }}
+                aria-label={t('product.next') || 'Next'}
+                className="absolute end-4 top-1/2 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rtl:-scale-x-100"
+              >
+                <ChevronRight className="h-7 w-7" />
+              </button>
+            )}
+
+            <div className="animate-scale-in" onClick={(e) => e.stopPropagation()}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={images[lightboxIndex]}
+                alt={`${name} ${lightboxIndex + 1}`}
+                className="max-h-[90vh] max-w-[90vw] rounded-xl object-contain shadow-2xl"
+                draggable={false}
+              />
+            </div>
+
+            {images.length > 1 && (
+              <div className="absolute bottom-5 left-1/2 -translate-x-1/2 rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium text-white">
+                {lightboxIndex + 1} / {images.length}
+              </div>
+            )}
+          </div>
         )}
       </div>
     </div>

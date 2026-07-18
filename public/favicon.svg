@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
   <defs>
     <linearGradient id="lg" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#00BCD4"/>
-      <stop offset="0.5" stop-color="#0EA5E9"/>
-      <stop offset="1" stop-color="#38BDF8"/>
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset="0.5" stop-color="#0ea5e9"/>
+      <stop offset="1" stop-color="#3b82f6"/>
     </linearGradient>
     <radialGradient id="sh" cx="0.34" cy="0.28" r="0.55">
       <stop offset="0" stop-color="#ffffff" stop-opacity="0.9"/>
@@ -11,11 +11,12 @@
     </radialGradient>
   </defs>
 
-  <!-- Tech light-blue sphere -->
+  <!-- Sky-cyan sphere -->
   <circle cx="16" cy="16" r="14" fill="url(#lg)"/>
   <circle cx="16" cy="16" r="14" fill="none" stroke="#bae6fd" stroke-opacity="0.6" stroke-width="0.8"/>
   <ellipse cx="12" cy="9.5" rx="7" ry="5" fill="url(#sh)"/>
 
-  <!-- White "Q" letter mark (high contrast at small sizes) -->
-  <text x="16" y="22" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="800" fill="#ffffff">Q</text>
+  <!-- Twin white sparkles (double-star brand mark) -->
+  <path d="M13 7 Q13 14 20 14 Q13 14 13 21 Q13 14 6 14 Q13 14 13 7 Z" fill="#ffffff"/>
+  <path d="M23 19.5 Q23 23 26.5 23 Q23 23 23 26.5 Q23 23 19.5 23 Q23 23 23 19.5 Z" fill="#ffffff" fill-opacity="0.85"/>
 </svg>

@@ -32,7 +32,6 @@ import { localized } from '@/lib/localize';
 import CountUp from '@/components/ui/CountUp';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
-import CiPaiFrame from '@/components/ui/CiPaiFrame';
 import OceanBubbles from '@/components/ui/OceanBubbles';
 import type { Locale } from '@/lib/i18n';
 
@@ -454,7 +453,15 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
   const localeOr = <T extends string>(rec: Record<string, T>): T => (rec[locale] as T) ?? (rec.en as T);
 
   return (
-    <div className="bg-gradient-to-b from-[#0a0e1a] via-[#0b1120] to-[#0a0e1a]">
+    <div className="relative isolate overflow-hidden bg-gradient-to-b from-slate-900 via-[#0f172a] to-[#0c1929]">
+      {/* Subtle deep-space nebula — layers of indigo / cyan / teal glow so the
+          page reads as a living night sky rather than flat black. */}
+      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <div className="absolute -top-24 start-0 h-[440px] w-[440px] rounded-full bg-indigo-600/10 blur-3xl" />
+        <div className="absolute top-1/4 end-0 h-[460px] w-[460px] rounded-full bg-cyan-600/10 blur-3xl" />
+        <div className="absolute bottom-1/3 start-10 h-[420px] w-[420px] rounded-full bg-teal-600/10 blur-3xl" />
+        <div className="absolute bottom-0 end-1/4 h-[360px] w-[360px] rounded-full bg-sky-600/10 blur-3xl" />
+      </div>
       {/* ══════════════════ 1. HERO ══════════════════ */}
       <section className="relative isolate overflow-hidden bg-gradient-to-b from-[#0a0e1a] via-[#0f172a] to-[#0c1929] text-white">
         {/* Deep-space colour glows for atmosphere. */}
@@ -474,11 +481,6 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           <p className="mx-auto mt-5 max-w-2xl text-lg text-white/75">
             {t('about.subtitle')}
           </p>
-
-          {/* Brand ci-pai plaque — vertical brand identifier. */}
-          <div className="mt-8 flex justify-center">
-            <CiPaiFrame label="秋彦" subLabel="Qtech" accent="cyan" />
-          </div>
 
           {/* Stat strip with animated counters. */}
           <div className="mx-auto mt-14 grid max-w-4xl grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">

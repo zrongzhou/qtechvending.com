@@ -31,7 +31,7 @@ export default function FilterBar({
   const hasFilters = selected.length > 0 || search.trim().length > 0;
 
   return (
-    <OceanGlassCard ripple depth="lg" hoverLift={false} className="relative overflow-hidden border border-white/20 bg-white/10 p-5 backdrop-blur-md">
+    <OceanGlassCard ripple depth="lg" hoverLift={false} className="relative overflow-hidden border border-white/20 bg-white/14 p-5 backdrop-blur-md">
       {/* Ocean top accent bar — aligns with the ocean design system */}
       <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-cyan-500 via-teal-500 to-brand-600" aria-hidden="true" />
       <div className="flex flex-col gap-4">

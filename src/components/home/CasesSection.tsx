@@ -116,14 +116,19 @@ export default function CasesSection() {
   const { t, locale } = useLocale();
 
   return (
-    <RevealOnScroll as="section" className="relative overflow-hidden bg-[#0a0e1a] py-20 md:py-28">
-      {/* Subtle deep-space nebula so the dark glass has colour to blur. */}
+    <RevealOnScroll as="section" className="relative overflow-hidden bg-gradient-to-b from-slate-800 via-slate-900 to-cyan-950 py-20 md:py-28">
+      {/* Subtle deep-space nebula — lighter than the hero, adds colour and depth
+          so the dark glass has something to blur (no longer pure black). */}
       <div
-        className="pointer-events-none absolute -top-24 end-0 h-96 w-96 rounded-full bg-violet-700/10 blur-3xl"
+        className="pointer-events-none absolute -top-24 end-0 h-96 w-96 rounded-full bg-violet-500/15 blur-3xl"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute bottom-0 start-0 h-96 w-96 rounded-full bg-cyan-600/10 blur-3xl"
+        className="pointer-events-none absolute bottom-0 start-0 h-96 w-96 rounded-full bg-cyan-500/15 blur-3xl"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute top-1/3 start-1/3 h-80 w-80 rounded-full bg-sky-500/10 blur-3xl"
         aria-hidden="true"
       />
 

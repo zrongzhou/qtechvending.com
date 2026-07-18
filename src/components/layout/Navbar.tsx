@@ -61,7 +61,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white shadow-sm">
       <div className="container-qtech flex h-16 items-center justify-between">
         {/* Brand logo — 两列布局: 左列=菱形星标+Qtech/TOOL CABINET, 右列=公司全名 */}
         <Link href={`/${locale}`} className="flex items-center gap-3" aria-label="Qtech home">

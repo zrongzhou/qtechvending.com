@@ -79,9 +79,10 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
   const { data, totalPages } = result;
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-slate-900 via-cyan-950 to-teal-900">
-      {/* Deep ocean base layer behind the brighter overlay for depth (V40 dark). */}
-      <div className="absolute inset-0 -z-20 bg-gradient-to-b from-cyan-950/80 via-teal-900/70 to-slate-900/80" aria-hidden="true" />
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-slate-800 via-cyan-900/90 to-teal-900/80">
+      {/* Deep ocean base layer behind the brighter overlay for depth (V42: one
+          step brighter than V41 — present but never pitch black). */}
+      <div className="absolute inset-0 -z-20 bg-gradient-to-b from-cyan-900/70 via-teal-800/60 to-slate-800/70" aria-hidden="true" />
       {/* Sunlight sheen from the surface (upper-ocean glow) */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-cyan-300/15 via-cyan-400/5 to-transparent" aria-hidden="true" />
 
@@ -135,7 +136,7 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
             />
           </aside>
 
-          <OceanGlassCard depth="sm" hoverLift={false} className="rounded-3xl border border-white/15 bg-white/[0.06] p-4 backdrop-blur-xl sm:p-6">
+          <OceanGlassCard depth="sm" hoverLift={false} className="rounded-3xl border border-white/15 bg-white/10 p-4 backdrop-blur-xl sm:p-6">
             {data.length === 0 ? (
               <OceanGlassCard ripple depth="sm" className="border border-dashed border-white/25 bg-white/5 p-12 text-center text-white/80">
                 {t('products.noResults')}
