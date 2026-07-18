@@ -671,6 +671,101 @@ input[type='number']::-webkit-inner-spin-button {
 }
 .animate-float-slow { animation: floatSlow 5s ease-in-out infinite; }
 
+/* ===== V39 card float + entrance + icon animations ===== */
+
+/* Gentle continuous up/down card float (more pronounced than floatSlow). */
+@keyframes floatGentle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+.animate-float-gentle {
+  animation: floatGentle 4s ease-in-out infinite;
+}
+
+/* Staggered entrance — slide up + fade in. */
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-up {
+  animation: slideUpFade 0.7s ease-out forwards;
+}
+
+/* Slow icon rotation for advantage/feature tiles on hover. */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spinSlow 8s linear infinite;
+}
+
+/* ===== V39 CTA "Cosmic Portal" scene (pure CSS) ===== */
+.portal-ring {
+  position: absolute;
+  left: 50%;
+  bottom: -18%;
+  width: 720px;
+  height: 720px;
+  max-width: 130vw;
+  border-radius: 9999px;
+  border: 2px solid rgba(34, 211, 238, 0.3);
+  border-top-color: rgba(34, 211, 238, 0.75);
+  transform: translateX(-50%);
+  box-shadow:
+    0 0 80px rgba(34, 211, 238, 0.12) inset,
+    0 0 50px rgba(34, 211, 238, 0.08);
+  animation: portalRingPulse 4s ease-in-out infinite, portalRingSpin 32s linear infinite;
+  pointer-events: none;
+}
+.portal-ring--2 {
+  width: 940px;
+  height: 940px;
+  border-color: rgba(45, 212, 191, 0.18);
+  border-top-color: rgba(45, 212, 191, 0.5);
+  animation-duration: 5s, 44s;
+  opacity: 0.7;
+}
+@keyframes portalRingPulse {
+  0%, 100% { transform: translateX(-50%) scale(0.8); }
+  50% { transform: translateX(-50%) scale(1.05); }
+}
+@keyframes portalRingSpin {
+  from { rotate: 0deg; }
+  to { rotate: 360deg; }
+}
+.portal-particle {
+  position: absolute;
+  bottom: 0;
+  border-radius: 9999px;
+  opacity: 0;
+  animation: portalParticle var(--portal-dur, 8s) linear infinite;
+  pointer-events: none;
+}
+@keyframes portalParticle {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  15% { opacity: 0.6; }
+  85% { opacity: 0.4; }
+  100% { transform: translateY(-62vh) translateX(24px); opacity: 0; }
+}
+.portal-grid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 34%;
+  background-image:
+    linear-gradient(to right, rgba(34, 211, 238, 0.22) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(34, 211, 238, 0.22) 1px, transparent 1px);
+  background-size: 44px 44px;
+  transform: perspective(380px) rotateX(72deg);
+  transform-origin: bottom center;
+  opacity: 0.55;
+  pointer-events: none;
+  mask-image: linear-gradient(to top, black, transparent);
+  -webkit-mask-image: linear-gradient(to top, black, transparent);
+}
+
 /* ============ prefers-reduced-motion ============ */
 /* V36.1: brand ambient animations (starfield, night-village, water-ripple,
    god-rays, bubbles, ci-pai vertical writing) intentionally KEEP running under
@@ -684,4 +779,15 @@ input[type='number']::-webkit-inner-spin-button {
     transform: none !important;
     transition: none !important;
   }
+  /* CTA Cosmic Portal degrades gracefully: stop the ring/particle/grid motion
+     and freeze them in a calm, static pose. */
+  .portal-ring,
+  .portal-ring--2,
+  .portal-particle,
+  .portal-grid {
+    animation: none !important;
+  }
+  .portal-particle { opacity: 0.25 !important; transform: none !important; }
+  .portal-ring,
+  .portal-ring--2 { transform: translateX(-50%) !important; }
 }

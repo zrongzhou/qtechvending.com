@@ -157,9 +157,9 @@ export default function ProductDetailView({
             <div className="mt-10">
               {specs.length > 0 ? (
                 <RevealOnScroll>
-                  <OceanGlassCard ripple depth="md" rippleRings={3} ripplePointer rippleColor="rgba(56,189,248,0.28)" className="overflow-hidden border border-white/15 bg-white/[0.07]">
+                  <OceanGlassCard ripple depth="md" rippleRings={3} ripplePointer rippleColor="rgba(56,189,248,0.28)" className="overflow-hidden rounded-2xl border border-white/15 bg-white/[0.12] backdrop-blur-xl transition-shadow duration-500">
                     {/* Gradient header */}
-                    <div className="bg-gradient-to-r from-ocean-500 to-brand-600 px-6 py-4">
+                    <div className="bg-gradient-to-r from-ocean-500/80 to-brand-600/80 px-6 py-4">
                       <h2 className="flex items-center gap-2.5 text-lg font-bold text-white">
                         <IconTile icon={Settings2} className="h-6 w-6" tileClassName="bg-white/20 text-white p-2" />
                         {t('product.specs')}
@@ -171,7 +171,7 @@ export default function ProductDetailView({
                       {specs.map((s, i) => (
                         <div
                           key={i}
-                          className="flex flex-col gap-1 px-6 py-4 transition-colors even:bg-white/5 hover:bg-white/10 sm:flex-row sm:gap-6"
+                          className="flex flex-col gap-1 px-6 py-4 transition-colors even:bg-white/8 hover:bg-white/15 sm:flex-row sm:gap-6"
                         >
                           <dt className="w-40 shrink-0 font-mono text-xs font-bold uppercase tracking-wider text-cyan-200">
                             {s.param}

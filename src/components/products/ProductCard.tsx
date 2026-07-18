@@ -57,11 +57,11 @@ export default function ProductCard({
 
   // Dark (products-page ocean theme) vs light (home / detail) presentation.
   const surfaceBase = oceanMode
-    ? 'bg-white/10 backdrop-blur-md border border-white/20 transition-all duration-300 hover:-translate-y-2 hover:bg-white/[0.18] hover:shadow-[0_24px_60px_rgba(56,189,248,0.25)]'
+    ? 'bg-white/10 backdrop-blur-md border border-white/20 transition-all duration-300 hover:-translate-y-2 hover:bg-white/[0.14] hover:shadow-[0_24px_60px_rgba(56,189,248,0.25)]'
     : 'border border-ocean-200/60 transition-all duration-300 hover:-translate-y-2 hover:border-ocean-300/60 hover:shadow-ocean-lg';
   const titleClass = oceanMode ? 'text-white' : 'text-ink-900';
   // V38: lift description opacity for better hover readability in ocean mode.
-  const shortClass = oceanMode ? 'text-white/85' : 'text-ink-500';
+  const shortClass = oceanMode ? 'text-white/95' : 'text-ink-500';
   const catPillClass = oceanMode ? 'from-white/15 to-white/10 text-white/80' : accent.pill;
   const chipClass = oceanMode ? 'bg-white/10 text-white/70' : 'bg-slate-100 text-ink-600';
   const ctaClass = oceanMode ? 'text-cyan-200 drop-shadow-[0_0_10px_rgba(56,189,248,0.55)]' : 'text-ocean-700';
@@ -114,7 +114,7 @@ export default function ProductCard({
           )}
 
           {/* Hover overlay: View Details — ocean gradient button */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-ocean-900/90 via-ocean-700/30 to-transparent p-4 transition-transform duration-300 group-hover:translate-y-0">
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-ocean-800/75 via-ocean-700/30 to-transparent p-4 transition-transform duration-300 group-hover:translate-y-0">
             <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-ocean-500 to-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-lg">
               {t('home.featured.viewDetails')}
               <span aria-hidden="true" className="transition-transform group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1">→</span>

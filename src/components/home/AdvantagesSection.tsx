@@ -116,10 +116,10 @@ export default function AdvantagesSection() {
             const points = POINTS[i][locale] ?? POINTS[i].en;
             return (
             <RevealOnScroll key={item.titleKey} delay={i * 100} className="h-full">
-              <div className="relative h-full">
+              <div className="relative h-full animate-float-gentle hover:[animation-play-state:paused]" style={{ animationDelay: `${i * 0.6}s` }}>
                 {/* Soft colored glow behind the glass card so it pops visually */}
                 <div className={`absolute -inset-1 rounded-2xl bg-gradient-to-br opacity-20 blur-xl ${accent.bar}`} aria-hidden="true" />
-                <OceanGlassCard depth="md" hoverLift={false} className={`group relative z-10 h-full border border-ocean-200/50 border-l-4 ${accent.leftBorder} ${accent.glow} transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02]`}>
+                <OceanGlassCard depth="md" hoverLift={false} className={`group relative z-10 h-full border border-ocean-200/50 border-l-4 ${accent.leftBorder} ${accent.glow} transition-all duration-300 hover:-translate-y-3 hover:scale-[1.02] hover:shadow-2xl`}>
                   <div className="flex h-full flex-col p-7">
                     {/* Top accent bar — per-card identity colour */}
                     <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${accent.bar}`} aria-hidden="true" />
@@ -132,7 +132,7 @@ export default function AdvantagesSection() {
                       <IconTile
                         icon={Icon}
                         className="h-14 w-14"
-                        tileClassName={`${accent.tile} flex items-center justify-center rounded-2xl shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6`}
+                        tileClassName={`${accent.tile} flex items-center justify-center rounded-2xl shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 group-hover:animate-spin-slow`}
                         animate="float"
                       />
                       <h3 className="mt-5 text-xl font-bold text-ink-900">{t(item.titleKey)}</h3>

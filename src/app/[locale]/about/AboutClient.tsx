@@ -21,6 +21,8 @@ import {
   Store,
   Leaf,
   Users,
+  Package,
+  Award,
   Clock,
   type LucideIcon,
 } from 'lucide-react';
@@ -30,8 +32,8 @@ import CountUp from '@/components/ui/CountUp';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
 import OceanGlassCard from '@/components/ui/OceanGlassCard';
-import ImageWithRetry from '@/components/ui/ImageWithRetry';
 import CiPaiFrame from '@/components/ui/CiPaiFrame';
+import OceanBubbles from '@/components/ui/OceanBubbles';
 import AuroraBackground from '@/components/ui/AuroraBackground';
 import type { Locale } from '@/lib/i18n';
 
@@ -354,74 +356,6 @@ const VISION_STATEMENTS: StatementItem[] = [
   },
 ];
 
-/* ── Global success stories (V38: image/title/sub consistent) ── */
-const STORIES = [
-  {
-    image: '/images/cases/case-1.webp',
-    title: { en: 'Fresh-Flower Kiosk', zh: '鲜花自助站', ar: 'كشك الزهور الطازجة' },
-    sub: {
-      en: 'On-demand bouquets for commuters and last-minute gifts.',
-      zh: '为通勤族与临时送礼提供即时鲜花。',
-      ar: 'باقات عند الطلب للركاب والهدايا في اللحظة الأخيرة.',
-    },
-  },
-  {
-    image: '/images/products/12-inch-pizza-outdoor-waterproof-sun-resistant-and-insulated-pizza-vending-machine-can-be-used-in-gas-station/1.webp',
-    title: { en: '24/7 Campus Pizza', zh: '校园 24/7 披萨', ar: 'بيتزا الحرم الجامعي 24/7' },
-    sub: {
-      en: 'Serving students late-night hot pizza on a European campus.',
-      zh: '为欧洲校园师生提供深夜热披萨。',
-      ar: 'تقديم البيتزا الساخنة لطلاب الحرم الجامعي في وقت متأخر.',
-    },
-  },
-  {
-    image: '/images/products/different-flavor-robot-service-ice-cream-vending-machine-support-logo-customized/1.webp',
-    title: { en: 'Branded Ice-Cream Robot', zh: '品牌定制冰淇淋机器人', ar: 'روبوت آيس كريم بتصميم العلامة التجارية' },
-    sub: {
-      en: 'OEM-branded ice-cream robot for a Middle-East retail chain.',
-      zh: '为中东零售连锁提供 OEM 品牌定制冰淇淋机器人。',
-      ar: 'روبوت آيس كريم بتصميم OEM لسلسلة بيع بالتجزئة في الشرق الأوسط.',
-    },
-  },
-  {
-    image: '/images/products/2025-newest-instant-fast-hot-coffee-vending-machine-in-energy-saving-design/1.webp',
-    title: { en: 'Office Coffee Corner', zh: '办公室咖啡角', ar: 'مكتب قهوة المكاتب' },
-    sub: {
-      en: 'Energy-saving coffee station for corporate lobbies and offices.',
-      zh: '企业大堂与办公室的节能咖啡方案。',
-      ar: 'محطة قهوة موفرة للطاقة لبهو الشركات والمكاتب.',
-    },
-  },
-  {
-    image: '/images/products/smart-vending-machine-with-weighing-sensor-technology-selling-fruitvegetableeggsnack-and-cold-drink/1.webp',
-    title: { en: 'Hospital Lobby', zh: '医院大堂', ar: 'بهو المستشفى' },
-    sub: {
-      en: 'Round-the-clock snacks, drinks and fresh food for patients and visitors.',
-      zh: '为患者与访客提供全天候零食、饮品与鲜食。',
-      ar: 'وجبات خفيفة ومشروبات وطعام طازج على مدار الساعة للمرضى والزوار.',
-    },
-  },
-  {
-    image: '/images/products/the-hot-new-pet-intelligent-self-service-washing-and-grooming-vending-machine-with-convenient-payment-options/1.webp',
-    title: { en: 'Pet Spa on the Street', zh: '街头宠物洗护站', ar: 'سبا للحيوانات في الشارع' },
-    sub: {
-      en: 'Self-service pet wash station in a residential district.',
-      zh: '社区中的自助宠物洗护站。',
-      ar: 'محطة غسيل حيوانات ذاتي في حي سكني.',
-    },
-  },
-];
-
-/* ── Category tag per story ── */
-const STORY_CATS = [
-  { en: 'Flower Vending', zh: '鲜花售货', ar: 'بيع الزهور' },
-  { en: 'Pizza Vending', zh: '披萨售货', ar: 'بيع البيتزا' },
-  { en: 'Ice-Cream Robot', zh: '冰淇淋机器人', ar: 'روبوت آيس كريم' },
-  { en: 'Coffee Vending', zh: '咖啡售货', ar: 'بيع القهوة' },
-  { en: 'Juice Vending', zh: '果汁售货', ar: 'بيع العصير' },
-  { en: 'Pet Wash', zh: '宠物洗护', ar: 'غسيل الحيوانات' },
-];
-
 /* ── Company timeline ── */
 const TIMELINE: MilestoneItem[] = [
   {
@@ -491,10 +425,10 @@ const HERO_STATS = [
 
 /** Rotating accent identity for icon tiles & decorative lines. */
 const ACCENTS = [
-  { tile: 'from-cyan-500 to-blue-500', text: 'text-cyan-600', border: 'border-cyan-400', glow: 'hover:shadow-cyan-500/30' },
-  { tile: 'from-emerald-500 to-teal-500', text: 'text-emerald-600', border: 'border-emerald-400', glow: 'hover:shadow-emerald-500/30' },
-  { tile: 'from-violet-500 to-purple-500', text: 'text-violet-600', border: 'border-violet-400', glow: 'hover:shadow-violet-500/30' },
-  { tile: 'from-amber-500 to-orange-500', text: 'text-amber-600', border: 'border-amber-400', glow: 'hover:shadow-amber-500/30' },
+  { tile: 'from-cyan-500 to-blue-500', text: 'text-cyan-600', border: 'border-cyan-400', glow: 'hover:shadow-cyan-500/30', color: 'cyan', shadow: 'shadow-cyan-500/20' },
+  { tile: 'from-emerald-500 to-teal-500', text: 'text-emerald-600', border: 'border-emerald-400', glow: 'hover:shadow-emerald-500/30', color: 'emerald', shadow: 'shadow-emerald-500/20' },
+  { tile: 'from-violet-500 to-purple-500', text: 'text-violet-600', border: 'border-violet-400', glow: 'hover:shadow-violet-500/30', color: 'violet', shadow: 'shadow-violet-500/20' },
+  { tile: 'from-amber-500 to-orange-500', text: 'text-amber-600', border: 'border-amber-400', glow: 'hover:shadow-amber-500/30', color: 'amber', shadow: 'shadow-amber-500/20' },
 ];
 
 export default function AboutClient({ sections }: { sections: AboutSection[] }) {
@@ -507,10 +441,12 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
   return (
     <div className="bg-gradient-to-b from-ocean-50/60 via-white to-brand-50/40">
       {/* ════════ 1. HERO ════════ */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-cyan-700 via-teal-600 to-sky-600 text-white">
+      <section className="relative isolate overflow-hidden bg-gradient-to-br from-cyan-600 via-teal-500 to-sky-400 text-white">
         {/* Decorative blobs */}
         <div className="pointer-events-none absolute -start-16 top-10 h-64 w-64 rounded-full bg-white/10 blur-3xl" aria-hidden="true" />
         <div className="pointer-events-none absolute end-0 top-1/3 h-72 w-72 rounded-full bg-cyan-300/20 blur-3xl" aria-hidden="true" />
+        {/* Rising ocean bubbles behind the hero content. */}
+        <OceanBubbles className="-z-10" reduced={false} />
 
         <div className="container-qtech relative py-20 text-center lg:py-28">
           <span className="inline-flex items-center rounded-full bg-white/20 px-4 py-1.5 text-sm font-medium text-white">
@@ -534,8 +470,8 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               return (
                 <RevealOnScroll key={s.key} delay={i * 80} className="h-full">
                   <div className="group relative flex h-full min-h-[160px] flex-col items-center justify-center gap-3 overflow-hidden rounded-2xl border border-white/40 bg-white/15 p-5 text-center shadow-soft backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lift">
-                    <span className={`inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${accent.tile} text-white shadow-md`}>
-                      <Icon className="h-6 w-6" strokeWidth={1.8} />
+                    <span className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${accent.tile} ${accent.shadow} shadow-lg transition-transform duration-500 group-hover:rotate-6`}>
+                      <Icon className="h-7 w-7" strokeWidth={1.8} />
                     </span>
                     <dt className="text-3xl font-extrabold tracking-tight text-white drop-shadow-sm">
                       <CountUp end={s.end} suffix={s.suffix} />
@@ -547,9 +483,25 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             })}
           </div>
         </div>
+        {/* ════════ 1b. COMPANY INTRODUCTION (restored V39) ════════ */}
+        <div className="container-qtech pb-12">
+          <div className="mx-auto max-w-3xl rounded-2xl bg-white/10 p-8 text-center text-white backdrop-blur-md ring-1 ring-white/10 sm:p-10">
+            <p className="text-base leading-relaxed text-white/90 sm:text-lg">
+              {locale === 'zh'
+                ? '广州秋彦科技（Qtech）专注于智能售货设备的研发与制造，为全球 80+ 国家和地区的合作伙伴提供定制化的自助零售解决方案。从鲜花保鲜柜到披萨自动售货机，我们以匠心打磨每一台设备。'
+                : locale === 'ar'
+                  ? 'تتركز تقنية تشيوان (Qtech) على البحث والتطوير وتصنيع آلات البيع الذكية، وتقدم حلولاً مخصصة للبيع بالتجزئة الذاتية لشركاء في أكثر من 80 دولة ومنطقة حول العالم.'
+                  : 'Guangzhou Qiuyan Technology (Qtech) specializes in R&D and manufacturing of smart vending machines, delivering customized self-service retail solutions to partners in 80+ countries worldwide.'}
+            </p>
+            <Link href={`/${locale}/contact`} className="mt-6 inline-flex items-center gap-2 rounded-full bg-brand-500 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-400">
+              {locale === 'zh' ? '获取报价' : locale === 'ar' ? 'اطلب عرض سعر' : 'Get a Quote'} →
+            </Link>
+          </div>
+        </div>
+
       </section>
 
-      {/* ════════ 1b. AURORA NIGHT-SKY SCENE (F9) ════════ */}
+      {/* ════════ 1c. AURORA NIGHT-SKY SCENE (F9) ════════ */}
       <section className="container-qtech py-16 lg:py-24">
         <div className="relative min-h-[440px] overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 shadow-lift">
           {/* Aurora ribbons — always animating (brand animations always run). */}
@@ -617,7 +569,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               const a = ACCENTS[i % ACCENTS.length];
               return (
                 <RevealOnScroll key={localeOr(s.title)} delay={i * 80} className="h-full">
-                  <div className="glass-card-strong group relative h-full">
+                  <div className="glass-card-strong group relative h-full animate-float-gentle hover:[animation-play-state:paused]" style={{ animationDelay: `${i * 0.5}s` }}>
                     <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile} flow-bar`} aria-hidden="true" />
                     <IconTile
                       icon={Icon}
@@ -626,7 +578,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     />
                     <h3 className="mt-5 text-xl font-bold text-ink-900">{localeOr(s.title)}</h3>
                     <p className="mt-3 text-sm leading-relaxed text-ink-600">{localeOr(s.desc)}</p>
-                    <Link href={`/${locale}/products`} className={`mt-4 inline-flex items-center text-sm font-semibold ${a.text} hover:underline`}>
+                    <Link href={`/${locale}/products`} className={`mt-4 inline-flex items-center text-sm font-semibold ${a.text} relative after:absolute after:bottom-0 after:start-0 after:h-0.5 after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full`}>
                       {locale === 'zh' ? '了解更多' : locale === 'ar' ? 'اعرف المزيد' : 'Learn more'} →
                     </Link>
                   </div>
@@ -658,7 +610,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               const a = ACCENTS[i % ACCENTS.length];
               return (
                 <RevealOnScroll key={localeOr(m.title)} delay={i * 80} className="h-full">
-                  <div className="glass-card-strong group relative h-full animate-float-slow">
+                  <div className="glass-card-strong group relative h-full animate-float-gentle hover:[animation-play-state:paused]">
                     <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile} flow-bar`} aria-hidden="true" />
                     <IconTile
                       icon={Icon}
@@ -667,7 +619,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     />
                     <h3 className="mt-5 text-xl font-bold text-ink-900">{localeOr(m.title)}</h3>
                     <p className="mt-3 text-sm leading-relaxed text-ink-600">{localeOr(m.desc)}</p>
-                    <Link href={`/${locale}/products`} className={`mt-4 inline-flex items-center text-sm font-semibold ${a.text} hover:underline`}>
+                    <Link href={`/${locale}/products`} className={`mt-4 inline-flex items-center text-sm font-semibold ${a.text} relative after:absolute after:bottom-0 after:start-0 after:h-0.5 after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full`}>
                       {locale === 'zh' ? '了解更多' : locale === 'ar' ? 'اعرف المزيد' : 'Learn more'} →
                     </Link>
                   </div>
@@ -699,7 +651,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               const a = ACCENTS[(i + 1) % ACCENTS.length];
               return (
                 <RevealOnScroll key={localeOr(v.title)} delay={i * 80} className="h-full">
-                  <div className="glass-card-strong group relative h-full animate-float-slow">
+                  <div className="glass-card-strong group relative h-full animate-float-gentle hover:[animation-play-state:paused]">
                     <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile} flow-bar`} aria-hidden="true" />
                     <IconTile
                       icon={Icon}
@@ -708,7 +660,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     />
                     <h3 className="mt-5 text-xl font-bold text-ink-900">{localeOr(v.title)}</h3>
                     <p className="mt-3 text-sm leading-relaxed text-ink-600">{localeOr(v.desc)}</p>
-                    <Link href={`/${locale}/contact`} className={`mt-4 inline-flex items-center text-sm font-semibold ${a.text} hover:underline`}>
+                    <Link href={`/${locale}/contact`} className={`mt-4 inline-flex items-center text-sm font-semibold ${a.text} relative after:absolute after:bottom-0 after:start-0 after:h-0.5 after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full`}>
                       {locale === 'zh' ? '了解更多' : locale === 'ar' ? 'اعرف المزيد' : 'Learn more'} →
                     </Link>
                   </div>
@@ -810,52 +762,40 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           </div>
         </RevealOnScroll>
 
-        {/* ════════ 7. GLOBAL SUCCESS STORIES ════════ */}
-        <RevealOnScroll as="section">
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="inline-flex items-center rounded-full bg-brand-50 px-4 py-1.5 text-sm font-medium text-brand-700">
-              {locale === 'zh' ? '全球落地案例' : locale === 'ar' ? 'قصص النجاح العالمية' : 'Global Success Stories'}
-            </span>
-            <h2 className="mt-5 text-3xl font-extrabold text-ink-900 sm:text-4xl">
-              {t('home.partners.title') || 'Global Partners & Success Stories'}
-            </h2>
-            <p className="mt-2 text-ink-500">
-              {t('home.partners.subtitle') ||
-                (locale === 'zh' ? '我们的设备已在全球多个场景稳定运行'
-                  : locale === 'ar' ? 'تعمل أجهزتنا بشكل موثوق في سيناريوهات متعددة حول العالم'
-                  : 'Our equipment runs reliably in diverse real-world scenarios worldwide')}
-            </p>
-          </div>
+        {/* ════════ 7. GLOBAL IMPACT DATA WALL (replaced repetitive stories) ════════ */}
+        <RevealOnScroll as="section" className="bg-gradient-to-br from-brand-50/60 via-white to-cyan-50/40 py-16 lg:py-24">
+          <div className="container-qtech">
+            <div className="mx-auto max-w-2xl text-center">
+              <span className="inline-flex items-center rounded-full bg-brand-100 px-4 py-1.5 text-sm font-medium text-brand-700">
+                <IconTile icon={Globe2} className="h-4 w-4" tileClassName="bg-brand-500 text-white p-1.5" />
+                {locale === 'zh' ? '全球影响力' : 'Global Impact'}
+              </span>
+              <h2 className="mt-5 text-3xl font-extrabold text-ink-900 sm:text-4xl">
+                {locale === 'zh' ? '数据见证实力' : 'Numbers Speak'}
+              </h2>
+            </div>
 
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {STORIES.map((s, i) => {
-              const cat = STORY_CATS[i];
-              return (
-                <RevealOnScroll key={localeOr(s.title)} delay={i * 80} className="h-full">
-                  <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl pro-card transition-all duration-300 hover:scale-[1.03] hover:shadow-lift">
-                    <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
-                    <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
-                      <CiPaiFrame label="秋彦" subLabel="Qtech" className="block h-full w-full">
-                        <ImageWithRetry
-                          src={s.image}
-                          alt={s.title[locale] || s.title.en}
-                          loading="lazy"
-                          className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                        />
-                      </CiPaiFrame>
-                      <div className="absolute inset-0 bg-gradient-to-t from-ink-900/60 via-transparent to-transparent" />
-                      <span className="absolute start-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-xs font-semibold text-brand-700 shadow-sm backdrop-blur">
-                        {cat[locale] || cat.en}
-                      </span>
-                    </div>
-                    <div className="p-5">
-                      <h3 className="text-base font-semibold text-ink-900">{s.title[locale] || s.title.en}</h3>
-                      <p className="mt-2 line-clamp-2 text-sm text-ink-500">{s.sub[locale] || s.sub.en}</p>
-                    </div>
+            {/* 2×3 impact metrics grid */}
+            <div className="mt-12 grid grid-cols-2 gap-6 lg:grid-cols-3">
+              {[
+                { icon: Globe2, value: '80+', label: locale === 'zh' ? '服务国家' : 'Countries', accent: ACCENTS[0] },
+                { icon: Users, value: '500+', label: locale === 'zh' ? '合作伙伴' : 'Partners', accent: ACCENTS[1] },
+                { icon: Package, value: '22+', label: locale === 'zh' ? '机型种类' : 'Models', accent: ACCENTS[2] },
+                { icon: Clock, value: '24/7', label: locale === 'zh' ? '全天候支持' : 'Support', accent: ACCENTS[3] },
+                { icon: TrendingUp, value: '98%', label: locale === 'zh' ? '客户满意度' : 'Satisfaction', accent: ACCENTS[4 % ACCENTS.length] },
+                { icon: Award, value: 'ISO', label: locale === 'zh' ? '国际认证' : 'Certified', accent: ACCENTS[5 % ACCENTS.length] },
+              ].map((item, i) => (
+                <RevealOnScroll key={i} delay={i * 80}>
+                  <div className="glass-card-strong group flex flex-col items-center rounded-2xl p-8 text-center animate-float-gentle hover:[animation-play-state:paused]" style={{ animationDelay: `${i * 0.5}s` }}>
+                    <span className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${item.accent.tile} text-white shadow-lg`}>
+                      <item.icon className="h-7 w-7" />
+                    </span>
+                    <dt className="mt-4 text-3xl font-extrabold text-ink-900">{item.value}</dt>
+                    <dd className="mt-1 text-sm font-medium text-ink-500">{item.label}</dd>
                   </div>
                 </RevealOnScroll>
-              );
-            })}
+              ))}
+            </div>
           </div>
         </RevealOnScroll>
 
@@ -889,7 +829,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     />
                     <h3 className="relative mt-4 text-lg font-bold text-ink-900">{localeOr(v.title)}</h3>
                     <p className="relative mt-2 text-sm leading-relaxed text-ink-500">{localeOr(v.desc)}</p>
-                    <Link href={`/${locale}/products`} className={`relative mt-4 inline-flex items-center justify-center text-sm font-semibold ${a.text} hover:underline`}>
+                    <Link href={`/${locale}/products`} className={`relative mt-4 inline-flex items-center justify-center text-sm font-semibold ${a.text} relative after:absolute after:bottom-0 after:start-0 after:h-0.5 after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full`}>
                       {locale === 'zh' ? '了解更多' : locale === 'ar' ? 'اعرف المزيد' : 'Learn more'} →
                     </Link>
                   </div>

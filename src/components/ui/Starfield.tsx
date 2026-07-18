@@ -36,7 +36,7 @@ interface Meteor {
   x: number; // start X (0..1, beyond right edge)
   y: number; // start Y (0..0.4, upper sky only)
   length: number; // trail length in px (120–300)
-  speed: number; // px per frame (2.0–5.0)
+  speed: number; // px per frame (2.5–6.5)
   angle: number; // radians (2.0–2.8 = falling left-to-right, downward)
   color: string; // stroke colour prefix e.g. 'rgba(56,189,248,'
   alpha: number; // trail opacity (0.4–0.7)
@@ -51,12 +51,15 @@ function prefersReducedMotion(): boolean {
 }
 
 /**
- * Cinematic starfield canvas (V38).
+ * Cinematic starfield canvas (V39).
  *  - Cross-shaped rays on mid and near-layer stars, with opacity fading outward.
- *  - Per-star independent glow phase: radius and alpha breathe between 70-130% and 50-100%.
- *  - When meteors are active, a warm-white overlay brightens subtly to 0.08 and also lifts
- *    every star's base alpha by up to 30%, so the whole sky feels alive rather than washed out.
- *  - Three distinct parallax layers: far (tiny, dim, slow), mid (moderate, weak rays), near (bright, strong rays, halo).
+ *  - Three parallax layers with strong, intentional depth: far (tiny, dim, slow),
+ *    mid (moderate, weak rays), near (bright, strong rays, halo).
+ *  - A deep-space nebula fog (indigo → violet) gives the night sky colour and
+ *    atmosphere instead of flat black.
+ *  - Meteors are now "dramatic streaks": a glowing head halo, burning trail
+ *    particles, an occasional cross-ray burst on the brightest ones, and a
+ *    pulse-style global brightening (quick rise → slow fall) when they fly.
  */
 export default function Starfield({
   className = '',
@@ -84,15 +87,15 @@ export default function Starfield({
     let height = wrap.clientHeight;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    // Layer definitions — tuned for clear depth and visual rhythm.
-    const layerAlpha = [0.18, 0.45, 0.85];
-    const layerRadius = [0.55, 1.25, 2.4];
-    const layerDrift = [0.02, 0.08, 0.2];
+    // Layer definitions (V39) — exaggerated depth for clear spatial hierarchy.
+    const layerAlpha = [0.12, 0.45, 0.95];
+    const layerRadius = [0.4, 1.25, 3.0];
+    const layerDrift = [0.012, 0.08, 0.28];
     const layerTw = [0.6, 1.0, 1.6];
-    const layerPulseAmp = [0.0, 0.2, 0.35]; // radius pulse amplitude
-    const layerAlphaPulseAmp = [0.0, 0.25, 0.4]; // alpha pulse amplitude
-    const layerRayLen = [0, 3.5, 6]; // ray length = baseR * multiplier
-    const layerRayAlpha = [0, 0.22, 0.32];
+    const layerPulseAmp = [0.0, 0.2, 0.4]; // radius pulse amplitude
+    const layerAlphaPulseAmp = [0.0, 0.25, 0.45]; // alpha pulse amplitude
+    const layerRayLen = [0, 5, 9]; // ray length = baseR * multiplier (strengthened)
+    const layerRayAlpha = [0, 0.3, 0.45]; // cross-ray opacity (raised)
     const layerGlowSpeed = [0.003, 0.01, 0.018];
 
     const stars: Star[] = [];
@@ -131,21 +134,17 @@ export default function Starfield({
     // Pre-computed indices of near-layer stars (for flare events).
     const nearIndices = stars.map((s, i) => (s.layer === 2 ? i : -1)).filter((i) => i !== -1);
 
-    // Cached nebula gradient (recomputed on resize).
+    // Cached nebula gradient (recomputed on resize) — deep-space fog offset to
+    // the top-right corner, indigo → violet, very faint so the sky has colour.
     let nebula: CanvasGradient | null = null;
     function buildNebula() {
       if (!ctx) return;
-      const g = ctx.createRadialGradient(
-        width * 0.5,
-        height * 0.55,
-        0,
-        width * 0.5,
-        height * 0.55,
-        Math.max(width, height) * 0.9,
-      );
-      g.addColorStop(0, 'rgba(99, 102, 241, 0)');
-      g.addColorStop(0.55, 'rgba(99, 102, 241, 0.015)');
-      g.addColorStop(1, 'rgba(99, 102, 241, 0.04)');
+      const cx = width * 0.82; // top-right-ish offset
+      const cy = height * 0.18;
+      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(width, height) * 1.05);
+      g.addColorStop(0, 'rgba(139, 92, 246, 0.05)'); // violet core
+      g.addColorStop(0.45, 'rgba(99, 102, 241, 0.03)'); // indigo mid
+      g.addColorStop(1, 'rgba(99, 102, 241, 0)');
       nebula = g;
     }
 
@@ -165,10 +164,11 @@ export default function Starfield({
       ctx.restore();
     }
 
-    // ---- Meteor shower system (V38 enhanced) ---------------------------------
+    // ---- Meteor shower system (V39 enhanced) ---------------------------------
     const METEOR_COLORS = [
       'rgba(56,189,248,', // cyan
       'rgba(250,204,21,', // gold
+      'rgba(251,146,60,', // warm orange
       'rgba(244,114,182,', // pink
       'rgba(255,255,255,', // white
     ];
@@ -189,7 +189,7 @@ export default function Starfield({
         x,
         y,
         length: 120 + Math.random() * 180, // 120–300 px trail
-        speed: 2.0 + Math.random() * 3.0, // 2.0–5.0 px/frame (fast streak)
+        speed: 2.5 + Math.random() * 4.0, // 2.5–6.5 px/frame (faster streak)
         angle: 2.0 + Math.random() * 0.8, // 2.0–2.8 rad (fall L→R, downward)
         color: METEOR_COLORS[Math.floor(Math.random() * METEOR_COLORS.length)],
         alpha: 0.4 + Math.random() * 0.3, // 0.4–0.7
@@ -197,6 +197,28 @@ export default function Starfield({
         maxLife,
         active: true,
       });
+    }
+
+    /**
+     * Small cross-shaped "star burst" drawn at a meteor's head — only on the
+     * brightest meteors so it reads as a dramatic flare rather than noise.
+     */
+    function drawMeteorCrossRay(px: number, py: number, color: string, vis: number) {
+      if (!ctx) return;
+      const len = 8; // 6–10 px half-length
+      const alpha = Math.min(0.6, vis * (0.4 + Math.random() * 0.2));
+      ctx.save();
+      ctx.lineWidth = 0.5;
+      ctx.strokeStyle = `${color}${alpha})`;
+      ctx.beginPath();
+      ctx.moveTo(px - len, py);
+      ctx.lineTo(px + len, py);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(px, py - len);
+      ctx.lineTo(px, py + len);
+      ctx.stroke();
+      ctx.restore();
     }
 
     function drawMeteors() {
@@ -212,6 +234,7 @@ export default function Starfield({
         const fadeIn = Math.min(1, (m.maxLife - m.life) / 36);
         const vis = m.alpha * Math.min(fadeIn, fadeOut);
 
+        // 1) Main trail gradient line.
         const grad = ctx.createLinearGradient(px, py, tailX, tailY);
         grad.addColorStop(0, `${m.color}${vis})`);
         grad.addColorStop(0.18, `${m.color}${vis * 0.55})`);
@@ -224,11 +247,41 @@ export default function Starfield({
         ctx.lineTo(tailX, tailY);
         ctx.stroke();
 
-        // Bright head dot.
+        // 2) Head glow — radial gradient halo around the meteor head.
+        const glowR = 10; // 8–12px
+        const hg = ctx.createRadialGradient(px, py, 0, px, py, glowR);
+        hg.addColorStop(0, `${m.color}${Math.min(0.15, vis * 0.4)})`);
+        hg.addColorStop(1, `${m.color}0)`);
+        ctx.fillStyle = hg;
+        ctx.beginPath();
+        ctx.arc(px, py, glowR, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 3) Trail particles — small burning fragments along the streak, fading
+        //    from head (bright) to tail (faint), adding a "shattering" feel.
+        const pCount = 4; // 3–5 dots
+        for (let p = 1; p <= pCount; p += 1) {
+          const f = p / (pCount + 1);
+          const dx = px - (px - tailX) * f;
+          const dy = py - (py - tailY) * f;
+          const pr = 0.5 + Math.random() * 1.0; // 0.5–1.5px
+          const pa = vis * (1 - f) * 0.8;
+          ctx.beginPath();
+          ctx.arc(dx, dy, pr, 0, Math.PI * 2);
+          ctx.fillStyle = `${m.color}${pa})`;
+          ctx.fill();
+        }
+
+        // 4) Bright head dot.
         ctx.beginPath();
         ctx.arc(px, py, 3.0, 0, Math.PI * 2);
         ctx.fillStyle = `${m.color}${Math.min(1, vis + 0.25)})`;
         ctx.fill();
+
+        // 5) Cross-ray flare on the brightest meteors only.
+        if (vis > 0.5) {
+          drawMeteorCrossRay(px, py, m.color, vis);
+        }
 
         // Advance position (normalized).
         m.x += (m.speed * Math.cos(m.angle)) / width;
@@ -243,7 +296,7 @@ export default function Starfield({
     let flareTimer = 0;
     let nextFlare = 200 + Math.random() * 300;
 
-    // Global meteor brightness overlay.
+    // Global meteor brightness overlay (pulse: quick rise → slow fall).
     let meteorBrightness = 0;
 
     function resize() {
@@ -301,7 +354,7 @@ export default function Starfield({
       if (!ctx) return;
       ctx.clearRect(0, 0, width, height);
 
-      // Very faint nebula backdrop.
+      // Deep-space nebula fog backdrop (colour + atmosphere).
       if (nebula) {
         ctx.fillStyle = nebula;
         ctx.fillRect(0, 0, width, height);
@@ -340,13 +393,13 @@ export default function Starfield({
         nextFlare = frame + 200 + Math.random() * 300; // 200–500 frames
       }
 
-      // Update meteor brightness based on any active meteor.
+      // Update meteor brightness: quick rise when meteors fly, slow fall after.
       if (!isReduced) {
         const anyMeteorActive = meteors.some((m) => m.active);
         if (anyMeteorActive) {
-          meteorBrightness = Math.min(0.08, meteorBrightness + 0.25 / 60);
+          meteorBrightness = Math.min(0.13, meteorBrightness + 0.05); // quick surge
         } else {
-          meteorBrightness = Math.max(0, meteorBrightness - meteorBrightness / 90);
+          meteorBrightness = Math.max(0, meteorBrightness - meteorBrightness * 0.012); // slow decay
         }
       }
 
@@ -428,7 +481,7 @@ export default function Starfield({
       // Meteors render on top of the star field.
       if (!isReduced) drawMeteors();
 
-      // Global subtle brightness overlay when meteors are active.
+      // Global subtle brightness overlay when meteors are active (pulse).
       if (meteorBrightness > 0.001) {
         ctx.fillStyle = `rgba(255, 245, 220, ${meteorBrightness})`;
         ctx.fillRect(0, 0, width, height);
