@@ -202,18 +202,20 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
             <div className="glass-dark relative overflow-hidden p-3 shadow-lift">
               <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-slate-100 shadow-2xl shadow-brand-300/20">
                 {HERO_IMAGES.map((src, i) => (
-                  <ImageWithRetry
+                  <div
                     key={src}
-                    src={src}
-                    alt={locale === 'zh' ? `Qtech 产品展示 ${i + 1}` : locale === 'ar' ? `عرض المنتج Qtech ${i + 1}` : `Qtech product showcase ${i + 1}`}
-                    loading={i === 0 ? 'eager' : 'lazy'}
-                    fetchPriority={i === 0 ? 'high' : undefined}
-                    className={`absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-1000 ease-out ${
-                      i === currentIndex
-                        ? 'opacity-100 scale-100'
-                        : 'opacity-0 scale-[1.02]'
+                    className={`absolute inset-0 h-full w-full transition-[opacity,transform] duration-1000 ease-out ${
+                      i === currentIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-[1.02]'
                     }`}
-                  />
+                  >
+                    <ImageWithRetry
+                      src={src}
+                      alt={locale === 'zh' ? `Qtech 产品展示 ${i + 1}` : locale === 'ar' ? `عرض المنتج Qtech ${i + 1}` : `Qtech product showcase ${i + 1}`}
+                      loading={i === 0 ? 'eager' : 'lazy'}
+                      fetchPriority={i === 0 ? 'high' : undefined}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  </div>
                 ))}
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-900/30 via-transparent to-transparent" />
 
