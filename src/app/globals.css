@@ -299,14 +299,8 @@ input[type='number']::-webkit-inner-spin-button {
     transform: none !important;
     transition: none !important;
   }
-  .float-soft,
-  .hero-orb,
-  .hero-flow,
-  .cta-orb,
-  .cta-sheen {
-    animation: none !important;
-  }
-  .icon-pulse,
+  /* V36.1: keep ambient/brand animations (hero orbs, flow, cta orbs, icon pulse)
+     running — only one-shot entrance effects are neutralised. */
   .animate-icon-bounce,
   .animate-fade-in,
   .animate-scale-in {
@@ -677,52 +671,17 @@ input[type='number']::-webkit-inner-spin-button {
 }
 .animate-float-slow { animation: floatSlow 5s ease-in-out infinite; }
 
-/* ============ prefers-reduced-motion — V30 + V32 + V36 additions ============ */
+/* ============ prefers-reduced-motion ============ */
+/* V36.1: brand ambient animations (starfield, night-village, water-ripple,
+   god-rays, bubbles, ci-pai vertical writing) intentionally KEEP running under
+   reduced-motion — the site identity is motion-driven and the stakeholder
+   requires them. Only the scroll-reveal entrance transform is neutralised so
+   content is never hidden (handled by the .reveal-up rule above). Hover
+   micro-interactions stay enabled. */
 @media (prefers-reduced-motion: reduce) {
-  .starfield,
-  .aurora,
-  .aurora__band--a,
-  .aurora__band--b,
-  .wave-divider,
-  .icon-float,
-  .icon-shimmer,
-  .stat-number-anim,
-  .village-star,
-  .window-glow,
-  .moon-glow,
-  .firefly,
-  .flow-bar,
-  .animate-float-slow,
-  .icon-pulse,
-  .float-soft {
-    animation: none !important;
-  }
-  /* Keep the static starfield / aurora visible but dimmed. */
-  .starfield { opacity: 0.7; }
-  .aurora { opacity: 0.7; }
-  /* Keep the ripple container visible; only disable the bloom effect. */
-  .ripple::after { display: none !important; }
-  .water-ripple::after { display: none !important; }
-  /* Disable glass hover lift/transition. */
-  .ocean-glass--hover { transition: none !important; transform: none !important; }
-  .ocean-glass--hover:hover { transform: none !important; }
-  /* V35: disable new ocean animations under reduced motion */
-  .god-ray,
-  .bubble-rise {
-    animation: none !important;
-    opacity: 0 !important;
-  }
-  .ripple-ring,
-  .water-ripple > .water-ripple__ring {
-    animation: none !important;
-    display: none !important;
-  }
-  /* V36: name-plaque cards stay static */
-  .name-plaque {
-    transition: none !important;
+  .reveal-up {
+    opacity: 1 !important;
     transform: none !important;
-  }
-  .writing-vertical {
-    writing-mode: horizontal-tb !important;
+    transition: none !important;
   }
 }

@@ -528,24 +528,21 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-white/85">{t('about.subtitle')}</p>
 
-          {/* Chinese-style name-plaque stat cards */}
+          {/* Brand-accent stat cards — horizontal, colour-rotated (no ci-pai) */}
           <div className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
             {HERO_STATS.map((s, i) => {
               const Icon = s.icon;
+              const accent = ACCENTS[i % ACCENTS.length];
               return (
                 <RevealOnScroll key={s.key} delay={i * 80} className="h-full">
-                  <div className="name-plaque group relative flex h-full min-h-[180px] flex-col items-center justify-between overflow-hidden rounded-2xl border border-stone-300/60 bg-gradient-to-b from-amber-50/90 to-orange-50/80 p-4 text-center shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-lift">
-                    <span className="seal absolute start-3 top-3 rounded-sm bg-red-700 px-1.5 py-0.5 text-[11px] font-bold text-white shadow-sm">
-                      {locale === 'zh' ? '秋彦' : 'Qtech'}
+                  <div className="group relative flex h-full min-h-[160px] flex-col items-center justify-center gap-3 overflow-hidden rounded-2xl border border-white/40 bg-white/15 p-5 text-center shadow-soft backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lift">
+                    <span className={`inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${accent.tile} text-white shadow-md`}>
+                      <Icon className="h-6 w-6" strokeWidth={1.8} />
                     </span>
-                    <Icon className="h-6 w-6 text-stone-500 opacity-80" strokeWidth={1.5} />
-                    <div className="writing-vertical mx-auto flex flex-col items-center gap-2">
-                      <dt className="text-2xl font-extrabold tracking-tight text-stone-800">
-                        <CountUp end={s.end} suffix={s.suffix} />
-                      </dt>
-                      <dd className="text-xs font-medium text-stone-600">{t(s.key)}</dd>
-                    </div>
-                    <p className="mt-2 text-[10px] text-stone-400">广州秋彦科技 · Qtech Vending</p>
+                    <dt className="text-3xl font-extrabold tracking-tight text-white drop-shadow-sm">
+                      <CountUp end={s.end} suffix={s.suffix} />
+                    </dt>
+                    <dd className="text-sm font-medium text-white/85">{t(s.key)}</dd>
                   </div>
                 </RevealOnScroll>
               );
