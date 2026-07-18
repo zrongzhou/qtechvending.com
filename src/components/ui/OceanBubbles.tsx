@@ -32,10 +32,16 @@ interface Bubble {
   swayPhase: number;
   swaySpeed: number;
   color: string;
+  ring: string; // rim stroke colour
 }
 
-// Light cyan / white / aqua palette — subtle underwater refraction tones.
+// Light cyan / white / aqua palette — subtle underwater refraction tones
+// (for dark backgrounds).
 const PALETTE = ['#7dd3fc', '#a5f3fc', '#e0f2fe', '#bae6fd', '#67e8f9', '#cffafe'];
+// Slightly deeper cyan tones + a visible ring so bubbles read on light /
+// glassmorphism backgrounds.
+const PALETTE_LIGHT = ['#22d3ee', '#2dd4bf', '#38bdf8', '#5eead4', '#67e8f9', '#0ea5e9'];
+const RING_LIGHT = 'rgba(8, 145, 178, 0.55)';
 
 const rand = (min: number, max: number): number => Math.random() * (max - min) + min;
 
@@ -47,9 +53,13 @@ function prefersReducedMotion(): boolean {
 export interface OceanBubblesProps {
   className?: string;
   reduced?: boolean;
+  /** 'dark' (default) = bright cyan/white bubbles for dark backgrounds;
+   *  'light' = slightly deeper cyan bubbles with a visible ring so they read
+   *  on light / glassmorphism backgrounds. */
+  tone?: 'dark' | 'light';
 }
 
-export default function OceanBubbles({ className = '', reduced = false }: OceanBubblesProps) {
+export default function OceanBubbles({ className = '', reduced = false, tone = 'dark' }: OceanBubblesProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -72,17 +82,21 @@ export default function OceanBubbles({ className = '', reduced = false }: OceanB
 
     const makeBubble = (initial: boolean): Bubble => {
       const r = rand(4, 28);
+      const light = tone === 'light';
       return {
         x: rand(0, width),
         // On first paint distribute across the whole column; on respawn start
         // just below the bottom edge with a little jitter.
         y: initial ? rand(0, height) : height + r + rand(0, 60),
         r,
-        alpha: rand(0.08, 0.35),
+        alpha: light ? rand(0.18, 0.42) : rand(0.08, 0.35),
         vy: rand(0.3, 1.2),
         swayPhase: rand(0, Math.PI * 2),
         swaySpeed: rand(0.004, 0.012),
-        color: PALETTE[Math.floor(Math.random() * PALETTE.length)],
+        color: light
+          ? PALETTE_LIGHT[Math.floor(Math.random() * PALETTE_LIGHT.length)]
+          : PALETTE[Math.floor(Math.random() * PALETTE.length)],
+        ring: light ? RING_LIGHT : '#ffffff',
       };
     };
 
@@ -116,9 +130,9 @@ export default function OceanBubbles({ className = '', reduced = false }: OceanB
       ctx.fill();
 
       // Thin glassy rim
-      ctx.globalAlpha = b.alpha * 0.55;
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = '#ffffff';
+      ctx.globalAlpha = b.alpha * (tone === 'light' ? 0.9 : 0.55);
+      ctx.lineWidth = tone === 'light' ? 1.2 : 1;
+      ctx.strokeStyle = b.ring;
       ctx.stroke();
 
       // Highlight dot — upper-right at ~30% offset, radius 20% of bubble.

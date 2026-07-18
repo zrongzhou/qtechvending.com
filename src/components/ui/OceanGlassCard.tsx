@@ -7,9 +7,12 @@ export interface OceanGlassCardProps {
   children: ReactNode;
   /** Extra classes for the card surface. */
   className?: string;
-  /** Blur / shadow intensity. */
+  /** Blur / shadow intensity (only for the 'ocean' surface). */
   depth?: 'sm' | 'md' | 'lg';
-  /** Lift on hover. */
+  /** Which glass surface to render. 'ocean' = aqua-tinted (default);
+   *  'glass' = universal light glass (.glass-surface, see globals.css). */
+  surface?: 'ocean' | 'glass';
+  /** Lift on hover (only for the 'ocean' surface; .glass-surface hovers itself). */
   hoverLift?: boolean;
   /** Wrap content in a RippleOnHover water-ripple effect. */
   ripple?: boolean;
@@ -24,8 +27,11 @@ export interface OceanGlassCardProps {
 }
 
 /**
- * Ocean glass card primitive: an aqua-tinted frosted surface with a top
- * highlight border and a soft aqua glow (see `.ocean-glass` in globals.css).
+ * Ocean glass card primitive. By default it renders an aqua-tinted frosted
+ * surface (`.ocean-glass`) with a top highlight border and a soft aqua glow.
+ * Pass `surface="glass"` to render the universal light glass (`.glass-surface`)
+ * used across the V43 bright/transparent redesign — translucent white with a
+ * crisp highlight and a cyan brand glow on hover (see globals.css).
  * Content is lifted above the ripple layer (z-10) so the water bloom sits
  * behind the text/icons.
  */
@@ -33,6 +39,7 @@ export default function OceanGlassCard({
   children,
   className = '',
   depth = 'md',
+  surface = 'ocean',
   hoverLift = true,
   ripple = false,
   rippleColor = 'rgba(8, 145, 178, 0.2)',
@@ -40,13 +47,16 @@ export default function OceanGlassCard({
   ripplePointer = false,
   reduced = false,
 }: OceanGlassCardProps) {
-  const surface = `ocean-glass ocean-glass--${depth} ${hoverLift ? 'ocean-glass--hover' : ''}`;
+  const surfaceClass =
+    surface === 'glass'
+      ? 'glass-surface'
+      : `ocean-glass ocean-glass--${depth} ${hoverLift ? 'ocean-glass--hover' : ''}`;
   const inner = <div className="relative z-10 h-full">{children}</div>;
 
   if (ripple) {
     return (
       <RippleOnHover
-        className={`${surface} ${className}`}
+        className={`${surfaceClass} ${className}`}
         rippleColor={rippleColor}
         rings={rippleRings}
         pointerDriven={ripplePointer}
@@ -57,5 +67,5 @@ export default function OceanGlassCard({
     );
   }
 
-  return <div className={`${surface} ${className}`}>{inner}</div>;
+  return <div className={`${surfaceClass} ${className}`}>{inner}</div>;
 }

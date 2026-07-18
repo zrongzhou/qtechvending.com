@@ -27,8 +27,8 @@ function renderParagraphs(text: string) {
         .map((s) => s.replace(/\s+/g, ' ').trim())
         .filter(Boolean),
     )
-    .map((p, i) => (
-      <p key={i} className="mb-4 leading-relaxed text-cyan-50/80">
+      .map((p, i) => (
+      <p key={i} className="mb-4 leading-relaxed text-ink-600">
         {p}
       </p>
     ));
@@ -58,7 +58,7 @@ function ProductDetailTabs({
   // Shared dark-glass surface for every tab panel (V42: never a white
   // background, even on the light product-detail page).
   const tabPanel =
-    'relative overflow-hidden rounded-2xl border border-white/10 bg-slate-800/70 backdrop-blur-xl shadow-lift';
+    'relative overflow-hidden rounded-2xl border border-slate-200 bg-white/70 backdrop-blur-xl shadow-soft';
 
   const tabs: { id: TabId; label: string }[] = [
     { id: 'features', label: t('product.features') },
@@ -69,7 +69,7 @@ function ProductDetailTabs({
   return (
     <div className="mt-10">
       {/* Tab bar — dark glass, brand-coloured active underline */}
-      <div className="glass-card-dark flex gap-1 overflow-x-auto rounded-2xl p-1.5 no-scrollbar">
+      <div className="glass-surface flex gap-1 overflow-x-auto rounded-2xl p-1.5 no-scrollbar">
         {tabs.map((tab) => {
           const isActive = active === tab.id;
           return (
@@ -80,8 +80,8 @@ function ProductDetailTabs({
               aria-pressed={isActive}
               className={`relative whitespace-nowrap rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors ${
                 isActive
-                  ? 'bg-gradient-to-r from-cyan-500/20 to-teal-500/20 text-white ring-1 ring-cyan-400/40'
-                  : 'text-white/55 hover:text-white/85'
+                  ? 'bg-gradient-to-r from-cyan-500/15 to-teal-500/15 text-cyan-700 ring-1 ring-cyan-400/40'
+                  : 'text-ink-400 hover:text-ink-700'
               }`}
             >
               {tab.label}
@@ -115,30 +115,30 @@ function ProductDetailTabs({
                   {t('product.specs')}
                 </h2>
               </div>
-              <dl className="divide-y divide-white/10">
+              <dl className="divide-y divide-slate-200">
                 {specList.map((s, i) => (
                   <div
                     key={i}
-                    className="flex flex-col gap-1 px-6 py-4 transition-colors even:bg-white/5 hover:bg-white/10 sm:flex-row sm:gap-6"
+                    className="flex flex-col gap-1 px-6 py-4 transition-colors even:bg-cyan-50/50 hover:bg-cyan-50 sm:flex-row sm:gap-6"
                   >
-                    <dt className="w-40 shrink-0 font-mono text-xs font-bold uppercase tracking-wider text-cyan-200">
+                    <dt className="w-40 shrink-0 font-mono text-xs font-bold uppercase tracking-wider text-cyan-700">
                       {s.param}
                     </dt>
-                    <dd className="text-sm font-medium leading-relaxed text-white/90">{s.value || '—'}</dd>
+                    <dd className="text-sm font-medium leading-relaxed text-ink-700">{s.value || '—'}</dd>
                   </div>
                 ))}
               </dl>
             </RippleOnHover>
           ) : (
-            <div className="flex items-center gap-3 rounded-2xl border border-dashed border-cyan-200/30 bg-slate-800/70 px-6 py-5">
-              <IconTile icon={Settings2} className="h-6 w-6" tileClassName="bg-cyan-500/30 text-cyan-100 p-2" />
-              <p className="text-sm font-medium text-cyan-50/80">{t('product.contactForSpecs')}</p>
+            <div className="flex items-center gap-3 rounded-2xl border border-dashed border-cyan-300/40 bg-white/60 px-6 py-5">
+              <IconTile icon={Settings2} className="h-6 w-6" tileClassName="bg-cyan-100 text-cyan-700 p-2" />
+              <p className="text-sm font-medium text-ink-600">{t('product.contactForSpecs')}</p>
             </div>
           ))}
 
         {active === 'description' && description && (
           <div className={`${tabPanel} p-7`}>
-            <h2 className="text-2xl font-bold tracking-tight text-white">{t('product.description')}</h2>
+            <h2 className="text-2xl font-bold tracking-tight text-ink-900">{t('product.description')}</h2>
             <div className="mt-4 max-w-none">{renderParagraphs(description)}</div>
           </div>
         )}
@@ -194,20 +194,15 @@ export default function ProductDetailView({
   }, [lightboxOpen]);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-cyan-600/50 via-teal-500/35 to-sky-400/25">
-      {/* Deep ocean base layer behind the brighter overlay for depth (V38 lighter). */}
-      <div className="absolute inset-0 -z-20 bg-gradient-to-b from-cyan-700 via-teal-600 to-sky-500" aria-hidden="true" />
-      {/* Sunlight sheen from the surface */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-sky-400/25 via-cyan-400/10 to-transparent" aria-hidden="true" />
-      {/* God rays */}
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
-        <div className="god-ray god-ray--1" />
-        <div className="god-ray god-ray--2" />
-        <div className="god-ray god-ray--3" />
+    <div className="relative min-h-screen overflow-hidden bg-glass-light">
+      {/* Soft colour blooms so the glass tabs/cards have something to refract. */}
+      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <div className="absolute -top-24 start-0 h-[420px] w-[420px] rounded-full bg-cyan-400/12 blur-3xl" />
+        <div className="absolute top-1/4 end-0 h-[460px] w-[460px] rounded-full bg-violet-400/10 blur-3xl" />
       </div>
-      {/* Rising bubbles — rendered behind the content layer via -z-10. */}
-      <OceanBubbles className="-z-10" />
-      {/* Bottom ocean waves */}
+      {/* Rising bubbles — light variant for the bright background. */}
+      <OceanBubbles tone="light" className="-z-10" />
+      {/* Bottom ocean waves for depth */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-48 overflow-hidden" aria-hidden="true">
         <div className="ocean-wave ocean-wave--1" />
         <div className="ocean-wave ocean-wave--2" />
@@ -218,21 +213,21 @@ export default function ProductDetailView({
         {/* Back to products */}
         <Link
           href={`/${locale}/products`}
-          className="inline-flex items-center gap-1.5 text-sm font-medium text-cyan-100/70 transition-colors hover:text-cyan-200"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-ink-500 transition-colors hover:text-cyan-700"
         >
           <ArrowLeft className="h-4 w-4 rtl:-scale-x-100" />
           {t('product.backToProducts')}
         </Link>
 
         {/* Breadcrumb */}
-        <nav className="mb-6 mt-4 text-sm text-cyan-50/60">
-          <Link href={`/${locale}`} className="transition-colors hover:text-cyan-200">Home</Link>
+        <nav className="mb-6 mt-4 text-sm text-ink-400">
+          <Link href={`/${locale}`} className="transition-colors hover:text-cyan-700">Home</Link>
           <span className="mx-2">/</span>
-          <Link href={`/${locale}/products`} className="transition-colors hover:text-cyan-200">{t('nav.products')}</Link>
+          <Link href={`/${locale}/products`} className="transition-colors hover:text-cyan-700">{t('nav.products')}</Link>
           {categorySlug && (
             <>
               <span className="mx-2">/</span>
-              <Link href={`/${locale}/category/${categorySlug}`} className="transition-colors hover:text-cyan-200">
+              <Link href={`/${locale}/category/${categorySlug}`} className="transition-colors hover:text-cyan-700">
                 {categoryName}
               </Link>
             </>
@@ -242,7 +237,7 @@ export default function ProductDetailView({
         <div className="grid gap-10 lg:grid-cols-2">
           {/* Gallery — sticky on desktop so the main image stays in view while scrolling specs/description */}
           <div className="lg:sticky lg:top-24 lg:self-start">
-            <OceanGlassCard ripple depth="lg" hoverLift={false} rippleRings={3} ripplePointer rippleColor="rgba(56,189,248,0.28)" className="relative overflow-hidden p-2 sm:p-3">
+            <OceanGlassCard ripple surface="glass" depth="lg" hoverLift={false} rippleRings={3} ripplePointer rippleColor="rgba(56,189,248,0.28)" className="relative overflow-hidden p-2 sm:p-3">
               {/* Ocean top accent bar — card memory point */}
               <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-ocean-400 to-brand-600" aria-hidden="true" />
               <div
@@ -276,8 +271,8 @@ export default function ProductDetailView({
                     }}
                     aria-label={name}
                     aria-pressed={activeImage === img}
-                    className={`group relative h-20 w-20 overflow-hidden rounded-xl border-2 transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-cyan-900 active:scale-95 ${
-                      activeImage === img ? 'border-ocean-400 shadow-[0_0_18px_rgba(56,189,248,0.5)]' : 'border-white/20 hover:border-white/40 hover:shadow-sm'
+                    className={`group relative h-20 w-20 overflow-hidden rounded-xl border-2 transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white active:scale-95 ${
+                      activeImage === img ? 'border-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.4)]' : 'border-slate-200 hover:border-cyan-400 hover:shadow-sm'
                     }`}
                   >
                     <span className="absolute inset-0 transition-transform duration-500 group-hover:scale-110">
@@ -293,12 +288,12 @@ export default function ProductDetailView({
           {/* Info */}
           <div>
             {categoryName && (
-              <span className="inline-flex w-fit items-center rounded-md border border-white/20 bg-gradient-to-r from-cyan-50/15 to-teal-50/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-cyan-100/90">
+              <span className="inline-flex w-fit items-center rounded-md border border-cyan-200 bg-cyan-50 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-cyan-700">
                 {categoryName}
               </span>
             )}
-            <h1 className="mt-2 text-4xl font-bold tracking-tight text-white drop-shadow-sm sm:text-5xl">{heading}</h1>
-            {short && <p className="mt-3 max-w-xl text-base leading-relaxed text-cyan-50/80">{short}</p>}
+            <h1 className="mt-2 text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">{heading}</h1>
+            {short && <p className="mt-3 max-w-xl text-base leading-relaxed text-ink-600">{short}</p>}
 
             <Link
               href={`/${locale}/contact${categorySlug ? `?product=${categorySlug}` : ''}`}
@@ -321,7 +316,7 @@ export default function ProductDetailView({
         {/* Related */}
         {related.length > 0 && (
           <RevealOnScroll as="section" className="mt-14 md:mt-20">
-            <h2 className="text-2xl font-bold tracking-tight text-white">{t('product.related')}</h2>
+            <h2 className="text-2xl font-bold tracking-tight text-ink-900">{t('product.related')}</h2>
             <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {related.map((p) => (
                 <ProductCard key={p.id} product={p} ocean />

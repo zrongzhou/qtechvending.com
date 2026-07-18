@@ -55,16 +55,19 @@ export default function ProductCard({
   const modelSpec = product.specs?.find((s) => s.param.trim().toLowerCase() === 'model');
   const modelLabel = modelSpec?.value?.trim() || '';
 
-  // Dark (products-page ocean theme) vs light (home / detail) presentation.
+  // Light-glass (products page / related cards on the light detail page) vs a
+  // clean white card (home). The `ocean` flag now renders the universal
+  // .glass-surface (set via OceanGlassCard surface="glass") — translucent white
+  // with a crisp highlight and a cyan brand glow on hover — so both the
+  // products page and the detail page share the same bright glass language.
   const surfaceBase = oceanMode
-    ? 'bg-white/14 backdrop-blur-md border border-white/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] transition-all duration-300 hover:-translate-y-2 hover:bg-white/20 hover:shadow-[0_24px_60px_rgba(56,189,248,0.30)]'
+    ? 'p-0'
     : 'border border-ocean-200/60 transition-all duration-300 hover:-translate-y-2 hover:border-ocean-300/60 hover:shadow-ocean-lg';
-  const titleClass = oceanMode ? 'text-white' : 'text-ink-900';
-  // V38: lift description opacity for better hover readability in ocean mode.
-  const shortClass = oceanMode ? 'text-white/95' : 'text-ink-500';
-  const catPillClass = oceanMode ? 'from-white/15 to-white/10 text-white/80' : accent.pill;
-  const chipClass = oceanMode ? 'bg-white/10 text-white/70' : 'bg-slate-100 text-ink-600';
-  const ctaClass = oceanMode ? 'text-cyan-200 drop-shadow-[0_0_10px_rgba(56,189,248,0.55)]' : 'text-ocean-700';
+  const titleClass = 'text-ink-900';
+  const shortClass = 'text-ink-600';
+  const catPillClass = accent.pill;
+  const chipClass = 'bg-slate-100 text-ink-600';
+  const ctaClass = 'text-ocean-700';
 
   return (
     <OceanGlassCard
@@ -72,6 +75,7 @@ export default function ProductCard({
       ripplePointer
       rippleRings={oceanMode ? 3 : 1}
       depth="md"
+      surface={oceanMode ? 'glass' : 'ocean'}
       hoverLift={!oceanMode}
       rippleColor={oceanMode ? accent.ripple : 'rgba(8, 145, 178, 0.2)'}
       className={`group h-full ${surfaceBase}`}
@@ -83,17 +87,7 @@ export default function ProductCard({
         {/* Persistent ocean top accent bar — card memory point */}
         <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${accent.topBar}`} />
 
-        <div
-          className="relative aspect-[4/3] overflow-hidden bg-slate-100"
-          style={
-            oceanMode
-              ? {
-                  WebkitMaskImage: 'linear-gradient(to bottom, #000 78%, transparent)',
-                  maskImage: 'linear-gradient(to bottom, #000 78%, transparent)',
-                }
-              : undefined
-          }
-        >
+        <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
           <ImageWithRetry
             src={firstImage(product.images)}
             alt={name}

@@ -3,6 +3,7 @@ import HeroSection from '@/components/home/HeroSection';
 import CategoriesGrid from '@/components/home/CategoriesGrid';
 import FeaturedProducts from '@/components/home/FeaturedProducts';
 import AdvantagesSection from '@/components/home/AdvantagesSection';
+import PartnersSection from '@/components/home/PartnersSection';
 import StatsBand from '@/components/home/StatsBand';
 import CasesSection from '@/components/home/CasesSection';
 import BlogPreview from '@/components/home/BlogPreview';
@@ -40,6 +41,7 @@ export default async function HomePage({ params: { locale } }: PageProps) {
       <CategoriesGrid categories={categories} counts={counts} />
       <FeaturedProducts products={featured} />
       <AdvantagesSection />
+      <PartnersSection />
       <StatsBand />
       <CasesSection />
       <BlogPreview posts={blogs} />

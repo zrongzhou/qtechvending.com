@@ -16,12 +16,12 @@ export default function ProductFaqSection({ features }: { features: I18nStringLi
   if (!items.length) return null;
 
   return (
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-800/70 p-6 backdrop-blur-xl shadow-lift">
+      <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white/70 p-6 backdrop-blur-xl shadow-soft">
         <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-cyan-400 to-teal-400" />
-        <h2 className="text-lg font-semibold text-white">{t('product.features')}</h2>
+        <h2 className="text-lg font-semibold text-ink-900">{t('product.features')}</h2>
         <ul className="mt-4 space-y-3">
           {items.map((item, i) => (
-            <li key={i} className="flex items-start gap-3 text-sm leading-relaxed text-white/80">
+            <li key={i} className="flex items-start gap-3 text-sm leading-relaxed text-ink-600">
               <IconTile icon={Check} className="h-5 w-5 shrink-0" tileClassName="bg-cyan-500/90 text-white" />
               {item}
             </li>

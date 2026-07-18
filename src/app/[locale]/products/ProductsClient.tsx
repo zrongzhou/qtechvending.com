@@ -79,25 +79,19 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
   const { data, totalPages } = result;
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-slate-800 via-cyan-900/90 to-teal-900/80">
-      {/* Deep ocean base layer behind the brighter overlay for depth (V42: one
-          step brighter than V41 — present but never pitch black). */}
-      <div className="absolute inset-0 -z-20 bg-gradient-to-b from-cyan-900/70 via-teal-800/60 to-slate-800/70" aria-hidden="true" />
-      {/* Sunlight sheen from the surface (upper-ocean glow) */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-cyan-300/15 via-cyan-400/5 to-transparent" aria-hidden="true" />
-
-      {/* God rays — drifting light beams piercing the water */}
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
-        <div className="god-ray god-ray--1" />
-        <div className="god-ray god-ray--2" />
-        <div className="god-ray god-ray--3" />
-        <div className="god-ray god-ray--4" />
+    <div className="relative min-h-screen overflow-hidden bg-glass-light">
+      {/* Soft, luminous colour blooms so the white glass cards have colour to
+          refract — the crystal effect comes from light passing through glass. */}
+      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <div className="absolute -top-24 start-0 h-[420px] w-[420px] rounded-full bg-cyan-400/12 blur-3xl" />
+        <div className="absolute top-1/3 end-0 h-[460px] w-[460px] rounded-full bg-violet-400/10 blur-3xl" />
+        <div className="absolute bottom-0 start-1/4 h-[400px] w-[400px] rounded-full bg-teal-400/12 blur-3xl" />
       </div>
 
-      {/* Rising bubbles behind the content */}
-      <OceanBubbles className="-z-10" />
+      {/* Rising bubbles behind the content (light variant for the bright bg). */}
+      <OceanBubbles tone="light" className="-z-10" />
 
-      {/* Animated CSS ocean waves at the bottom of the hero area */}
+      {/* Animated CSS ocean waves at the bottom for depth. */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-48 overflow-hidden" aria-hidden="true">
         <div className="ocean-wave ocean-wave--1" />
         <div className="ocean-wave ocean-wave--2" />
@@ -106,10 +100,10 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
 
       <div className="container-qtech relative z-10 py-12 lg:py-16">
         <RevealOnScroll className="mb-8 md:mb-10">
-          <p className="text-sm font-semibold uppercase tracking-wide text-cyan-200/90">
+          <p className="text-sm font-semibold uppercase tracking-wide text-cyan-700">
             {t('products.eyebrow')}
           </p>
-          <h1 className="mt-3 text-4xl font-bold tracking-tight text-white drop-shadow-sm sm:text-5xl">
+          <h1 className="mt-3 text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">
             {t('products.title')}
           </h1>
           {/* Animated ocean wave divider under the heading */}
@@ -117,7 +111,7 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
             className="wave-divider mt-4 block h-1 w-[200px] rounded-full bg-gradient-to-r from-cyan-400 via-teal-300 to-sky-300"
             aria-hidden="true"
           />
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-cyan-50/80">
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-600">
             {t('products.subtitle')}
           </p>
         </RevealOnScroll>
@@ -136,9 +130,9 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
             />
           </aside>
 
-          <OceanGlassCard depth="sm" hoverLift={false} className="rounded-3xl border border-white/15 bg-white/10 p-4 backdrop-blur-xl sm:p-6">
+          <OceanGlassCard surface="glass" depth="sm" hoverLift={false} className="rounded-3xl p-4 sm:p-6">
             {data.length === 0 ? (
-              <OceanGlassCard ripple depth="sm" className="border border-dashed border-white/25 bg-white/5 p-12 text-center text-white/80">
+              <OceanGlassCard ripple surface="glass" depth="sm" className="border border-dashed border-slate-300 bg-white/60 p-12 text-center text-ink-600">
                 {t('products.noResults')}
               </OceanGlassCard>
             ) : (
@@ -157,18 +151,18 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
                   type="button"
                   disabled={page <= 1}
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
-                  className="rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:border-cyan-300 hover:bg-white/20 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-white/20 disabled:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-cyan-900"
+                  className="rounded-lg border border-slate-300 bg-white/70 px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:border-cyan-400 hover:bg-white active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-slate-300 disabled:hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                 >
                   {t('products.prev')}
                 </button>
-                <span className="text-sm text-cyan-50/80">
+                <span className="text-sm text-ink-500">
                   {t('products.page')} {page} {t('products.of')} {totalPages}
                 </span>
                 <button
                   type="button"
                   disabled={page >= totalPages}
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                  className="rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white transition-colors hover:border-cyan-300 hover:bg-white/20 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-white/20 disabled:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-cyan-900"
+                  className="rounded-lg border border-slate-300 bg-white/70 px-4 py-2 text-sm font-medium text-ink-700 transition-colors hover:border-cyan-400 hover:bg-white active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-slate-300 disabled:hover:bg-white/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                 >
                   {t('products.next')}
                 </button>
