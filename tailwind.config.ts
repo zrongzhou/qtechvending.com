@@ -5,6 +5,11 @@ const config: Config = {
   content: [
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    // V46: the category accent system (src/lib/accents.ts) stores literal
+    // Tailwind class strings (border / glow / pill). It must be scanned so the
+    // JIT compiler emits them — otherwise the product-card category borders and
+    // hover glows silently fail to render.
+    './src/lib/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {

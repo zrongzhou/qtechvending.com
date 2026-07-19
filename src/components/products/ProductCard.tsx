@@ -64,9 +64,15 @@ export default function ProductCard({
   // .glass-surface (set via OceanGlassCard surface="glass") — translucent white
   // with a crisp highlight and a cyan brand glow on hover — so both the
   // products page and the detail page share the same bright glass language.
+  //
+  // V46: the card edge is now tinted with the category colour. `.glass-surface`
+  // (and `.ocean-glass`) bake in a generic white border and a `:hover` cyan
+  // border/glow, so the category colours are emitted as `!important` Tailwind
+  // utilities to win the cascade. `accent.border` / `accent.borderTop` carry
+  // the `!` prefix already; the 2px top edge width also needs `!border-t-2`.
   const surfaceBase = oceanMode
-    ? 'p-0'
-    : 'border border-ocean-200/60 transition-all duration-300 hover:-translate-y-2 hover:border-ocean-300/60 hover:shadow-ocean-lg';
+    ? `p-0 border !border-t-2 ${accent.border} ${accent.borderTop} transition-all duration-300 ${accent.glowShadow}`
+    : `border !border-t-2 ${accent.border} ${accent.borderTop} transition-all duration-300 hover:-translate-y-2 ${accent.glowShadow}`;
   const titleClass = 'text-ink-900';
   const shortClass = 'text-ink-600';
   const catPillClass = accent.pill;

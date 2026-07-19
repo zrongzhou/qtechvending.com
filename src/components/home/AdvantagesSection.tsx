@@ -62,6 +62,17 @@ const ACCENTS: AccentTheme[] = [
   },
 ];
 
+// V46: a tiny, ice-blue-family status dot per card (cyan / sky / teal / indigo)
+// so the four cards no longer read as identical while staying harmonious and
+// preserving the V44 light-glass look. Deliberately subtle — a 8px marker that
+// echoes the per-card accent without competing with the strong top bar.
+const ICE_DOTS: string[] = [
+  'bg-cyan-400/80',
+  'bg-sky-400/80',
+  'bg-teal-400/80',
+  'bg-indigo-400/80',
+];
+
 /** Three supporting bullet points per advantage (zh / en / ar). */
 const POINTS: Record<Locale, string[]>[] = [
   {
@@ -125,9 +136,12 @@ export default function AdvantagesSection() {
                     distracting) and replaced the translateY hover with a subtle
                     scale + shadow-deepen so the card stays put but still reacts. */}
                 <OceanGlassCard depth="sm" hoverLift={false} className={`group relative z-10 h-full border-2 border-slate-200/80 border-l-4 ${accent.leftBorder} ${accent.glow} bg-white/80 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl`}>
-                  <div className="flex h-full flex-col p-7">
+                  <div className="relative flex h-full flex-col p-7">
                     {/* Top accent bar — per-card identity colour */}
                     <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${accent.bar}`} aria-hidden="true" />
+                    {/* V46: subtle ice-blue status dot so the four cards stay
+                        distinguishable yet harmonious (cyan/sky/teal/indigo). */}
+                    <span className={`absolute end-5 top-5 z-20 h-2 w-2 rounded-full ring-2 ring-white/70 ${ICE_DOTS[i]}`} aria-hidden="true" />
                     {/* Big progressive step number */}
                     <span className={`absolute -end-2 -top-4 select-none text-7xl font-extrabold text-slate-100/15 transition-colors ${accent.watermark}`}>
                       <CountUp end={item.number} prefix="0" />
