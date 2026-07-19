@@ -39,27 +39,27 @@ interface Burst {
 function generateBursts(count: number): Burst[] {
   const arr: Burst[] = [];
   for (let b = 0; b < count; b += 1) {
-    const left = 6 + Math.random() * 88; // 6–94 %
-    const top = 8 + Math.random() * 65; // 8–73 % (V48.6: slightly higher)
-    const radius = 70 + Math.random() * 110; // 70–180 px burst radius
-    const n = 18 + Math.floor(Math.random() * 12); // 18–29 particles
+    const left = 5 + Math.random() * 90; // 5–95 %
+    const top = 5 + Math.random() * 70; // 5–75 %
+    const radius = 90 + Math.random() * 140; // 90–230 px burst radius (V48.7: wider spread)
+    const n = 22 + Math.floor(Math.random() * 14); // 22–35 particles (V48.7: more particles)
     const baseColor = COLORS[Math.floor(Math.random() * COLORS.length)];
     const particles: Particle[] = [];
     for (let i = 0; i < n; i += 1) {
       const ang = (Math.PI * 2 * i) / n + Math.random() * 0.5;
-      const r = radius * (0.5 + Math.random() * 0.5);
+      const r = radius * (0.45 + Math.random() * 0.55); // V48.7: particles reach further
       particles.push({
         tx: Math.cos(ang) * r,
         ty: Math.sin(ang) * r,
         color: Math.random() > 0.25 ? baseColor : COLORS[Math.floor(Math.random() * COLORS.length)],
-        size: 10 + Math.random() * 8, // V48.6: 10–18px (was 5–11px)
+        size: 20 + Math.random() * 14, // V48.7: 20–34px (was 10-18px)
       });
     }
     arr.push({
       left,
       top,
-      coreDelay: b * (0.6 + Math.random() * 1.0), // tighter stagger
-      cycle: 3 + Math.random() * 2.4, // V48.6: 3–5.4s (was 5–9s)
+      coreDelay: b * (0.4 + Math.random() * 0.8), // tighter stagger
+      cycle: 4 + Math.random() * 3, // V48.7: 4–7s (slower = longer visible)
       particles,
     });
   }

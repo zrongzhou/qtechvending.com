@@ -719,7 +719,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               <RevealOnScroll
                 key={localeOr(a.title)}
                 delay={idx * 80}
-                className={`h-full ${isLast ? 'lg:col-span-2' : ''}`}
+                className={`h-full`}  /* V48.7: removed lg:col-span-2, same size as others */
               >
                 <div className={`glass-surface group relative h-full overflow-hidden border-s-4 ${ac.border}`}>
                   <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${ac.tile} flow-bar`} aria-hidden="true" />
@@ -1063,10 +1063,34 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           主 CTA（首页 CtaSection）已改为纯水族动画。 */}
       <RevealOnScroll as="section" className="container-qtech pb-20 lg:pb-28">
         <div className="cta-sunrise relative overflow-hidden rounded-3xl px-8 py-16 text-center md:py-20">
+          {/* V48.7: Animated cloud wisps — warm golden-hour clouds drifting slowly */}
+          {Array.from({ length: 4 }, (_, i) => {
+            const rx = (Math.sin(i * 73.17 + 19.1) * 43758.5453) % 1;
+            return (
+              <div
+                key={`cloud-${i}`}
+                className="absolute pointer-events-none rounded-full"
+                style={{
+                  left: `${(i * 22 + rx * 15) % 90}%`,
+                  top: `${5 + i * 8 + rx * 6}%`,
+                  width: `${120 + i * 50 + rx * 60}px`,
+                  height: `${30 + i * 12 + rx * 20}px`,
+                  background: `radial-gradient(ellipse at 40% 50%, rgba(255,240,220,${0.35 + i * 0.08}) 0%, rgba(255,220,180,${0.12 + i * 0.04}) 45%, transparent 70%)`,
+                  filter: 'blur(8px)',
+                  animation: `cloudDrift ${25 + i * 12}s ease-in-out infinite alternate`,
+                  animationDelay: `${i * -7}s`,
+                  opacity: 0.7 + i * 0.08,
+                  zIndex: 0,
+                } as React.CSSProperties}
+                aria-hidden="true"
+              />
+            );
+          })}
+
           {/* Warm sky glow pooling at the top. */}
           <div className="cta-sunrise__sky" aria-hidden="true" />
 
-          {/* V48.5: Visible glowing sun orb — the light source. */}
+          {/* V48.7: Bigger sun — now 140px with more intense corona */}
           <div className="cta-sunrise__sun" aria-hidden="true" />
 
           {/* Sweeping light beam from the sun (top-right). */}
@@ -1119,8 +1143,8 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             style={{ background: 'linear-gradient(to bottom, rgba(139, 69, 120, 0.10), rgba(76, 29, 149, 0.06), transparent)', zIndex: 2 }}
             aria-hidden="true" />
 
-          {/* V48.5: Golden dust motes — larger, brighter, more numerous. */}
-          {Array.from({ length: 40 }, (_, i) => {
+          {/* V48.7: More golden dust motes — 60 instead of 40, brighter, larger. */}
+          {Array.from({ length: 60 }, (_, i) => {
             const rx = (Math.sin(i * 53.17 + 9.1) * 43758.5453) % 1;
             return (
               <span
@@ -1130,8 +1154,8 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                   {
                     left: `${rx * 100}%`,
                     bottom: `${((Math.sin((i + 300) * 127.1 + 311.7) * 43758.5453) % 1) * 50}%`,
-                    width: `${5 + ((Math.sin((i + 50) * 79.3 + 17.9) * 43758.5453) % 1) * 12}px`,
-                    height: `${5 + ((Math.sin((i + 50) * 79.3 + 17.9) * 43758.5453) % 1) * 12}px`,
+                    width: `${7 + ((Math.sin((i + 50) * 79.3 + 17.9) * 43758.5453) % 1) * 16}px`,
+                    height: `${7 + ((Math.sin((i + 50) * 79.3 + 17.9) * 43758.5453) % 1) * 16}px`,
                     ['--sd-dur' as string]: `${6 + ((Math.sin((i + 100) * 31.7 + 43.1) * 43758.5453) % 1) * 10}s`,
                     ['--sd-dx' as string]: `${(((Math.sin((i + 200) * 67.3 + 89.1) * 43758.5453) % 1) - 0.5) * 90}px`,
                     animationDelay: `${((Math.sin((i + 150) * 41.3 + 27.1) * 43758.5453) % 1) * 10}s`,

@@ -1028,18 +1028,13 @@ input[type='number']::-webkit-inner-spin-button {
   .portal-ring--2 { transform: translateX(-50%) !important; }
 }
 
-/* ============ V48.6: Fireworks — DRAMATIC VISIBILITY OVERHAUL ============
-   Previous V47-V48.5 versions were INVISIBLE on light backgrounds despite 6 rounds
-   of parameter tweaks. Root cause (confirmed by source analysis):
-     A) Core 36px, visible window only 2–55% of 5s cycle = too small, too brief.
-     B) Particles shrink to scale(0.15) while moving outward = microscopic dots.
-     C) Subtle cyan/gold doesn't pop against bg-glass-light-cold.
-   V48.6 redesign:
-     - Core: 80px peak, intense WHITE flash at detonation, visible 0–78% of cycle
-     - Particles: 10–18px base, shrink only to scale(0.45), opaque 3–82% of cycle
-     - Detonation "flash-bang": brief radial white glow at each explosion center
-     - Shorter cycle (3.2s) = more frequent pops, always something exploding
-     - Brighter palette with higher min opacity throughout */
+/* ============ V48.7: Fireworks — NUCLEAR VISIBILITY (8th attempt) ============
+   V48.6 still invisible per user report. Changes:
+     - Core 120px (was 80px), visible window 0–85% of 5s cycle
+     - Particles 20–34px base, shrink to scale(0.55) only, opaque 2–88%
+     - Even bigger box-shadow spread on particles
+     - Slower cycle (4–7s) = longer visible time
+     - More saturated core flash */
 .fireworks {
   position: absolute;
   inset: 0;
@@ -1052,48 +1047,46 @@ input[type='number']::-webkit-inner-spin-button {
   width: 0;
   height: 0;
 }
-/* V48.6: Core explosion — BIG (80px), LONG visible window (0–78%), intense
-   white/gold flash at detonation that acts as the "flash-bang" moment. */
+/* V48.7: Core — MASSIVE (120px), very long visible window (0–85% of cycle) */
 .firework__core {
   position: absolute;
   left: 0;
   top: 0;
-  width: 80px;
-  height: 80px;
-  margin: -40px 0 0 -40px;
+  width: 120px;    /* V48.7: was 80px */
+  height: 120px;
+  margin: -60px 0 0 -60px;
   border-radius: 9999px;
   background: radial-gradient(circle,
     #ffffff 0%,
-    #fffbeb 8%,
-    #fde68a 20%,
-    #fbbf24 35%,
-    rgba(251, 191, 36, 0.7) 50%,
-    rgba(34, 211, 238, 0.5) 70%,
-    transparent 90%
+    #fffbeb 6%,
+    #fde68a 15%,
+    #fbbf24 28%,
+    rgba(251, 191, 36, 0.75) 45%,
+    rgba(34, 211, 238, 0.55) 65%,
+    transparent 85%
   );
   box-shadow:
-    0 0 60px 20px rgba(255, 255, 255, 0.9),
-    0 0 100px 40px rgba(251, 191, 36, 0.6),
-    0 0 160px 60px rgba(34, 211, 238, 0.35),
-    0 0 220px 90px rgba(168, 85, 247, 0.12);
+    0 0 80px 30px rgba(255, 255, 255, 1),      /* blinding white flash */
+    0 0 140px 60px rgba(251, 191, 36, 0.75),
+    0 0 220px 90px rgba(34, 211, 238, 0.45),
+    0 0 300px 130px rgba(168, 85, 247, 0.18);
   opacity: 0;
-  animation: firework-core 3.2s ease-out infinite;
+  animation: firework-core 5s ease-out infinite; /* V48.7: was 3.2s */
 }
-/* V48.6: Particles — LARGER base (10–18px), shrink only to 45% (not 15%),
-   stay bright longer (3–82% of cycle). Each particle is a glowing ember with
-   strong box-shadow so it reads even on light backgrounds. */
+/* V48.7: Particles — MUCH larger (20–34px base), minimal shrink (scale 0.55),
+   bright longer (2–88% of cycle), massive glow halos. */
 .firework__particle {
   position: absolute;
   left: 0;
   top: 0;
-  min-width: 10px;
-  min-height: 10px;
+  min-width: 20px;   /* V48.7: was 10px */
+  min-height: 20px;
   border-radius: 9999px;
   background: var(--c, #22d3ee);
   box-shadow:
-    0 0 14px 4px var(--c, #22d3ee),
-    0 0 28px 8px color-mix(in srgb, var(--c, #22d3ee) 65%, transparent),
-    0 0 48px 14px color-mix(in srgb, var(--c, #22d3ee) 30%, transparent);
+    0 0 18px 6px var(--c, #22d3ee),                          /* tight glow */
+    0 0 40px 14px color-mix(in srgb, var(--c, #22d3ee) 70%, transparent), /* mid halo */
+    0 0 70px 24px color-mix(in srgb, var(--c, #22d3ee) 40%, transparent); /* outer bloom */
   opacity: 0;
   transform: translate(0, 0) scale(1);
   animation-name: firework-burst;
@@ -1102,23 +1095,23 @@ input[type='number']::-webkit-inner-spin-button {
 }
 @keyframes firework-core {
   0%   { transform: scale(0); opacity: 0; }
-  2%   { transform: scale(0.6); opacity: 1; }       /* FLASH-BANG moment */
-  8%   { transform: scale(1.6); opacity: 1; }        /* peak brightness */
-  22%  { transform: scale(2.6); opacity: 0.9; }       /* expanding glow */
-  42%  { transform: scale(3.6); opacity: 0.6; }       /* fading expansion */
-  62%  { transform: scale(4.2); opacity: 0.25; }      /* near-invisible */
-  78%  { transform: scale(4.4); opacity: 0; }         /* fully out */
+  2%   { transform: scale(0.5); opacity: 1; }       /* FLASH-BANG */
+  10%  { transform: scale(1.4); opacity: 1; }        /* peak brightness */
+  25%  { transform: scale(2.4); opacity: 0.95; }      /* expanding glow */
+  45%  { transform: scale(3.4); opacity: 0.7; }       /* fading expansion */
+  65%  { transform: scale(4.0); opacity: 0.35; }      /* near-invisible */
+  85%  { transform: scale(4.4); opacity: 0; }         /* fully out */
   100% { transform: scale(4.4); opacity: 0; }         /* stay hidden */
 }
 @keyframes firework-burst {
   0%   { transform: translate(0, 0) scale(1); opacity: 0; }
-  3%   { transform: translate(0, 0) scale(1); opacity: 1; }     /* ignite */
-  15%  { transform: translate(calc(var(--tx, 0) * 0.2), calc(var(--ty, 0) * 0.2)) scale(0.88); opacity: 1; }
-  35%  { transform: translate(calc(var(--tx, 0) * 0.5), calc(var(--ty, 0) * 0.5)) scale(0.72); opacity: 0.85; }
-  55%  { transform: translate(calc(var(--tx, 0) * 0.75), calc(var(--ty, 0) * 0.75)) scale(0.55); opacity: 0.6; }
-  70%  { transform: translate(var(--tx, 0), var(--ty, 0)) scale(0.45); opacity: 0.3; }
-  82%  { transform: translate(var(--tx, 0), var(--ty, 0)) scale(0.38); opacity: 0; }
-  100% { transform: translate(var(--tx, 0), var(--ty, 0)) scale(0.38); opacity: 0; }
+  2%   { transform: translate(0, 0) scale(1); opacity: 1; }     /* ignite */
+  15%  { transform: translate(calc(var(--tx, 0) * 0.18), calc(var(--ty, 0) * 0.18)) scale(0.92); opacity: 1; }
+  35%  { transform: translate(calc(var(--tx, 0) * 0.45), calc(var(--ty, 0) * 0.45)) scale(0.80); opacity: 0.9; }
+  55%  { transform: translate(calc(var(--tx, 0) * 0.72), calc(var(--ty, 0) * 0.72)) scale(0.68); opacity: 0.7; }
+  75%  { transform: translate(calc(var(--tx, 0) * 0.9), calc(var(--ty, 0) * 0.9)) scale(0.58); opacity: 0.4; }
+  88%  { transform: translate(var(--tx, 0), var(--ty, 0)) scale(0.50); opacity: 0.1; }
+  100% { transform: translate(var(--tx, 0), var(--ty, 0)) scale(0.50); opacity: 0; }
 }
 /* V47: honour reduced-motion — hide the fireworks entirely. */
 @media (prefers-reduced-motion: reduce) {
@@ -1187,11 +1180,12 @@ input[type='number']::-webkit-inner-spin-button {
     border-color: rgba(34, 211, 238, 0.85);
   }
 }
+/* V48.7: Faster sweep, narrower head — user said "光幕范围太大" */
 @keyframes trustShockSweep {
   0%   { transform: translateX(-100%); opacity: 0; }
   20%  { opacity: 1; }
   80%  { opacity: 1; }
-  100% { transform: translateX(350%); opacity: 0; }
+  100% { transform: translateX(500%); opacity: 0; }
 }
 .trust-shimmer {
   position: relative;
@@ -1203,26 +1197,24 @@ input[type='number']::-webkit-inner-spin-button {
   position: absolute;
   top: 0;
   left: 0;
-  width: 15%;
-  height: 3px;
+  width: 6%;   /* V48.7: was 15% */
+  height: 2px;  /* V48.7: was 3px */
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(34, 211, 238, 0.6) 25%,
-    rgba(103, 232, 249, 1) 50%,
-    rgba(255, 255, 255, 1) 55%,
-    rgba(103, 232, 249, 1) 60%,
-    rgba(34, 211, 238, 0.6) 75%,
+    rgba(34, 211, 238, 0.5) 30%,
+    rgba(103, 232, 249, 0.9) 50%,
+    rgba(34, 211, 238, 0.5) 70%,
     transparent 100%
   );
   border-radius: 9999px;
-  filter: blur(0.4px);
-  animation: trustShockSweep 2s ease-in-out infinite;
+  filter: blur(0.3px);
+  animation: trustShockSweep 1.8s ease-in-out infinite;
   pointer-events: none;
   z-index: 15;
   box-shadow:
-    0 0 6px 1.5px rgba(34, 211, 238, 0.7),
-    0 0 14px 3px rgba(103, 232, 249, 0.35);
+    0 0 4px 1px rgba(34, 211, 238, 0.5),
+    0 0 8px 2px rgba(103, 232, 249, 0.2);
 }
 
 /* ---- V48.6: Glacier ice shards (About hero stat band) ----
@@ -1236,15 +1228,16 @@ input[type='number']::-webkit-inner-spin-button {
      - Inner core: bright center simulating crystal refraction
      - Size: 35–60px (larger, clearly visible)
      - Strong outer glow to separate from background */
+/* V48.7: Ice crystal fall — longer visible window (3%–88% vs old 4%–82%) */
 @keyframes iceFall {
   0% {
-    transform: translateY(-8%) rotate(45deg);
+    transform: translateY(-10%) rotate(45deg);
     opacity: 0;
   }
-  4% { opacity: var(--ice-op, 0.95); }
-  82% { opacity: var(--ice-op, 0.85); }
+  3% { opacity: var(--ice-op, 1); }   /* V48.7: fade in faster */
+  88% { opacity: var(--ice-op, 0.95); } /* V48.7: stay visible longer */
   100% {
-    transform: translateY(108vh) translateX(var(--ice-dx, 20px)) rotate(405deg);
+    transform: translateY(110vh) translateX(var(--ice-dx, 20px)) rotate(405deg);
     opacity: 0;
   }
 }
@@ -1253,50 +1246,50 @@ input[type='number']::-webkit-inner-spin-button {
    Simulates a crystal catching and refracting light from within. */
 .ice-crystal {
   position: absolute;
-  top: -6%;
+  top: -8%;   /* V48.7: start slightly higher */
   width: var(--ice-size, 44px);
   height: var(--ice-size, 44px);
   /* Deep navy→indigo body (high contrast vs cyan-100/sky-50 bg) */
   background: linear-gradient(135deg,
-    #1e3a5f 0%,
-    #312e81 30%,
-    #4c1d95 55%,
-    #5b21b6 75%,
-    #6d28d9 100%
+    #0f172a 0%,
+    #1e3a5f 25%,
+    #312e81 50%,
+    #4c1d95 75%,
+    #5b21b6 100%
   );
-  border: 2px solid rgba(34, 211, 238, 0.9);
-  border-radius: 4px;
+  border: 2.5px solid rgba(34, 211, 238, 1); /* V48.7: fully opaque cyan border */
+  border-radius: 5px;
   box-shadow:
     /* Bright inner refraction core */
-    inset 0 0 12px 3px rgba(103, 232, 249, 0.5),
-    inset 0 0 24px 6px rgba(34, 211, 238, 0.2),
-    /* Outer separation glow */
-    0 0 18px 4px rgba(34, 211, 238, 0.9),
-    0 0 36px 10px rgba(34, 211, 238, 0.55),
-    0 0 60px 18px rgba(14, 165, 233, 0.35),
-    0 0 90px 28px rgba(103, 232, 249, 0.15);
+    inset 0 0 16px 4px rgba(103, 232, 249, 0.65),
+    inset 0 0 32px 8px rgba(34, 211, 238, 0.3),
+    /* Outer separation glow — V48.7: MUCH stronger */
+    0 0 24px 6px rgba(34, 211, 238, 1),
+    0 0 48px 14px rgba(34, 211, 238, 0.7),
+    0 0 80px 26px rgba(14, 165, 233, 0.5),
+    0 0 120px 40px rgba(103, 232, 249, 0.25);
   transform: rotate(45deg);
-  opacity: 0;
+  opacity: 0; /* starts invisible, animation fades in */
   pointer-events:none;
-  animation: iceFall var(--ice-dur, 14s) linear infinite;
+  animation: iceFall var(--ice-dur, 18s) linear infinite; /* V48.7: default slower */
   will-change: transform, opacity;
 }
 /* Bright specular highlight on each crystal — the "sparkle" that makes
-   it look like real ice catching light. */
+   it look like real ice catching light. V48.7: bigger and brighter. */
 .ice-crystal::after {
   content: '';
   position: absolute;
-  top: 18%;
-  left: 22%;
-  width: 35%;
-  height: 25%;
+  top: 16%;
+  left: 20%;
+  width: 40%;
+  height: 30%;  /* V48.7: bigger sparkle */
   background: radial-gradient(ellipse,
-    rgba(255, 255, 255, 0.95) 0%,
-    rgba(165, 243, 252, 0.7) 40%,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(165, 243, 252, 0.85) 35%,
     transparent 70%
   );
   border-radius: 50%;
-  filter: blur(1.5px);
+  filter: blur(1.2px); /* V48.7: sharper */
   pointer-events: none;
 }
 
@@ -1334,18 +1327,18 @@ input[type='number']::-webkit-inner-spin-button {
 .cta-sunrise {
   position: relative;
   overflow: hidden;
-  /* Richer golden-hour sky: warm peak → coral → amber → rose → deep plum → indigo */
+  /* V48.7: Even richer golden-hour sky — more saturated, deeper indigo base */
   background: linear-gradient(
     to bottom,
-    rgba(255, 235, 180, 0.55) 0%,
-    rgba(255, 215, 130, 0.60) 8%,
-    rgba(255, 180, 100, 0.55) 18%,
-    rgba(255, 150, 70, 0.50) 30%,
-    rgba(240, 110, 60, 0.45) 42%,
-    rgba(200, 80, 90, 0.48) 55%,
-    rgba(140, 60, 100, 0.52) 68%,
-    rgba(80, 40, 95, 0.62) 82%,
-    #1a1640 100%
+    rgba(255, 240, 200, 0.65) 0%,   /* warmer peak */
+    rgba(255, 220, 140, 0.70) 8%,   /* bright gold */
+    rgba(255, 190, 100, 0.62) 18%,  /* amber */
+    rgba(255, 160, 70, 0.55) 30%,   /* deep amber */
+    rgba(245, 120, 60, 0.50) 42%,   /* coral */
+    rgba(210, 90, 95, 0.52) 55%,   /* rose-plum */
+    rgba(160, 65, 110, 0.58) 68%,  /* plum */
+    rgba(90, 40, 105, 0.68) 82%,   /* deep violet */
+    #130c2d 100%                   /* near-black base for contrast */
   );
 }
 /* Bright sun glow pooling at top-right — warmer, more intense. */
@@ -1395,27 +1388,25 @@ input[type='number']::-webkit-inner-spin-button {
   50% { transform: rotate(10deg); opacity: 1; }
 }
 
-/* V48.6: DRAMATIC sun orb with CORONA + ray streaks.
-   Larger (120px), intense glow, animated breathing + corona pulse.
-   The sun is now a proper light source that dominates the upper-right sky. */
+/* V48.7: DRAMATIC sun orb — 140px (was 120px), even more intense corona + pulse */
 .cta-sunrise__sun {
   position: absolute;
-  top: 1%;
-  right: 6%;
-  width: 120px;
-  height: 120px;
+  top: 0.5%;
+  right: 4%;
+  width: 140px;   /* V48.7: was 120px */
+  height: 140px;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 45% 45%, #ffffff 0%, #fffef0 10%, #ffe680 28%, #ffc800 48%, #ff9500 68%, rgba(255,140,0,0.2) 85%, transparent 100%);
+    radial-gradient(circle at 45% 45%, #ffffff 0%, #fffef0 8%, #ffe680 22%, #ffc800 40%, #ff9500 62%, rgba(255,140,0,0.2) 85%, transparent 100%);
   box-shadow:
-    /* Inner bright core */
-    0 0 30px 8px rgba(255, 245, 200, 0.95),
-    /* Mid corona */
-    0 0 70px 24px rgba(255, 220, 100, 0.7),
-    0 0 120px 45px rgba(255, 180, 50, 0.4),
-    /* Outer atmospheric glow */
-    0 0 200px 75px rgba(255, 140, 0, 0.18),
-    0 0 300px 110px rgba(255, 100, 0, 0.06);
+    /* Inner bright core — blinding */
+    0 0 40px 10px rgba(255, 245, 200, 1),
+    /* Mid corona — golden */
+    0 0 90px 32px rgba(255, 220, 100, 0.82),
+    0 0 150px 55px rgba(255, 180, 50, 0.5),
+    /* Outer atmospheric glow — warm spread */
+    0 0 240px 90px rgba(255, 140, 0, 0.25),
+    0 0 360px 140px rgba(255, 100, 0, 0.08);
   pointer-events: none;
   animation: sunriseSunPulse 5s ease-in-out infinite;
   will-change: transform, box-shadow;
@@ -1443,7 +1434,12 @@ input[type='number']::-webkit-inner-spin-button {
 }
 @keyframes sunriseSunPulse {
   0%, 100% { transform: scale(1); filter: brightness(1); }
-  50% { transform: scale(1.10); filter: brightness(1.22); }
+  50% { transform: scale(1.12); filter: brightness(1.28); } /* V48.7: stronger pulse */
+}
+/* V48.7: Cloud drift animation for golden-hour wisps */
+@keyframes cloudDrift {
+  0% { transform: translateX(0) translateY(0); }
+  100% { transform: translateX(30px) translateY(-8px); }
 }
 /* Mountain range silhouette pinned to the bottom. */
 .cta-sunrise__mountain {

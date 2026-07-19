@@ -334,9 +334,9 @@ export default function Starfield({
     let flareTimer = 0;
     let nextFlare = 200 + Math.random() * 300;
 
-    // Global meteor brightness overlay (pulse: quick rise → slow fall).
-    // V40: amplitude dialed down (0.13 → 0.06) so the whole sky doesn't
-    // noticeably brighten/dim when meteors fly.
+    // Global meteor brightness overlay — DISABLED (V48.7): user reported this
+    // creates an unwanted "white screen flash" whenever meteors fly. The
+    // full-canvas rgba(255,245,220) overlay was too visible on dark bg.
     let meteorBrightness = 0;
 
     function resize() {
@@ -452,13 +452,13 @@ export default function Starfield({
         nextFlare = frame + 200 + Math.random() * 300; // 200–500 frames
       }
 
-      // Update meteor brightness: quick rise when meteors fly, slow fall after.
-      if (!isReduced) {
+      // Meteor brightness overlay DISABLED (V48.7) — user reported "white screen flash".
+      if (false && !isReduced) {
         const anyMeteorActive = meteors.some((m) => m.active);
         if (anyMeteorActive) {
-          meteorBrightness = Math.min(0.06, meteorBrightness + 0.03); // quick surge (lower amp)
+          meteorBrightness = Math.min(0.06, meteorBrightness + 0.03);
         } else {
-          meteorBrightness = Math.max(0, meteorBrightness - meteorBrightness * 0.012); // slow decay
+          meteorBrightness = Math.max(0, meteorBrightness - meteorBrightness * 0.012);
         }
       }
 
@@ -541,11 +541,6 @@ export default function Starfield({
       // Meteors render on top of the star field.
       if (!isReduced) drawMeteors();
 
-      // Global subtle brightness overlay when meteors are active (pulse).
-      if (meteorBrightness > 0.001) {
-        ctx.fillStyle = `rgba(255, 245, 220, ${meteorBrightness})`;
-        ctx.fillRect(0, 0, width, height);
-      }
     }
 
     resize();
