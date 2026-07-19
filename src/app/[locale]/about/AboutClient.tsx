@@ -3,28 +3,31 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  Palette,
-  ShieldCheck,
-  Cpu,
-  BadgeDollarSign,
-  Headphones,
-  ArrowUpCircle,
-  Lightbulb,
-  BarChart3,
-  TrendingUp,
-  RefreshCw,
+  Award,
   BadgeCheck,
-  Factory,
+  BadgeDollarSign,
+  Banknote,
+  BarChart3,
+  Clock,
   Cog,
+  Cpu,
+  Factory,
   Globe2,
-  Target,
+  Headphones,
+  Leaf,
+  Lightbulb,
+  Package,
+  Palette,
+  PenTool,
+  RefreshCw,
+  ShieldCheck,
+  SlidersHorizontal,
   Sparkles,
   Store,
-  Leaf,
+  Target,
+  TrendingUp,
+  ArrowUpCircle,
   Users,
-  Package,
-  Award,
-  Clock,
   type LucideIcon,
 } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
@@ -32,7 +35,7 @@ import { localized } from '@/lib/localize';
 import CountUp from '@/components/ui/CountUp';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
-import OceanBubbles from '@/components/ui/OceanBubbles';
+import IceCrystals from '@/components/ui/IceCrystals';
 import type { Locale } from '@/lib/i18n';
 import CaseGallerySection from '@/components/home/CaseGallerySection';
 
@@ -145,6 +148,73 @@ const STRENGTHS: ValueItem[] = [
       en: 'We keep working on our machines to make them even better, release after release.',
       zh: '在每一代产品中持续打磨，让设备越来越出色。',
       ar: 'نواصل تحسين آلاتنا إصدارًا بعد إصدار لتصبح أفضل.',
+    },
+  },
+];
+
+/* ── Company advantages (7) — V48 R7 ── */
+const COMPANY_ADVANTAGES: ValueItem[] = [
+  {
+    icon: PenTool,
+    title: { en: 'Vending Machine Design', zh: '售货机设计', ar: 'تصميم آلات البيع' },
+    desc: {
+      en: 'Our vending machines feature innovative and attractive designs, all of which are protected by design patents to ensure your equipment stands out in the market.',
+      zh: '我们的售货机拥有创新且吸睛的设计，全部受外观设计专利保护，让您的设备在市场中脱颖而出。',
+      ar: 'تتميز آلات البيع الخاصة بنا بتصاميم مبتكرة وجذابة، جميعها محمية ببراءات تصميم لضمان تميز معداتك في السوق.',
+    },
+  },
+  {
+    icon: Banknote,
+    title: { en: 'Competitive Pricing', zh: '极具竞争力的价格', ar: 'أسعار تنافسية' },
+    desc: {
+      en: 'With a self-manufacturing and direct sales model, coupled with 10 years of manufacturing experience, we ensure cost-effective solutions.',
+      zh: '依托自主生产与直销模式，加上十年制造经验，我们提供高性价比的解决方案。',
+      ar: 'بفضل نموذج التصنيع الذاتي والمبيعات المباشرة، جنبًا إلى عشر سنوات من الخبرة، نضمن حلولًا فعالة التكلفة.',
+    },
+  },
+  {
+    icon: Users,
+    title: { en: 'Professional Team', zh: '专业团队', ar: 'فريق محترف' },
+    desc: {
+      en: 'Our team offers professional consultation before purchase and training after sales to ensure you receive the best support from purchase to use.',
+      zh: '我们的团队在售前提供专业咨询，售后提供培训，确保您从选购到使用都获得最佳支持。',
+      ar: 'يقدم فريقنا استشارات احترافية قبل الشراء وتدريبًا بعد البيع لضمان حصولك على أفضل دعم من الشراء حتى الاستخدام.',
+    },
+  },
+  {
+    icon: ShieldCheck,
+    title: { en: 'Quality Assurance', zh: '品质保证', ar: 'ضمان الجودة' },
+    desc: {
+      en: 'We implement strict quality control processes and provide a 2-year warranty, giving you peace of mind with your purchase.',
+      zh: '我们执行严格的质量控制流程，并提供两年质保，让您购买无忧。',
+      ar: 'نتّبع عمليات مراقبة جودة صارمة ونقدم ضمانًا لمدة عامين لراحة بالك عند الشراء.',
+    },
+  },
+  {
+    icon: BadgeCheck,
+    title: { en: 'International Certifications', zh: '国际认证', ar: 'شهادات دولية' },
+    desc: {
+      en: 'Our products have passed multiple international certifications, including ISO and CE, ensuring product quality and safety.',
+      zh: '我们的产品已通过 ISO、CE 等多项国际认证，确保品质与安全。',
+      ar: 'اجتازت منتجاتنا شهادات دولية متعددة بما في ذلك ISO وCE، مما يضمن الجودة والسلامة.',
+    },
+  },
+  {
+    icon: SlidersHorizontal,
+    title: { en: 'Customization', zh: '定制服务', ar: 'التخصيص' },
+    desc: {
+      en: 'We offer customization services to meet your individual needs, allowing your vending machine to better fit your business requirements.',
+      zh: '我们提供定制服务以满足您的个性化需求，让售货机更贴合您的业务场景。',
+      ar: 'نقدم خدمات التخصيص لتلبية احتياجاتك الفردية، مما يتيح لآلة البيع الخاصة بك أن تناسب متطلبات عملك بشكل أفضل.',
+    },
+  },
+  {
+    icon: Target,
+    title: { en: 'Company Vision and Mission', zh: '企业愿景与使命', ar: 'رؤية الشركة ورسالتها' },
+    desc: {
+      en: 'Our vision is to provide professional services and high-quality products to help you earn from machine operations, achieving a win-win situation.',
+      zh: '我们的愿景是提供专业服务与高品质产品，助您通过设备运营获利，实现共赢。',
+      ar: 'رؤيتنا هي تقديم خدمات احترافية ومنتجات عالية الجودة لمساعدتك على تحقيق أرباح من تشغيل الآلات وتحقيق موقف مربح للطرفين.',
     },
   },
 ];
@@ -466,17 +536,15 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         <div className="absolute bottom-0 end-1/4 h-[360px] w-[360px] rounded-full bg-sky-200/30 blur-3xl" />
       </div>
 
-      {/* ══════════════════ 1. HERO ══════════════════ */}
-      {/* V44: stat-card area now sits on a pale cyan→teal→slate gradient (not
-          near-white) so it belongs to the crystal system, and the light-tone
-          OceanBubbles are rendered with a denser, clearly-visible field. */}
-      <section className="relative isolate overflow-hidden bg-gradient-to-b from-cyan-50/80 via-teal-50/60 to-slate-100/40">
-        {/* Light colour glows for atmosphere. */}
-        <div className="pointer-events-none absolute -start-24 top-10 h-72 w-72 rounded-full bg-cyan-300/30 blur-3xl" aria-hidden="true" />
-        <div className="pointer-events-none absolute end-0 top-1/3 h-80 w-80 rounded-full bg-violet-300/30 blur-3xl" aria-hidden="true" />
+      {/* ══════════════════ 1. HERO (glacier world · V48 R4) ══════════════════ */}
+      <section className="relative isolate overflow-hidden bg-gradient-to-b from-cyan-50 via-slate-50 to-blue-100">
+        {/* Glacier light pools — cool, icy atmosphere. */}
+        <div className="pointer-events-none absolute -start-24 top-10 h-72 w-72 rounded-full bg-cyan-300/40 blur-3xl" aria-hidden="true" />
+        <div className="pointer-events-none absolute end-0 top-1/3 h-80 w-80 rounded-full bg-sky-300/40 blur-3xl" aria-hidden="true" />
+        <div className="pointer-events-none absolute bottom-0 start-1/3 h-72 w-72 rounded-full bg-blue-200/40 blur-3xl" aria-hidden="true" />
 
-        {/* Rising ocean bubbles — light variant (faint cyan) on the bright hero. */}
-        <OceanBubbles tone="light" count={30} className="-z-10" reduced={false} />
+        {/* Falling ice crystals (pure CSS, no canvas) — V48 R4. */}
+        <IceCrystals count={28} className="-z-10" />
 
         <div className="container-qtech relative py-24 text-center lg:py-32">
           <span className="inline-flex items-center rounded-full bg-cyan-50 px-4 py-1.5 text-sm font-medium text-cyan-700 ring-1 ring-cyan-200">
@@ -489,15 +557,18 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             {t('about.subtitle')}
           </p>
 
-          {/* Stat strip with animated counters. */}
+          {/* Stat strip with animated counters — half-translucent "ice glass". */}
           <div className="mx-auto mt-14 grid max-w-4xl grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
             {HERO_STATS.map((s, i) => {
               const Icon = s.icon;
               const accent = ACCENTS[i % ACCENTS.length];
               return (
                 <RevealOnScroll key={s.key} delay={i * 80} className="h-full">
-                  <div className="glass-surface flex h-full min-h-[160px] flex-col items-center justify-center gap-3 rounded-2xl p-5 text-center">
-                    <span className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${accent.tile} ${accent.shadow} shadow-lg`}>
+                  <div className="glass-ice flex h-full min-h-[160px] flex-col items-center justify-center gap-3 rounded-2xl p-5 text-center">
+                    <span
+                      className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${accent.tile} ${accent.shadow} shadow-lg animate-pulse-glow`}
+                      style={{ ['--glow-color' as string]: 'rgba(34, 211, 238, 0.55)' } as React.CSSProperties}
+                    >
                       <Icon className="h-6 w-6" strokeWidth={1.8} />
                     </span>
                     <dt className="text-3xl font-extrabold tracking-tight text-ink-900">
@@ -512,50 +583,47 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         </div>
       </section>
 
-      {/* ══════════════════ 2. ABOUT US (merged intro · image + text) ════════════════
-          V44: the previous standalone "company intro" paragraph and the page
-          header were two near-duplicate blocks. They are merged into ONE
-          "关于我们 / About Us" block with an image on the side (图文并排), keeping
-          the longer, more detailed copy and removing the redundant block. */}
+      {/* ══════════════════ 2. ABOUT US (merged intro · text + image) ════════════════
+          V48 R5: aligned to the SAME unified grid as the "我们的业务" block below
+          (grid-cols-1 lg:grid-cols-2 gap-12 items-stretch) so the two adjacent
+          panels share an identical column rhythm and equal visual heights. */}
       <section className="container-qtech py-16 lg:py-24">
-        <div className="glass-surface mx-auto max-w-5xl overflow-hidden rounded-3xl">
-          <div className="grid items-center gap-8 p-8 sm:p-10 lg:grid-cols-2">
-            <div>
-              <span className="inline-flex items-center rounded-full bg-cyan-50 px-4 py-1.5 text-sm font-medium text-cyan-700 ring-1 ring-cyan-200">
-                {t('about.aboutTitle')}
-              </span>
-              <h2 className="mt-4 text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl">
-                {locale === 'zh'
-                  ? '以匠心，打磨每一台智能售货设备'
-                  : locale === 'ar'
-                    ? 'بإتقان، نصقل كل آلة بيع ذكية'
-                  : 'Crafting every smart vending machine with care'}
-              </h2>
-              <p className="mt-4 text-base leading-relaxed text-ink-600 sm:text-lg">
-                {locale === 'zh'
-                  ? '广州秋彦科技（Qtech）专注于智能售货设备的研发与制造，为全球 80+ 国家和地区的合作伙伴提供定制化的自助零售解决方案。从鲜花保鲜柜到披萨自动售货机，我们以匠心打磨每一台设备。'
-                  : locale === 'ar'
-                    ? 'تتركز تقنية تشيوان (Qtech) على البحث والتطوير وتصنيع آلات البيع الذكية، وتقدم حلولاً مخصصة للبيع بالتجزئة الذاتية لشركاء في أكثر من 80 دولة ومنطقة حول العالم.'
-                  : 'Guangzhou Qiuyan Technology (Qtech) specializes in R&D and manufacturing of smart vending machines, delivering customized self-service retail solutions to partners in 80+ countries worldwide.'}
-              </p>
-              <Link
-                href={`/${locale}/contact`}
-                className="mt-7 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-teal-500/25 transition hover:-translate-y-0.5 hover:from-cyan-400 hover:to-teal-400"
-              >
-                {locale === 'zh' ? '获取报价' : locale === 'ar' ? 'اطلب عرض سعر' : 'Get a Quote'} →
-              </Link>
-            </div>
-            <div className="relative min-h-[240px] overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-slate-100 lg:min-h-[300px]">
-              <Image
-                src="/images/about/company-building.jpg"
-                alt={t('about.aboutTitle')}
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
+        <RevealOnScroll className="grid grid-cols-1 items-stretch gap-12 lg:grid-cols-2">
+          <div className="flex flex-col justify-center">
+            <span className="inline-flex items-center rounded-full bg-cyan-50 px-4 py-1.5 text-sm font-medium text-cyan-700 ring-1 ring-cyan-200">
+              {t('about.aboutTitle')}
+            </span>
+            <h2 className="mt-4 text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl">
+              {locale === 'zh'
+                ? '以匠心，打磨每一台智能售货设备'
+                : locale === 'ar'
+                  ? 'بإتقان، نصقل كل آلة بيع ذكية'
+                : 'Crafting every smart vending machine with care'}
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-ink-600 sm:text-lg">
+              {locale === 'zh'
+                ? '广州秋彦科技（Qtech）专注于智能售货设备的研发与制造，为全球 80+ 国家和地区的合作伙伴提供定制化的自助零售解决方案。从鲜花保鲜柜到披萨自动售货机，我们以匠心打磨每一台设备。'
+                : locale === 'ar'
+                  ? 'تتركز تقنية تشيوان (Qtech) على البحث والتطوير وتصنيع آلات البيع الذكية، وتقدم حلولاً مخصصة للبيع بالتجزئة الذاتية لشركاء في أكثر من 80 دولة ومنطقة حول العالم.'
+                : 'Guangzhou Qiuyan Technology (Qtech) specializes in R&D and manufacturing of smart vending machines, delivering customized self-service retail solutions to partners in 80+ countries worldwide.'}
+            </p>
+            <Link
+              href={`/${locale}/contact`}
+              className="mt-7 inline-flex w-fit items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-teal-500/25 transition hover:-translate-y-0.5 hover:from-cyan-400 hover:to-teal-400"
+            >
+              {locale === 'zh' ? '获取报价' : locale === 'ar' ? 'اطلب عرض سعر' : 'Get a Quote'} →
+            </Link>
           </div>
-        </div>
+          <div className="relative min-h-[280px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100 lg:min-h-[340px]">
+            <Image
+              src="/images/about/company-building.jpg"
+              alt={t('about.aboutTitle')}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+          </div>
+        </RevealOnScroll>
       </section>
 
       {/* ══════════════════ 3. COMPANY STORY (DB-driven, alternating + photos) ════════════════ */}
@@ -573,7 +641,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               <RevealOnScroll
                 key={section.key}
                 as="section"
-                className="grid items-stretch gap-10 lg:grid-cols-2 lg:gap-16"
+                className="grid grid-cols-1 items-stretch gap-12 lg:grid-cols-2"
               >
                 <div className={idx % 2 === 1 ? 'lg:order-2' : ''}>
                   <span className={`inline-flex items-center gap-2 rounded-full bg-gradient-to-r ${a.tile} px-4 py-1.5 text-sm font-medium text-white`}>
@@ -598,7 +666,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                       wordmark with a gentle IoT subtitle. Sized to match the
                       text column (h-full + items-stretch on the grid). */
                   <div
-                    className={`relative flex min-h-[280px] items-center justify-center overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-br from-slate-800 via-slate-900 to-cyan-950 p-8 shadow-2xl shadow-black/20 ${idx % 2 === 1 ? 'lg:order-1' : ''} h-full`}
+                    className={`relative flex min-h-[280px] items-center justify-center overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-br from-slate-800 via-slate-900 to-cyan-950 p-8 shadow-2xl shadow-black/20 ring-1 ring-inset ring-cyan-300/20 ${idx % 2 === 1 ? 'lg:order-1' : ''} h-full`}
                   >
                     {/* Soft top glow so the nameplate reads like polished metal/glass. */}
                     <div
@@ -639,6 +707,45 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           })
         )}
       </section>
+
+      {/* ══════════════════ 3b. COMPANY ADVANTAGES (7) · V48 R7 ══════════════════
+          Icon + title + description cards in the brand glassmorphism language,
+          sitting directly under the "我们的业务 / What We Do" block. Trilingual
+          content (see COMPANY_ADVANTAGES) plus the section heading via i18n. */}
+      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full bg-cyan-50 px-4 py-1.5 text-sm font-medium text-cyan-700 ring-1 ring-cyan-200">
+            <IconTile icon={Sparkles} className="h-4 w-4" tileClassName="bg-gradient-to-br from-cyan-500 to-teal-500 text-white p-1.5" />
+            {t('about.advantages.eyebrow')}
+          </span>
+          <h2 className="mt-5 text-3xl font-extrabold text-ink-900 sm:text-4xl">
+            {t('about.advantages.title')}
+          </h2>
+        </div>
+
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {COMPANY_ADVANTAGES.map((a, i) => {
+            const Icon = a.icon;
+            const ac = ACCENTS[i % ACCENTS.length];
+            return (
+              <RevealOnScroll key={localeOr(a.title)} delay={i * 80} className="h-full">
+                <div className={`glass-surface group relative h-full overflow-hidden border-s-4 ${ac.border}`}>
+                  <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${ac.tile} flow-bar`} aria-hidden="true" />
+                  <div className="p-6">
+                    <IconTile
+                      icon={Icon}
+                      className="h-9 w-9"
+                      tileClassName={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${ac.tile} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 icon-pulse ${ac.glow}`}
+                    />
+                    <h3 className="mt-5 text-xl font-bold text-ink-900">{localeOr(a.title)}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-ink-600">{localeOr(a.desc)}</p>
+                  </div>
+                </div>
+              </RevealOnScroll>
+            );
+          })}
+        </div>
+      </RevealOnScroll>
 
       {/* ══════════════════ 4. MANUFACTURING CAPABILITY ══════════════════
           V44: dark-glass cards (.glass-card-ink) on the light page for a clear

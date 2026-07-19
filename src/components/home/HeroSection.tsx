@@ -81,6 +81,8 @@ const TRUST: {
   labelKey: string;
   bar: string;
   tile: string;
+  /** Per-card glow colour for the pulse animation (R1). */
+  glow: string;
 }[] = [
   {
     icon: CalendarClock,
@@ -88,6 +90,7 @@ const TRUST: {
     labelKey: 'home.hero.trust1Label',
     bar: 'from-cyan-400 to-blue-500',
     tile: 'from-cyan-500 to-blue-600',
+    glow: 'rgba(34, 211, 238, 0.55)',
   },
   {
     icon: Globe,
@@ -95,6 +98,7 @@ const TRUST: {
     labelKey: 'home.hero.trust2Label',
     bar: 'from-sky-400 to-cyan-500',
     tile: 'from-sky-500 to-cyan-600',
+    glow: 'rgba(56, 189, 248, 0.55)',
   },
   {
     icon: ShieldCheck,
@@ -102,6 +106,7 @@ const TRUST: {
     labelKey: 'home.hero.trust3Label',
     bar: 'from-teal-400 to-emerald-500',
     tile: 'from-teal-500 to-emerald-600',
+    glow: 'rgba(45, 212, 191, 0.55)',
   },
   {
     icon: Factory,
@@ -109,6 +114,7 @@ const TRUST: {
     labelKey: 'home.hero.trust4Label',
     bar: 'from-blue-400 to-indigo-500',
     tile: 'from-blue-500 to-indigo-600',
+    glow: 'rgba(59, 130, 246, 0.55)',
   },
 ];
 
@@ -207,24 +213,25 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
           {/* Trust strip — colourful frosted-glass badges */}
           <RevealOnScroll delay={400} className="block">
             <dl className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
-              {TRUST.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <div
-                    key={item.valueKey}
-                    className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/5 p-4 backdrop-blur transition duration-300 hover:bg-white/10"
-                  >
-                    <span
-                      className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${item.bar}`}
-                      aria-hidden="true"
+            {TRUST.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.valueKey}
+                  style={{ ['--glow-color' as string]: item.glow } as React.CSSProperties}
+                  className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/5 p-4 backdrop-blur transition duration-300 hover:bg-white/10"
+                >
+                  <span
+                    className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${item.bar}`}
+                    aria-hidden="true"
+                  />
+                  <div className="flex items-center justify-center">
+                    <IconTile
+                      icon={Icon}
+                      className="h-5 w-5"
+                      tileClassName={`bg-gradient-to-br ${item.tile} text-white p-2 shadow-md animate-pulse-glow`}
                     />
-                    <div className="flex items-center justify-center">
-                      <IconTile
-                        icon={Icon}
-                        className="h-5 w-5"
-                        tileClassName={`bg-gradient-to-br ${item.tile} text-white p-2 shadow-md`}
-                      />
-                    </div>
+                  </div>
                     <dt className="mt-2 text-sm font-extrabold tracking-tight text-white">
                       {t(item.valueKey)}
                     </dt>
@@ -306,6 +313,14 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
           </div>
         </RevealOnScroll>
       </div>
+
+      {/* V48 (R2): seamless, extended fade from the dark starfield to the
+          light page below — a long gradient mask so the transition from the
+          cosmic hero into the bright content area reads natural, not abrupt. */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-96 bg-gradient-to-b from-transparent via-slate-50/40 to-slate-50"
+        aria-hidden="true"
+      />
     </section>
   );
 }

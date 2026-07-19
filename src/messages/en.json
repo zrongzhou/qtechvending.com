@@ -250,5 +250,8 @@
   "home.testimonials.r6": "Amusement Park Buyer, Italy",
   "about.aboutTitle": "About Us",
   "about.caseGallery.title": "Customer Cases",
-  "about.caseGallery.altPrefix": "Qtech vending installation case "
+  "about.caseGallery.altPrefix": "Qtech vending installation case ",
+  "about.advantages.eyebrow": "Why Qtech",
+  "about.advantages.title": "Seven Reasons to Choose Qtech",
+  "about.caseGallery.viewLabel": "Customer Case"
 }
