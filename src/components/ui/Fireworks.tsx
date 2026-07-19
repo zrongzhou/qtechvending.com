@@ -41,8 +41,8 @@ function generateBursts(count: number): Burst[] {
   for (let b = 0; b < count; b += 1) {
     const left = 6 + Math.random() * 88; // 6–94 %
     const top = 10 + Math.random() * 62; // 10–72 %
-    const radius = 40 + Math.random() * 80; // 40–120 px burst radius
-    const n = 14 + Math.floor(Math.random() * 9); // 14–22 particles
+    const radius = 60 + Math.random() * 100; // 60–160 px burst radius (larger = more visible)
+    const n = 16 + Math.floor(Math.random() * 10); // 16–26 particles (denser burst)
     const baseColor = COLORS[Math.floor(Math.random() * COLORS.length)];
     const particles: Particle[] = [];
     for (let i = 0; i < n; i += 1) {
@@ -53,7 +53,7 @@ function generateBursts(count: number): Burst[] {
         ty: Math.sin(ang) * r,
         // Mostly the base colour, occasionally a contrasting brand pop.
         color: Math.random() > 0.25 ? baseColor : COLORS[Math.floor(Math.random() * COLORS.length)],
-        size: 3 + Math.random() * 3.5,
+        size: 5 + Math.random() * 6, // 5–11px particles (larger, more visible)
       });
     }
     arr.push({

@@ -218,7 +218,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
               return (
                 <div
                   key={item.valueKey}
-                  className="relative overflow-visible rounded-2xl border border-white/15 bg-white/5 p-4 pb-5 backdrop-blur transition duration-300 hover:bg-white/10"
+                  className="group relative overflow-visible rounded-2xl border border-white/15 bg-white/5 p-4 pb-5 backdrop-blur transition duration-300 hover:bg-white/10 trust-shimmer"
                 >
                   <span
                     className={`absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-r ${item.bar}`}

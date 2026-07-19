@@ -710,48 +710,34 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         {/* V48.1 R7: left/right alternating horizontal rows (zebra). Pairs of
             cards sit side-by-side (odd = icon left, even = icon right); the
             trailing 7th card is centred so no awkward blank cells remain. */}
-        <div className="mt-12 space-y-6">
-          {(() => {
-            const items = COMPANY_ADVANTAGES;
-            const rows: (typeof COMPANY_ADVANTAGES)[] = [];
-            for (let i = 0; i < items.length; i += 2) rows.push(items.slice(i, i + 2));
-            return rows.map((row, ri) => (
-              <div
-                key={ri}
-                className={`grid grid-cols-1 gap-6 lg:grid-cols-2 ${row.length === 1 ? 'lg:grid-cols-1' : ''}`}
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+          {COMPANY_ADVANTAGES.map((a, idx) => {
+            const Icon = a.icon;
+            const ac = ACCENTS[idx % ACCENTS.length];
+            const reversed = idx % 2 === 1;
+            return (
+              <RevealOnScroll
+                key={localeOr(a.title)}
+                delay={idx * 80}
+                className="h-full"
               >
-                {row.map((a, ci) => {
-                  const idx = ri * 2 + ci;
-                  const Icon = a.icon;
-                  const ac = ACCENTS[idx % ACCENTS.length];
-                  const reversed = ci === 1;
-                  const single = row.length === 1;
-                  return (
-                    <RevealOnScroll
-                      key={localeOr(a.title)}
-                      delay={idx * 80}
-                      className="h-full"
-                    >
-                      <div className={`glass-surface group relative h-full overflow-hidden border-s-4 ${ac.border}`}>
-                        <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${ac.tile} flow-bar`} aria-hidden="true" />
-                        <div className={`flex h-full items-center gap-5 p-6 ${reversed ? 'lg:flex-row-reverse lg:text-right' : ''}`}>
-                          <IconTile
-                            icon={Icon}
-                            className="h-9 w-9 shrink-0"
-                            tileClassName={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${ac.tile} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 icon-pulse ${ac.glow}`}
-                          />
-                          <div className={reversed ? 'lg:text-right' : ''}>
-                            <h3 className="text-xl font-bold text-ink-900">{localeOr(a.title)}</h3>
-                            <p className="mt-2 text-sm leading-relaxed text-ink-600">{localeOr(a.desc)}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </RevealOnScroll>
-                  );
-                })}
-              </div>
-            ));
-          })()}
+                <div className={`glass-surface group relative h-full overflow-hidden border-s-4 ${ac.border}`}>
+                  <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${ac.tile} flow-bar`} aria-hidden="true" />
+                  <div className={`flex h-full items-center gap-5 p-6 ${reversed ? 'lg:flex-row-reverse lg:text-right' : ''}`}>
+                    <IconTile
+                      icon={Icon}
+                      className="h-9 w-9 shrink-0"
+                      tileClassName={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${ac.tile} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 icon-pulse ${ac.glow}`}
+                    />
+                    <div className={reversed ? 'lg:text-right' : ''}>
+                      <h3 className="text-xl font-bold text-ink-900">{localeOr(a.title)}</h3>
+                      <p className="mt-2 text-sm leading-relaxed text-ink-600">{localeOr(a.desc)}</p>
+                    </div>
+                  </div>
+                </div>
+              </RevealOnScroll>
+            );
+          })}
         </div>
       </RevealOnScroll>
 
@@ -1072,27 +1058,90 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
       {/* ══════════════════ 11b. CUSTOMER CASES (real install photos) ══════════════════ */}
       <CaseGallerySection />
 
-      {/* ══════════════════ 12. CTA (the one intentional dark anchor) ══════════════════ */}
+      {/* ══════════════════ 12. CTA — 日照金山 / Golden Mountain at Sunrise ══════════════════
+          用户明确指定：日照金山效果做在这个底部 Work With Us 深色区块。
+          主 CTA（首页 CtaSection）已改为纯水族动画。 */}
       <RevealOnScroll as="section" className="container-qtech pb-20 lg:pb-28">
-        <div className="rounded-3xl bg-gradient-to-br from-cyan-900 via-teal-900 to-slate-900 px-8 py-16 text-center text-white">
-          <h2 className="text-3xl font-bold drop-shadow-sm sm:text-4xl">{t('about.cta') || 'Ready to Partner with Qtech?'}</h2>
-          <p className="mx-auto mt-3 max-w-xl text-white/85">
-            {locale === 'zh'
-              ? '联系我们获取定制报价与技术方案。'
-              : locale === 'ar'
-                ? 'تواصل معنا للحصول على عرض سعر مخصص وحلول تقنية.'
-                : 'Contact us for custom quotes and technical solutions.'}
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link href={`/${locale}/contact`} className="btn-primary">
-              {t('nav.getQuote') || 'Get a Quote'}
-            </Link>
-            <Link
-              href={`/${locale}/products`}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/50 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/20 active:scale-[0.97]"
-            >
-              {t('nav.products') || 'Products'}
-            </Link>
+        <div className="cta-sunrise relative overflow-hidden rounded-3xl px-8 py-16 text-center md:py-20">
+          {/* Warm sky glow pooling at the top. */}
+          <div className="cta-sunrise__sky" aria-hidden="true" />
+          {/* Sweeping light beam from the top-right. */}
+          <div className="cta-sunrise__beam" aria-hidden="true" />
+          <div className="cta-sunrise__beam cta-sunrise__beam--2" aria-hidden="true" />
+
+          {/* Multi-layer mountain silhouette (SVG) — far misty → near dark with gold rim. */}
+          <svg
+            className="cta-sunrise__mountain"
+            viewBox="0 0 1440 320"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path d="M0,320 L0,150 L200,95 L400,140 L600,80 L800,135 L1000,75 L1200,140 L1440,100 L1440,320 Z" fill="url(#aboutCtaFar)" />
+            <path d="M0,320 L0,205 L250,155 L450,195 L650,135 L850,185 L1050,125 L1250,185 L1440,155 L1440,320 Z" fill="url(#aboutCtaMid)" />
+            <path d="M0,320 L0,255 L300,205 L500,245 L700,185 L900,235 L1100,195 L1300,245 L1440,215 L1440,320 Z" fill="url(#aboutCtaNear)" />
+            <path d="M0,255 L300,205 L500,245 L700,185 L900,235 L1100,195 L1300,245 L1440,215" fill="none" stroke="rgba(253,224,138,0.7)" strokeWidth="2" />
+            <defs>
+              <linearGradient id="aboutCtaFar" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#a78bfa" stopOpacity="0.55" />
+                <stop offset="100%" stopColor="#6366f1" stopOpacity="0.35" />
+              </linearGradient>
+              <linearGradient id="aboutCtaMid" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#4f46e5" stopOpacity="0.7" />
+                <stop offset="100%" stopColor="#3730a3" stopOpacity="0.7" />
+              </linearGradient>
+              <linearGradient id="aboutCtaNear" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#312e81" stopOpacity="0.95" />
+                <stop offset="100%" stopColor="#1e1b4b" stopOpacity="1" />
+              </linearGradient>
+            </defs>
+          </svg>
+
+          {/* Golden dust motes drifting upward. */}
+          {Array.from({ length: 18 }, (_, i) => {
+            const rx = (Math.sin(i * 53.17 + 9.1) * 43758.5453) % 1;
+            return (
+              <span
+                key={i}
+                className="cta-sunrise__dust"
+                style={
+                  {
+                    left: `${rx * 100}%`,
+                    bottom: `${((Math.sin((i + 300) * 127.1 + 311.7) * 43758.5453) % 1) * 35}%`,
+                    width: `${2 + ((Math.sin((i + 50) * 79.3 + 17.9) * 43758.5453) % 1) * 5}px`,
+                    height: `${2 + ((Math.sin((i + 50) * 79.3 + 17.9) * 43758.5453) % 1) * 5}px`,
+                    ['--sd-dur' as string]: `${7 + ((Math.sin((i + 100) * 31.7 + 43.1) * 43758.5453) % 1) * 9}s`,
+                    ['--sd-dx' as string]: `${(((Math.sin((i + 200) * 67.3 + 89.1) * 43758.5453) % 1) - 0.5) * 70}px`,
+                    animationDelay: `${((Math.sin((i + 150) * 41.3 + 27.1) * 43758.5453) % 1) * 9}s`,
+                  } as React.CSSProperties
+                }
+              />
+            );
+          })}
+
+          {/* Frosted glass overlay. */}
+          <div className="cta-sunrise__glass" aria-hidden="true" />
+
+          {/* Content — sits above all layers. */}
+          <div className="relative z-10 flex flex-col items-center gap-5">
+            <h2 className="text-3xl font-bold drop-shadow-sm sm:text-4xl">{t('about.cta') || 'Ready to Partner with Qtech?'}</h2>
+            <p className="mx-auto max-w-xl text-white/85">
+              {locale === 'zh'
+                ? '联系我们获取定制报价与技术方案。'
+                : locale === 'ar'
+                  ? 'تواصل معنا للحصول على عرض سعر مخصص وحلول تقنية.'
+                  : 'Contact us for custom quotes and technical solutions.'}
+            </p>
+            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Link href={`/${locale}/contact`} className="btn-primary">
+                {t('nav.getQuote') || 'Get a Quote'}
+              </Link>
+              <Link
+                href={`/${locale}/products`}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/50 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/20 active:scale-[0.97]"
+              >
+                {t('nav.products') || 'Products'}
+              </Link>
+            </div>
           </div>
         </div>
       </RevealOnScroll>
