@@ -537,14 +537,14 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
       </div>
 
       {/* ══════════════════ 1. HERO (glacier world · V48 R4) ══════════════════ */}
-      <section className="relative isolate overflow-hidden bg-gradient-to-b from-cyan-50 via-slate-50 to-blue-100">
+      <section className="relative isolate overflow-hidden bg-gradient-to-b from-cyan-100 via-sky-50 to-blue-200">
         {/* Glacier light pools — cool, icy atmosphere. */}
         <div className="pointer-events-none absolute -start-24 top-10 h-72 w-72 rounded-full bg-cyan-300/40 blur-3xl" aria-hidden="true" />
         <div className="pointer-events-none absolute end-0 top-1/3 h-80 w-80 rounded-full bg-sky-300/40 blur-3xl" aria-hidden="true" />
         <div className="pointer-events-none absolute bottom-0 start-1/3 h-72 w-72 rounded-full bg-blue-200/40 blur-3xl" aria-hidden="true" />
 
         {/* Falling ice crystals (pure CSS, no canvas) — V48 R4. */}
-        <IceCrystals count={28} className="-z-10" />
+        <IceCrystals count={36} className="z-0" />
 
         <div className="container-qtech relative py-24 text-center lg:py-32">
           <span className="inline-flex items-center rounded-full bg-cyan-50 px-4 py-1.5 text-sm font-medium text-cyan-700 ring-1 ring-cyan-200">
@@ -583,12 +583,14 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         </div>
       </section>
 
-      {/* ══════════════════ 2. ABOUT US (merged intro · text + image) ════════════════
-          V48 R5: aligned to the SAME unified grid as the "我们的业务" block below
-          (grid-cols-1 lg:grid-cols-2 gap-12 items-stretch) so the two adjacent
-          panels share an identical column rhythm and equal visual heights. */}
+      {/* ══════════════════ 2. ABOUT US × 词牌 (V48.1 R5: side-by-side) ════════════════
+          The "以匠心" copy and the brand 词牌 (nameplate) now sit in ONE aligned
+          grid (grid-cols-1 lg:grid-cols-2 items-stretch gap-12) so the two brand
+          blocks the user saw stacked are visually paired and equal-height.
+          Left: 以匠心 copy + CTA. Right: redesigned 词牌. */}
       <section className="container-qtech py-16 lg:py-24">
         <RevealOnScroll className="grid grid-cols-1 items-stretch gap-12 lg:gap-16 lg:grid-cols-2">
+          {/* Left: 以匠心 copy (reused) */}
           <div className="flex flex-col justify-center">
             <span className="inline-flex items-center rounded-full bg-cyan-50 px-4 py-1.5 text-sm font-medium text-cyan-700 ring-1 ring-cyan-200">
               {t('about.aboutTitle')}
@@ -614,15 +616,17 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               {locale === 'zh' ? '获取报价' : locale === 'ar' ? 'اطلب عرض سعر' : 'Get a Quote'} →
             </Link>
           </div>
-          <div className="flex items-center">
-            <div className="relative min-h-[320px] w-full overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100 lg:min-h-[360px]">
-              <Image
-                src="/images/about/company-building.jpg"
-                alt={t('about.aboutTitle')}
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
+          {/* Right: redesigned 词牌 (nameplate) */}
+          <div className="relative flex min-h-[320px] items-center justify-center overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-slate-800 via-slate-900 to-cyan-950 p-8 shadow-2xl shadow-black/30 ring-1 ring-inset ring-cyan-300/20">
+            <div className="pointer-events-none absolute -top-16 start-1/2 h-44 w-44 -translate-x-1/2 rounded-full bg-cyan-400/25 blur-3xl" />
+            <div className="pointer-events-none absolute inset-2 rounded-[26px] border border-white/10" />
+            <div className="relative flex flex-col items-center text-center">
+              <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 shadow-lg shadow-cyan-500/40">
+                <span className="text-2xl font-bold text-white">秋彦</span>
+              </div>
+              <div className="mt-6 text-5xl font-bold tracking-[0.15em] text-white">Qtech</div>
+              <div className="mt-2 text-sm uppercase tracking-[0.35em] text-cyan-300/90">Smart Vending · IoT</div>
+              <div className="mt-5 h-px w-44 bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent" />
             </div>
           </div>
         </RevealOnScroll>
@@ -661,58 +665,15 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                       ))}
                   </div>
                 </div>
-                {section.key === 'capability' ? (
-                  /* V45: the "我们的业务 / What We Do" panel replaces the product
-                      photo with a brand "word card" (词牌): a soft blue→indigo
-                      frosted panel holding the 秋彦 brand mark + the Qtech
-                      wordmark with a gentle IoT subtitle. Sized to match the
-                      text column (h-full + items-stretch on the grid). */
-                  <div className={`flex items-center ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
-                    <div className="relative flex h-full w-full min-h-[320px] flex-col items-center justify-center overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-slate-800 via-slate-900 to-cyan-950 p-8 shadow-2xl shadow-black/30">
-                      {/* Top inner highlight so it reads like polished metal/glass. */}
-                      <div
-                        className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-[32px] bg-gradient-to-b from-white/10 to-transparent"
-                        aria-hidden="true"
-                      />
-                      {/* Soft glow orb behind the mark. */}
-                      <div
-                        className="pointer-events-none absolute -top-16 start-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-cyan-400/25 blur-3xl"
-                        aria-hidden="true"
-                      />
-                      {/* Decorative sparkle divider line */}
-                      <div className="relative mb-5 flex items-center gap-2 text-cyan-300/70" aria-hidden="true">
-                        <span className="h-px w-8 bg-gradient-to-r from-transparent to-cyan-400/60" />
-                        <Sparkles className="h-4 w-4" strokeWidth={1.5} />
-                        <span className="h-px w-8 bg-gradient-to-l from-transparent to-cyan-400/60" />
-                      </div>
-                      {/* Brand logo mark — 秋彦 ball (sky-blue gradient). */}
-                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-400 to-blue-500 shadow-lg shadow-cyan-500/30">
-                        <span className="text-lg font-bold text-white">秋彦</span>
-                      </div>
-                      {/* Wordmark */}
-                      <div className="mt-5 text-3xl font-bold tracking-[0.2em] text-white">QTECH</div>
-                      {/* Subtitle */}
-                      <div className="mt-1 text-xs uppercase tracking-[0.3em] text-cyan-400/80">
-                        SMART VENDING · IOT
-                      </div>
-                      {/* Decorative divider line */}
-                      <div
-                        className="mt-5 h-px w-40 bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent"
-                        aria-hidden="true"
-                      />
-                    </div>
-                  </div>
-                ) : (
-                  <div className={`relative min-h-[280px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100 ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
-                    <Image
-                      src={img}
-                      alt={title}
-                      fill
-                      className="object-cover transition-transform duration-700 hover:scale-105"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                    />
-                  </div>
-                )}
+                <div className={`relative min-h-[280px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100 ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
+                  <Image
+                    src={img}
+                    alt={title}
+                    fill
+                    className="object-cover transition-transform duration-700 hover:scale-105"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                </div>
               </RevealOnScroll>
             );
           })

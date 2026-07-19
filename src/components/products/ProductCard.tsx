@@ -88,7 +88,7 @@ export default function ProductCard({
       surface={oceanMode ? 'glass' : 'ocean'}
       hoverLift={!oceanMode}
       rippleColor={oceanMode ? accent.ripple : 'rgba(8, 145, 178, 0.2)'}
-      className={`group h-full ${surfaceBase}`}
+      className={`group h-full product-card-glass ${surfaceBase}`}
     >
       <Link
         href={`/${locale}/products/${product.slug}`}

@@ -320,7 +320,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
           light page below — a long gradient mask so the transition from the
           cosmic hero into the bright content area reads natural, not abrupt. */}
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-80 bg-gradient-to-b from-transparent via-slate-50/30 to-slate-50/60"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-72 bg-gradient-to-b from-transparent via-slate-50/25 to-slate-50/70"
         aria-hidden="true"
       />
     </section>

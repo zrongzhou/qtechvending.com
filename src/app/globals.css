@@ -1054,12 +1054,12 @@ input[type='number']::-webkit-inner-spin-button {
   position: absolute;
   left: 0;
   top: 0;
-  width: 12px;
-  height: 12px;
-  margin: -6px 0 0 -6px;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
   border-radius: 9999px;
-  background: radial-gradient(circle, #ffffff 0%, #fde68a 28%, rgba(34, 211, 238, 0.85) 62%, transparent 74%);
-  box-shadow: 0 0 16px 5px rgba(34, 211, 238, 0.6);
+  background: radial-gradient(circle, #ffffff 0%, #fde68a 24%, #fbbf24 46%, rgba(34, 211, 238, 0.85) 66%, transparent 78%);
+  box-shadow: 0 0 24px 8px rgba(34, 211, 238, 0.6);
   opacity: 0;
   animation: firework-core 7s ease-out infinite;
 }
@@ -1078,16 +1078,16 @@ input[type='number']::-webkit-inner-spin-button {
 }
 @keyframes firework-core {
   0%   { transform: scale(0); opacity: 0; }
-  1.2% { transform: scale(1.1); opacity: 1; }
-  5%   { transform: scale(1.8); opacity: 0; }
-  100% { transform: scale(1.8); opacity: 0; }
+  2%   { transform: scale(1); opacity: 1; }
+  14%  { transform: scale(1.6); opacity: 1; }
+  32%  { transform: scale(2); opacity: 0; }
+  100% { transform: scale(2); opacity: 0; }
 }
 @keyframes firework-burst {
   0%   { transform: translate(0, 0) scale(1); opacity: 0; }
-  1.5% { opacity: 1; }
-  10%  { opacity: 0.95; }
-  45%  { transform: translate(var(--tx, 0), var(--ty, 0)) scale(0.7); opacity: 0.85; }
-  70%  { transform: translate(var(--tx, 0), var(--ty, 0)) scale(0.3); opacity: 0; }
+  3%   { opacity: 1; }
+  18%  { opacity: 0.95; }
+  42%  { transform: translate(var(--tx, 0), var(--ty, 0)) scale(0.2); opacity: 0; }
   100% { transform: translate(var(--tx, 0), var(--ty, 0)) scale(0.2); opacity: 0; }
 }
 /* V47: honour reduced-motion — hide the fireworks entirely. */
@@ -1099,6 +1099,17 @@ input[type='number']::-webkit-inner-spin-button {
    V48 — visual iteration
    ========================================================================== */
 
+
+/* ---- R3 (V48.1): translucent product cards so the fireworks show through ---- */
+.product-card-glass.glass-surface {
+  background: rgba(255, 255, 255, 0.50);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+}
+.product-card-glass.glass-surface:hover {
+  background: rgba(255, 255, 255, 0.62);
+}
+
 /* ---- R1: Hero trust-icon pulse glow ----
    A soft box-shadow halo that breathes in + out, tinted by each card's
    category colour via the --glow-color custom property. Includes a subtle
@@ -1109,7 +1120,7 @@ input[type='number']::-webkit-inner-spin-button {
     transform: scale(1);
   }
   50% {
-    box-shadow: 0 0 22px 6px var(--glow-color, rgba(34, 211, 238, 0.55));
+    box-shadow: 0 0 24px 7px var(--glow-color, rgba(34, 211, 238, 0.55));
     transform: scale(1.06);
   }
 }
@@ -1139,12 +1150,12 @@ input[type='number']::-webkit-inner-spin-button {
   top: -5%;
   width: var(--ice-size, 8px);
   height: var(--ice-size, 8px);
-  background: linear-gradient(135deg, rgba(224, 242, 254, 0.95) 0%, rgba(125, 211, 252, 0.85) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(56, 189, 248, 0.6) 100%);
   border: 1px solid rgba(255, 255, 255, 0.85);
   border-radius: 2px;
   box-shadow:
-    0 0 10px 1px rgba(125, 211, 252, 0.95),
-    0 0 18px 2px rgba(56, 189, 248, 0.55);
+    0 0 14px rgba(56, 189, 248, 0.9),
+    0 0 22px 2px rgba(56, 189, 248, 0.9);
   transform: rotate(45deg);
   opacity: 0;
   pointer-events: none;
@@ -1201,7 +1212,7 @@ input[type='number']::-webkit-inner-spin-button {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(120% 70% at 72% 0%, rgba(255, 247, 220, 0.60), rgba(253, 230, 138, 0.18) 35%, transparent 60%);
+  background: radial-gradient(120% 70% at 72% 0%, rgba(255, 247, 220, 0.70), rgba(253, 230, 138, 0.20) 35%, transparent 60%);
 }
 /* Slow light beam sweeping from the top-right (45°). */
 .cta-sunrise__beam {
@@ -1225,6 +1236,18 @@ input[type='number']::-webkit-inner-spin-button {
   pointer-events: none;
   animation: sunriseBeam 8s ease-in-out infinite;
   will-change: transform, opacity;
+}
+/* Second, counter-sweeping beam (V48.1 R2): brighter, mirrored from the left
+   at a different angle and phase so the sunrise light reads richer. */
+.cta-sunrise__beam--2 {
+  left: 16%;
+  right: auto;
+  top: -30%;
+  width: 48%;
+  transform-origin: top left;
+  opacity: 0.55;
+  animation-duration: 9.5s;
+  animation-delay: 3.4s;
 }
 @keyframes sunriseBeam {
   0%, 100% { transform: rotate(-7deg); opacity: 0.5; }

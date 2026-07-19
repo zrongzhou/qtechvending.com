@@ -51,6 +51,8 @@ export default function CtaSection() {
         <div className="cta-sunrise__sky" aria-hidden="true" />
         {/* Sweeping light beam from the top-right (45°). */}
         <div className="cta-sunrise__beam" aria-hidden="true" />
+        {/* Second, counter-sweeping beam so the sunrise light reads richer (R2). */}
+        <div className="cta-sunrise__beam cta-sunrise__beam--2" aria-hidden="true" />
 
         {/* Multi-layer mountain silhouette (SVG) — far misty ridges in back,
             near dark indigo peaks in front, each lit with a gold sunrise rim. */}
