@@ -198,8 +198,8 @@ export default function ProductDetailView({
       {/* Soft colour blooms so the glass tabs/cards have something to refract.
           V44: unified to the ice-blue crystal palette (cyan / sky). */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-        <div className="absolute -top-24 start-0 h-[420px] w-[420px] rounded-full bg-cyan-400/14 blur-3xl" />
-        <div className="absolute top-1/4 end-0 h-[460px] w-[460px] rounded-full bg-sky-400/12 blur-3xl" />
+        <div className="absolute -top-24 start-0 h-[420px] w-[420px] rounded-full bg-cyan-400/[0.14] blur-3xl" />
+        <div className="absolute top-1/4 end-0 h-[460px] w-[460px] rounded-full bg-sky-400/[0.12] blur-3xl" />
       </div>
       {/* Rising bubbles — light variant for the bright background. */}
       <OceanBubbles tone="light" className="-z-10" />
