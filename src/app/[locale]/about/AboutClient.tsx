@@ -543,7 +543,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             </div>
             <div className="relative min-h-[240px] overflow-hidden rounded-2xl bg-white shadow-lg ring-1 ring-slate-100 lg:min-h-[300px]">
               <Image
-                src={STORY_IMAGES[0]}
+                src="/images/about/company-building.jpg"
                 alt={t('about.aboutTitle')}
                 fill
                 className="object-cover"
@@ -569,7 +569,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               <RevealOnScroll
                 key={section.key}
                 as="section"
-                className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
+                className="grid items-stretch gap-10 lg:grid-cols-2 lg:gap-16"
               >
                 <div className={idx % 2 === 1 ? 'lg:order-2' : ''}>
                   <span className={`inline-flex items-center gap-2 rounded-full bg-gradient-to-r ${a.tile} px-4 py-1.5 text-sm font-medium text-white`}>
@@ -587,15 +587,38 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                       ))}
                   </div>
                 </div>
-                <div className={`relative min-h-[280px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100 ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
-                  <Image
-                    src={img}
-                    alt={title}
-                    fill
-                    className="object-cover transition-transform duration-700 hover:scale-105"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
-                </div>
+                {section.key === 'capability' ? (
+                  /* V45: the "我们的业务 / What We Do" panel replaces the product
+                      photo with a brand "word card" (词牌): a soft blue→indigo
+                      frosted panel holding the 秋彦 brand mark + the Qtech
+                      wordmark with a gentle IoT subtitle. Sized to match the
+                      text column (h-full + items-stretch on the grid). */
+                  <div
+                    className={`relative flex min-h-[280px] items-center justify-center overflow-hidden rounded-[24px] bg-gradient-to-br from-blue-100 via-indigo-50 to-purple-50 p-8 shadow-xl shadow-blue-200/30 ${idx % 2 === 1 ? 'lg:order-1' : ''} h-full`}
+                  >
+                    <div className="flex items-center gap-5">
+                      {/* Brand mark — rounded white tile with the 秋彦 logotype. */}
+                      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-white shadow-sm">
+                        <span className="bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-2xl font-bold text-transparent">秋彦</span>
+                      </div>
+                      {/* Wordmark + subtitle. */}
+                      <div className="leading-tight">
+                        <div className="bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-3xl font-bold text-transparent">Qtech</div>
+                        <div className="mt-1 text-xs tracking-widest text-slate-400 uppercase">Smart Vending · IoT</div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className={`relative min-h-[280px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100 ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
+                    <Image
+                      src={img}
+                      alt={title}
+                      fill
+                      className="object-cover transition-transform duration-700 hover:scale-105"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                    />
+                  </div>
+                )}
               </RevealOnScroll>
             );
           })

@@ -576,8 +576,12 @@ export default function Starfield({
       {/* V44: bottom gradient fade so the deep-space sky dissolves softly
           into the light content below instead of hard-cutting to white.
           Three stops give a layered, progressive brightening. */}
+      {/* V45: soften + lengthen the bottom fade so the deep-space sky dissolves
+          into the light content below almost imperceptibly — a long, gentle
+          ramp (transparent → 25% white → 80% white over a taller area) instead
+          of the previous hard white band. */}
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-56 bg-gradient-to-b from-transparent via-white/0 to-white"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-80 bg-gradient-to-b from-transparent via-white/25 to-white/80"
         aria-hidden="true"
       />
     </div>

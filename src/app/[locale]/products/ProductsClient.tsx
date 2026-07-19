@@ -79,7 +79,7 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
   const { data, totalPages } = result;
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-glass-light">
+    <div className="relative min-h-screen overflow-hidden bg-glass-light-warm">
       {/* Soft, luminous colour blooms so the white glass cards have colour to
           refract — the crystal effect comes from light passing through glass.
           V44: unified to the ice-blue crystal palette (cyan / sky / slate /

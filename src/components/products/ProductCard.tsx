@@ -48,11 +48,12 @@ export default function ProductCard({
   const isHot = Boolean(product.featured);
   const isNew = !isHot && /2025/.test(product.slug);
   const badgeKey = isHot ? 'products.badgeHot' : isNew ? 'products.badgeNew' : null;
-  // Ocean-tinted badge (cyan → teal) for an on-theme "HOT"/"NEW" tag, with a
-  // soft cyan glow ring in ocean mode.
+  // The "Hot" tag is unified to the rose family on every card (no mixed
+  // colours); the "NEW" tag keeps the per-category accent for variety.
+  const HOT_BADGE = 'from-rose-500 to-pink-500';
   const badgeClass = oceanMode
-    ? `bg-gradient-to-r ${accent.badge} text-white shadow-[0_0_18px_rgba(34,211,238,0.55)]`
-    : `bg-gradient-to-r ${accent.badge} text-white`;
+    ? `bg-gradient-to-r ${isHot ? HOT_BADGE : accent.badge} text-white ${isHot ? 'shadow-[0_0_18px_rgba(244,63,94,0.5)]' : 'shadow-[0_0_18px_rgba(34,211,238,0.55)]'}`
+    : `bg-gradient-to-r ${isHot ? HOT_BADGE : accent.badge} text-white`;
 
   // Bottom info line: model number (preferred) or category tag as a fallback.
   const modelSpec = product.specs?.find((s) => s.param.trim().toLowerCase() === 'model');

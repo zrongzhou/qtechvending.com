@@ -55,10 +55,10 @@ function ProductDetailTabs({
 }) {
   const [active, setActive] = useState<TabId>('features');
   const specList = specs ?? [];
-  // Shared dark-glass surface for every tab panel (V42: never a white
-  // background, even on the light product-detail page).
+  // V45: a calm, slightly-warmer frosted panel. Lower opacity (slate-50/60)
+  // with a lighter blur so the glass reads soft, not cold.
   const tabPanel =
-    'relative overflow-hidden rounded-2xl border border-slate-200 bg-white/70 backdrop-blur-xl shadow-soft';
+    'relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-50/60 backdrop-blur-sm shadow-soft';
 
   const tabs: { id: TabId; label: string }[] = [
     { id: 'features', label: t('product.features') },
@@ -68,7 +68,8 @@ function ProductDetailTabs({
 
   return (
     <div className="mt-10">
-      {/* Tab bar — dark glass, brand-coloured active underline */}
+      {/* Tab bar — frosted glass rail; the active tab uses a brand-cyan
+          bottom border (border-b-2) instead of a coloured fill. */}
       <div className="glass-surface flex gap-1 overflow-x-auto rounded-2xl p-1.5 no-scrollbar">
         {tabs.map((tab) => {
           const isActive = active === tab.id;
@@ -78,19 +79,13 @@ function ProductDetailTabs({
               type="button"
               onClick={() => setActive(tab.id)}
               aria-pressed={isActive}
-              className={`relative whitespace-nowrap rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors ${
+              className={`relative whitespace-nowrap border-b-2 px-5 py-2.5 text-sm font-semibold transition-colors ${
                 isActive
-                  ? 'bg-gradient-to-r from-cyan-500/15 to-teal-500/15 text-cyan-700 ring-1 ring-cyan-400/40'
-                  : 'text-ink-400 hover:text-ink-700'
+                  ? 'border-cyan-500 bg-cyan-50/40 text-cyan-700'
+                  : 'border-transparent text-ink-400 hover:text-ink-700'
               }`}
             >
               {tab.label}
-              {isActive && (
-                <span
-                  className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-gradient-to-r from-cyan-400 to-teal-400"
-                  aria-hidden="true"
-                />
-              )}
             </button>
           );
         })}
@@ -194,7 +189,7 @@ export default function ProductDetailView({
   }, [lightboxOpen]);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-glass-light">
+    <div className="relative min-h-screen overflow-hidden bg-glass-light-warm">
       {/* Soft colour blooms so the glass tabs/cards have something to refract.
           V44: unified to the ice-blue crystal palette (cyan / sky). */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">

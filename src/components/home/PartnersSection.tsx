@@ -18,14 +18,20 @@ const AVATAR_TILES = [
   'from-rose-500 to-pink-500',
   'from-sky-500 to-blue-500',
   'from-teal-500 to-emerald-500',
+  'from-cyan-500 to-blue-500',
+  'from-indigo-500 to-violet-500',
+  'from-amber-500 to-orange-500',
 ];
 const BAR_TILES = [
   'from-rose-400 to-pink-500',
   'from-sky-400 to-blue-500',
   'from-teal-400 to-emerald-500',
+  'from-cyan-400 to-blue-500',
+  'from-indigo-400 to-violet-500',
+  'from-amber-400 to-orange-500',
 ];
 
-const TESTIMONIAL_IDS = ['1', '2', '3'] as const;
+const TESTIMONIAL_IDS = ['1', '2', '3', '4', '5', '6'] as const;
 
 export default function PartnersSection() {
   const { t } = useLocale();
@@ -39,7 +45,7 @@ export default function PartnersSection() {
           <p className="section-subtitle">{t('home.testimonials.subtitle')}</p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {TESTIMONIAL_IDS.map((id, i) => {
             const author = t(`home.testimonials.a${id}`);
             return (

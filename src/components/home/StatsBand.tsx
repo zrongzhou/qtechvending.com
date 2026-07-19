@@ -7,13 +7,15 @@ import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
 import OceanGlassCard from '@/components/ui/OceanGlassCard';
 
-// V33: each stat gets its own accent (blue-cyan / amber-orange / emerald-green /
-// violet-purple) — gradient number, thin coloured left-border, glowing dot.
+// V45: unified to a calm, low-saturation "ice-blue crystal" family. Each card
+// carries a 10%-tint background, a hairline border, a solid (non-gradient) number
+// in the accent colour, a soft dot and a tinted icon — no high-saturation
+// rainbow blocks, keeping the premium glassmorphism read.
 const STAT_ACCENTS = [
-  { border: 'border-blue-400', grad: 'from-blue-500 to-cyan-500', dot: 'bg-blue-400 shadow-[0_0_12px_rgba(59,130,246,0.7)]', icon: 'text-blue-500' },
-  { border: 'border-amber-400', grad: 'from-amber-400 to-orange-500', dot: 'bg-amber-400 shadow-[0_0_12px_rgba(245,158,11,0.7)]', icon: 'text-amber-500' },
-  { border: 'border-emerald-400', grad: 'from-emerald-400 to-green-500', dot: 'bg-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.7)]', icon: 'text-emerald-500' },
-  { border: 'border-violet-400', grad: 'from-violet-500 to-purple-600', dot: 'bg-violet-400 shadow-[0_0_12px_rgba(139,92,246,0.7)]', icon: 'text-violet-500' },
+  { tint: 'bg-cyan-500/10', border: 'border-cyan-200/50', num: 'text-cyan-600', dot: 'bg-cyan-500 shadow-[0_0_10px_rgba(34,211,238,0.45)]', icon: 'text-cyan-600' },
+  { tint: 'bg-teal-500/10', border: 'border-teal-200/50', num: 'text-teal-600', dot: 'bg-teal-500 shadow-[0_0_10px_rgba(20,184,166,0.45)]', icon: 'text-teal-600' },
+  { tint: 'bg-sky-500/10', border: 'border-sky-200/50', num: 'text-sky-600', dot: 'bg-sky-500 shadow-[0_0_10px_rgba(14,165,233,0.45)]', icon: 'text-sky-600' },
+  { tint: 'bg-indigo-500/10', border: 'border-indigo-200/50', num: 'text-indigo-600', dot: 'bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.45)]', icon: 'text-indigo-600' },
 ];
 
 const STATS: { value: number; suffix: string; icon: LucideIcon; labelKey: string; desc: Record<Locale, string> }[] = [
@@ -81,22 +83,22 @@ export default function StatsBand() {
             const accent = STAT_ACCENTS[i];
             return (
               <div key={s.labelKey} className="relative h-full">
-                {/* Soft colored glow behind the glass stat card */}
-                <div className={`absolute -inset-1 rounded-2xl bg-gradient-to-br opacity-20 blur-xl ${accent.grad}`} aria-hidden="true" />
                 <OceanGlassCard
                   depth="sm"
                   hoverLift
-                  className={`group relative z-10 h-full overflow-hidden border-s-4 ${accent.border}`}
+                  className={`group relative z-10 h-full overflow-hidden border ${accent.border}`}
                 >
-                  <div className="flex h-full flex-col items-center gap-3 px-5 py-8 text-center">
+                  {/* Calm 10% accent tint sitting on the frosted glass. */}
+                  <div className={`absolute inset-0 ${accent.tint}`} aria-hidden="true" />
+                  <div className="relative flex h-full flex-col items-center gap-3 px-5 py-8 text-center">
                     <div className="flex items-center gap-2">
                       {/* Subtle glowing accent dot next to the icon */}
                       <span className={`h-2.5 w-2.5 rounded-full ${accent.dot}`} aria-hidden="true" />
-                      <IconTile icon={Icon} className="h-6 w-6" tileClassName={accent.icon} animate="float" />
+                      <IconTile icon={Icon} className="h-6 w-6" tileClassName={`bg-white/70 ${accent.icon}`} animate="float" />
                     </div>
-                    {/* Gradient-clipped, larger, slowly-travelling number in the
-                        card's accent colour so the figure feels alive. */}
-                    <div className={`stat-number-anim flex items-baseline gap-0.5 bg-gradient-to-r bg-clip-text text-5xl font-extrabold text-transparent ${accent.grad}`}>
+                    {/* Solid (non-gradient) number in the card's accent colour —
+                        calm and premium, no kindergarten rainbow. */}
+                    <div className={`stat-number-anim flex items-baseline gap-0.5 text-5xl font-extrabold ${accent.num}`}>
                       <CountUp end={s.value} />
                       <span>{s.suffix}</span>
                     </div>
