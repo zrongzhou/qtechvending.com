@@ -193,7 +193,9 @@ export default function Starfield({
       'rgba(255,255,255,', // white
     ];
     const meteors: Meteor[] = [];
-    let nextSpawn = 20 + Math.random() * 80; // first spawn 20–100 frames (V44: quicker)
+    // V47: dramatically cut the first-appearance delay so the very first meteor
+    // streaks across within ~0.2–0.8s (≈ 1s at 30fps) instead of 1–3s.
+    let nextSpawn = 6 + Math.random() * 18; // first spawn 6–24 frames
     let nextBurst = 300 + Math.random() * 180; // 300–480 frames
     let burstRemaining = 0;
     let burstX = 0;
@@ -203,16 +205,17 @@ export default function Starfield({
       const activeCount = meteors.reduce((n, m) => n + (m.active ? 1 : 0), 0);
       // V40: keep at most 5 meteors on screen at once (calmer shower).
       if (activeCount >= 5) return;
-      // V44: shorter lifespan + faster streak so meteors "enter" briskly
-      // instead of crawling across the sky.
-      const maxLife = 120 + Math.random() * 120; // 120–240 frames (~4–8s)
+      // V47: shorter lifespan + much faster streak so meteors "enter" crisply
+      // and zip across the sky instead of crawling. maxLife 70–120 frames,
+      // speed 5.0–10.5 px/frame.
+      const maxLife = 70 + Math.random() * 50; // 70–120 frames (~2.3–4s)
       const x = cx !== undefined ? cx + (Math.random() - 0.5) * 0.15 : 0.7 + Math.random() * 0.6;
       const y = cy !== undefined ? cy + (Math.random() - 0.5) * 0.1 : Math.random() * 0.3;
       meteors.push({
         x,
         y,
         length: 120 + Math.random() * 180, // 120–300 px trail
-        speed: 3.0 + Math.random() * 4.5, // 3.0–7.5 px/frame (faster streak)
+        speed: 5.0 + Math.random() * 5.5, // 5.0–10.5 px/frame (snappy streak)
         angle: 2.0 + Math.random() * 0.8, // 2.0–2.8 rad (fall L→R, downward)
         color: METEOR_COLORS[Math.floor(Math.random() * METEOR_COLORS.length)],
         alpha: 0.4 + Math.random() * 0.3, // 0.4–0.7
@@ -263,10 +266,10 @@ export default function Starfield({
         const py = m.y * height;
         const tailX = px - Math.cos(m.angle) * m.length;
         const tailY = py - Math.sin(m.angle) * m.length;
-        // Fade in over the first 18 frames and out over the last 18 frames
-        // (V44: snappier entrance so meteors appear promptly).
-        const fadeOut = Math.min(1, m.life / 18);
-        const fadeIn = Math.min(1, (m.maxLife - m.life) / 18);
+        // Fade in over the first 9 frames and out over the last 9 frames
+        // (V47: crisper entrance so meteors appear and leave promptly).
+        const fadeOut = Math.min(1, m.life / 9);
+        const fadeIn = Math.min(1, (m.maxLife - m.life) / 9);
         const vis = m.alpha * Math.min(fadeIn, fadeOut);
 
         // 1) Main trail gradient line.
@@ -431,7 +434,7 @@ export default function Starfield({
         } else {
           if (frame >= nextSpawn) {
             spawnMeteor();
-            nextSpawn = frame + 60 + Math.random() * 120; // 60–180 frames (~2–6s)
+            nextSpawn = frame + 40 + Math.random() * 80; // 40–120 frames (~1.3–4s, V47: crisper)
           }
           if (frame >= nextBurst) {
             burstRemaining = 2 + Math.floor(Math.random() * 2); // 2–3 meteors

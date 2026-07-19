@@ -248,5 +248,7 @@
   "home.testimonials.q6": "We white-labelled the cotton-candy machines for our amusement parks. The branding kit and UI localisation were turnkey — guests love the live demo.",
   "home.testimonials.a6": "Elena V.",
   "home.testimonials.r6": "Amusement Park Buyer, Italy",
-  "about.aboutTitle": "About Us"
+  "about.aboutTitle": "About Us",
+  "about.caseGallery.title": "Customer Cases",
+  "about.caseGallery.altPrefix": "Qtech vending installation case "
 }

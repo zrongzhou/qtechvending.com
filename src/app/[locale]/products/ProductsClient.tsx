@@ -7,6 +7,7 @@ import FilterBar from '@/components/products/FilterBar';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import OceanGlassCard from '@/components/ui/OceanGlassCard';
 import OceanBubbles from '@/components/ui/OceanBubbles';
+import Fireworks from '@/components/ui/Fireworks';
 import type { Category, Paginated, Product } from '@/types';
 
 interface ProductsClientProps {
@@ -79,7 +80,10 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
   const { data, totalPages } = result;
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-glass-light-warm">
+    <div className="relative min-h-screen overflow-hidden bg-glass-light-cold">
+      {/* V47: cold-tone fireworks backdrop behind the product grid. */}
+      <Fireworks count={12} />
+
       {/* Soft, luminous colour blooms so the white glass cards have colour to
           refract — the crystal effect comes from light passing through glass.
           V44: unified to the ice-blue crystal palette (cyan / sky / slate /

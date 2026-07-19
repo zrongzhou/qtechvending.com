@@ -12,6 +12,7 @@ import OceanBubbles from '@/components/ui/OceanBubbles';
 import RippleOnHover from '@/components/ui/RippleOnHover';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
+import Fireworks from '@/components/ui/Fireworks';
 import { ArrowLeft, Settings2, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Product, I18nStringList } from '@/types';
 
@@ -189,7 +190,10 @@ export default function ProductDetailView({
   }, [lightboxOpen]);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-glass-light-warm">
+    <div className="relative min-h-screen overflow-hidden bg-glass-light-cold">
+      {/* V47: cold-tone fireworks backdrop behind the product detail content. */}
+      <Fireworks count={10} />
+
       {/* Soft colour blooms so the glass tabs/cards have something to refract.
           V44: unified to the ice-blue crystal palette (cyan / sky). */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">

@@ -34,6 +34,7 @@ import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
 import OceanBubbles from '@/components/ui/OceanBubbles';
 import type { Locale } from '@/lib/i18n';
+import CaseGallerySection from '@/components/home/CaseGallerySection';
 
 export interface AboutSection {
   key: string;
@@ -449,7 +450,10 @@ const STORY_IMAGES = [
 export default function AboutClient({ sections }: { sections: AboutSection[] }) {
   const { t, locale } = useLocale();
 
-  const narrative = sections.filter((s) => s.key === 'story' || s.key === 'capability');
+  // V47: keep only the "我们的业务 / What We Do" panel (the brand 词牌). The
+  // duplicate company-intro "story" block (区块B, a near-twin of the merged
+  // "关于我们" section above) is dropped so the page shows ONE intro block.
+  const narrative = sections.filter((s) => s.key === 'capability');
   const localeOr = <T extends string>(rec: Record<string, T>): T => (rec[locale] as T) ?? (rec.en as T);
 
   return (
@@ -594,18 +598,29 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                       wordmark with a gentle IoT subtitle. Sized to match the
                       text column (h-full + items-stretch on the grid). */
                   <div
-                    className={`relative flex min-h-[280px] items-center justify-center overflow-hidden rounded-[24px] bg-gradient-to-br from-blue-100 via-indigo-50 to-purple-50 p-8 shadow-xl shadow-blue-200/30 ${idx % 2 === 1 ? 'lg:order-1' : ''} h-full`}
+                    className={`relative flex min-h-[280px] items-center justify-center overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-br from-slate-800 via-slate-900 to-cyan-950 p-8 shadow-2xl shadow-black/20 ${idx % 2 === 1 ? 'lg:order-1' : ''} h-full`}
                   >
-                    <div className="flex items-center gap-5">
-                      {/* Brand mark — rounded white tile with the 秋彦 logotype. */}
-                      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-white shadow-sm">
-                        <span className="bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-2xl font-bold text-transparent">秋彦</span>
+                    {/* Soft top glow so the nameplate reads like polished metal/glass. */}
+                    <div
+                      className="pointer-events-none absolute -top-16 start-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-cyan-400/20 blur-3xl"
+                      aria-hidden="true"
+                    />
+                    <div className="relative flex flex-col items-center text-center">
+                      {/* Brand logo mark — refined rounded tile with the 秋彦 logotype. */}
+                      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-500 shadow-lg shadow-cyan-500/30">
+                        <span className="text-xl font-bold text-white">秋彦</span>
                       </div>
-                      {/* Wordmark + subtitle. */}
-                      <div className="leading-tight">
-                        <div className="bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-3xl font-bold text-transparent">Qtech</div>
-                        <div className="mt-1 text-xs tracking-widest text-slate-400 uppercase">Smart Vending · IoT</div>
+                      {/* Wordmark */}
+                      <div className="mt-5 text-4xl font-bold tracking-tight text-white">Qtech</div>
+                      {/* Subtitle */}
+                      <div className="mt-2 text-sm uppercase tracking-[0.3em] text-cyan-300/80">
+                        Smart Vending · IoT
                       </div>
+                      {/* Decorative divider line */}
+                      <div
+                        className="mt-4 h-px w-40 bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent"
+                        aria-hidden="true"
+                      />
                     </div>
                   </div>
                 ) : (
@@ -923,7 +938,25 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             );
           })}
         </div>
+
+        {/* V47: real certificate photo below the icon cards — visual proof of
+            the certifications listed above. */}
+        <div className="mt-8">
+          <p className="mb-4 text-center text-sm font-medium text-ink-400">
+            {locale === 'zh' ? '资质认证实拍' : locale === 'ar' ? 'صور الشهادات الفعلية' : 'Real Certification Photos'}
+          </p>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/certificates/full-certificates.jpg"
+            alt={locale === 'zh' ? 'Qtech 资质认证证书实拍' : locale === 'ar' ? 'صور شهادات اعتماد Qtech' : 'Qtech certification certificates'}
+            className="w-full max-w-5xl mx-auto rounded-2xl shadow-lg"
+            loading="lazy"
+          />
+        </div>
       </RevealOnScroll>
+
+      {/* ══════════════════ 11b. CUSTOMER CASES (real install photos) ══════════════════ */}
+      <CaseGallerySection />
 
       {/* ══════════════════ 12. CTA (the one intentional dark anchor) ══════════════════ */}
       <RevealOnScroll as="section" className="container-qtech pb-20 lg:pb-28">
