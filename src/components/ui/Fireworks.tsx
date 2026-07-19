@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useEffect, useState } from 'react';
 
 export interface FireworksProps {
   /** Number of fireworks (bursts) on screen. */
@@ -35,36 +35,45 @@ interface Burst {
  * `pointer-events-none fixed inset-0 z-0` so it sits behind page content, and
  * it is hidden under `prefers-reduced-motion` (see globals.css).
  */
-export default function Fireworks({ count = 12, className = '' }: FireworksProps) {
-  const bursts = useMemo<Burst[]>(() => {
-    const arr: Burst[] = [];
-    for (let b = 0; b < count; b += 1) {
-      const left = 6 + Math.random() * 88; // 6–94 %
-      const top = 10 + Math.random() * 62; // 10–72 %
-      const radius = 32 + Math.random() * 48; // 32–80 px burst radius
-      const n = 12 + Math.floor(Math.random() * 9); // 12–20 particles
-      const baseColor = COLORS[Math.floor(Math.random() * COLORS.length)];
-      const particles: Particle[] = [];
-      for (let i = 0; i < n; i += 1) {
-        const ang = (Math.PI * 2 * i) / n + Math.random() * 0.5;
-        const r = radius * (0.55 + Math.random() * 0.45);
-        particles.push({
-          tx: Math.cos(ang) * r,
-          ty: Math.sin(ang) * r,
-          // Mostly the base colour, occasionally a contrasting brand pop.
-          color: Math.random() > 0.25 ? baseColor : COLORS[Math.floor(Math.random() * COLORS.length)],
-          size: 3 + Math.random() * 3,
-        });
-      }
-      arr.push({
-        left,
-        top,
-        coreDelay: b * (1.4 + Math.random() * 1.6),
-        cycle: 7 + Math.random() * 5, // 7–12s repeating cycle
-        particles,
+function generateBursts(count: number): Burst[] {
+  const arr: Burst[] = [];
+  for (let b = 0; b < count; b += 1) {
+    const left = 6 + Math.random() * 88; // 6–94 %
+    const top = 10 + Math.random() * 62; // 10–72 %
+    const radius = 32 + Math.random() * 48; // 32–80 px burst radius
+    const n = 12 + Math.floor(Math.random() * 9); // 12–20 particles
+    const baseColor = COLORS[Math.floor(Math.random() * COLORS.length)];
+    const particles: Particle[] = [];
+    for (let i = 0; i < n; i += 1) {
+      const ang = (Math.PI * 2 * i) / n + Math.random() * 0.5;
+      const r = radius * (0.55 + Math.random() * 0.45);
+      particles.push({
+        tx: Math.cos(ang) * r,
+        ty: Math.sin(ang) * r,
+        // Mostly the base colour, occasionally a contrasting brand pop.
+        color: Math.random() > 0.25 ? baseColor : COLORS[Math.floor(Math.random() * COLORS.length)],
+        size: 3 + Math.random() * 3,
       });
     }
-    return arr;
+    arr.push({
+      left,
+      top,
+      coreDelay: b * (1.4 + Math.random() * 1.6),
+      cycle: 7 + Math.random() * 5, // 7–12s repeating cycle
+      particles,
+    });
+  }
+  return arr;
+}
+
+export default function Fireworks({ count = 12, className = '' }: FireworksProps) {
+  // V47.1: bursts are generated after mount (not during render) so the
+  // server-rendered HTML and the client's first render both output an empty
+  // container — no hydration mismatch. The random fireworks appear right
+  // after mount.
+  const [bursts, setBursts] = useState<Burst[]>([]);
+  useEffect(() => {
+    setBursts(generateBursts(count));
   }, [count]);
 
   return (

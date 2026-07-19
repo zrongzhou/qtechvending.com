@@ -950,7 +950,6 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             src="/images/certificates/full-certificates.jpg"
             alt={locale === 'zh' ? 'Qtech 资质认证证书实拍' : locale === 'ar' ? 'صور شهادات اعتماد Qtech' : 'Qtech certification certificates'}
             className="w-full max-w-5xl mx-auto rounded-2xl shadow-lg"
-            loading="lazy"
           />
         </div>
       </RevealOnScroll>
