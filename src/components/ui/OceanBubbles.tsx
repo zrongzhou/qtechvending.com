@@ -57,9 +57,12 @@ export interface OceanBubblesProps {
    *  'light' = slightly deeper cyan bubbles with a visible ring so they read
    *  on light / glassmorphism backgrounds. */
   tone?: 'dark' | 'light';
+  /** Target bubble population. Defaults to 24 (light tone uses a denser, more
+   *  visible field; dark tone stays calm). Ignored under reduced-motion. */
+  count?: number;
 }
 
-export default function OceanBubbles({ className = '', reduced = false, tone = 'dark' }: OceanBubblesProps) {
+export default function OceanBubbles({ className = '', reduced = false, tone = 'dark', count }: OceanBubblesProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -81,15 +84,17 @@ export default function OceanBubbles({ className = '', reduced = false, tone = '
     const frameInterval = 1000 / targetFps;
 
     const makeBubble = (initial: boolean): Bubble => {
-      const r = rand(4, 28);
       const light = tone === 'light';
+      const r = light ? rand(4, 20) : rand(4, 28);
       return {
         x: rand(0, width),
         // On first paint distribute across the whole column; on respawn start
         // just below the bottom edge with a little jitter.
         y: initial ? rand(0, height) : height + r + rand(0, 60),
         r,
-        alpha: light ? rand(0.18, 0.42) : rand(0.08, 0.35),
+        // Light-tone bubbles are more opaque so they read clearly on bright /
+        // glassmorphism backgrounds (raised floor per V44 feedback).
+        alpha: light ? rand(0.25, 0.5) : rand(0.08, 0.35),
         vy: rand(0.3, 1.2),
         swayPhase: rand(0, Math.PI * 2),
         swaySpeed: rand(0.004, 0.012),
@@ -113,7 +118,9 @@ export default function OceanBubbles({ className = '', reduced = false, tone = '
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      const target = Math.round(rand(15, 35));
+      // Denser, more visible bubble field on light backgrounds.
+      const base = tone === 'light' ? 26 : 20;
+      const target = count && count > 0 ? count : Math.round(rand(base, base + 10));
       bubbles = Array.from({ length: target }, () => makeBubble(true));
     };
 

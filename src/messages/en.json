@@ -10,7 +10,6 @@
   "nav.closeMenu": "Close menu",
   "nav.solutions": "Solutions",
   "nav.faq": "FAQ",
-
   "solutions.badge": "Industry solutions",
   "solutions.title": "Vending & Automation Solutions",
   "solutions.subtitle": "From factory floors to care facilities, Qtech builds the self-service equipment behind modern operations.",
@@ -18,14 +17,12 @@
   "solutions.ctaTitle": "Can't find your scenario?",
   "solutions.ctaSubtitle": "Tell us your operation and we'll design a vending or locker solution around it.",
   "solutions.ctaButton": "Request a Quote",
-
   "faq.badge": "Help center",
   "faq.title": "Frequently Asked Questions",
   "faq.subtitle": "Quick answers about our machines, customization, ordering and support.",
   "faq.ctaTitle": "Still have questions?",
   "faq.ctaSubtitle": "Our sales and engineering team is happy to help.",
   "faq.ctaButton": "Contact Us",
-
   "footer.tagline": "Intelligent vending and fresh-flower automation equipment, manufactured in Guangzhou for distributors and operators worldwide.",
   "footer.quickLinks": "Quick Links",
   "footer.company": "Company",
@@ -37,7 +34,6 @@
   "footer.sitemap": "Sitemap",
   "footer.allRights": "All rights reserved.",
   "footer.copyright": "© {year} Guangzhou Qiuyan Technology Co., Ltd.",
-
   "home.badge": "ISO & CE certified vending manufacturer",
   "home.hero.title": "Intelligent Vending Machines, Engineered for Global Operators",
   "home.hero.subtitle": "High labour costs. Limited hours. Thin margins. Qtech's factory-direct smart machines sell fresh flowers, hot food and drinks unattended — 24/7, in 80+ countries.",
@@ -61,19 +57,16 @@
   "home.hero.trust3Label": "Certified",
   "home.hero.trust4Value": "Factory",
   "home.hero.trust4Label": "Direct",
-
   "home.categories.eyebrow": "Product Categories",
   "home.categories.title": "Machines for Every Market",
   "home.categories.subtitle": "Hand-picked machines for every market — explore by category to find your best fit.",
   "home.categories.viewAll": "View all products",
   "home.categories.productCount": "products",
-
   "home.featured.eyebrow": "Best Sellers",
   "home.featured.title": "Best-Selling Machines",
   "home.featured.subtitle": "Best-selling models across our fresh-flower, food and beverage lines — all factory-direct and OEM-ready.",
   "home.featured.viewAll": "See all products",
   "home.featured.viewDetails": "View Details",
-
   "home.advantages.eyebrow": "Why Qtech",
   "home.advantages.title": "The Qtech Advantage",
   "home.advantages.subtitle": "A manufacturing partner built for self-service: direct pricing, real engineering, and support in your language.",
@@ -85,16 +78,13 @@
   "home.advantages.oemDesc": "Branding, configuration and software customization for your market.",
   "home.advantages.globalShipping": "Global Shipping",
   "home.advantages.globalShippingDesc": "Export experience and logistics support to over 60 countries.",
-
   "home.partners.eyebrow": "Trusted Worldwide",
   "home.partners.title": "Global Partners & Success Stories",
   "home.partners.subtitle": "From metro stations to beach resorts, Qtech machines run around the clock for operators on six continents.",
-
   "home.blog.eyebrow": "News & Insights",
   "home.blog.title": "Latest from the Blog",
   "home.blog.subtitle": "Field stories, product updates and practical tips from the Qtech team.",
   "home.blog.viewAll": "Read the blog",
-
   "home.cta.title": "Ready to launch your vending business?",
   "home.cta.subtitle": "Tell us your market and we'll recommend models, pricing and OEM options — with factory-direct quotes in 24 hours.",
   "home.cta.button": "Request a Quote",
@@ -106,12 +96,10 @@
   "home.stats.partners": "Global Partners",
   "home.stats.years": "Years of Expertise",
   "home.stats.models": "Product Models",
-
   "hero.statCategories": "Product categories",
   "hero.statCountries": "Countries served",
   "hero.statPartners": "Global partners",
   "hero.statService": "Self-service operation",
-
   "products.eyebrow": "Our Machines",
   "products.title": "Products",
   "products.subtitle": "Browse our full range of factory-direct intelligent vending and automation equipment — fresh-flower, food & beverage, PPE and industrial lines, all OEM-ready and shipped to 60+ countries.",
@@ -133,7 +121,6 @@
   "products.loading": "Loading...",
   "products.badgeNew": "New",
   "products.badgeHot": "Hot",
-
   "product.specs": "Specifications",
   "product.description": "Description",
   "product.features": "Key Features",
@@ -144,12 +131,10 @@
   "product.contactForSpecs": "Contact us for the full specification sheet",
   "product.notFound": "Product not found.",
   "product.category": "Category",
-
   "category.eyebrow": "Browse Category",
   "category.title": "Products in",
   "category.subtitle": "Explore every model in this category — full specifications, factory-direct pricing and OEM options tailored to your market.",
   "category.backToAll": "Back to all products",
-
   "blog.title": "Blog",
   "blog.subtitle": "News, guides and application stories from Qtech.",
   "blog.readMore": "Read more",
@@ -158,7 +143,6 @@
   "blog.related": "Related Posts",
   "blog.noPosts": "No posts published yet.",
   "blog.allPosts": "All posts",
-
   "about.title": "About Qtech",
   "about.badge": "About Qtech",
   "about.subtitle": "Guangzhou Qiuyan Technology (Qtech) designs and manufactures the intelligent vending and fresh-flower automation equipment behind distributors and operators in 80+ countries.",
@@ -167,7 +151,6 @@
   "about.valuesEyebrow": "Our Values",
   "about.valuesTitle": "Our Core Values",
   "about.valuesSubtitle": "The principles behind every machine we build.",
-
   "contact.eyebrow": "Get in Touch",
   "contact.title": "Contact Us",
   "contact.subtitle": "Send us an inquiry and our sales team will get back to you shortly.",
@@ -202,13 +185,11 @@
   "contact.connectWithUs": "Connect with us",
   "contact.faqLink": "More questions? Visit our FAQ",
   "contact.viewMap": "View on Google Maps",
-
   "contact.subject.general": "General inquiry",
   "contact.subject.sales": "Sales & quotation",
   "contact.subject.support": "Technical support",
   "contact.subject.customization": "OEM / customization",
   "contact.subject.partnership": "Partnership / distribution",
-
   "admin.loginTitle": "Admin Login",
   "admin.email": "Email",
   "admin.password": "Password",
@@ -241,10 +222,22 @@
   "admin.detail": "Message Detail",
   "admin.reply": "Reply to",
   "admin.notauthorized": "Please log in to access this page.",
-
   "common.loading": "Loading...",
   "common.error": "Something went wrong.",
   "common.back": "Back",
   "common.close": "Close",
-  "common.send": "Send"
+  "common.send": "Send",
+  "home.testimonials.eyebrow": "Loved by Operators",
+  "home.testimonials.title": "What Our Partners Say",
+  "home.testimonials.subtitle": "Vending operators and distributors across 60+ countries share their Qtech experience.",
+  "home.testimonials.q1": "Our rose vending kiosks became the most photographed spot in the mall — sales doubled in the first quarter.",
+  "home.testimonials.a1": "Sofia M.",
+  "home.testimonials.r1": "Flower Boutique Owner, Spain",
+  "home.testimonials.q2": "The 24/7 pizza machines run flawlessly through the summer season — remote alerts save us weekly site visits.",
+  "home.testimonials.a2": "Daniel K.",
+  "home.testimonials.r2": "Resort Operator, UAE",
+  "home.testimonials.q3": "Qtech's OEM flexibility let us launch a private-label line in 8 weeks. Support replies within a day, every time.",
+  "home.testimonials.a3": "Aisha R.",
+  "home.testimonials.r3": "Distributor, Malaysia",
+  "about.aboutTitle": "About Us"
 }

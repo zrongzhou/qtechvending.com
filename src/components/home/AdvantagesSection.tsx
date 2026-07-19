@@ -116,12 +116,15 @@ export default function AdvantagesSection() {
             const points = POINTS[i][locale] ?? POINTS[i].en;
             return (
             <RevealOnScroll key={item.titleKey} delay={i * 100} className="h-full">
-              <div className="relative h-full animate-float-gentle hover:[animation-play-state:paused]" style={{ animationDelay: `${i * 0.6}s` }}>
+              <div className="relative h-full">
                 {/* Soft colored glow behind the glass card so it pops visually */}
                 <div className={`absolute -inset-1 rounded-2xl bg-gradient-to-br opacity-20 blur-xl ${accent.bar}`} aria-hidden="true" />
                 {/* V41: calmer card — lighter blur (depth sm), higher opacity fill,
-                    solid 2px border + coloured left edge, higher text contrast. */}
-                <OceanGlassCard depth="sm" hoverLift={false} className={`group relative z-10 h-full border-2 border-slate-200/80 border-l-4 ${accent.leftBorder} ${accent.glow} bg-white/80 transition-all duration-300 hover:-translate-y-3 hover:scale-[1.02] hover:shadow-2xl`}>
+                    solid 2px border + coloured left edge, higher text contrast.
+                    V44: removed the up/down float animation (user found it
+                    distracting) and replaced the translateY hover with a subtle
+                    scale + shadow-deepen so the card stays put but still reacts. */}
+                <OceanGlassCard depth="sm" hoverLift={false} className={`group relative z-10 h-full border-2 border-slate-200/80 border-l-4 ${accent.leftBorder} ${accent.glow} bg-white/80 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl`}>
                   <div className="flex h-full flex-col p-7">
                     {/* Top accent bar — per-card identity colour */}
                     <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${accent.bar}`} aria-hidden="true" />

@@ -10,7 +10,6 @@
   "nav.closeMenu": "أغلق القائمة",
   "nav.solutions": "الحلول",
   "nav.faq": "الأسئلة الشائعة",
-
   "solutions.badge": "حلول صناعية",
   "solutions.title": "حلول البيع والأتمتة",
   "solutions.subtitle": "من أرضية المصنع إلى مرافق الرعاية، تبني Qtech معدات الخدمة الذاتية وراء العمليات الحديثة.",
@@ -18,14 +17,12 @@
   "solutions.ctaTitle": "لم تجد سيناريوك؟",
   "solutions.ctaSubtitle": "أخبرنا عن عملياتك وسنصمم حل بيع أو خزائن مخصصًا لها.",
   "solutions.ctaButton": "اطلب عرض سعر",
-
   "faq.badge": "مركز المساعدة",
   "faq.title": "الأسئلة الشائعة",
   "faq.subtitle": "إجابات سريعة حول آلاتنا والتخصيص والطلب والدعم.",
   "faq.ctaTitle": "لا تزال لديك أسئلة؟",
   "faq.ctaSubtitle": "فريق المبيعات والهندسة لدينا سعيد بمساعدتك.",
   "faq.ctaButton": "اتصل بنا",
-
   "footer.tagline": "معدات البيع الذكية وأتمتة الزهور من غوانغتشو، للموزعين والمشغلين حول العالم.",
   "footer.quickLinks": "روابط سريعة",
   "footer.company": "الشركة",
@@ -37,7 +34,6 @@
   "footer.sitemap": "خريطة الموقع",
   "footer.allRights": "جميع الحقوق محفوظة.",
   "footer.copyright": "© {year} شركة قوانغتشو تشيويان للتكنولوجيا المحدودة",
-
   "home.badge": "شركة مصنعة لمعدات البيع معتمدة ISO و CE",
   "home.hero.title": "آلات بيع ذكية، مصممة للمشغّلين حول العالم",
   "home.hero.subtitle": "تكاليف عمالة مرتفعة؟ ساعات عمل محدودة؟ هوامش ربح ضعيفة؟ تبيع معدات Qtech الذكية المباشرة من المصنع الزهور الطازجة والطعام الساخن والمشروبات دون موظفين — على مدار الساعة، في أكثر من 80 دولة.",
@@ -61,19 +57,16 @@
   "home.hero.trust3Label": "معتمدة",
   "home.hero.trust4Value": "مصنع",
   "home.hero.trust4Label": "مباشر",
-
   "home.categories.eyebrow": "فئات المنتجات",
   "home.categories.title": "آلات لكل سوق",
   "home.categories.subtitle": "آلات مختارة لكل سوق — تصفح حسب الفئة لإيجاد الأنسب لك.",
   "home.categories.viewAll": "عرض كل المنتجات",
   "home.categories.productCount": "منتج",
-
   "home.featured.eyebrow": "الأكثر مبيعًا",
   "home.featured.title": "الأكثر مبيعًا",
   "home.featured.subtitle": "النماذج الأكثر مبيعًا عبر خطوط الزهور والطعام والمشروبات — جميعها مباشرة من المصنع وجاهزة لـ OEM.",
   "home.featured.viewAll": "شاهد كل المنتجات",
   "home.featured.viewDetails": "عرض التفاصيل",
-
   "home.advantages.eyebrow": "لماذا Qtech",
   "home.advantages.title": "ميزة Qtech",
   "home.advantages.subtitle": "شريك تصنيع مصمم للخدمة الذاتية: أسعار مباشرة من المصنع وهندسة حقيقية ودعم بلغتك.",
@@ -85,16 +78,13 @@
   "home.advantages.oemDesc": "علامة تجارية وتهيئة وتخصيص برمجيات لسوقك.",
   "home.advantages.globalShipping": "شحن عالمي",
   "home.advantages.globalShippingDesc": "خبرة تصدير ودعم لوجستي لأكثر من 60 دولة.",
-
   "home.partners.eyebrow": "موثوق عالميًا",
   "home.partners.title": "الشركاء العالميون وقصص النجاح",
   "home.partners.subtitle": "من محطات المترو إلى منتجعات الشواطئ، تعمل آلات Qtech على مدار الساعة للمشغلين في ست قارات.",
-
   "home.blog.eyebrow": "أخبار ورؤى",
   "home.blog.title": "أحدث المقالات",
   "home.blog.subtitle": "قصص ميدانية وتحديثات منتجات ونصائح عملية من فريق Qtech.",
   "home.blog.viewAll": "اقرأ المدونة",
-
   "home.cta.title": "هل أنت مستعد لإطلاق أعمال البيع؟",
   "home.cta.subtitle": "أخبرنا عن سوقك وسنوصي بالنماذج والأسعار وخيارات OEM — مع عروض أسعار مباشرة من المصنع خلال 24 ساعة.",
   "home.cta.button": "اطلب عرض سعر",
@@ -106,12 +96,10 @@
   "home.stats.partners": "شركاء عالميون",
   "home.stats.years": "سنوات من الخبرة",
   "home.stats.models": "طرازات منتجات",
-
   "hero.statCategories": "فئات المنتجات",
   "hero.statCountries": "دول نخدمها",
   "hero.statPartners": "شركاء عالميون",
   "hero.statService": "تشغيل ذاتي",
-
   "products.eyebrow": "معداتنا",
   "products.title": "المنتجات",
   "products.subtitle": "تصفح مجموعتنا الكاملة من معدات البيع الذكية والأتمتة.",
@@ -133,7 +121,6 @@
   "products.loading": "جارٍ التحميل...",
   "products.badgeNew": "جديد",
   "products.badgeHot": "رائج",
-
   "product.specs": "المواصفات",
   "product.description": "الوصف",
   "product.features": "الميزات الرئيسية",
@@ -144,12 +131,10 @@
   "product.contactForSpecs": "تواصل معنا للحصول على ورقة المواصفات الكاملة",
   "product.notFound": "لم يتم العثور على المنتج.",
   "product.category": "الفئة",
-
   "category.eyebrow": "تصفح الفئة",
   "category.title": "المنتجات في",
   "category.subtitle": "تصفح الآلات في هذه الفئة.",
   "category.backToAll": "العودة إلى كل المنتجات",
-
   "blog.title": "المدونة",
   "blog.subtitle": "أخبار وإرشادات وقصص تطبيق من Qtech.",
   "blog.readMore": "اقرأ المزيد",
@@ -158,7 +143,6 @@
   "blog.related": "مقالات ذات صلة",
   "blog.noPosts": "لا توجد مقالات منشورة بعد.",
   "blog.allPosts": "كل المقالات",
-
   "about.title": "من نحن",
   "about.badge": "من نحن",
   "about.subtitle": "الشركة المصنعة خلف معدات الخدمة الذاتية الخاصة بك.",
@@ -167,7 +151,6 @@
   "about.valuesEyebrow": "قيمنا",
   "about.valuesTitle": "قيمنا الأساسية",
   "about.valuesSubtitle": "المبادئ وراء كل آلة نصنعها.",
-
   "contact.eyebrow": "تواصل معنا",
   "contact.title": "اتصل بنا",
   "contact.subtitle": "أرسل استفسارًا وسيتواصل فريق المبيعات معك قريبًا.",
@@ -202,13 +185,11 @@
   "contact.connectWithUs": "تواصل معنا",
   "contact.faqLink": "أسئلة أخرى؟ زر أسئلتنا الشائعة",
   "contact.viewMap": "عرض على خرائط Google",
-
   "contact.subject.general": "استفسار عام",
   "contact.subject.sales": "المبيعات والأسعار",
   "contact.subject.support": "الدعم الفني",
   "contact.subject.customization": "تصنيع OEM / تخصيص",
   "contact.subject.partnership": "شراكة / توزيع",
-
   "admin.loginTitle": "تسجيل دخول المسؤول",
   "admin.email": "البريد الإلكتروني",
   "admin.password": "كلمة المرور",
@@ -241,10 +222,22 @@
   "admin.detail": "تفاصيل الرسالة",
   "admin.reply": "رد على",
   "admin.notauthorized": "يرجى تسجيل الدخول للوصول إلى هذه الصفحة.",
-
   "common.loading": "جارٍ التحميل...",
   "common.error": "حدث خطأ ما.",
   "common.back": "رجوع",
   "common.close": "إغلاق",
-  "common.send": "إرسال"
+  "common.send": "إرسال",
+  "home.testimonials.eyebrow": "محبوب لدى المشغلين",
+  "home.testimonials.title": "ماذا يقول شركاؤنا",
+  "home.testimonials.subtitle": "يشارك مشغلو آلات البيع والموزعون في أكثر من 60 دولة تجربتهم مع Qtech.",
+  "home.testimonials.q1": "أصبحت كبائن بيع الزهور لدينا أكثر الأماكن تصويرًا في المول — وتضاعفت المبيعات في الربع الأول.",
+  "home.testimonials.a1": "صوفيا م.",
+  "home.testimonials.r1": "صاحبة متجر زهور · إسبانيا",
+  "home.testimonials.q2": "تعمل آلات البيتزا على مدار الساعة بلا عطل طوال الموسم — والتنبيهات عن بُعد توفر علينا الزيارات الأسبوعية.",
+  "home.testimonials.a2": "دانيال ك.",
+  "home.testimonials.r2": "مشغل منتجع · الإمارات",
+  "home.testimonials.q3": "سمحت لنا مرونة OEM من Qtech بإطلاق خط بعلامتنا الخاصة في 8 أسابيع. الدعم يرد خلال يوم دائمًا.",
+  "home.testimonials.a3": "عائشة ر.",
+  "home.testimonials.r3": "موزع · ماليزيا",
+  "about.aboutTitle": "من نحن"
 }

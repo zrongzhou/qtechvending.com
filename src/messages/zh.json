@@ -10,7 +10,6 @@
   "nav.closeMenu": "关闭菜单",
   "nav.solutions": "解决方案",
   "nav.faq": "常见问题",
-
   "solutions.badge": "行业解决方案",
   "solutions.title": "售货与自动化解决方案",
   "solutions.subtitle": "从工厂车间到护理机构，Qtech 为现代运营打造背后的自助设备。",
@@ -18,14 +17,12 @@
   "solutions.ctaTitle": "没有找到您的场景？",
   "solutions.ctaSubtitle": "告诉我们您的运营需求，我们将为您量身设计售货或智能柜方案。",
   "solutions.ctaButton": "获取报价",
-
   "faq.badge": "帮助中心",
   "faq.title": "常见问题",
   "faq.subtitle": "关于我们的设备、定制、下单与支持的快速解答。",
   "faq.ctaTitle": "还有其他问题？",
   "faq.ctaSubtitle": "我们的销售与工程团队随时为您服务。",
   "faq.ctaButton": "联系我们",
-
   "footer.tagline": "Qtech 在广州制造智能售货与鲜花园艺自动化设备，服务全球经销商与运营商。",
   "footer.quickLinks": "快速链接",
   "footer.company": "公司",
@@ -37,7 +34,6 @@
   "footer.sitemap": "网站地图",
   "footer.allRights": "版权所有。",
   "footer.copyright": "© {year} 广州秋彦科技有限公司",
-
   "home.badge": "ISO 与 CE 认证售货设备制造商",
   "home.hero.title": "智能售货机，为全球运营商而生",
   "home.hero.subtitle": "人力成本高、营业时间短、利润薄？Qtech 工厂直供的智能设备，自助售卖鲜花、热食与饮品，全天候运转，已落地 80+ 国家。",
@@ -61,19 +57,16 @@
   "home.hero.trust3Label": "认证",
   "home.hero.trust4Value": "工厂",
   "home.hero.trust4Label": "直供",
-
   "home.categories.eyebrow": "产品品类",
   "home.categories.title": "覆盖每个市场的机型",
   "home.categories.subtitle": "为不同市场精选的设备——按分类浏览，找到最适合您的机型。",
   "home.categories.viewAll": "查看全部产品",
   "home.categories.productCount": "款设备",
-
   "home.featured.eyebrow": "热销机型",
   "home.featured.title": "热销机型",
   "home.featured.subtitle": "鲜花、餐饮与饮品各产品线的热销机型——全部工厂直供，支持 OEM 定制。",
   "home.featured.viewAll": "查看全部产品",
   "home.featured.viewDetails": "查看详情",
-
   "home.advantages.eyebrow": "为什么选择 Qtech",
   "home.advantages.title": "选择 Qtech 的理由",
   "home.advantages.subtitle": "为自助场景打造的制造伙伴：工厂直供价格、真实研发实力，以及母语级售后支持。",
@@ -85,16 +78,13 @@
   "home.advantages.oemDesc": "可针对您的市场提供品牌、配置与软件定制。",
   "home.advantages.globalShipping": "全球发货",
   "home.advantages.globalShippingDesc": "出口经验丰富，物流支持覆盖 60 多个国家。",
-
   "home.partners.eyebrow": "全球信赖",
   "home.partners.title": "全球合作伙伴与成功案例",
   "home.partners.subtitle": "从地铁站到海滨度假村，Qtech 设备在全球六大洲持续为运营商服务。",
-
   "home.blog.eyebrow": "资讯与洞察",
   "home.blog.title": "博客最新文章",
   "home.blog.subtitle": "来自 Qtech 团队的现场故事、产品更新与实用指南。",
   "home.blog.viewAll": "阅读博客",
-
   "home.cta.title": "准备好开启您的售货业务了吗？",
   "home.cta.subtitle": "告诉我们您的市场，我们将推荐机型、报价与 OEM 方案——24 小时内提供工厂直供报价。",
   "home.cta.button": "获取报价",
@@ -106,12 +96,10 @@
   "home.stats.partners": "全球合作伙伴",
   "home.stats.years": "行业深耕年限",
   "home.stats.models": "产品机型",
-
   "hero.statCategories": "产品品类",
   "hero.statCountries": "服务国家",
   "hero.statPartners": "全球合作伙伴",
   "hero.statService": "无人自助运营",
-
   "products.eyebrow": "我们的设备",
   "products.title": "产品",
   "products.subtitle": "浏览工厂直供的全系列智能售货与自动化设备——鲜花、餐饮食品、劳保与工业产线，均支持 OEM 定制，远销 60+ 国家。",
@@ -133,7 +121,6 @@
   "products.loading": "加载中...",
   "products.badgeNew": "新品",
   "products.badgeHot": "热销",
-
   "product.specs": "规格参数",
   "product.description": "产品描述",
   "product.features": "核心卖点",
@@ -144,12 +131,10 @@
   "product.contactForSpecs": "联系我们获取完整规格表",
   "product.notFound": "未找到该产品。",
   "product.category": "分类",
-
   "category.eyebrow": "浏览分类",
   "category.title": "分类下的产品",
   "category.subtitle": "探索本分类下的全部机型——完整规格、工厂直供报价与针对您市场的 OEM 定制方案。",
   "category.backToAll": "返回全部产品",
-
   "blog.title": "博客",
   "blog.subtitle": "Qtech 的新闻、指南与应用案例。",
   "blog.readMore": "阅读更多",
@@ -158,7 +143,6 @@
   "blog.related": "相关文章",
   "blog.noPosts": "暂无可发布的文章。",
   "blog.allPosts": "全部文章",
-
   "about.title": "关于 Qtech",
   "about.badge": "关于 Qtech",
   "about.subtitle": "广州秋彦科技（Qtech）为 80+ 国家的经销商与运营商设计、制造智能售货与鲜花自动化设备。",
@@ -167,7 +151,6 @@
   "about.valuesEyebrow": "我们的价值观",
   "about.valuesTitle": "我们的核心价值观",
   "about.valuesSubtitle": "我们制造的每一台设备背后，都是这些信念。",
-
   "contact.eyebrow": "联系我们",
   "contact.title": "联系我们",
   "contact.subtitle": "提交询盘，我们的销售团队将尽快与您联系。",
@@ -202,13 +185,11 @@
   "contact.connectWithUs": "关注我们",
   "contact.faqLink": "还有疑问？查看常见问题",
   "contact.viewMap": "在 Google 地图上查看",
-
   "contact.subject.general": "一般咨询",
   "contact.subject.sales": "销售与报价",
   "contact.subject.support": "技术支持",
   "contact.subject.customization": "OEM / 定制",
   "contact.subject.partnership": "合作 / 经销",
-
   "admin.loginTitle": "后台登录",
   "admin.email": "邮箱",
   "admin.password": "密码",
@@ -241,10 +222,22 @@
   "admin.detail": "消息详情",
   "admin.reply": "回复",
   "admin.notauthorized": "请登录以访问此页面。",
-
   "common.loading": "加载中...",
   "common.error": "出现错误。",
   "common.back": "返回",
   "common.close": "关闭",
-  "common.send": "发送"
+  "common.send": "发送",
+  "home.testimonials.eyebrow": "运营商信赖之选",
+  "home.testimonials.title": "合作伙伴怎么说",
+  "home.testimonials.subtitle": "来自全球 60+ 国家与地区的运营商和经销商，分享他们与 Qtech 的合作体验。",
+  "home.testimonials.q1": "我们的鲜花售货柜成了商场里最出片的打卡点，第一季度营业额直接翻倍。",
+  "home.testimonials.a1": "陈女士",
+  "home.testimonials.r1": "鲜花精品店店主 · 西班牙",
+  "home.testimonials.q2": "披萨自动售货机整个夏季 24/7 稳定运行，远程告警帮我们省下了每周的现场巡检。",
+  "home.testimonials.a2": "李先生",
+  "home.testimonials.r2": "度假村运营商 · 阿联酋",
+  "home.testimonials.q3": "Qtech 的 OEM 灵活性让我们 8 周就推出了自有品牌系列，技术支持每次都在一天内回复。",
+  "home.testimonials.a3": "王女士",
+  "home.testimonials.r3": "经销商 · 马来西亚",
+  "about.aboutTitle": "关于我们"
 }

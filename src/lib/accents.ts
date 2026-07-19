@@ -10,6 +10,20 @@
  * never renders a "missing" accent.
  */
 
+import {
+  Flower2,
+  Pizza,
+  Candy,
+  Egg,
+  CupSoda,
+  Snowflake,
+  Coffee,
+  IceCream,
+  PawPrint,
+  UtensilsCrossed,
+  type LucideIcon,
+} from 'lucide-react';
+
 export interface AccentSet {
   /** Gradient stops for the card's top accent bar. */
   topBar: string;
@@ -21,6 +35,26 @@ export interface AccentSet {
   pill: string;
   /** Text color class for category-tinted labels. */
   text: string;
+}
+
+/** Lucide icon per category slug — used to give each product card a coloured,
+ *  category-distinct icon (V44: "icons themselves should differ in colour"). */
+export const CATEGORY_ICONS: Record<string, LucideIcon> = {
+  'fresh-flower-vending-machine': Flower2,
+  'pizza-vending-machine': Pizza,
+  'cotton-candy-machine': Candy,
+  'fruit-vegetable-egg-vending-machine': Egg,
+  'sugar-cane-juice-vending-machine': CupSoda,
+  'ice-maker-vending-machine': Snowflake,
+  'coffee-vending-machine': Coffee,
+  'ice-cream-vending-machine': IceCream,
+  'pet-washing-machine': PawPrint,
+  'food-vending-machine': UtensilsCrossed,
+};
+
+/** Resolve a lucide icon for a category slug (falls back to a flower). */
+export function iconForCategory(slug?: string): LucideIcon {
+  return slug && CATEGORY_ICONS[slug] ? CATEGORY_ICONS[slug] : Flower2;
 }
 
 /** Brand default — cyan / teal (the original product-card accent). */

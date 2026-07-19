@@ -38,10 +38,11 @@ export default function CtaSection() {
     'radial-gradient(circle at 32% 28%, rgba(165,243,252,0.95), rgba(103,232,249,0.40) 50%, rgba(34,211,238,0.12) 72%, transparent 80%)',
     'radial-gradient(circle at 32% 28%, rgba(255,210,225,0.90), rgba(255,180,200,0.35) 50%, rgba(255,180,200,0.08) 72%, transparent 80%)',
   ];
-  const BUBBLES = Array.from({ length: 18 }, (_, i) => ({
+  // V44: denser bubble field (22) so the "underwater" rise reads clearly.
+  const BUBBLES = Array.from({ length: 22 }, (_, i) => ({
     left: rand(i) * 100,
-    size: 3 + rand(i + 50) * 27, // 3px ~ 30px
-    dur: 8 + rand(i + 100) * 7, // 8s ~ 15s (slow, "in water")
+    size: 3 + rand(i + 50) * 29, // 3px ~ 32px
+    dur: 7 + rand(i + 100) * 9, // 7s ~ 16s (slow, "in water")
     delay: rand(i + 150) * 9,
     bg: BUBBLE_BG[i % BUBBLE_BG.length],
   }));
@@ -63,13 +64,17 @@ export default function CtaSection() {
   }));
 
   return (
-    <RevealOnScroll as="section" className="container-qtech py-20 md:py-28">
-      <div className="cta-aqua relative min-h-[560px] overflow-hidden rounded-3xl shadow-lift">
+    // V44: full-bleed aquarium — no container padding / side margins so the
+    // seawater tank spans the entire viewport width and no white page
+    // background leaks around it.
+    <RevealOnScroll as="section" className="relative w-full">
+      <div className="cta-aqua relative min-h-[600px] w-full overflow-hidden">
         {/* Sunlight from the surface + central aquarium lamp highlight. */}
         <div className="cta-aqua__sun" aria-hidden="true" />
         <div className="cta-aqua__lamp" aria-hidden="true" />
 
-        {/* Bright vertical god rays from the surface (4 visible beams). */}
+        {/* Bright vertical god rays from the surface (4 visible beams, V44:
+            stronger base opacity so the "light through water" reads clearly). */}
         <div className="cta-godray cta-godray--1" aria-hidden="true" />
         <div className="cta-godray cta-godray--2" aria-hidden="true" />
         <div className="cta-godray cta-godray--3" aria-hidden="true" />
@@ -125,8 +130,8 @@ export default function CtaSection() {
 
         {/* Light frosted-glass command pod — text floats on a translucent white
             panel so the aquarium stays visible behind it. */}
-        <div className="relative z-10 flex min-h-[560px] items-center justify-center p-3 sm:p-5">
-          <div className="mx-auto flex w-full max-w-4xl min-h-[460px] flex-col items-center justify-center rounded-3xl border border-white/20 bg-white/10 px-6 py-12 text-center shadow-lift backdrop-blur-xl sm:px-16 sm:py-16">
+        <div className="relative z-10 flex min-h-[600px] items-center justify-center p-3 sm:p-5">
+          <div className="mx-auto flex w-full max-w-4xl min-h-[480px] flex-col items-center justify-center rounded-3xl border border-white/20 bg-white/10 px-6 py-12 text-center shadow-lift backdrop-blur-xl sm:px-16 sm:py-16">
             <div className="inline-flex items-center gap-2 rounded-full bg-white/20 px-5 py-2 text-sm font-medium text-white ring-1 ring-white/30">
               <IconTile icon={Sparkles} className="h-4 w-4" tileClassName="bg-gradient-to-br from-cyan-400 to-teal-400 text-white p-1.5" />
               <span className="font-semibold">

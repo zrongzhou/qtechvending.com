@@ -3,9 +3,10 @@
 import Link from 'next/link';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
-import { accentForCategory } from '@/lib/accents';
+import { accentForCategory, iconForCategory } from '@/lib/accents';
 import ImageWithRetry from '@/components/ui/ImageWithRetry';
 import OceanGlassCard from '@/components/ui/OceanGlassCard';
+import IconTile from '@/components/ui/IconTile';
 import type { Product } from '@/types';
 
 function firstImage(images: string[] | undefined): string {
@@ -40,6 +41,8 @@ export default function ProductCard({
   const categoryName = category ? localized(category.name, locale) : '';
   // Per-category accent (F6): same category shares a color, different categories differ.
   const accent = accentForCategory(product.categories?.[0]?.slug);
+  // Distinct, coloured category icon (V44: icons themselves should differ).
+  const CategoryIcon = iconForCategory(product.categories?.[0]?.slug);
 
   // ---- Derived display signals (badge) ----
   const isHot = Boolean(product.featured);
@@ -93,6 +96,15 @@ export default function ProductCard({
             alt={name}
             className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
           />
+
+          {/* Coloured, category-distinct icon chip floating over the photo. */}
+          <span className="absolute end-3 top-3 z-10 inline-flex items-center justify-center rounded-xl p-1 shadow-md ring-1 ring-white/40 transition-transform duration-300 group-hover:scale-110">
+            <IconTile
+              icon={CategoryIcon}
+              className="h-4 w-4"
+              tileClassName={`bg-gradient-to-br ${accent.topBar} text-white`}
+            />
+          </span>
 
           {/* Gradient scrim for legibility — ocean-toned */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ocean-900/40 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
