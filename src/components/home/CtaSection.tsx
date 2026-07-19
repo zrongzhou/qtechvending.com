@@ -37,13 +37,15 @@ export default function CtaSection() {
     const x = Math.sin(n * 53.17 + 9.1) * 43758.5453;
     return x - Math.floor(x);
   };
-  const PLANKTON = Array.from({ length: 48 }, (_, i) => ({
+  // V48.8: Rolled back from V48.7 over-enhancement (length=48, size=8-22).
+  // User wants the original V48 aqua feel — not a plankton explosion.
+  const PLANKTON = Array.from({ length: 28 }, (_, i) => ({
     left: rand(i) * 100,
-    bottom: rand(i + 300) * 50,
-    size: 8 + rand(i + 50) * 14,  // V48.7: was 6-16, now 8-22
+    bottom: rand(i + 300) * 45,
+    size: 6 + rand(i + 50) * 10,
     dur: 7 + rand(i + 100) * 14,
     delay: rand(i + 150) * 10,
-    dx: (rand(i + 200) - 0.5) * 80,
+    dx: (rand(i + 200) - 0.5) * 60,
   }));
 
   return (
@@ -51,7 +53,9 @@ export default function CtaSection() {
       <div className="cta-aqua relative min-h-[480px] w-full overflow-hidden py-16 md:py-24">
 
         {/* ===== LAYER 1: OceanBubbles canvas (the core water effect) ===== */}
-        <OceanBubbles tone="dark" className="absolute inset-0 z-[1] pointer-events-none opacity-100" count={60} />
+        {/* V48.8: Rolled back from V48.7's over-enhancement (count=60/opacity-100).
+            User explicitly requested "恢复之前的玻璃水族动画" — restore V48 level. */}
+        <OceanBubbles tone="dark" className="absolute inset-0 z-[1] pointer-events-none opacity-95" count={32} />
 
         {/* ===== LAYER 1b: Top-down sunlight piercing the surface ===== */}
         <div className="cta-aqua__sun absolute inset-0 z-[1] pointer-events-none" aria-hidden="true" />

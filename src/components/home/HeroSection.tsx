@@ -316,11 +316,11 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
         </RevealOnScroll>
       </div>
 
-      {/* V48 (R2): seamless, extended fade from the dark starfield to the
-          light page below — a long gradient mask so the transition from the
-          cosmic hero into the bright content area reads natural, not abrupt. */}
+      {/* V48.8: Short, gentle fade from starfield to light page — was h-72 (288px)
+          causing a tall "white curtain" below trust cards. Reduced to h-24 (96px)
+          with lower opacity so it blends without dominating. */}
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-72 bg-gradient-to-b from-transparent via-slate-50/25 to-slate-50/70"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-24 bg-gradient-to-b from-transparent via-slate-50/10 to-slate-50/20"
         aria-hidden="true"
       />
     </section>

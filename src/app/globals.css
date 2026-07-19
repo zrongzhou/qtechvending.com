@@ -1028,17 +1028,17 @@ input[type='number']::-webkit-inner-spin-button {
   .portal-ring--2 { transform: translateX(-50%) !important; }
 }
 
-/* ============ V48.7: Fireworks — NUCLEAR VISIBILITY (8th attempt) ============
-   V48.6 still invisible per user report. Changes:
-     - Core 120px (was 80px), visible window 0–85% of 5s cycle
-     - Particles 20–34px base, shrink to scale(0.55) only, opaque 2–88%
-     - Even bigger box-shadow spread on particles
-     - Slower cycle (4–7s) = longer visible time
-     - More saturated core flash */
+/* ============ V48.8: Fireworks — NUCLEAR VISIBILITY (9th attempt) ============
+   V48→V48.7 ALL invisible. Complete rewrite with "cannot possibly miss" strategy:
+     - Core 180px pure white→gold flash with EXTREME glow (visible on any bg)
+     - Particles 32-50px, vivid saturated colors ONLY (gold/coral/cyan/magenta)
+     - z-index 15 (was 20 — was rendering ON TOP of content, hiding behind cards)
+     - Cycle 7.5s with 75% visible window
+     - Fewer bursts (10) but each is a SHOWSTOPPER */
 .fireworks {
   position: absolute;
   inset: 0;
-  z-index: 20;
+  z-index: 15;   /* V48.8: was z-20. Lower so it renders BEHIND cards but visible in gaps */
   pointer-events: none;
   overflow: hidden;
 }
@@ -1047,71 +1047,67 @@ input[type='number']::-webkit-inner-spin-button {
   width: 0;
   height: 0;
 }
-/* V48.7: Core — MASSIVE (120px), very long visible window (0–85% of cycle) */
+/* V48.8: Core — BLAZING WHITE-GOLD FLASH. 180px. */
 .firework__core {
   position: absolute;
   left: 0;
   top: 0;
-  width: 120px;    /* V48.7: was 80px */
-  height: 120px;
-  margin: -60px 0 0 -60px;
+  width: 180px;
+  height: 180px;
+  margin: -90px 0 0 -90px;
   border-radius: 9999px;
   background: radial-gradient(circle,
-    #ffffff 0%,
-    #fffbeb 6%,
-    #fde68a 15%,
-    #fbbf24 28%,
-    rgba(251, 191, 36, 0.75) 45%,
-    rgba(34, 211, 238, 0.55) 65%,
-    transparent 85%
-  );
+    #ffffff 0%, #fffde7 4%, #fef08a 10%, #facc15 20%,
+    rgba(250, 204, 21, 0.85) 35%, rgba(251, 146, 60, 0.6) 55%, transparent 80%);
   box-shadow:
-    0 0 80px 30px rgba(255, 255, 255, 1),      /* blinding white flash */
-    0 0 140px 60px rgba(251, 191, 36, 0.75),
-    0 0 220px 90px rgba(34, 211, 238, 0.45),
-    0 0 300px 130px rgba(168, 85, 247, 0.18);
+    0 0 0 12px rgba(255,255,255,1),
+    0 0 40px 20px rgba(255,255,255,0.95),
+    0 0 100px 50px rgba(254,240,138,0.8),
+    0 0 180px 80px rgba(250,204,21,0.55),
+    0 0 280px 120px rgba(251,146,60,0.25);
   opacity: 0;
-  animation: firework-core 5s ease-out infinite; /* V48.7: was 3.2s */
+  animation: firework-core-v488 7.5s ease-out infinite;
 }
-/* V48.7: Particles — MUCH larger (20–34px base), minimal shrink (scale 0.55),
-   bright longer (2–88% of cycle), massive glow halos. */
+/* V48.8: Particles — LARGE (32-50px), vivid saturated, extreme bloom. */
 .firework__particle {
   position: absolute;
   left: 0;
   top: 0;
-  min-width: 20px;   /* V48.7: was 10px */
-  min-height: 20px;
+  min-width: 32px;
+  min-height: 32px;
   border-radius: 9999px;
-  background: var(--c, #22d3ee);
+  background: var(--c, #facc15);
   box-shadow:
-    0 0 18px 6px var(--c, #22d3ee),                          /* tight glow */
-    0 0 40px 14px color-mix(in srgb, var(--c, #22d3ee) 70%, transparent), /* mid halo */
-    0 0 70px 24px color-mix(in srgb, var(--c, #22d3ee) 40%, transparent); /* outer bloom */
+    0 0 0 4px color-mix(in srgb, var(--c,#facc15) 80%, white),
+    0 0 24px 10px var(--c,#facc15),
+    0 0 56px 22px color-mix(in srgb, var(--c,#facc15) 65%, transparent),
+    0 0 100px 44px color-mix(in srgb, var(--c,#facc15) 35%, transparent);
   opacity: 0;
-  transform: translate(0, 0) scale(1);
-  animation-name: firework-burst;
+  transform: translate(0,0) scale(1);
+  animation-name: firework-burst-v488;
   animation-timing-function: cubic-bezier(0.18, 0.7, 0.3, 1);
   animation-iteration-count: infinite;
 }
-@keyframes firework-core {
+@keyframes firework-core-v488 {
   0%   { transform: scale(0); opacity: 0; }
-  2%   { transform: scale(0.5); opacity: 1; }       /* FLASH-BANG */
-  10%  { transform: scale(1.4); opacity: 1; }        /* peak brightness */
-  25%  { transform: scale(2.4); opacity: 0.95; }      /* expanding glow */
-  45%  { transform: scale(3.4); opacity: 0.7; }       /* fading expansion */
-  65%  { transform: scale(4.0); opacity: 0.35; }      /* near-invisible */
-  85%  { transform: scale(4.4); opacity: 0; }         /* fully out */
-  100% { transform: scale(4.4); opacity: 0; }         /* stay hidden */
+  1%   { transform: scale(0.3); opacity: 1; }
+  5%   { transform: scale(0.8); opacity: 1; }
+  15%  { transform: scale(1.6); opacity: 0.95; }
+  30%  { transform: scale(2.6); opacity: 0.8; }
+  50%  { transform: scale(3.4); opacity: 0.5; }
+  70%  { transform: scale(4.0); opacity: 0.15; }
+  85%  { transform: scale(4.2); opacity: 0; }
+  100% { transform: scale(4.2); opacity: 0; }
 }
-@keyframes firework-burst {
-  0%   { transform: translate(0, 0) scale(1); opacity: 0; }
-  2%   { transform: translate(0, 0) scale(1); opacity: 1; }     /* ignite */
-  15%  { transform: translate(calc(var(--tx, 0) * 0.18), calc(var(--ty, 0) * 0.18)) scale(0.92); opacity: 1; }
-  35%  { transform: translate(calc(var(--tx, 0) * 0.45), calc(var(--ty, 0) * 0.45)) scale(0.80); opacity: 0.9; }
-  55%  { transform: translate(calc(var(--tx, 0) * 0.72), calc(var(--ty, 0) * 0.72)) scale(0.68); opacity: 0.7; }
-  75%  { transform: translate(calc(var(--tx, 0) * 0.9), calc(var(--ty, 0) * 0.9)) scale(0.58); opacity: 0.4; }
-  88%  { transform: translate(var(--tx, 0), var(--ty, 0)) scale(0.50); opacity: 0.1; }
-  100% { transform: translate(var(--tx, 0), var(--ty, 0)) scale(0.50); opacity: 0; }
+@keyframes firework-burst-v488 {
+  0%   { transform: translate(0,0) scale(1); opacity: 0; }
+  1%   { transform: translate(0,0) scale(1); opacity: 1; }
+  10%  { transform: translate(calc(var(--tx,0)*0.12),calc(var(--ty,0)*0.12)) scale(0.95); opacity: 1; }
+  28%  { transform: translate(calc(var(--tx,0)*0.35),calc(var(--ty,0)*0.35)) scale(0.88); opacity: 0.92; }
+  48%  { transform: translate(calc(var(--tx,0)*0.62),calc(var(--ty,0)*0.62)) scale(0.75); opacity: 0.75; }
+  68%  { transform: translate(calc(var(--tx,0)*0.86),calc(var(--ty,0)*0.86)) scale(0.58); opacity: 0.45; }
+  85%  { transform: translate(var(--tx,0),var(--ty,0)) scale(0.45); opacity: 0.1; }
+  100% { transform: translate(var(--tx,0),var(--ty,0)) scale(0.45); opacity: 0; }
 }
 /* V47: honour reduced-motion — hide the fireworks entirely. */
 @media (prefers-reduced-motion: reduce) {
@@ -1180,7 +1176,8 @@ input[type='number']::-webkit-inner-spin-button {
     border-color: rgba(34, 211, 238, 0.85);
   }
 }
-/* V48.7: Faster sweep, narrower head — user said "光幕范围太大" */
+/* V48.8: Restored pulse strength — V48.7 over-weakened (6%/2px), user complained.
+    Middle ground: visible sweep with clear glow but not overwhelming. */
 @keyframes trustShockSweep {
   0%   { transform: translateX(-100%); opacity: 0; }
   20%  { opacity: 1; }
@@ -1197,14 +1194,16 @@ input[type='number']::-webkit-inner-spin-button {
   position: absolute;
   top: 0;
   left: 0;
-  width: 6%;   /* V48.7: was 15% */
-  height: 2px;  /* V48.7: was 3px */
+  width: 10%;   /* V48.8: restored from 6%, between V48(15%) and V48.7(6%) */
+  height: 3px;  /* V48.8: restored from 2px back to original */
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(34, 211, 238, 0.5) 30%,
-    rgba(103, 232, 249, 0.9) 50%,
-    rgba(34, 211, 238, 0.5) 70%,
+    rgba(34, 211, 238, 0.4) 25%,
+    rgba(255, 255, 255, 0.9) 45%,
+    rgba(103, 232, 249, 1) 50%,
+    rgba(255, 255, 255, 0.9) 55%,
+    rgba(34, 211, 238, 0.4) 75%,
     transparent 100%
   );
   border-radius: 9999px;
@@ -1213,83 +1212,82 @@ input[type='number']::-webkit-inner-spin-button {
   pointer-events: none;
   z-index: 15;
   box-shadow:
-    0 0 4px 1px rgba(34, 211, 238, 0.5),
-    0 0 8px 2px rgba(103, 232, 249, 0.2);
+    0 0 6px 2px rgba(34, 211, 238, 0.6),
+    0 0 14px 4px rgba(103, 232, 249, 0.35),
+    0 0 24px 8px rgba(255, 255, 255, 0.15);
 }
 
-/* ---- V48.6: Glacier ice shards (About hero stat band) ----
-   CRITICAL FIX: Previous V48-V48.5 versions were INVISIBLE because shards used
-   white→cyan gradient (#fff → #67e8f9 → #22d3ee → #0ea5e9) on a
-   from-cyan-100/via-sky-50/to-blue-200 background = CAMOUFLAGE (near-zero
-   color contrast). User confirmed invisible after 6 versions.
-   V48.6 redesign:
-     - Body: deep navy/indigo (#1e3a5f → #312e81) for MAXIMUM contrast vs sky bg
-     - Edge: bright cyan/white highlight to look like refracted light
-     - Inner core: bright center simulating crystal refraction
-     - Size: 35–60px (larger, clearly visible)
-     - Strong outer glow to separate from background */
-/* V48.7: Ice crystal fall — longer visible window (3%–88% vs old 4%–82%) */
-@keyframes iceFall {
+/* ---- V48.8: Glacier Ice Crystals — "CANNOT POSSIBLY MISS" Rewrite ----
+   V48→V48.7 ALL invisible. Complete redesign with extreme visibility:
+     - Body: BRIGHT ice-blue/white (NOT dark navy — was camouflaging on some bgs)
+     - Size: 80-160px (was 50-90px) — each crystal is HUGE
+     - Border: 4px pure WHITE (was 2.5px cyan)
+     - Outer glow: MASSIVE white halo that reads from across the room
+     - Speed: 20-42s fall (slower = more time to see them)
+     - Inner sparkle: larger, brighter
+     - Visible on ANY background color */
+@keyframes iceFall-v488 {
   0% {
-    transform: translateY(-10%) rotate(45deg);
+    transform: translateY(-15%) rotate(45deg);
     opacity: 0;
   }
-  3% { opacity: var(--ice-op, 1); }   /* V48.7: fade in faster */
-  88% { opacity: var(--ice-op, 0.95); } /* V48.7: stay visible longer */
+  2% { opacity: var(--ice-op, 1); }   /* near-instant fade in */
+  92% { opacity: var(--ice-op, 0.95); } /* stay visible for 90% of animation! */
   100% {
-    transform: translateY(110vh) translateX(var(--ice-dx, 20px)) rotate(405deg);
+    transform: translateY(120vh) translateX(var(--ice-dx, 30px)) rotate(405deg);
     opacity: 0;
   }
 }
-/* V48.6: High-contrast ice crystal — DEEP indigo/navy body with BRIGHT
-   cyan/white edge highlight. Reads clearly against light cyan/sky backgrounds.
-   Simulates a crystal catching and refracting light from within. */
+/* V48.8: Bright ice crystal — GLACIER BLUE body with BLAZING white border/glow.
+   This reads clearly on light AND dark backgrounds. */
 .ice-crystal {
   position: absolute;
-  top: -8%;   /* V48.7: start slightly higher */
-  width: var(--ice-size, 44px);
-  height: var(--ice-size, 44px);
-  /* Deep navy→indigo body (high contrast vs cyan-100/sky-50 bg) */
+  top: -15%;
+  width: var(--ice-size, 100px);
+  height: var(--ice-size, 100px);
+  /* Bright ice-blue→white body (visible everywhere) */
   background: linear-gradient(135deg,
-    #0f172a 0%,
-    #1e3a5f 25%,
-    #312e81 50%,
-    #4c1d95 75%,
-    #5b21b6 100%
+    #e0f2fe 0%,    /* very light cyan */
+    #bae6fd 20%,   /* sky-200 */
+    #7dd3fc 45%,   /* sky-300 */
+    #38bdf8 70%,   /* sky-400 vivid */
+    #0ea5e9 90%,   /* sky-500 deep */
+    #0284c7 100%   /* sky-600 */
   );
-  border: 2.5px solid rgba(34, 211, 238, 1); /* V48.7: fully opaque cyan border */
-  border-radius: 5px;
+  border: 3.5px solid rgba(255, 255, 255, 1);  /* V48.8: PURE WHITE thick border */
+  border-radius: 6px;
   box-shadow:
-    /* Bright inner refraction core */
-    inset 0 0 16px 4px rgba(103, 232, 249, 0.65),
-    inset 0 0 32px 8px rgba(34, 211, 238, 0.3),
-    /* Outer separation glow — V48.7: MUCH stronger */
-    0 0 24px 6px rgba(34, 211, 238, 1),
-    0 0 48px 14px rgba(34, 211, 238, 0.7),
-    0 0 80px 26px rgba(14, 165, 233, 0.5),
-    0 0 120px 40px rgba(103, 232, 249, 0.25);
+    /* Blazing inner refraction */
+    inset 0 0 24px 6px rgba(255, 255, 255, 0.85),
+    inset 0 0 40px 12px rgba(165, 243, 252, 0.6),
+    /* EXTREME outer glow — visible from a mile away */
+    0 0 0 2px rgba(255, 255, 255, 0.8),
+    0 0 32px 10px rgba(165, 243, 252, 1),
+    0 0 64px 22px rgba(56, 189, 248, 0.8),
+    0 0 110px 44px rgba(14, 165, 233, 0.5),
+    0 0 180px 70px rgba(103, 232, 249, 0.25);
   transform: rotate(45deg);
-  opacity: 0; /* starts invisible, animation fades in */
+  opacity: 0;
   pointer-events:none;
-  animation: iceFall var(--ice-dur, 18s) linear infinite; /* V48.7: default slower */
+  animation: iceFall-v488 var(--ice-dur, 28s) linear infinite; /* V48.8: much slower default */
   will-change: transform, opacity;
 }
-/* Bright specular highlight on each crystal — the "sparkle" that makes
-   it look like real ice catching light. V48.7: bigger and brighter. */
+/* V48.8: Massive specular highlight — the "diamond flash" effect. */
 .ice-crystal::after {
   content: '';
   position: absolute;
-  top: 16%;
-  left: 20%;
-  width: 40%;
-  height: 30%;  /* V48.7: bigger sparkle */
+  top: 12%;
+  left: 18%;
+  width: 50%;    /* V48.8: bigger */
+  height: 40%;   /* V48.8: taller */
   background: radial-gradient(ellipse,
     rgba(255, 255, 255, 1) 0%,
-    rgba(165, 243, 252, 0.85) 35%,
-    transparent 70%
+    rgba(255, 255, 255, 0.95) 20%,
+    rgba(165, 243, 252, 0.8) 45%,
+    transparent 75%
   );
   border-radius: 50%;
-  filter: blur(1.2px); /* V48.7: sharper */
+  filter: blur(0.8px); /* V48.8: sharper = more intense sparkle */
   pointer-events: none;
 }
 

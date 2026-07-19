@@ -28,11 +28,11 @@ export default function IceCrystals({ count = 26, className = '' }: IceCrystalsP
     const r = rand(i + 1);
     return {
       left: r * 100,
-      size: 50 + rand(i + 7) * 40, // V48.7: 50–90px (was 35–60)
-      dur: 12 + rand(i + 13) * 14, // V48.7: 12–26s (slower = longer visible)
+      size: 80 + rand(i + 7) * 80, // V48.8: 80-160px (was 50-90px) — HUGE crystals
+      dur: 20 + rand(i + 13) * 22, // V48.8: 20-42s (was 12-26s) — slow majestic fall
       delay: rand(i + 23) * 10,
-      dx: (rand(i + 31) - 0.5) * 100, // V48.7: wider drift
-      op: 1.0, // V48.7: ALWAYS fully opaque — no fading
+      dx: (rand(i + 31) - 0.5) * 120, // V48.8: wider drift
+      op: 1.0, // always fully opaque when visible
     };
   });
 
