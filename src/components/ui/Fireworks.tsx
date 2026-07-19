@@ -11,7 +11,7 @@ export interface FireworksProps {
 
 // Brand palette — vivid, saturated tones chosen to stay visible against the
 // light product-page background. No pure white (would vanish on the pale bg).
-const COLORS = ['#22D3EE', '#0EA5E9', '#38BDF8', '#2DD4BF', '#FBBF24', '#A855F7', '#F472B6'];
+const COLORS = ['#22D3EE', '#0EA5E9', '#38BDF8', '#2DD4BF', '#FBBF24', '#A855F7', '#F472B6', '#FB7185'];
 
 interface Particle {
   tx: number;
@@ -40,27 +40,26 @@ function generateBursts(count: number): Burst[] {
   const arr: Burst[] = [];
   for (let b = 0; b < count; b += 1) {
     const left = 6 + Math.random() * 88; // 6–94 %
-    const top = 10 + Math.random() * 62; // 10–72 %
-    const radius = 60 + Math.random() * 100; // 60–160 px burst radius (larger = more visible)
-    const n = 16 + Math.floor(Math.random() * 10); // 16–26 particles (denser burst)
+    const top = 8 + Math.random() * 65; // 8–73 % (V48.6: slightly higher)
+    const radius = 70 + Math.random() * 110; // 70–180 px burst radius
+    const n = 18 + Math.floor(Math.random() * 12); // 18–29 particles
     const baseColor = COLORS[Math.floor(Math.random() * COLORS.length)];
     const particles: Particle[] = [];
     for (let i = 0; i < n; i += 1) {
       const ang = (Math.PI * 2 * i) / n + Math.random() * 0.5;
-      const r = radius * (0.55 + Math.random() * 0.45);
+      const r = radius * (0.5 + Math.random() * 0.5);
       particles.push({
         tx: Math.cos(ang) * r,
         ty: Math.sin(ang) * r,
-        // Mostly the base colour, occasionally a contrasting brand pop.
         color: Math.random() > 0.25 ? baseColor : COLORS[Math.floor(Math.random() * COLORS.length)],
-        size: 5 + Math.random() * 6, // 5–11px particles (larger, more visible)
+        size: 10 + Math.random() * 8, // V48.6: 10–18px (was 5–11px)
       });
     }
     arr.push({
       left,
       top,
-      coreDelay: b * (1.0 + Math.random() * 1.3),
-      cycle: 5 + Math.random() * 4, // 5–9s repeating cycle (frequent pops)
+      coreDelay: b * (0.6 + Math.random() * 1.0), // tighter stagger
+      cycle: 3 + Math.random() * 2.4, // V48.6: 3–5.4s (was 5–9s)
       particles,
     });
   }

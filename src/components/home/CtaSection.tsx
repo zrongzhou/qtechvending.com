@@ -51,7 +51,7 @@ export default function CtaSection() {
       <div className="cta-aqua relative min-h-[480px] w-full overflow-hidden py-16 md:py-24">
 
         {/* ===== LAYER 1: OceanBubbles canvas (the core water effect) ===== */}
-        <OceanBubbles tone="dark" className="absolute inset-0 z-[1] pointer-events-none opacity-80" />
+        <OceanBubbles tone="dark" className="absolute inset-0 z-[1] pointer-events-none opacity-95" count={32} />
 
         {/* ===== LAYER 1b: Top-down sunlight piercing the surface ===== */}
         <div className="cta-aqua__sun absolute inset-0 z-[1] pointer-events-none" aria-hidden="true" />

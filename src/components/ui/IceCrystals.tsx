@@ -28,11 +28,11 @@ export default function IceCrystals({ count = 26, className = '' }: IceCrystalsP
     const r = rand(i + 1);
     return {
       left: r * 100,
-      size: 20 + rand(i + 7) * 22, // 20–42px (larger, clearly visible)
-      dur: 10 + rand(i + 13) * 12, // 10–22s (slower = more time visible)
+      size: 35 + rand(i + 7) * 25, // V48.6: 35–60px (was 20–42, too small)
+      dur: 9 + rand(i + 13) * 11, // 9–20s (slower = more time visible)
       delay: rand(i + 23) * 12,
-      dx: (rand(i + 31) - 0.5) * 70,
-      op: 0.7 + rand(i + 41) * 0.3, // 0.7–1.0 (always bright)
+      dx: (rand(i + 31) - 0.5) * 80,
+      op: 0.85 + rand(i + 41) * 0.15, // V48.6: 0.85–1.0 (always very bright)
     };
   });
 

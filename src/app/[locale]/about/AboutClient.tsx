@@ -719,7 +719,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               <RevealOnScroll
                 key={localeOr(a.title)}
                 delay={idx * 80}
-                className={`h-full ${isLast ? 'lg:col-span-2 lg:max-w-2xl lg:mx-auto' : ''}`}
+                className={`h-full ${isLast ? 'lg:col-span-2' : ''}`}
               >
                 <div className={`glass-surface group relative h-full overflow-hidden border-s-4 ${ac.border}`}>
                   <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${ac.tile} flow-bar`} aria-hidden="true" />
@@ -1074,6 +1074,12 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           <div className="cta-sunrise__beam cta-sunrise__beam--2" aria-hidden="true" />
 
           {/* Multi-layer mountain silhouette (SVG) — far misty → near dark with gold rim. */}
+          {/* V48.6: Atmospheric HAZE layer between far & mid mountains —
+              creates depth via semi-transparent fog band. */}
+          <div className="absolute inset-x-0 bottom-[28%] h-24 pointer-events-none"
+            style={{ background: 'linear-gradient(to bottom, rgba(255,220,150,0.12), rgba(255,180,100,0.06), transparent)', zIndex: 2 }}
+            aria-hidden="true" />
+
           <svg
             className="cta-sunrise__mountain"
             viewBox="0 0 1440 320"
@@ -1087,24 +1093,31 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             <path d="M0,320 L0,255 L300,205 L500,245 L700,185 L900,235 L1100,195 L1300,245 L1440,215 L1440,320 Z" fill="url(#aboutCtaNear)" />
             <path d="M0,255 L300,205 L500,245 L700,185 L900,235 L1100,195 L1300,245 L1440,215" fill="none" stroke="rgba(253,224,138,0.75)" strokeWidth="2.2" />
             <defs>
-              {/* V48.5: Warm golden-hour mountain tones — far=amber-gold, mid=rose-copper, near=deep indigo */}
+              {/* V48.6: Atmospheric perspective — far=light+hazy, mid=warm+medium,
+                  near=dark+saturated. Each layer gets progressively darker and
+                  less transparent to create depth. */}
               <linearGradient id="aboutCtaFar" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#fcd34d" stopOpacity="0.60" />
-                <stop offset="60%" stopColor="#f59e0b" stopOpacity="0.45" />
-                <stop offset="100%" stopColor="#d97706" stopOpacity="0.35" />
+                <stop offset="0%" stopColor="#fde68a" stopOpacity="0.50" />
+                <stop offset="50%" stopColor="#fbbf24" stopOpacity="0.40" />
+                <stop offset="100%" stopColor="#f59e0b" stopOpacity="0.30" />
               </linearGradient>
               <linearGradient id="aboutCtaMid" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#dc6b4a" stopOpacity="0.70" />
-                <stop offset="50%" stopColor="#be4a6e" stopOpacity="0.65" />
-                <stop offset="100%" stopColor="#7c3aed" stopOpacity="0.65" />
+                <stop offset="0%" stopColor="#f97316" stopOpacity="0.72" />
+                <stop offset="45%" stopColor="#ea580c" stopOpacity="0.68" />
+                <stop offset="100%" stopColor="#be185d" stopOpacity="0.70" />
               </linearGradient>
               <linearGradient id="aboutCtaNear" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#4c1d95" stopOpacity="0.95" />
-                <stop offset="40%" stopColor="#312e81" stopOpacity="0.98" />
-                <stop offset="100%" stopColor="#1e1b4b" stopOpacity="1" />
+                <stop offset="0%" stopColor="#4c1d95" stopOpacity="0.98" />
+                <stop offset="35%" stopColor="#312e81" stopOpacity="1" />
+                <stop offset="100%" stopColor="#17143a" stopOpacity="1" />
               </linearGradient>
             </defs>
           </svg>
+
+          {/* V48.6: Second haze layer — between mid & near mountains */}
+          <div className="absolute inset-x-0 bottom-[16%] h-20 pointer-events-none"
+            style={{ background: 'linear-gradient(to bottom, rgba(139, 69, 120, 0.10), rgba(76, 29, 149, 0.06), transparent)', zIndex: 2 }}
+            aria-hidden="true" />
 
           {/* V48.5: Golden dust motes — larger, brighter, more numerous. */}
           {Array.from({ length: 40 }, (_, i) => {
