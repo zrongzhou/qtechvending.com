@@ -91,7 +91,7 @@ export default function CaseGallerySection() {
                 fill
                 className="absolute inset-0 h-full w-full object-cover"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                quality={95}
+                quality={100}
               />
             </button>
           ))}
@@ -141,7 +141,7 @@ export default function CaseGallerySection() {
                   : 'ring-1 ring-black/10 opacity-70 hover:opacity-100'
               }`}
             >
-              <Image src={src} alt="" width={128} height={80} className="h-full w-full object-cover" quality={92} />
+              <Image src={src} alt="" width={128} height={80} className="h-full w-full object-cover" quality={95} />
             </button>
           ))}
         </div>
@@ -194,7 +194,7 @@ export default function CaseGallerySection() {
               width={1200}
               height={800}
               className="max-h-[90vh] max-w-[90vw] rounded-xl object-contain shadow-2xl"
-              quality={95}
+              quality={100}
               draggable={false}
             />
           </div>

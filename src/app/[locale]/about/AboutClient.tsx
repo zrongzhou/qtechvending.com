@@ -707,19 +707,19 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           </h2>
         </div>
 
-        {/* V48.1 R7: left/right alternating horizontal rows (zebra). Pairs of
-            cards sit side-by-side (odd = icon left, even = icon right); the
-            trailing 7th card is centred so no awkward blank cells remain. */}
+        {/* V48.5: 7 cards in 2-col grid; last card spans both columns and centres
+            so there is no awkward right-side blank space. */}
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
           {COMPANY_ADVANTAGES.map((a, idx) => {
             const Icon = a.icon;
             const ac = ACCENTS[idx % ACCENTS.length];
             const reversed = idx % 2 === 1;
+            const isLast = idx === COMPANY_ADVANTAGES.length - 1;
             return (
               <RevealOnScroll
                 key={localeOr(a.title)}
                 delay={idx * 80}
-                className="h-full"
+                className={`h-full ${isLast ? 'lg:col-span-2 lg:max-w-2xl lg:mx-auto' : ''}`}
               >
                 <div className={`glass-surface group relative h-full overflow-hidden border-s-4 ${ac.border}`}>
                   <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${ac.tile} flow-bar`} aria-hidden="true" />
@@ -1065,7 +1065,11 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         <div className="cta-sunrise relative overflow-hidden rounded-3xl px-8 py-16 text-center md:py-20">
           {/* Warm sky glow pooling at the top. */}
           <div className="cta-sunrise__sky" aria-hidden="true" />
-          {/* Sweeping light beam from the top-right. */}
+
+          {/* V48.5: Visible glowing sun orb — the light source. */}
+          <div className="cta-sunrise__sun" aria-hidden="true" />
+
+          {/* Sweeping light beam from the sun (top-right). */}
           <div className="cta-sunrise__beam" aria-hidden="true" />
           <div className="cta-sunrise__beam cta-sunrise__beam--2" aria-hidden="true" />
 
@@ -1077,27 +1081,33 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             aria-hidden="true"
           >
             <path d="M0,320 L0,150 L200,95 L400,140 L600,80 L800,135 L1000,75 L1200,140 L1440,100 L1440,320 Z" fill="url(#aboutCtaFar)" />
+            <path d="M0,150 L200,95 L400,140 L600,80 L800,135 L1000,75 L1200,140 L1440,100" fill="none" stroke="rgba(253,224,138,0.5)" strokeWidth="1.5" />
             <path d="M0,320 L0,205 L250,155 L450,195 L650,135 L850,185 L1050,125 L1250,185 L1440,155 L1440,320 Z" fill="url(#aboutCtaMid)" />
+            <path d="M0,205 L250,155 L450,195 L650,135 L850,185 L1050,125 L1250,185 L1440,155" fill="none" stroke="rgba(251,191,36,0.55)" strokeWidth="1.8" />
             <path d="M0,320 L0,255 L300,205 L500,245 L700,185 L900,235 L1100,195 L1300,245 L1440,215 L1440,320 Z" fill="url(#aboutCtaNear)" />
-            <path d="M0,255 L300,205 L500,245 L700,185 L900,235 L1100,195 L1300,245 L1440,215" fill="none" stroke="rgba(253,224,138,0.7)" strokeWidth="2" />
+            <path d="M0,255 L300,205 L500,245 L700,185 L900,235 L1100,195 L1300,245 L1440,215" fill="none" stroke="rgba(253,224,138,0.75)" strokeWidth="2.2" />
             <defs>
+              {/* V48.5: Warm golden-hour mountain tones — far=amber-gold, mid=rose-copper, near=deep indigo */}
               <linearGradient id="aboutCtaFar" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#a78bfa" stopOpacity="0.55" />
-                <stop offset="100%" stopColor="#6366f1" stopOpacity="0.35" />
+                <stop offset="0%" stopColor="#fcd34d" stopOpacity="0.60" />
+                <stop offset="60%" stopColor="#f59e0b" stopOpacity="0.45" />
+                <stop offset="100%" stopColor="#d97706" stopOpacity="0.35" />
               </linearGradient>
               <linearGradient id="aboutCtaMid" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#4f46e5" stopOpacity="0.7" />
-                <stop offset="100%" stopColor="#3730a3" stopOpacity="0.7" />
+                <stop offset="0%" stopColor="#dc6b4a" stopOpacity="0.70" />
+                <stop offset="50%" stopColor="#be4a6e" stopOpacity="0.65" />
+                <stop offset="100%" stopColor="#7c3aed" stopOpacity="0.65" />
               </linearGradient>
               <linearGradient id="aboutCtaNear" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#312e81" stopOpacity="0.95" />
+                <stop offset="0%" stopColor="#4c1d95" stopOpacity="0.95" />
+                <stop offset="40%" stopColor="#312e81" stopOpacity="0.98" />
                 <stop offset="100%" stopColor="#1e1b4b" stopOpacity="1" />
               </linearGradient>
             </defs>
           </svg>
 
-          {/* Golden dust motes drifting upward. */}
-          {Array.from({ length: 18 }, (_, i) => {
+          {/* V48.5: Golden dust motes — larger, brighter, more numerous. */}
+          {Array.from({ length: 40 }, (_, i) => {
             const rx = (Math.sin(i * 53.17 + 9.1) * 43758.5453) % 1;
             return (
               <span
@@ -1106,12 +1116,12 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                 style={
                   {
                     left: `${rx * 100}%`,
-                    bottom: `${((Math.sin((i + 300) * 127.1 + 311.7) * 43758.5453) % 1) * 35}%`,
-                    width: `${2 + ((Math.sin((i + 50) * 79.3 + 17.9) * 43758.5453) % 1) * 5}px`,
-                    height: `${2 + ((Math.sin((i + 50) * 79.3 + 17.9) * 43758.5453) % 1) * 5}px`,
-                    ['--sd-dur' as string]: `${7 + ((Math.sin((i + 100) * 31.7 + 43.1) * 43758.5453) % 1) * 9}s`,
-                    ['--sd-dx' as string]: `${(((Math.sin((i + 200) * 67.3 + 89.1) * 43758.5453) % 1) - 0.5) * 70}px`,
-                    animationDelay: `${((Math.sin((i + 150) * 41.3 + 27.1) * 43758.5453) % 1) * 9}s`,
+                    bottom: `${((Math.sin((i + 300) * 127.1 + 311.7) * 43758.5453) % 1) * 50}%`,
+                    width: `${5 + ((Math.sin((i + 50) * 79.3 + 17.9) * 43758.5453) % 1) * 12}px`,
+                    height: `${5 + ((Math.sin((i + 50) * 79.3 + 17.9) * 43758.5453) % 1) * 12}px`,
+                    ['--sd-dur' as string]: `${6 + ((Math.sin((i + 100) * 31.7 + 43.1) * 43758.5453) % 1) * 10}s`,
+                    ['--sd-dx' as string]: `${(((Math.sin((i + 200) * 67.3 + 89.1) * 43758.5453) % 1) - 0.5) * 90}px`,
+                    animationDelay: `${((Math.sin((i + 150) * 41.3 + 27.1) * 43758.5453) % 1) * 10}s`,
                   } as React.CSSProperties
                 }
               />

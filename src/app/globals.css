@@ -916,12 +916,12 @@ input[type='number']::-webkit-inner-spin-button {
   position: absolute;
   top: -25%;
   height: 150%;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.55), rgba(103, 232, 249, 0.20) 45%, transparent 75%);
-  filter: blur(26px);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.70), rgba(103, 232, 249, 0.30) 45%, transparent 75%);
+  filter: blur(18px);
   transform-origin: top center;
   mix-blend-mode: screen;
   pointer-events: none;
-  opacity: 0.72;
+  opacity: 0.88;
   will-change: transform, opacity;
 }
 .cta-godray--1 { left: 8%;  width: 120px; transform: rotate(12deg); animation: ctaGodraySway 15s ease-in-out infinite; }
@@ -957,8 +957,8 @@ input[type='number']::-webkit-inner-spin-button {
 .cta-plankton {
   position: absolute;
   border-radius: 9999px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 1), rgba(103, 232, 249, 0.6) 45%, rgba(45, 212, 191, 0.2) 70%, transparent 82%);
-  box-shadow: 0 0 6px rgba(34, 211, 238, 0.6);
+  background: radial-gradient(circle, rgba(255, 255, 255, 1), rgba(103, 232, 249, 0.75) 40%, rgba(45, 212, 191, 0.3) 65%, transparent 82%);
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.7), 0 0 20px rgba(103, 232, 249, 0.25);
   pointer-events: none;
   will-change: transform, opacity;
   animation: ctaPlankton var(--cta-dur, 12s) ease-in-out infinite;
@@ -1054,14 +1054,15 @@ input[type='number']::-webkit-inner-spin-button {
   position: absolute;
   left: 0;
   top: 0;
-  width: 28px;
-  height: 28px;
-  margin: -14px 0 0 -14px;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
   border-radius: 9999px;
-  background: radial-gradient(circle, #ffffff 0%, #fde68a 20%, #fbbf24 40%, rgba(34, 211, 238, 0.9) 60%, rgba(14, 165, 233, 0.6) 80%, transparent 90%);
+  background: radial-gradient(circle, #ffffff 0%, #fde68a 15%, #fbbf24 30%, rgba(34, 211, 238, 0.9) 55%, rgba(14, 165, 233, 0.5) 75%, transparent 90%);
   box-shadow:
-    0 0 40px 16px rgba(34, 211, 238, 0.7),
-    0 0 80px 30px rgba(251, 191, 36, 0.3);
+    0 0 50px 18px rgba(34, 211, 238, 0.75),
+    0 0 100px 40px rgba(251, 191, 36, 0.35),
+    0 0 140px 60px rgba(168, 85, 247, 0.15);
   opacity: 0;
   animation: firework-core 5s ease-out infinite;
 }
@@ -1069,13 +1070,14 @@ input[type='number']::-webkit-inner-spin-button {
   position: absolute;
   left: 0;
   top: 0;
-  min-width: 5px;
-  min-height: 5px;
+  min-width: 7px;
+  min-height: 7px;
   border-radius: 9999px;
   background: var(--c, #22d3ee);
   box-shadow:
-    0 0 8px 2px var(--c, #22d3ee),
-    0 0 16px 4px color-mix(in srgb, var(--c, #22d3ee) 60%, transparent);
+    0 0 10px 3px var(--c, #22d3ee),
+    0 0 22px 6px color-mix(in srgb, var(--c, #22d3ee) 55%, transparent),
+    0 0 38px 10px color-mix(in srgb, var(--c, #22d3ee) 25%, transparent);
   opacity: 0;
   transform: translate(0, 0) scale(1);
   animation-name: firework-burst;
@@ -1085,16 +1087,17 @@ input[type='number']::-webkit-inner-spin-button {
 @keyframes firework-core {
   0%   { transform: scale(0); opacity: 0; }
   2%   { transform: scale(1); opacity: 1; }
-  18%  { transform: scale(2); opacity: 1; }
-  35%  { transform: scale(2.6); opacity: 0.85; }
-  50%  { transform: scale(3); opacity: 0; }
-  100% { transform: scale(3); opacity: 0; }
+  15%  { transform: scale(2.4); opacity: 1; }
+  35%  { transform: scale(3.2); opacity: 0.8; }
+  55%  { transform: scale(3.8); opacity: 0; }
+  100% { transform: scale(3.8); opacity: 0; }
 }
 @keyframes firework-burst {
   0%   { transform: translate(0, 0) scale(1); opacity: 0; }
   3%   { opacity: 1; }
-  22%  { opacity: 0.95; }
-  60%  { transform: translate(var(--tx, 0), var(--ty, 0)) scale(0.15); opacity: 0; }
+  20%  { opacity: 0.9; }
+  55%  { transform: translate(var(--tx, 0), var(--ty, 0)) scale(0.25); opacity: 0.4; }
+  70%  { transform: translate(var(--tx, 0), var(--ty, 0)) scale(0.15); opacity: 0; }
   100% { transform: translate(var(--tx, 0), var(--ty, 0)) scale(0.15); opacity: 0; }
 }
 /* V47: honour reduced-motion — hide the fireworks entirely. */
@@ -1136,38 +1139,56 @@ input[type='number']::-webkit-inner-spin-button {
   will-change: transform, box-shadow;
 }
 
-/* V48.4: Trust card flowing light sheen — a luminous sweep that travels around
-   the card perimeter so the entire badge reads as alive with flowing energy.
-   Uses ::after pseudo-element with a conic-gradient "light beam" that rotates. */
+/* V48.5: Trust card glowing pulse + flowing border light.
+   Two-layer effect that is guaranteed visible in all browsers:
+     Layer 1 (box-shadow): rhythmic cyan glow pulse on the card edge.
+     Layer 2 (::after): a bright highlight bar that sweeps across the card
+       horizontally like a scanner — no mask hacks, just opacity+transform. */
+@keyframes trustBorderPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(34, 211, 238, 0.25),
+      0 0 12px 2px rgba(34, 211, 238, 0.12),
+      inset 0 0 8px rgba(34, 211, 238, 0.08);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(34, 211, 238, 0.55),
+      0 0 22px 4px rgba(34, 211, 238, 0.28),
+      inset 0 0 14px rgba(34, 211, 238, 0.15);
+  }
+}
 @keyframes trustShimmerSweep {
-  0%   { --shimmer-angle: 0deg; }
-  100% { --shimmer-angle: 360deg; }
+  0%   { transform: translateX(-120%) skewX(-15deg); opacity: 0; }
+  30%  { opacity: 1; }
+  70%  { opacity: 1; }
+  100% { transform: translateX(120%) skewX(-15deg); opacity: 0; }
 }
 .trust-shimmer {
   position: relative;
   overflow: hidden;
+  animation: trustBorderPulse 3s ease-in-out infinite;
 }
-.trust-shimmer::before {
+.trust-shimmer::after {
   content: '';
   position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  background: conic-gradient(
-    from var(--shimmer-angle, 0deg),
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
     transparent 0%,
-    transparent 40%,
-    rgba(34, 211, 238, 0.5) 45%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(34, 211, 238, 0.5) 55%,
-    transparent 60%,
+    rgba(34, 211, 238, 0.08) 20%,
+    rgba(103, 232, 249, 0.35) 50%,
+    rgba(255, 255, 255, 0.6) 55%,
+    rgba(103, 232, 249, 0.35) 60%,
+    rgba(34, 211, 238, 0.08) 80%,
     transparent 100%
   );
-  animation: trustShimmerSweep 4.5s linear infinite;
-  z-index: -1;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  -webkit-mask-composite: xor;
-  padding: 2px;
+  animation: trustShimmerSweep 3.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 10;
 }
 
 /* ---- R4: glacier ice shards (About hero stat band) ----
@@ -1241,60 +1262,87 @@ input[type='number']::-webkit-inner-spin-button {
 .cta-sunrise {
   position: relative;
   overflow: hidden;
+  /* V48.5: Dramatic golden-hour sky — vivid warm peak at top → rich amber → rose → deep indigo base */
   background: linear-gradient(
     to bottom,
-    rgba(254, 243, 199, 0.22) 0%,
-    rgba(253, 224, 138, 0.30) 16%,
-    rgba(251, 146, 60, 0.42) 44%,
-    rgba(124, 45, 18, 0.55) 66%,
+    rgba(255, 223, 128, 0.50) 0%,
+    rgba(255, 190, 80, 0.55) 12%,
+    rgba(255, 150, 60, 0.50) 28%,
+    rgba(230, 100, 50, 0.45) 45%,
+    rgba(160, 60, 80, 0.50) 62%,
+    rgba(80, 40, 100, 0.60) 78%,
     #1e1b4b 100%
   );
 }
-/* Warm sky glow pooling at the top. */
+/* V48.5: Bright sun glow pooling at the top-right — the light source. */
 .cta-sunrise__sky {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(120% 70% at 72% 0%, rgba(255, 247, 220, 0.70), rgba(253, 230, 138, 0.20) 35%, transparent 60%);
+  background:
+    radial-gradient(100% 60% at 75% -5%, rgba(255, 248, 220, 0.95) 0%, rgba(255, 230, 140, 0.50) 30%, transparent 65%),
+    radial-gradient(80% 50% at 68% 8%, rgba(255, 215, 100, 0.40) 0%, transparent 55%);
 }
-/* Slow light beam sweeping from the top-right (45°). */
+/* V48.5: Bold golden light beams sweeping from the sun position (top-right). */
 .cta-sunrise__beam {
   position: absolute;
-  top: -25%;
-  right: -5%;
-  width: 55%;
-  height: 150%;
+  top: -30%;
+  right: -10%;
+  width: 65%;
+  height: 160%;
   background: linear-gradient(
-    100deg,
-    rgba(255, 237, 160, 0) 0%,
-    rgba(255, 237, 160, 0.32) 44%,
-    rgba(255, 255, 255, 0.60) 50%,
-    rgba(255, 237, 160, 0.32) 56%,
-    rgba(255, 237, 160, 0) 100%
+    105deg,
+    rgba(255, 240, 180, 0) 0%,
+    rgba(255, 235, 140, 0.45) 38%,
+    rgba(255, 255, 220, 0.80) 48%,
+    rgba(255, 235, 140, 0.45) 58%,
+    rgba(255, 240, 180, 0) 100%
   );
-  filter: blur(22px);
+  filter: blur(14px);
   transform-origin: top right;
   mix-blend-mode: screen;
-  opacity: 0.7;
+  opacity: 0.88;
   pointer-events: none;
-  animation: sunriseBeam 8s ease-in-out infinite;
+  animation: sunriseBeam 7s ease-in-out infinite;
   will-change: transform, opacity;
 }
-/* Second, counter-sweeping beam (V48.1 R2): brighter, mirrored from the left
-   at a different angle and phase so the sunrise light reads richer. */
+/* Second beam — counter-sweep from left, warmer tone. */
 .cta-sunrise__beam--2 {
-  left: 16%;
+  left: 8%;
   right: auto;
-  top: -30%;
-  width: 48%;
+  top: -35%;
+  width: 55%;
   transform-origin: top left;
-  opacity: 0.55;
-  animation-duration: 9.5s;
-  animation-delay: 3.4s;
+  opacity: 0.70;
+  animation-duration: 9s;
+  animation-delay: 3s;
 }
 @keyframes sunriseBeam {
-  0%, 100% { transform: rotate(-7deg); opacity: 0.5; }
-  50% { transform: rotate(7deg); opacity: 0.9; }
+  0%, 100% { transform: rotate(-5deg); opacity: 0.65; }
+  50% { transform: rotate(8deg); opacity: 1; }
+}
+
+/* V48.5: Glowing sun orb — the visible light source in the upper-right sky. */
+.cta-sunrise__sun {
+  position: absolute;
+  top: 2%;
+  right: 8%;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 45% 45%, #fff 0%, #fffde0 15%, #ffd54f 35%, #ffab00 55%, rgba(255,160,0,0.3) 75%, transparent 100%);
+  box-shadow:
+    0 0 50px 20px rgba(255, 220, 100, 0.7),
+    0 0 120px 50px rgba(255, 180, 50, 0.4),
+    0 0 200px 80px rgba(255, 140, 0, 0.15);
+  pointer-events: none;
+  animation: sunriseSunPulse 5s ease-in-out infinite;
+  will-change: transform, box-shadow;
+}
+@keyframes sunriseSunPulse {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.08); filter: brightness(1.15); }
 }
 /* Mountain range silhouette pinned to the bottom. */
 .cta-sunrise__mountain {
@@ -1323,12 +1371,14 @@ input[type='number']::-webkit-inner-spin-button {
   position: relative;
   overflow: hidden;
 }
-/* Golden dust motes drifting upward (crisp, above the glass layer). */
+/* V48.5: Golden dust motes — larger, brighter, more numerous. */
 .cta-sunrise__dust {
   position: absolute;
   border-radius: 9999px;
-  background: radial-gradient(circle, rgba(255, 247, 220, 1), rgba(251, 191, 36, 0.6) 50%, transparent 72%);
-  box-shadow: 0 0 6px rgba(251, 191, 36, 0.6);
+  background: radial-gradient(circle, rgba(255, 255, 240, 1) 0%, rgba(255, 220, 100, 0.85) 40%, rgba(255, 180, 50, 0.4) 65%, transparent 80%);
+  box-shadow:
+    0 0 8px 2px rgba(255, 200, 80, 0.7),
+    0 0 18px 5px rgba(255, 160, 50, 0.3);
   opacity: 0;
   pointer-events: none;
   animation: sunriseDust var(--sd-dur, 10s) ease-in-out infinite;
@@ -1336,8 +1386,9 @@ input[type='number']::-webkit-inner-spin-button {
 }
 @keyframes sunriseDust {
   0% { transform: translate(0, 0); opacity: 0; }
-  20% { opacity: 0.9; }
-  80% { opacity: 0.55; }
+  15% { opacity: 1; }
+  50% { opacity: 0.85; }
+  80% { opacity: 0.50; }
   100% { transform: translate(var(--sd-dx, 10px), -90px); opacity: 0; }
 }
 
