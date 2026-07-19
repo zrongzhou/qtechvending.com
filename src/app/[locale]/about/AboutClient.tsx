@@ -719,7 +719,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               <RevealOnScroll
                 key={localeOr(a.title)}
                 delay={idx * 80}
-                className={`h-full ${isLast ? 'sm:justify-self-center lg:justify-self-center max-w-2xl' : ''}`}
+                className={`h-full ${isLast ? 'sm:col-span-2 mx-auto max-w-2xl' : ''}`}
               >
                 <div className={`glass-surface group relative h-full overflow-hidden border-s-4 ${ac.border}`}>
                   <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${ac.tile} flow-bar`} aria-hidden="true" />

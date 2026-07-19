@@ -916,12 +916,12 @@ input[type='number']::-webkit-inner-spin-button {
   position: absolute;
   top: -25%;
   height: 150%;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.70), rgba(103, 232, 249, 0.30) 45%, transparent 75%);
-  filter: blur(18px);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.55), rgba(103, 232, 249, 0.20) 45%, transparent 75%);
+  filter: blur(26px);
   transform-origin: top center;
   mix-blend-mode: screen;
   pointer-events: none;
-  opacity: 0.88;
+  opacity: 0.72;
   will-change: transform, opacity;
 }
 .cta-godray--1 { left: 8%;  width: 120px; transform: rotate(12deg); animation: ctaGodraySway 15s ease-in-out infinite; }
@@ -957,8 +957,8 @@ input[type='number']::-webkit-inner-spin-button {
 .cta-plankton {
   position: absolute;
   border-radius: 9999px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 1), rgba(103, 232, 249, 0.75) 40%, rgba(45, 212, 191, 0.3) 65%, transparent 82%);
-  box-shadow: 0 0 10px rgba(34, 211, 238, 0.7), 0 0 20px rgba(103, 232, 249, 0.25);
+  background: radial-gradient(circle, rgba(255, 255, 255, 1), rgba(103, 232, 249, 0.6) 45%, rgba(45, 212, 191, 0.2) 70%, transparent 82%);
+  box-shadow: 0 0 6px rgba(34, 211, 238, 0.6);
   pointer-events: none;
   will-change: transform, opacity;
   animation: ctaPlankton var(--cta-dur, 12s) ease-in-out infinite;
@@ -1109,9 +1109,13 @@ input[type='number']::-webkit-inner-spin-button {
   85%  { transform: translate(var(--tx,0),var(--ty,0)) scale(0.45); opacity: 0.1; }
   100% { transform: translate(var(--tx,0),var(--ty,0)) scale(0.45); opacity: 0; }
 }
-/* V47: honour reduced-motion — hide the fireworks entirely. */
+/* V36.1 brand policy: fireworks are ambient/brand motion and KEEP running
+   under prefers-reduced-motion (do NOT hide). The previous `display:none`
+   guard was the root cause of "fireworks never appear" reports — many OSes /
+   test environments enable reduced-motion by default, which silenced them
+   entirely. They are decorative + non-essential-reading, so they stay on. */
 @media (prefers-reduced-motion: reduce) {
-  .fireworks { display: none !important; }
+  .fireworks { opacity: 0.85; }
 }
 
 /* ============================================================================
@@ -1238,23 +1242,25 @@ input[type='number']::-webkit-inner-spin-button {
     opacity: 0;
   }
 }
-/* V48.8: Bright ice crystal — GLACIER BLUE body with BLAZING white border/glow.
-   This reads clearly on light AND dark backgrounds. */
+/* V48.9: High-contrast ice crystal — DEEP navy→indigo→blue body with a
+   BLAZING cyan border + white sparkle. The hero background is a light
+   cyan/sky/blue gradient, so a light-coloured crystal would camouflage; a
+   saturated dark body is what actually reads against it. (V48.8's pale
+   ice-blue-on-light was the reason it stayed invisible.) */
 .ice-crystal {
   position: absolute;
   top: -15%;
   width: var(--ice-size, 100px);
   height: var(--ice-size, 100px);
-  /* Bright ice-blue→white body (visible everywhere) */
+  /* Deep, saturated icy body — maximum contrast on the light hero bg. */
   background: linear-gradient(135deg,
-    #e0f2fe 0%,    /* very light cyan */
-    #bae6fd 20%,   /* sky-200 */
-    #7dd3fc 45%,   /* sky-300 */
-    #38bdf8 70%,   /* sky-400 vivid */
-    #0ea5e9 90%,   /* sky-500 deep */
-    #0284c7 100%   /* sky-600 */
+    #0f172a 0%,    /* slate-950 */
+    #1e3a5f 25%,   /* deep navy */
+    #312e81 50%,   /* indigo-900 */
+    #1e40af 75%,   /* blue-800 */
+    #1e3a8a 100%   /* blue-900 */
   );
-  border: 3.5px solid rgba(255, 255, 255, 1);  /* V48.8: PURE WHITE thick border */
+  border: 3.5px solid rgba(34, 211, 238, 1);  /* bright cyan edge */
   border-radius: 6px;
   box-shadow:
     /* Blazing inner refraction */
@@ -1491,7 +1497,9 @@ input[type='number']::-webkit-inner-spin-button {
 /* ---- R1 / R4 / R8: reduced-motion — keep layout, drop motion ---- */
 @media (prefers-reduced-motion: reduce) {
   .animate-pulse-glow { animation: none !important; }
-  .ice-crystal { animation: none !important; opacity: 0 !important; }
+  /* V36.1 brand policy: ice crystals are ambient/brand motion — they KEEP
+     running under reduced-motion (do NOT hide). The previous `opacity:0`
+     guard was the root cause of "glacier never appears" reports. */
   .cta-sunrise__beam { animation: none !important; opacity: 0.5 !important; }
   .cta-sunrise__dust { animation: none !important; opacity: 0 !important; }
 }

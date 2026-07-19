@@ -148,6 +148,16 @@ export default function CaseGallerySection() {
         </div>
       </div>
 
+      {/* Preload every gallery image so the lightbox shows it instantly — no
+         first-frame blur while the large WebP is still downloading. The same
+         URLs are reused by the lightbox, so they are served from cache. */}
+      <div className="hidden" aria-hidden="true">
+        {GALLERY.map((src) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img key={src} src={src} alt="" />
+        ))}
+      </div>
+
       {/* Lightbox — hand-built, no dependencies (pattern reused from V42). */}
       {open && (
         <div
