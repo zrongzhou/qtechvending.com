@@ -544,7 +544,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         <div className="pointer-events-none absolute bottom-0 start-1/3 h-72 w-72 rounded-full bg-blue-200/40 blur-3xl" aria-hidden="true" />
 
         {/* Falling ice crystals (pure CSS, no canvas) — V48 R4. */}
-        <IceCrystals count={36} className="z-0" />
+        <IceCrystals count={60} className="z-10 pointer-events-none" />
 
         <div className="container-qtech relative py-24 text-center lg:py-32">
           <span className="inline-flex items-center rounded-full bg-cyan-50 px-4 py-1.5 text-sm font-medium text-cyan-700 ring-1 ring-cyan-200">
@@ -583,14 +583,11 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         </div>
       </section>
 
-      {/* ══════════════════ 2. ABOUT US × 词牌 (V48.1 R5: side-by-side) ════════════════
-          The "以匠心" copy and the brand 词牌 (nameplate) now sit in ONE aligned
-          grid (grid-cols-1 lg:grid-cols-2 items-stretch gap-12) so the two brand
-          blocks the user saw stacked are visually paired and equal-height.
-          Left: 以匠心 copy + CTA. Right: redesigned 词牌. */}
+      {/* ══════════════════ 2. ABOUT US (以匠心 text + 公司外观图) ══════════════════
+          Left: 以匠心 copy + CTA. Right: 公司外观实景图 (company-building.jpg). */}
       <section className="container-qtech py-16 lg:py-24">
         <RevealOnScroll className="grid grid-cols-1 items-stretch gap-12 lg:gap-16 lg:grid-cols-2">
-          {/* Left: 以匠心 copy (reused) */}
+          {/* Left: 以匠心 copy */}
           <div className="flex flex-col justify-center">
             <span className="inline-flex items-center rounded-full bg-cyan-50 px-4 py-1.5 text-sm font-medium text-cyan-700 ring-1 ring-cyan-200">
               {t('about.aboutTitle')}
@@ -616,18 +613,15 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               {locale === 'zh' ? '获取报价' : locale === 'ar' ? 'اطلب عرض سعر' : 'Get a Quote'} →
             </Link>
           </div>
-          {/* Right: redesigned 词牌 (nameplate) */}
-          <div className="relative flex min-h-[320px] items-center justify-center overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-slate-800 via-slate-900 to-cyan-950 p-8 shadow-2xl shadow-black/30 ring-1 ring-inset ring-cyan-300/20">
-            <div className="pointer-events-none absolute -top-16 start-1/2 h-44 w-44 -translate-x-1/2 rounded-full bg-cyan-400/25 blur-3xl" />
-            <div className="pointer-events-none absolute inset-2 rounded-[26px] border border-white/10" />
-            <div className="relative flex flex-col items-center text-center">
-              <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 shadow-lg shadow-cyan-500/40">
-                <span className="text-2xl font-bold text-white">秋彦</span>
-              </div>
-              <div className="mt-6 text-5xl font-bold tracking-[0.15em] text-white">Qtech</div>
-              <div className="mt-2 text-sm uppercase tracking-[0.35em] text-cyan-300/90">Smart Vending · IoT</div>
-              <div className="mt-5 h-px w-44 bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent" />
-            </div>
+          {/* Right: company building photo */}
+          <div className="relative min-h-[320px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100 lg:min-h-[360px]">
+            <Image
+              src="/images/about/company-building.jpg"
+              alt={t('about.aboutTitle')}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
           </div>
         </RevealOnScroll>
       </section>
@@ -665,15 +659,33 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                       ))}
                   </div>
                 </div>
-                <div className={`relative min-h-[280px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100 ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
-                  <Image
-                    src={img}
-                    alt={title}
-                    fill
-                    className="object-cover transition-transform duration-700 hover:scale-105"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
-                </div>
+                {section.key === 'capability' ? (
+                  /* 词牌：我们的业务专属品牌展示 */
+                  <div className={`flex items-center justify-center ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
+                    <div className="relative flex h-full w-full min-h-[280px] flex-col items-center justify-center overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-slate-800 via-slate-900 to-cyan-950 p-8 shadow-2xl shadow-black/30">
+                      <div className="pointer-events-none absolute -top-16 start-1/2 h-44 w-44 -translate-x-1/2 rounded-full bg-cyan-400/25 blur-3xl" />
+                      <div className="pointer-events-none absolute inset-2 rounded-[26px] border border-white/10" />
+                      <div className="flex flex-col items-center text-center">
+                        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 shadow-lg shadow-cyan-500/40">
+                          <span className="text-xl font-bold text-white">秋彦</span>
+                        </div>
+                        <div className="mt-5 text-4xl font-bold tracking-[0.2em] text-white">QTECH</div>
+                        <div className="mt-1 text-xs uppercase tracking-[0.3em] text-cyan-400/80">SMART VENDING · IOT</div>
+                        <div className="mt-5 h-px w-40 bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent" />
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className={`relative min-h-[280px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100 ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
+                    <Image
+                      src={img}
+                      alt={title}
+                      fill
+                      className="object-cover transition-transform duration-700 hover:scale-105"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                    />
+                  </div>
+                )}
               </RevealOnScroll>
             );
           })
@@ -718,7 +730,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     <RevealOnScroll
                       key={localeOr(a.title)}
                       delay={idx * 80}
-                      className={single ? 'mx-auto w-full max-w-lg' : 'h-full'}
+                      className="h-full"
                     >
                       <div className={`glass-surface group relative h-full overflow-hidden border-s-4 ${ac.border}`}>
                         <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${ac.tile} flow-bar`} aria-hidden="true" />

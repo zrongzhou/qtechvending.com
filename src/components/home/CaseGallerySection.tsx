@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
+import Image from 'next/image';
 import { useLocale } from '@/lib/i18n';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -83,12 +84,14 @@ export default function CaseGallerySection() {
                 i === active ? 'z-10 opacity-100' : 'pointer-events-none opacity-0'
               }`}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={src}
                 alt={`${altPrefix}${i + 1}`}
                 loading={i === 0 ? 'eager' : 'lazy'}
+                fill
                 className="absolute inset-0 h-full w-full object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                quality={90}
               />
             </button>
           ))}
@@ -138,8 +141,7 @@ export default function CaseGallerySection() {
                   : 'ring-1 ring-black/10 opacity-70 hover:opacity-100'
               }`}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={src} alt="" loading="lazy" className="h-full w-full object-cover" />
+              <Image src={src} alt="" width={128} height={80} className="h-full w-full object-cover" quality={85} />
             </button>
           ))}
         </div>
@@ -186,11 +188,13 @@ export default function CaseGallerySection() {
           </button>
 
           <div className="animate-scale-in" onClick={(e) => e.stopPropagation()}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src={GALLERY[active]}
               alt={`${altPrefix}${active + 1}`}
+              width={1200}
+              height={800}
               className="max-h-[90vh] max-w-[90vw] rounded-xl object-contain shadow-2xl"
+              quality={95}
               draggable={false}
             />
           </div>

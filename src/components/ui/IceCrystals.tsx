@@ -28,7 +28,7 @@ export default function IceCrystals({ count = 26, className = '' }: IceCrystalsP
     const r = rand(i + 1);
     return {
       left: r * 100,
-      size: 8 + rand(i + 7) * 12, // 8–20px
+      size: 14 + rand(i + 7) * 18, // 14–32px
       dur: 9 + rand(i + 13) * 11, // 9–20s
       delay: rand(i + 23) * 12,
       dx: (rand(i + 31) - 0.5) * 60,

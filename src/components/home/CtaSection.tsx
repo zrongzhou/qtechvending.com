@@ -5,6 +5,7 @@ import { ArrowRight, Sparkles, CheckCircle2, ShieldCheck, Globe2 } from 'lucide-
 import { useLocale } from '@/lib/i18n';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
+import OceanBubbles from '@/components/ui/OceanBubbles';
 
 /**
  * Closing call-to-action (V48.1, R2): "日照金山 / Golden Mountain at Sunrise".
@@ -47,6 +48,9 @@ export default function CtaSection() {
   return (
     <RevealOnScroll as="section" className="relative w-full overflow-hidden rounded-none">
       <div className="cta-sunrise relative min-h-[480px] w-full overflow-hidden py-16 md:py-24">
+        {/* 水族气泡 — 保留原始 glass aquarium 动画感，叠加在日照金山之上 */}
+        <OceanBubbles tone="dark" className="absolute inset-0 z-[1] pointer-events-none opacity-40" />
+
         {/* Warm sky glow pooling at the top. */}
         <div className="cta-sunrise__sky" aria-hidden="true" />
         {/* Sweeping light beam from the top-right (45°). */}
@@ -98,6 +102,13 @@ export default function CtaSection() {
             </linearGradient>
           </defs>
         </svg>
+
+        {/* 底部水波纹动画 — 还原水族玻璃质感 */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-32 overflow-hidden" aria-hidden="true">
+          <div className="ocean-wave ocean-wave--1" />
+          <div className="ocean-wave ocean-wave--2" />
+          <div className="ocean-wave ocean-wave--3" />
+        </div>
 
         {/* Golden dust motes drifting upward (above the glass layer). */}
         <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden" aria-hidden="true">

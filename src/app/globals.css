@@ -1041,7 +1041,7 @@ input[type='number']::-webkit-inner-spin-button {
 .fireworks {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 20;
   pointer-events: none;
   overflow: hidden;
 }
@@ -1054,19 +1054,21 @@ input[type='number']::-webkit-inner-spin-button {
   position: absolute;
   left: 0;
   top: 0;
-  width: 16px;
-  height: 16px;
-  margin: -8px 0 0 -8px;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
   border-radius: 9999px;
   background: radial-gradient(circle, #ffffff 0%, #fde68a 24%, #fbbf24 46%, rgba(34, 211, 238, 0.85) 66%, transparent 78%);
-  box-shadow: 0 0 24px 8px rgba(34, 211, 238, 0.6);
+  box-shadow: 0 0 32px 12px rgba(34, 211, 238, 0.6);
   opacity: 0;
-  animation: firework-core 7s ease-out infinite;
+  animation: firework-core 5s ease-out infinite;
 }
 .firework__particle {
   position: absolute;
   left: 0;
   top: 0;
+  min-width: 5px;
+  min-height: 5px;
   border-radius: 9999px;
   background: var(--c, #22d3ee);
   box-shadow: 0 0 6px var(--c, #22d3ee);
@@ -1079,15 +1081,15 @@ input[type='number']::-webkit-inner-spin-button {
 @keyframes firework-core {
   0%   { transform: scale(0); opacity: 0; }
   2%   { transform: scale(1); opacity: 1; }
-  14%  { transform: scale(1.6); opacity: 1; }
-  32%  { transform: scale(2); opacity: 0; }
-  100% { transform: scale(2); opacity: 0; }
+  20%  { transform: scale(1.8); opacity: 1; }
+  45%  { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(2.2); opacity: 0; }
 }
 @keyframes firework-burst {
   0%   { transform: translate(0, 0) scale(1); opacity: 0; }
   3%   { opacity: 1; }
-  18%  { opacity: 0.95; }
-  42%  { transform: translate(var(--tx, 0), var(--ty, 0)) scale(0.2); opacity: 0; }
+  25%  { opacity: 0.95; }
+  55%  { transform: translate(var(--tx, 0), var(--ty, 0)) scale(0.2); opacity: 0; }
   100% { transform: translate(var(--tx, 0), var(--ty, 0)) scale(0.2); opacity: 0; }
 }
 /* V47: honour reduced-motion — hide the fireworks entirely. */
@@ -1148,14 +1150,15 @@ input[type='number']::-webkit-inner-spin-button {
 .ice-crystal {
   position: absolute;
   top: -5%;
-  width: var(--ice-size, 8px);
-  height: var(--ice-size, 8px);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(56, 189, 248, 0.6) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  border-radius: 2px;
+  width: var(--ice-size, 18px);
+  height: var(--ice-size, 18px);
+  background: linear-gradient(135deg, #ffffff 0%, #22d3ee 50%, #0ea5e9 100%);
+  border: 1.5px solid rgba(34, 211, 238, 0.9);
+  border-radius: 3px;
   box-shadow:
-    0 0 14px rgba(56, 189, 248, 0.9),
-    0 0 22px 2px rgba(56, 189, 248, 0.9);
+    0 0 18px rgba(34, 211, 238, 1),
+    0 0 36px 6px rgba(34, 211, 238, 0.5),
+    0 0 54px 12px rgba(14, 165, 233, 0.25);
   transform: rotate(45deg);
   opacity: 0;
   pointer-events: none;

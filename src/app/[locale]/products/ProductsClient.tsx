@@ -81,14 +81,15 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-glass-light-cold">
-      {/* V47: cold-tone fireworks backdrop behind the product grid. */}
-      <Fireworks count={16} />
+      {/* V47: cold-tone fireworks backdrop — lifted to z-20 so it paints above
+          the product grid (visible blooming effect, not hidden behind cards). */}
+      <Fireworks count={18} />
 
       {/* Soft, luminous colour blooms so the white glass cards have colour to
           refract — the crystal effect comes from light passing through glass.
           V44: unified to the ice-blue crystal palette (cyan / sky / slate /
           teal) so the page no longer reads as a random rainbow of colours. */}
-      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+      <div className="pointer-events-none absolute inset-0 z-[2]" aria-hidden="true">
         <div className="absolute -top-24 start-0 h-[420px] w-[420px] rounded-full bg-cyan-400/[0.14] blur-3xl" />
         <div className="absolute top-1/3 end-0 h-[460px] w-[460px] rounded-full bg-sky-400/[0.12] blur-3xl" />
         <div className="absolute bottom-0 start-1/4 h-[400px] w-[400px] rounded-full bg-teal-400/[0.14] blur-3xl" />
