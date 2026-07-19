@@ -218,17 +218,19 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
               return (
                 <div
                   key={item.valueKey}
-                  style={{ ['--glow-color' as string]: item.glow } as React.CSSProperties}
                   className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/5 p-4 backdrop-blur transition duration-300 hover:bg-white/10"
                 >
                   <span
-                    className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${item.bar}`}
+                    className={`absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-r ${item.bar}`}
                     aria-hidden="true"
                   />
-                  <div className="flex items-center justify-center">
+                  <div
+                    className="flex items-center justify-center"
+                    style={{ ['--glow-color' as string]: item.glow } as React.CSSProperties}
+                  >
                     <IconTile
                       icon={Icon}
-                      className="h-5 w-5"
+                      className="h-6 w-6"
                       tileClassName={`bg-gradient-to-br ${item.tile} text-white p-2 shadow-md animate-pulse-glow`}
                     />
                   </div>
@@ -318,7 +320,7 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
           light page below — a long gradient mask so the transition from the
           cosmic hero into the bright content area reads natural, not abrupt. */}
       <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-96 bg-gradient-to-b from-transparent via-slate-50/40 to-slate-50"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-80 bg-gradient-to-b from-transparent via-slate-50/30 to-slate-50/60"
         aria-hidden="true"
       />
     </section>

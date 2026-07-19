@@ -588,7 +588,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           (grid-cols-1 lg:grid-cols-2 gap-12 items-stretch) so the two adjacent
           panels share an identical column rhythm and equal visual heights. */}
       <section className="container-qtech py-16 lg:py-24">
-        <RevealOnScroll className="grid grid-cols-1 items-stretch gap-12 lg:grid-cols-2">
+        <RevealOnScroll className="grid grid-cols-1 items-stretch gap-12 lg:gap-16 lg:grid-cols-2">
           <div className="flex flex-col justify-center">
             <span className="inline-flex items-center rounded-full bg-cyan-50 px-4 py-1.5 text-sm font-medium text-cyan-700 ring-1 ring-cyan-200">
               {t('about.aboutTitle')}
@@ -614,20 +614,22 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               {locale === 'zh' ? '获取报价' : locale === 'ar' ? 'اطلب عرض سعر' : 'Get a Quote'} →
             </Link>
           </div>
-          <div className="relative min-h-[280px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100 lg:min-h-[340px]">
-            <Image
-              src="/images/about/company-building.jpg"
-              alt={t('about.aboutTitle')}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
+          <div className="flex items-center">
+            <div className="relative min-h-[320px] w-full overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100 lg:min-h-[360px]">
+              <Image
+                src="/images/about/company-building.jpg"
+                alt={t('about.aboutTitle')}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </div>
           </div>
         </RevealOnScroll>
       </section>
 
       {/* ══════════════════ 3. COMPANY STORY (DB-driven, alternating + photos) ════════════════ */}
-      <section className="container-qtech space-y-20 py-8 lg:py-12">
+      <section className="container-qtech space-y-20 py-16 lg:py-24">
         {narrative.length === 0 ? (
           <p className="text-center text-ink-400">—</p>
         ) : (
@@ -641,9 +643,9 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               <RevealOnScroll
                 key={section.key}
                 as="section"
-                className="grid grid-cols-1 items-stretch gap-12 lg:grid-cols-2"
+                className="grid grid-cols-1 items-stretch gap-12 lg:gap-16 lg:grid-cols-2"
               >
-                <div className={idx % 2 === 1 ? 'lg:order-2' : ''}>
+                <div className={`flex flex-col justify-center ${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
                   <span className={`inline-flex items-center gap-2 rounded-full bg-gradient-to-r ${a.tile} px-4 py-1.5 text-sm font-medium text-white`}>
                     <IconTile icon={SectionIcon} className="h-4 w-4" tileClassName="bg-white/20 text-white p-1.5" />
                     {title}
@@ -665,28 +667,37 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                       frosted panel holding the 秋彦 brand mark + the Qtech
                       wordmark with a gentle IoT subtitle. Sized to match the
                       text column (h-full + items-stretch on the grid). */
-                  <div
-                    className={`relative flex min-h-[280px] items-center justify-center overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-br from-slate-800 via-slate-900 to-cyan-950 p-8 shadow-2xl shadow-black/20 ring-1 ring-inset ring-cyan-300/20 ${idx % 2 === 1 ? 'lg:order-1' : ''} h-full`}
-                  >
-                    {/* Soft top glow so the nameplate reads like polished metal/glass. */}
-                    <div
-                      className="pointer-events-none absolute -top-16 start-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-cyan-400/20 blur-3xl"
-                      aria-hidden="true"
-                    />
-                    <div className="relative flex flex-col items-center text-center">
-                      {/* Brand logo mark — refined rounded tile with the 秋彦 logotype. */}
-                      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-500 shadow-lg shadow-cyan-500/30">
-                        <span className="text-xl font-bold text-white">秋彦</span>
+                  <div className={`flex items-center ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
+                    <div className="relative flex h-full w-full min-h-[320px] flex-col items-center justify-center overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-slate-800 via-slate-900 to-cyan-950 p-8 shadow-2xl shadow-black/30">
+                      {/* Top inner highlight so it reads like polished metal/glass. */}
+                      <div
+                        className="pointer-events-none absolute inset-x-0 top-0 h-1/2 rounded-t-[32px] bg-gradient-to-b from-white/10 to-transparent"
+                        aria-hidden="true"
+                      />
+                      {/* Soft glow orb behind the mark. */}
+                      <div
+                        className="pointer-events-none absolute -top-16 start-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-cyan-400/25 blur-3xl"
+                        aria-hidden="true"
+                      />
+                      {/* Decorative sparkle divider line */}
+                      <div className="relative mb-5 flex items-center gap-2 text-cyan-300/70" aria-hidden="true">
+                        <span className="h-px w-8 bg-gradient-to-r from-transparent to-cyan-400/60" />
+                        <Sparkles className="h-4 w-4" strokeWidth={1.5} />
+                        <span className="h-px w-8 bg-gradient-to-l from-transparent to-cyan-400/60" />
+                      </div>
+                      {/* Brand logo mark — 秋彦 ball (sky-blue gradient). */}
+                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-400 to-blue-500 shadow-lg shadow-cyan-500/30">
+                        <span className="text-lg font-bold text-white">秋彦</span>
                       </div>
                       {/* Wordmark */}
-                      <div className="mt-5 text-4xl font-bold tracking-tight text-white">Qtech</div>
+                      <div className="mt-5 text-3xl font-bold tracking-[0.2em] text-white">QTECH</div>
                       {/* Subtitle */}
-                      <div className="mt-2 text-sm uppercase tracking-[0.3em] text-cyan-300/80">
-                        Smart Vending · IoT
+                      <div className="mt-1 text-xs uppercase tracking-[0.3em] text-cyan-400/80">
+                        SMART VENDING · IOT
                       </div>
                       {/* Decorative divider line */}
                       <div
-                        className="mt-4 h-px w-40 bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent"
+                        className="mt-5 h-px w-40 bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent"
                         aria-hidden="true"
                       />
                     </div>
@@ -723,27 +734,51 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           </h2>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {COMPANY_ADVANTAGES.map((a, i) => {
-            const Icon = a.icon;
-            const ac = ACCENTS[i % ACCENTS.length];
-            return (
-              <RevealOnScroll key={localeOr(a.title)} delay={i * 80} className="h-full">
-                <div className={`glass-surface group relative h-full overflow-hidden border-s-4 ${ac.border}`}>
-                  <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${ac.tile} flow-bar`} aria-hidden="true" />
-                  <div className="p-6">
-                    <IconTile
-                      icon={Icon}
-                      className="h-9 w-9"
-                      tileClassName={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${ac.tile} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 icon-pulse ${ac.glow}`}
-                    />
-                    <h3 className="mt-5 text-xl font-bold text-ink-900">{localeOr(a.title)}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-ink-600">{localeOr(a.desc)}</p>
-                  </div>
-                </div>
-              </RevealOnScroll>
-            );
-          })}
+        {/* V48.1 R7: left/right alternating horizontal rows (zebra). Pairs of
+            cards sit side-by-side (odd = icon left, even = icon right); the
+            trailing 7th card is centred so no awkward blank cells remain. */}
+        <div className="mt-12 space-y-6">
+          {(() => {
+            const items = COMPANY_ADVANTAGES;
+            const rows: (typeof COMPANY_ADVANTAGES)[] = [];
+            for (let i = 0; i < items.length; i += 2) rows.push(items.slice(i, i + 2));
+            return rows.map((row, ri) => (
+              <div
+                key={ri}
+                className={`grid grid-cols-1 gap-6 lg:grid-cols-2 ${row.length === 1 ? 'lg:grid-cols-1' : ''}`}
+              >
+                {row.map((a, ci) => {
+                  const idx = ri * 2 + ci;
+                  const Icon = a.icon;
+                  const ac = ACCENTS[idx % ACCENTS.length];
+                  const reversed = ci === 1;
+                  const single = row.length === 1;
+                  return (
+                    <RevealOnScroll
+                      key={localeOr(a.title)}
+                      delay={idx * 80}
+                      className={single ? 'mx-auto w-full max-w-lg' : 'h-full'}
+                    >
+                      <div className={`glass-surface group relative h-full overflow-hidden border-s-4 ${ac.border}`}>
+                        <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${ac.tile} flow-bar`} aria-hidden="true" />
+                        <div className={`flex h-full items-center gap-5 p-6 ${reversed ? 'lg:flex-row-reverse lg:text-right' : ''}`}>
+                          <IconTile
+                            icon={Icon}
+                            className="h-9 w-9 shrink-0"
+                            tileClassName={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${ac.tile} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 icon-pulse ${ac.glow}`}
+                          />
+                          <div className={reversed ? 'lg:text-right' : ''}>
+                            <h3 className="text-xl font-bold text-ink-900">{localeOr(a.title)}</h3>
+                            <p className="mt-2 text-sm leading-relaxed text-ink-600">{localeOr(a.desc)}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </RevealOnScroll>
+                  );
+                })}
+              </div>
+            ));
+          })()}
         </div>
       </RevealOnScroll>
 

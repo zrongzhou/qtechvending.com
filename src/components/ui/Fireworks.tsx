@@ -9,8 +9,9 @@ export interface FireworksProps {
   className?: string;
 }
 
-// Brand palette: gold, cyan, teal, sky, blue, white.
-const COLORS = ['#FBBF24', '#22D3EE', '#2DD4BF', '#38BDF8', '#0EA5E9', '#FFFFFF'];
+// Brand palette — vivid, saturated tones chosen to stay visible against the
+// light product-page background. No pure white (would vanish on the pale bg).
+const COLORS = ['#22D3EE', '#0EA5E9', '#38BDF8', '#2DD4BF', '#FBBF24', '#A855F7', '#F472B6'];
 
 interface Particle {
   tx: number;
@@ -40,8 +41,8 @@ function generateBursts(count: number): Burst[] {
   for (let b = 0; b < count; b += 1) {
     const left = 6 + Math.random() * 88; // 6–94 %
     const top = 10 + Math.random() * 62; // 10–72 %
-    const radius = 32 + Math.random() * 48; // 32–80 px burst radius
-    const n = 12 + Math.floor(Math.random() * 9); // 12–20 particles
+    const radius = 40 + Math.random() * 80; // 40–120 px burst radius
+    const n = 14 + Math.floor(Math.random() * 9); // 14–22 particles
     const baseColor = COLORS[Math.floor(Math.random() * COLORS.length)];
     const particles: Particle[] = [];
     for (let i = 0; i < n; i += 1) {
@@ -52,14 +53,14 @@ function generateBursts(count: number): Burst[] {
         ty: Math.sin(ang) * r,
         // Mostly the base colour, occasionally a contrasting brand pop.
         color: Math.random() > 0.25 ? baseColor : COLORS[Math.floor(Math.random() * COLORS.length)],
-        size: 3 + Math.random() * 3,
+        size: 3 + Math.random() * 3.5,
       });
     }
     arr.push({
       left,
       top,
-      coreDelay: b * (1.4 + Math.random() * 1.6),
-      cycle: 7 + Math.random() * 5, // 7–12s repeating cycle
+      coreDelay: b * (1.0 + Math.random() * 1.3),
+      cycle: 5 + Math.random() * 4, // 5–9s repeating cycle (frequent pops)
       particles,
     });
   }

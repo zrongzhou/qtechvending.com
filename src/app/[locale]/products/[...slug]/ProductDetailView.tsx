@@ -192,7 +192,7 @@ export default function ProductDetailView({
   return (
     <div className="relative min-h-screen overflow-hidden bg-glass-light-cold">
       {/* V47: cold-tone fireworks backdrop behind the product detail content. */}
-      <Fireworks count={10} />
+      <Fireworks count={12} />
 
       {/* Soft colour blooms so the glass tabs/cards have something to refract.
           V44: unified to the ice-blue crystal palette (cyan / sky). */}

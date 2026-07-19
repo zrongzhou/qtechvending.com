@@ -11,13 +11,13 @@ const GALLERY = Array.from(
 );
 
 /**
- * CaseGallerySection (V48, R6) — a cinematic "screen" player for the customer
- * installation photos. A large 16:9 stage cross-fades between images every 5s;
- * a horizontal thumbnail strip below lets users jump to any photo (the active
- * one is highlighted); on-screen left/right arrows provide manual control; and a
- * semi-transparent info bar overlays the current image title. A click opens the
- * original hand-built lightbox. All copy is i18n-driven; the layout is fully
- * responsive (the stage simply shrinks on mobile).
+ * CaseGallerySection (V48.1, R7) — a full-width cinematic "screen" player for
+ * the customer installation photos. The main stage spans the full available
+ * width at a strict 16:9 and uses object-cover so images fill and crop with no
+ * white/black borders; a uniform thumbnail strip (fixed height, equal aspect,
+ * active ring) lets users jump to any photo; on-screen left/right arrows and a
+ * semi-transparent info bar overlay the stage. A click opens the original
+ * hand-built lightbox. All copy is trilingual; layout is fully responsive.
  */
 export default function CaseGallerySection() {
   const { t, locale } = useLocale();
@@ -57,8 +57,8 @@ export default function CaseGallerySection() {
   }, [open]);
 
   return (
-    <section className="container-qtech py-16 lg:py-24">
-      <div className="mx-auto max-w-2xl text-center">
+    <section className="w-full py-16 lg:py-24">
+      <div className="mx-auto max-w-2xl px-4 text-center sm:px-6">
         <p className="text-sm font-semibold uppercase tracking-wide text-cyan-700">
           {locale === 'zh' ? '客户现场' : locale === 'ar' ? 'مواقع العملاء' : 'In the Field'}
         </p>
@@ -67,9 +67,9 @@ export default function CaseGallerySection() {
         </h2>
       </div>
 
-      {/* Screen / main stage */}
-      <div className="mt-12 overflow-hidden rounded-3xl border border-white/60 bg-white/60 shadow-2xl shadow-brand-500/10 ring-1 ring-black/5 backdrop-blur-md">
-        <div className="relative aspect-[16/9] w-full bg-slate-100">
+      {/* Screen / main stage — full width, strict 16:9, images fill & crop. */}
+      <div className="mx-auto mt-10 w-full max-w-6xl px-4 sm:px-6">
+        <div className="relative aspect-video w-full overflow-hidden rounded-3xl border border-white/60 bg-slate-900/5 shadow-2xl shadow-brand-500/10 ring-1 ring-black/5">
           {GALLERY.map((src, i) => (
             <button
               key={src}
@@ -88,17 +88,17 @@ export default function CaseGallerySection() {
                 src={src}
                 alt={`${altPrefix}${i + 1}`}
                 loading={i === 0 ? 'eager' : 'lazy'}
-                className="h-full w-full object-contain p-2"
+                className="absolute inset-0 h-full w-full object-cover"
               />
             </button>
           ))}
 
-          {/* Left / right arrows */}
+          {/* Left / right arrows — absolute, vertically centred, glassy. */}
           <button
             type="button"
             onClick={() => go(-1)}
             aria-label={t('product.prev') || 'Previous'}
-            className="absolute start-3 top-1/2 z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/70 text-ink-800 shadow-md backdrop-blur transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rtl:-scale-x-100"
+            className="absolute start-3 top-1/2 z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white shadow-md backdrop-blur transition hover:bg-white/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rtl:-scale-x-100"
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
@@ -106,13 +106,13 @@ export default function CaseGallerySection() {
             type="button"
             onClick={() => go(1)}
             aria-label={t('product.next') || 'Next'}
-            className="absolute end-3 top-1/2 z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/70 text-ink-800 shadow-md backdrop-blur transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rtl:-scale-x-100"
+            className="absolute end-3 top-1/2 z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white shadow-md backdrop-blur transition hover:bg-white/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rtl:-scale-x-100"
           >
             <ChevronRight className="h-6 w-6" />
           </button>
 
-          {/* Info bar overlay */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 bg-gradient-to-t from-ink-900/80 via-ink-900/35 to-transparent p-5 text-start rtl:text-end">
+          {/* Info bar overlay — semi-transparent dark, floating on the stage. */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 bg-black/40 p-5 text-start rtl:text-end">
             <p className="text-sm font-semibold text-white">
               {viewLabel} {active + 1}
             </p>
@@ -123,8 +123,8 @@ export default function CaseGallerySection() {
           </div>
         </div>
 
-        {/* Thumbnail strip */}
-        <div className="no-scrollbar flex gap-3 overflow-x-auto border-t border-slate-100 bg-white/50 p-3">
+        {/* Thumbnail strip — fixed height, uniform aspect, active ring. */}
+        <div className="no-scrollbar mt-4 flex gap-3 overflow-x-auto pb-1">
           {GALLERY.map((src, i) => (
             <button
               key={src}
@@ -132,10 +132,10 @@ export default function CaseGallerySection() {
               onClick={() => jump(i)}
               aria-label={`${altPrefix}${i + 1}`}
               aria-current={i === active}
-              className={`relative h-16 w-24 shrink-0 overflow-hidden rounded-lg ring-2 transition ${
+              className={`relative h-20 w-28 shrink-0 overflow-hidden rounded-lg sm:h-24 sm:w-32 ${
                 i === active
-                  ? 'ring-cyan-500 shadow-md'
-                  : 'opacity-70 ring-transparent hover:opacity-100'
+                  ? 'ring-2 ring-cyan-500'
+                  : 'ring-1 ring-black/10 opacity-70 hover:opacity-100'
               }`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}

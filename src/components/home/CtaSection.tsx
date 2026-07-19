@@ -7,15 +7,19 @@ import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
 
 /**
- * Closing call-to-action (V48, R8): "日照金山 / Golden Mountain at Sunrise".
+ * Closing call-to-action (V48.1, R2): "日照金山 / Golden Mountain at Sunrise".
  *
- * A full-bleed dramatic scene: a pale warm sky glows at the top, a band of
- * gold/orange sunlight lights the mountain ridges in the middle, and a deep
- * indigo/plum mountain silhouette anchors the bottom. A slow light beam sweeps
- * from the top-right, golden dust motes drift upward, and an SVG mountain range
- * gives the scene a real silhouette. The content floats on the scene in white /
- * gold. All motion is pure CSS (see globals.css `.cta-sunrise*`) and is disabled
- * under prefers-reduced-motion.
+ * Layered composition, back-to-front:
+ *   0  — sunrise scene: sky gradient + multi-layer mountain ridges (far misty
+ *        violet → near deep-indigo with a gold sunrise rim) + a 45° light beam
+ *        sweeping from the top-right + golden dust motes drifting up.
+ *   1  — frosted glass overlay (.cta-sunrise__glass) so the band keeps the
+ *        premium "glass aquarium" feel the user loved, while the vivid scene
+ *        still glows through.
+ *   2  — centred content: title / subtitle / gold-bordered button / trust row.
+ *
+ * All motion is pure CSS (see globals.css `.cta-sunrise*`) and is disabled
+ * under prefers-reduced-motion. Copy is trilingual via i18n.
  */
 export default function CtaSection() {
   const { t, locale } = useLocale();
@@ -33,43 +37,68 @@ export default function CtaSection() {
   };
   const DUST = Array.from({ length: 30 }, (_, i) => ({
     left: rand(i) * 100,
-    bottom: rand(i + 300) * 30,
+    bottom: rand(i + 300) * 35,
     size: 2 + rand(i + 50) * 5, // 2px ~ 7px
     dur: 7 + rand(i + 100) * 9, // 7s ~ 16s
     delay: rand(i + 150) * 9,
-    dx: (rand(i + 200) - 0.5) * 60,
+    dx: (rand(i + 200) - 0.5) * 70,
   }));
 
   return (
-    // Full-bleed so the golden-mountain scene spans the whole viewport width.
-    <RevealOnScroll as="section" className="relative w-full">
-      <div className="cta-sunrise relative min-h-[560px] w-full overflow-hidden py-20 md:py-28">
+    <RevealOnScroll as="section" className="relative w-full overflow-hidden rounded-none">
+      <div className="cta-sunrise relative min-h-[480px] w-full overflow-hidden py-16 md:py-24">
         {/* Warm sky glow pooling at the top. */}
         <div className="cta-sunrise__sky" aria-hidden="true" />
-        {/* Sweeping light beam from the top-right. */}
+        {/* Sweeping light beam from the top-right (45°). */}
         <div className="cta-sunrise__beam" aria-hidden="true" />
 
-        {/* Mountain silhouette (SVG) pinned to the base. */}
+        {/* Multi-layer mountain silhouette (SVG) — far misty ridges in back,
+            near dark indigo peaks in front, each lit with a gold sunrise rim. */}
         <svg
           className="cta-sunrise__mountain"
           viewBox="0 0 1440 320"
           preserveAspectRatio="none"
           aria-hidden="true"
         >
+          {/* Far ridge — misty violet/blue, softest. */}
           <path
-            d="M0,320 L0,210 L160,120 L300,200 L470,90 L640,190 L820,70 L1000,180 L1180,110 L1320,200 L1440,140 L1440,320 Z"
-            fill="#1e1b4b"
+            d="M0,320 L0,150 L200,95 L400,140 L600,80 L800,135 L1000,75 L1200,140 L1440,100 L1440,320 Z"
+            fill="url(#ctaFar)"
+          />
+          {/* Mid ridge — indigo, a touch darker. */}
+          <path
+            d="M0,320 L0,205 L250,155 L450,195 L650,135 L850,185 L1050,125 L1250,185 L1440,155 L1440,320 Z"
+            fill="url(#ctaMid)"
+          />
+          {/* Near ridge — deep indigo, with a sunlit gold rim along the tops. */}
+          <path
+            d="M0,320 L0,255 L300,205 L500,245 L700,185 L900,235 L1100,195 L1300,245 L1440,215 L1440,320 Z"
+            fill="url(#ctaNear)"
           />
           <path
-            d="M0,210 L160,120 L300,200 L470,90 L640,190 L820,70 L1000,180 L1180,110 L1320,200 L1440,140"
+            d="M0,255 L300,205 L500,245 L700,185 L900,235 L1100,195 L1300,245 L1440,215"
             fill="none"
-            stroke="rgba(253,230,138,0.55)"
+            stroke="rgba(253,224,138,0.7)"
             strokeWidth="2"
           />
+          <defs>
+            <linearGradient id="ctaFar" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#a78bfa" stopOpacity="0.55" />
+              <stop offset="100%" stopColor="#6366f1" stopOpacity="0.35" />
+            </linearGradient>
+            <linearGradient id="ctaMid" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#4f46e5" stopOpacity="0.7" />
+              <stop offset="100%" stopColor="#3730a3" stopOpacity="0.7" />
+            </linearGradient>
+            <linearGradient id="ctaNear" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#312e81" stopOpacity="0.95" />
+              <stop offset="100%" stopColor="#1e1b4b" stopOpacity="1" />
+            </linearGradient>
+          </defs>
         </svg>
 
-        {/* Golden dust motes. */}
-        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        {/* Golden dust motes drifting upward (above the glass layer). */}
+        <div className="pointer-events-none absolute inset-0 z-[2] overflow-hidden" aria-hidden="true">
           {DUST.map((d, i) => (
             <span
               key={i}
@@ -89,9 +118,12 @@ export default function CtaSection() {
           ))}
         </div>
 
-        {/* Content */}
-        <div className="relative z-10 flex min-h-[560px] items-center justify-center p-3 sm:p-5">
-          <div className="mx-auto flex w-full max-w-4xl flex-col items-center text-center">
+        {/* Frosted glass overlay — the "glass aquarium" layer. */}
+        <div className="cta-sunrise__glass" aria-hidden="true" />
+
+        {/* Content — sits above the glass, centred in a frosted panel. */}
+        <div className="relative z-10 flex min-h-[480px] items-center justify-center p-4 sm:p-6">
+          <div className="cta-sunrise__panel mx-auto flex w-full max-w-4xl flex-col items-center rounded-[28px] border border-white/15 bg-white/[0.07] px-6 py-12 text-center backdrop-blur-xl shadow-2xl shadow-black/30 sm:px-10">
             <div className="inline-flex items-center gap-2 rounded-full border border-amber-200/50 bg-white/10 px-5 py-2 text-sm font-medium text-amber-50 ring-1 ring-white/20 backdrop-blur-sm">
               <IconTile
                 icon={Sparkles}
@@ -115,7 +147,7 @@ export default function CtaSection() {
 
             <Link
               href={`/${locale}/contact`}
-              className="group mt-10 inline-flex items-center justify-center gap-2 rounded-full border-2 border-amber-300/80 px-8 py-3.5 text-base font-semibold text-amber-50 transition-colors duration-300 hover:bg-amber-400/90 hover:text-amber-950 active:scale-[0.97]"
+              className="group mt-10 inline-flex items-center justify-center gap-2 rounded-full border-2 border-amber-400 px-8 py-3.5 text-base font-semibold text-amber-400 transition-all duration-300 hover:bg-amber-400 hover:text-black active:scale-[0.97]"
             >
               {ctaButton}
               <ArrowRight
