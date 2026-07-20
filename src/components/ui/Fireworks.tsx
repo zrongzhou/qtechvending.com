@@ -9,9 +9,8 @@ export interface FireworksProps {
   className?: string;
 }
 
-// V48.8: Vivid saturated palette ONLY — colors chosen for maximum visibility
-// on light/white backgrounds. No pale/cyan/blue that blends with page bg.
-const COLORS = ['#FACC15', '#F97316', '#EF4444', '#22D3EE', '#A855F7', '#EC4899', '#FBBF24'];
+// V49: Soft pastel-cyan palette — decorative, not blinding.
+const COLORS = ['#22D3EE', '#0EA5E9', '#38BDF8', '#2DD4BF', '#FBBF24', '#A855F7'];
 
 interface Particle {
   tx: number;
@@ -39,34 +38,34 @@ interface Burst {
 function generateBursts(count: number): Burst[] {
   const arr: Burst[] = [];
   for (let b = 0; b < count; b += 1) {
-    const left = 8 + Math.random() * 84; // 8–92 % (keep away from edges)
-    const top = 8 + Math.random() * 65; // 8–73 %
-    const radius = 120 + Math.random() * 180; // 120–300 px (V48.8: wider spread)
-    const n = 16 + Math.floor(Math.random() * 10); // 16–25 particles (fewer but bigger)
+    const left = 10 + Math.random() * 80; // 10–90 %
+    const top = 10 + Math.random() * 60; // 10–70 %
+    const radius = 50 + Math.random() * 80; // 50–130 px (V49: modest spread)
+    const n = 10 + Math.floor(Math.random() * 8); // 10–17 particles (fewer, smaller)
     const baseColor = COLORS[Math.floor(Math.random() * COLORS.length)];
     const particles: Particle[] = [];
     for (let i = 0; i < n; i += 1) {
       const ang = (Math.PI * 2 * i) / n + Math.random() * 0.5;
-      const r = radius * (0.4 + Math.random() * 0.6);
+      const r = radius * (0.35 + Math.random() * 0.55);
       particles.push({
         tx: Math.cos(ang) * r,
         ty: Math.sin(ang) * r,
         color: Math.random() > 0.3 ? baseColor : COLORS[Math.floor(Math.random() * COLORS.length)],
-        size: 32 + Math.random() * 20, // V48.8: 32-52px (was 20-34px)
+        size: 6 + Math.random() * 9, // V49: 6-15px (was 32-52px!)
       });
     }
     arr.push({
       left,
       top,
-      coreDelay: b * (0.6 + Math.random() * 1.0), // wider stagger
-      cycle: 7 + Math.random() * 3, // V48.8: 7-10s (slower = longer visible)
+      coreDelay: b * (0.8 + Math.random() * 1.2),
+      cycle: 4 + Math.random() * 2, // V49: 4-6s (faster cycles = less intrusive)
       particles,
     });
   }
   return arr;
 }
 
-export default function Fireworks({ count = 10, className = '' }: FireworksProps) {
+export default function Fireworks({ count = 5, className = '' }: FireworksProps) {
   // V47.1: bursts are generated after mount (not during render) so the
   // server-rendered HTML and the client's first render both output an empty
   // container — no hydration mismatch. The random fireworks appear right

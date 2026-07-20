@@ -35,7 +35,6 @@ import { localized } from '@/lib/localize';
 import CountUp from '@/components/ui/CountUp';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
-import IceCrystals from '@/components/ui/IceCrystals';
 import type { Locale } from '@/lib/i18n';
 import CaseGallerySection from '@/components/home/CaseGallerySection';
 
@@ -538,13 +537,26 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
 
       {/* ══════════════════ 1. HERO (glacier world · V48 R4) ══════════════════ */}
       <section className="relative isolate overflow-hidden bg-gradient-to-b from-cyan-100 via-sky-50 to-blue-200">
-        {/* Glacier light pools — cool, icy atmosphere. */}
-        <div className="pointer-events-none absolute -start-24 top-10 h-72 w-72 rounded-full bg-cyan-300/40 blur-3xl" aria-hidden="true" />
-        <div className="pointer-events-none absolute end-0 top-1/3 h-80 w-80 rounded-full bg-sky-300/40 blur-3xl" aria-hidden="true" />
-        <div className="pointer-events-none absolute bottom-0 start-1/3 h-72 w-72 rounded-full bg-blue-200/40 blur-3xl" aria-hidden="true" />
-
-        {/* Falling ice crystals (pure CSS, no canvas) — V48 R4. */}
-        <IceCrystals count={60} className="z-10 pointer-events-none" />
+        {/* V49: Glacier scene — ambient ice environment (NOT falling shards).
+            Pure CSS aurora + ice facets + light rays + frost mist. */}
+        <div className="glacier-scene" aria-hidden="true">
+          <div className="glacier__aurora-2" />
+          <div className="glacier__ray" />
+          <div className="glacier__ray" />
+          <div className="glacier__mist" />
+          {/* Frost sparkles — positioned via inline style */}
+          {Array.from({ length: 20 }, (_, i) => (
+            <span
+              key={`gs-${i}`}
+              className="glacier__sparkle"
+              style={{
+                left: `${(Math.sin(i * 13.7) * 0.5 + 0.5) * 100}%`,
+                top: `${(Math.cos(i * 17.3) * 0.5 + 0.5) * 85}%`,
+                opacity: 0.4 + (i % 3) * 0.2,
+              }}
+            />
+          ))}
+        </div>
 
         <div className="container-qtech relative py-24 text-center lg:py-32">
           <span className="inline-flex items-center rounded-full bg-cyan-50 px-4 py-1.5 text-sm font-medium text-cyan-700 ring-1 ring-cyan-200">
@@ -584,12 +596,22 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
       </section>
 
       {/* ══════════════════ 2. ABOUT US (以匠心 text + 公司外观图) ══════════════════
-          Left: 以匠心 copy + CTA. Right: 公司外观实景图 (company-building.jpg). */}
+          Left: 公司外观实景图. Right: 以匠心 copy + CTA. (V49: image moved to left per user request) */}
       <section className="container-qtech py-16 lg:py-24">
         <RevealOnScroll className="grid grid-cols-1 items-stretch gap-12 lg:gap-16 lg:grid-cols-2">
-          {/* Left: 以匠心 copy */}
+          {/* Left: company building photo */}
+          <div className="relative min-h-[320px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100 lg:min-h-[360px]">
+            <Image
+              src="/images/about/company-building.jpg"
+              alt={t('about.aboutTitle')}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+          </div>
+          {/* Right: 以匠心 copy + CTA */}
           <div className="flex flex-col justify-center">
-            <span className="inline-flex items-center rounded-full bg-cyan-50 px-4 py-1.5 text-sm font-medium text-cyan-700 ring-1 ring-cyan-200">
+            <span className="inline-flex items-center gap-2 border-l-2 border-cyan-500 pl-3 text-xs font-semibold uppercase tracking-widest text-cyan-600">
               {t('about.aboutTitle')}
             </span>
             <h2 className="mt-4 text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl">
@@ -612,16 +634,6 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             >
               {locale === 'zh' ? '获取报价' : locale === 'ar' ? 'اطلب عرض سعر' : 'Get a Quote'} →
             </Link>
-          </div>
-          {/* Right: company building photo */}
-          <div className="relative min-h-[320px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100 lg:min-h-[360px]">
-            <Image
-              src="/images/about/company-building.jpg"
-              alt={t('about.aboutTitle')}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
           </div>
         </RevealOnScroll>
       </section>
@@ -660,18 +672,20 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                   </div>
                 </div>
                 {section.key === 'capability' ? (
-                  /* 词牌：我们的业务专属品牌展示 */
+                  /* 词牌：V49 modern light glass style (not dark metal) */
                   <div className={`flex items-center justify-center ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
-                    <div className="relative flex h-full w-full min-h-[280px] flex-col items-center justify-center overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-slate-800 via-slate-900 to-cyan-950 p-8 shadow-2xl shadow-black/30">
-                      <div className="pointer-events-none absolute -top-16 start-1/2 h-44 w-44 -translate-x-1/2 rounded-full bg-cyan-400/25 blur-3xl" />
-                      <div className="pointer-events-none absolute inset-2 rounded-[26px] border border-white/10" />
-                      <div className="flex flex-col items-center text-center">
-                        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 shadow-lg shadow-cyan-500/40">
-                          <span className="text-xl font-bold text-white">秋彦</span>
+                    <div className="relative flex h-full w-full min-h-[280px] flex-col items-center justify-center overflow-hidden rounded-3xl border border-white/30 bg-gradient-to-br from-cyan-50 via-sky-50 to-white/80 p-10 shadow-xl backdrop-blur-sm">
+                      {/* Subtle ambient glow */}
+                      <div className="pointer-events-none absolute -top-12 start-1/2 h-36 w-36 -translate-x-1/2 rounded-full bg-cyan-300/20 blur-3xl" />
+                      <div className="pointer-events-none absolute inset-0 rounded-3xl border border-white/40" />
+                      <div className="flex flex-col items-center text-center relative z-10">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 shadow-md shadow-cyan-400/30">
+                          <span className="text-base font-bold text-white">秋彦</span>
                         </div>
-                        <div className="mt-5 text-4xl font-bold tracking-[0.2em] text-white">QTECH</div>
-                        <div className="mt-1 text-xs uppercase tracking-[0.3em] text-cyan-400/80">SMART VENDING · IOT</div>
-                        <div className="mt-5 h-px w-40 bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent" />
+                        <div className="mt-4 text-3xl font-bold tracking-wide text-slate-800">QTECH</div>
+                        <div className="mt-0.5 text-[10px] uppercase tracking-[0.25em] text-cyan-600/70 font-medium">Smart Vending · IoT</div>
+                        {/* Minimalist divider */}
+                        <div className="mt-4 h-px w-24 bg-gradient-to-r from-transparent via-cyan-300/40 to-transparent" />
                       </div>
                     </div>
                   </div>
@@ -698,7 +712,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           content (see COMPANY_ADVANTAGES) plus the section heading via i18n. */}
       <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
         <div className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-cyan-50 px-4 py-1.5 text-sm font-medium text-cyan-700 ring-1 ring-cyan-200">
+          <span className="inline-flex items-center gap-2 border-l-2 border-cyan-500 pl-3 text-xs font-semibold uppercase tracking-widest text-cyan-600">
             <IconTile icon={Sparkles} className="h-4 w-4" tileClassName="bg-gradient-to-br from-cyan-500 to-teal-500 text-white p-1.5" />
             {t('about.advantages.eyebrow')}
           </span>
@@ -719,9 +733,9 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               <RevealOnScroll
                 key={localeOr(a.title)}
                 delay={idx * 80}
-                className={`h-full ${isLast ? 'sm:col-span-2 mx-auto max-w-2xl' : ''}`}
+                className={`h-full ${isLast ? 'sm:col-span-2 lg:col-span-2' : ''}`}
               >
-                <div className={`glass-surface group relative h-full overflow-hidden border-s-4 ${ac.border}`}>
+                <div className={`glass-surface group relative h-full overflow-hidden border-s-4 ${ac.border} ${isLast ? 'max-w-xl mx-auto' : ''}`}>
                   <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${ac.tile} flow-bar`} aria-hidden="true" />
                   <div className={`flex h-full items-center gap-5 p-6 ${reversed ? 'lg:flex-row-reverse lg:text-right' : ''}`}>
                     <IconTile

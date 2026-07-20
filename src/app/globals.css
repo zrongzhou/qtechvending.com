@@ -891,37 +891,43 @@ input[type='number']::-webkit-inner-spin-button {
 .cta-aqua {
   position: relative;
   overflow: hidden;
-  /* Mid-depth seawater: cyan-900/80 → teal-800/70 → cyan-900/80. Clearly
-     coloured but transparent, so the scene reads as lit water, not a void. */
-  background: linear-gradient(180deg, rgba(22, 78, 99, 0.80) 0%, rgba(17, 94, 89, 0.70) 50%, rgba(22, 78, 99, 0.80) 100%);
+  /* V49: Lighter, more transparent seawater for crystal-glass feel.
+     Was 0.80/0.70 opacity (too dark). Now 0.48/0.38 = see-through luminous water. */
+  background: linear-gradient(180deg,
+    rgba(15, 82, 106, 0.48) 0%,
+    rgba(10, 72, 84, 0.38) 40%,
+    rgba(22, 78, 99, 0.45) 70%,
+    rgba(17, 94, 89, 0.42) 100%);
 }
 
-/* Top-down sunlight piercing the surface (cool white → transparent). */
+/* Top-down sunlight piercing the surface — BRIGHTER for crystalline look. */
 .cta-aqua__sun {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(to bottom, rgba(34, 211, 238, 0.22) 0%, rgba(45, 212, 191, 0.06) 35%, transparent 65%);
+  /* V49: doubled intensity */
+  background: linear-gradient(to bottom, rgba(34, 211, 238, 0.38) 0%, rgba(45, 212, 191, 0.14) 35%, transparent 65%);
 }
-/* Central aquarium lighting highlight (the "lamp" overhead). */
+/* Central aquarium lighting highlight — STRONGER glow center. */
 .cta-aqua__lamp {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(ellipse at center, rgba(34, 211, 238, 0.18), transparent 70%);
+  /* V49: brighter core */
+  background: radial-gradient(ellipse at center, rgba(34, 211, 238, 0.28), transparent 70%);
 }
 
-/* Bright, clearly-visible god rays — cool white/cyan light beams. */
+/* Bright, clearly-visible god rays — V49: stronger for crystal-glass look. */
 .cta-godray {
   position: absolute;
   top: -25%;
   height: 150%;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.55), rgba(103, 232, 249, 0.20) 45%, transparent 75%);
-  filter: blur(26px);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.72), rgba(103, 232, 249, 0.32) 45%, transparent 75%);
+  filter: blur(22px);  /* V49: slightly tighter = more defined beam */
   transform-origin: top center;
   mix-blend-mode: screen;
   pointer-events: none;
-  opacity: 0.72;
+  opacity: 0.85;   /* V49: was 0.72 */
   will-change: transform, opacity;
 }
 .cta-godray--1 { left: 8%;  width: 120px; transform: rotate(12deg); animation: ctaGodraySway 15s ease-in-out infinite; }
@@ -1028,17 +1034,17 @@ input[type='number']::-webkit-inner-spin-button {
   .portal-ring--2 { transform: translateX(-50%) !important; }
 }
 
-/* ============ V48.8: Fireworks — NUCLEAR VISIBILITY (9th attempt) ============
-   V48→V48.7 ALL invisible. Complete rewrite with "cannot possibly miss" strategy:
-     - Core 180px pure white→gold flash with EXTREME glow (visible on any bg)
-     - Particles 32-50px, vivid saturated colors ONLY (gold/coral/cyan/magenta)
-     - z-index 15 (was 20 — was rendering ON TOP of content, hiding behind cards)
-     - Cycle 7.5s with 75% visible window
-     - Fewer bursts (10) but each is a SHOWSTOPPER */
+/* ============ V49: Fireworks — DECORATIVE SPARKLES (10th attempt) ============
+   V48.8's 180px core + EXTREME glow BLOCKED all product content (user screenshot
+   proof). Complete rewrite with "subtle decoration" strategy:
+     - Core 50px modest warm flash (not blinding)
+     - Particles 6-14px soft pastel glow (not vivid saturated)
+     - z-index 0 (BEHIND all content, visible only in card gaps)
+     - 4-5s cycle, 4-6 bursts, short visible window (sparkle then fade) */
 .fireworks {
   position: absolute;
   inset: 0;
-  z-index: 15;   /* V48.8: was z-20. Lower so it renders BEHIND cards but visible in gaps */
+  z-index: 0;    /* V49: BEHIND content — never block anything */
   pointer-events: none;
   overflow: hidden;
 }
@@ -1047,75 +1053,65 @@ input[type='number']::-webkit-inner-spin-button {
   width: 0;
   height: 0;
 }
-/* V48.8: Core — BLAZING WHITE-GOLD FLASH. 180px. */
+/* V49: Core — small warm sparkle. 50px. Brief flash then fade. */
 .firework__core {
   position: absolute;
   left: 0;
   top: 0;
-  width: 180px;
-  height: 180px;
-  margin: -90px 0 0 -90px;
+  width: 50px;
+  height: 50px;
+  margin: -25px 0 0 -25px;
   border-radius: 9999px;
   background: radial-gradient(circle,
-    #ffffff 0%, #fffde7 4%, #fef08a 10%, #facc15 20%,
-    rgba(250, 204, 21, 0.85) 35%, rgba(251, 146, 60, 0.6) 55%, transparent 80%);
+    #ffffff 0%, #fef9c3 8%, #fde68a 22%,
+    rgba(252, 211, 77, 0.6) 40%, transparent 70%);
   box-shadow:
-    0 0 0 12px rgba(255,255,255,1),
-    0 0 40px 20px rgba(255,255,255,0.95),
-    0 0 100px 50px rgba(254,240,138,0.8),
-    0 0 180px 80px rgba(250,204,21,0.55),
-    0 0 280px 120px rgba(251,146,60,0.25);
+    0 0 0 3px rgba(255,255,255,0.9),
+    0 0 16px 6px rgba(254,240,138,0.6),
+    0 0 36px 12px rgba(250,204,21,0.25);
   opacity: 0;
-  animation: firework-core-v488 7.5s ease-out infinite;
+  animation: firework-core-v49 5s ease-out infinite;
 }
-/* V48.8: Particles — LARGE (32-50px), vivid saturated, extreme bloom. */
+/* V49: Particles — SMALL (6-14px), soft glow, quick fade. */
 .firework__particle {
   position: absolute;
   left: 0;
   top: 0;
-  min-width: 32px;
-  min-height: 32px;
+  min-width: 6px;
+  min-height: 6px;
   border-radius: 9999px;
-  background: var(--c, #facc15);
+  background: var(--c, #22d3ee);
   box-shadow:
-    0 0 0 4px color-mix(in srgb, var(--c,#facc15) 80%, white),
-    0 0 24px 10px var(--c,#facc15),
-    0 0 56px 22px color-mix(in srgb, var(--c,#facc15) 65%, transparent),
-    0 0 100px 44px color-mix(in srgb, var(--c,#facc15) 35%, transparent);
+    0 0 0 2px color-mix(in srgb, var(--c,#22d3ee) 70%, white),
+    0 0 10px 4px color-mix(in srgb, var(--c,#22d3ee) 50%, transparent),
+    0 0 22px 8px color-mix(in srgb, var(--c,#22d3ee) 25%, transparent);
   opacity: 0;
-  transform: translate(0,0) scale(1);
-  animation-name: firework-burst-v488;
+  transform: translate(0, 0) scale(1);
+  animation-name: firework-burst-v49;
   animation-timing-function: cubic-bezier(0.18, 0.7, 0.3, 1);
   animation-iteration-count: infinite;
 }
-@keyframes firework-core-v488 {
+@keyframes firework-core-v49 {
   0%   { transform: scale(0); opacity: 0; }
-  1%   { transform: scale(0.3); opacity: 1; }
-  5%   { transform: scale(0.8); opacity: 1; }
-  15%  { transform: scale(1.6); opacity: 0.95; }
-  30%  { transform: scale(2.6); opacity: 0.8; }
-  50%  { transform: scale(3.4); opacity: 0.5; }
-  70%  { transform: scale(4.0); opacity: 0.15; }
-  85%  { transform: scale(4.2); opacity: 0; }
-  100% { transform: scale(4.2); opacity: 0; }
+  2%   { transform: scale(0.4); opacity: 1; }
+  8%   { transform: scale(1.0); opacity: 0.9; }
+  20%  { transform: scale(1.8); opacity: 0.5; }
+  40%  { transform: scale(2.6); opacity: 0.15; }
+  55%  { transform: scale(3.0); opacity: 0; }
+  100% { transform: scale(3.0); opacity: 0; }
 }
-@keyframes firework-burst-v488 {
+@keyframes firework-burst-v49 {
   0%   { transform: translate(0,0) scale(1); opacity: 0; }
-  1%   { transform: translate(0,0) scale(1); opacity: 1; }
-  10%  { transform: translate(calc(var(--tx,0)*0.12),calc(var(--ty,0)*0.12)) scale(0.95); opacity: 1; }
-  28%  { transform: translate(calc(var(--tx,0)*0.35),calc(var(--ty,0)*0.35)) scale(0.88); opacity: 0.92; }
-  48%  { transform: translate(calc(var(--tx,0)*0.62),calc(var(--ty,0)*0.62)) scale(0.75); opacity: 0.75; }
-  68%  { transform: translate(calc(var(--tx,0)*0.86),calc(var(--ty,0)*0.86)) scale(0.58); opacity: 0.45; }
-  85%  { transform: translate(var(--tx,0),var(--ty,0)) scale(0.45); opacity: 0.1; }
-  100% { transform: translate(var(--tx,0),var(--ty,0)) scale(0.45); opacity: 0; }
+  2%   { transform: translate(0,0) scale(1); opacity: 0.9; }
+  15%  { transform: translate(calc(var(--tx,0)*0.15),calc(var(--ty,0)*0.15)) scale(0.88); opacity: 0.75; }
+  35%  { transform: translate(calc(var(--tx,0)*0.40),calc(var(--ty,0)*0.40)) scale(0.72); opacity: 0.5; }
+  55%  { transform: translate(calc(var(--tx,0)*0.72),calc(var(--ty,0)*0.72)) scale(0.55); opacity: 0.2; }
+  75%  { transform: translate(var(--tx,0),var(--ty,0)) scale(0.40); opacity: 0; }
+  100% { transform: translate(var(--tx,0),var(--ty,0)) scale(0.40); opacity: 0; }
 }
-/* V36.1 brand policy: fireworks are ambient/brand motion and KEEP running
-   under prefers-reduced-motion (do NOT hide). The previous `display:none`
-   guard was the root cause of "fireworks never appear" reports — many OSes /
-   test environments enable reduced-motion by default, which silenced them
-   entirely. They are decorative + non-essential-reading, so they stay on. */
+/* V49: brand ambient motion — keep running under reduced-motion. */
 @media (prefers-reduced-motion: reduce) {
-  .fireworks { opacity: 0.85; }
+  .fireworks { opacity: 0.7; }
 }
 
 /* ============================================================================
@@ -1221,80 +1217,138 @@ input[type='number']::-webkit-inner-spin-button {
     0 0 24px 8px rgba(255, 255, 255, 0.15);
 }
 
-/* ---- V48.8: Glacier Ice Crystals — "CANNOT POSSIBLY MISS" Rewrite ----
-   V48→V48.7 ALL invisible. Complete redesign with extreme visibility:
-     - Body: BRIGHT ice-blue/white (NOT dark navy — was camouflaging on some bgs)
-     - Size: 80-160px (was 50-90px) — each crystal is HUGE
-     - Border: 4px pure WHITE (was 2.5px cyan)
-     - Outer glow: MASSIVE white halo that reads from across the room
-     - Speed: 20-42s fall (slower = more time to see them)
-     - Inner sparkle: larger, brighter
-     - Visible on ANY background color */
-@keyframes iceFall-v488 {
-  0% {
-    transform: translateY(-15%) rotate(45deg);
-    opacity: 0;
-  }
-  2% { opacity: var(--ice-op, 1); }   /* near-instant fade in */
-  92% { opacity: var(--ice-op, 0.95); } /* stay visible for 90% of animation! */
-  100% {
-    transform: translateY(120vh) translateX(var(--ice-dx, 30px)) rotate(405deg);
-    opacity: 0;
-  }
-}
-/* V48.9: High-contrast ice crystal — DEEP navy→indigo→blue body with a
-   BLAZING cyan border + white sparkle. The hero background is a light
-   cyan/sky/blue gradient, so a light-coloured crystal would camouflage; a
-   saturated dark body is what actually reads against it. (V48.8's pale
-   ice-blue-on-light was the reason it stayed invisible.) */
-.ice-crystal {
+/* ============ V49: Glacier Scene — Ambient Ice Environment ============
+   User explicitly said "冰川主题场景，不是下冰晶" — wants a GLACIER ATMOSPHERE
+   (environment background), NOT falling diamond shards.
+   Pure CSS: aurora bands + ice facet texture + light refraction + frost mist.
+   No JS component needed — all ambient, zero motion interference. */
+
+.glacier-scene {
   position: absolute;
-  top: -15%;
-  width: var(--ice-size, 100px);
-  height: var(--ice-size, 100px);
-  /* Deep, saturated icy body — maximum contrast on the light hero bg. */
-  background: linear-gradient(135deg,
-    #0f172a 0%,    /* slate-950 */
-    #1e3a5f 25%,   /* deep navy */
-    #312e81 50%,   /* indigo-900 */
-    #1e40af 75%,   /* blue-800 */
-    #1e3a8a 100%   /* blue-900 */
-  );
-  border: 3.5px solid rgba(34, 211, 238, 1);  /* bright cyan edge */
-  border-radius: 6px;
-  box-shadow:
-    /* Blazing inner refraction */
-    inset 0 0 24px 6px rgba(255, 255, 255, 0.85),
-    inset 0 0 40px 12px rgba(165, 243, 252, 0.6),
-    /* EXTREME outer glow — visible from a mile away */
-    0 0 0 2px rgba(255, 255, 255, 0.8),
-    0 0 32px 10px rgba(165, 243, 252, 1),
-    0 0 64px 22px rgba(56, 189, 248, 0.8),
-    0 0 110px 44px rgba(14, 165, 233, 0.5),
-    0 0 180px 70px rgba(103, 232, 249, 0.25);
-  transform: rotate(45deg);
-  opacity: 0;
-  pointer-events:none;
-  animation: iceFall-v488 var(--ice-dur, 28s) linear infinite; /* V48.8: much slower default */
-  will-change: transform, opacity;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
 }
-/* V48.8: Massive specular highlight — the "diamond flash" effect. */
-.ice-crystal::after {
+
+/* Layer 1: Aurora borealis bands — slow colour shift across the sky. */
+.glacier-scene::before {
   content: '';
   position: absolute;
-  top: 12%;
-  left: 18%;
-  width: 50%;    /* V48.8: bigger */
-  height: 40%;   /* V48.8: taller */
-  background: radial-gradient(ellipse,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 0.95) 20%,
-    rgba(165, 243, 252, 0.8) 45%,
-    transparent 75%
+  inset: 0;
+  background:
+    linear-gradient(125deg,
+      transparent 0%,
+      rgba(103, 232, 249, 0.08) 20%,
+      rgba(165, 243, 252, 0.12) 35%,
+      rgba(34, 211, 238, 0.06) 50%,
+      rgba(167, 139, 250, 0.10) 65%,
+      rgba(196, 181, 253, 0.07) 80%,
+      transparent 100%);
+  animation: glacierAurora 18s ease-in-out infinite alternate;
+}
+@keyframes glacierAurora {
+  0%   { opacity: 0.6; transform: translateX(-3%) skewX(-2deg); }
+  100% { opacity: 1; transform: translateX(3%) skewX(2deg); }
+}
+
+/* Layer 2: Ice facet texture — subtle geometric "cracked ice" overlay
+   using repeating-conic-gradient to simulate frozen surface facets. */
+.glacier-scene::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.045;
+  background:
+    repeating-conic-gradient(
+      from 45deg at 20% 30%,
+      rgba(255,255,255,0.3) 0deg 90deg,
+      transparent 90deg 180deg
+    ),
+    repeating-conic-gradient(
+      from -30deg at 70% 60%,
+      rgba(34,211,238,0.15) 0deg 120deg,
+      transparent 120deg 240deg
+    );
+  mix-blend-mode: overlay;
+}
+
+/* --- Child layers (rendered via React spans inside .glacier-scene) --- */
+
+/* Aurora band 2 — slower, offset phase */
+.glacier__aurora-2 {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    200deg,
+    transparent 0%,
+    rgba(56, 189, 248, 0.06) 25%,
+    rgba(14, 165, 233, 0.10) 50%,
+    rgba(139, 92, 246, 0.07) 75%,
+    transparent 100%
   );
+  animation: glacierAurora2 22s ease-in-out infinite alternate;
+}
+@keyframes glacierAurora2 {
+  0%   { opacity: 0.5; transform: translateY(-2%) rotate(-0.5deg); }
+  100% { opacity: 0.9; transform: translateY(2%) rotate(0.5deg); }
+}
+
+/* Light refraction ray — diagonal beam through ice */
+.glacier__ray {
+  position: absolute;
+  width: 200%;
+  height: 1px;
+  left: -50%;
+  top: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.03) 20%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(165, 243, 252, 0.05) 80%,
+    transparent 100%
+  );
+  transform: rotate(25deg);
+  animation: glacierRay 15s ease-in-out infinite alternate;
+}
+.glacier__ray:nth-child(even) {
+  top: 65%;
+  transform: rotate(-18deg);
+  animation-duration: 19s;
+  animation-delay: -7s;
+}
+@keyframes glacierRay {
+  0%   { opacity: 0.3; transform: rotate(25deg) translateX(-2%); }
+  100% { opacity: 0.8; transform: rotate(28deg) translateX(2%); }
+}
+
+/* Frost mist — soft blur circles at the bottom (ice fog) */
+.glacier__mist {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background:
+    radial-gradient(ellipse 50% 100% at 20% 100%, rgba(186,230,253,0.15), transparent 70%),
+    radial-gradient(ellipse 40% 100% at 75% 100%, rgba(165,243,252,0.12), transparent 65%),
+    radial-gradient(ellipse 60% 80% at 50% 100%, rgba(224,242,254,0.10), transparent 60%);
+  filter: blur(24px);
+  animation: glacierMist 12s ease-in-out infinite alternate;
+}
+@keyframes glacierMist {
+  0%   { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* Static frost sparkles — tiny bright dots scattered across the scene */
+.glacier__sparkle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
   border-radius: 50%;
-  filter: blur(0.8px); /* V48.8: sharper = more intense sparkle */
-  pointer-events: none;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 4px 1px rgba(165, 243, 252, 0.5);
 }
 
 /* Half-translucent "ice glass" surface for the glacier stat cards. */

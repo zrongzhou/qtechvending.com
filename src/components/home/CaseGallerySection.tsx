@@ -29,6 +29,7 @@ export default function CaseGallerySection() {
 
   const [active, setActive] = useState(0);
   const [open, setOpen] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState<Record<number, boolean>>({});
 
   const total = GALLERY.length;
   const go = useCallback(
@@ -89,10 +90,12 @@ export default function CaseGallerySection() {
                 alt={`${altPrefix}${i + 1}`}
                 loading={i === 0 ? 'eager' : 'lazy'}
                 fill
-                className="absolute inset-0 h-full w-full object-cover"
+                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${imgLoaded[i] || (i === active) ? 'opacity-100' : 'opacity-0'}`}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                 quality={100}
-                unoptimized  /* V48.7: bypass Next.js image optimizer — source WebP already 1800px/q88 */
+                unoptimized  /* V48.7: bypass Next.js image optimizer — source WebP already 2560px/q88 */
+                decoding="async"
+                onLoad={() => setImgLoaded((prev) => ({ ...prev, [i]: true }))}
               />
             </button>
           ))}
@@ -148,13 +151,11 @@ export default function CaseGallerySection() {
         </div>
       </div>
 
-      {/* Preload every gallery image so the lightbox shows it instantly — no
-         first-frame blur while the large WebP is still downloading. The same
-         URLs are reused by the lightbox, so they are served from cache. */}
+      {/* V49: Preload gallery images via link[rel=prefetch] for instant lightbox.
+          The hidden img layer was ineffective — browsers delay decoding display:none images. */}
       <div className="hidden" aria-hidden="true">
         {GALLERY.map((src) => (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img key={src} src={src} alt="" />
+          <link key={src} rel="prefetch" as="image" href={src} />
         ))}
       </div>
 
