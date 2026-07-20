@@ -81,9 +81,8 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-glass-light-cold">
-      {/* V49: subtle sparkle backdrop — z-index 0 (behind cards), small
-          decorative bursts that don't block any content. */}
-      <Fireworks count={5} />
+      {/* V49.2: visible firework decoration — vivid colors, real explosion trails. */}
+      <Fireworks count={8} />
 
       {/* Soft, luminous colour blooms so the white glass cards have colour to
           refract — the crystal effect comes from light passing through glass.

@@ -544,15 +544,17 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           <div className="glacier__ray" />
           <div className="glacier__ray" />
           <div className="glacier__mist" />
-          {/* Frost sparkles — positioned via inline style */}
-          {Array.from({ length: 20 }, (_, i) => (
+          {/* Frost sparkles — V49.2: larger, brighter, more visible */}
+          {Array.from({ length: 32 }, (_, i) => (
             <span
               key={`gs-${i}`}
               className="glacier__sparkle"
               style={{
                 left: `${(Math.sin(i * 13.7) * 0.5 + 0.5) * 100}%`,
-                top: `${(Math.cos(i * 17.3) * 0.5 + 0.5) * 85}%`,
-                opacity: 0.4 + (i % 3) * 0.2,
+                top: `${(Math.cos(i * 17.3) * 0.5 + 0.5) * 90}%`,
+                opacity: 0.6 + (i % 3) * 0.25,
+                width: `${4 + (i % 4)}px`,
+                height: `${4 + (i % 4)}px`,
               }}
             />
           ))}
@@ -656,8 +658,9 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                 className="grid grid-cols-1 items-stretch gap-12 lg:gap-16 lg:grid-cols-2"
               >
                 <div className={`flex flex-col justify-center ${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
-                  <span className={`inline-flex items-center gap-2 rounded-full bg-gradient-to-r ${a.tile} px-4 py-1.5 text-sm font-medium text-white`}>
-                    <IconTile icon={SectionIcon} className="h-4 w-4" tileClassName="bg-white/20 text-white p-1.5" />
+                  {/* V49.2: Modern left-border label (not full-width pill) */}
+                  <span className={`inline-flex items-center gap-2 border-l-2 ${a.border === 'border-cyan-400' ? 'border-cyan-500' : a.border} pl-3 text-xs font-semibold uppercase tracking-widest ${a.text}`}>
+                    <IconTile icon={SectionIcon} className="h-4 w-4" tileClassName={`bg-gradient-to-br ${a.tile} text-white p-1.5`} />
                     {title}
                   </span>
                   <h2 className="mt-4 text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl">{title}</h2>
@@ -672,20 +675,21 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                   </div>
                 </div>
                 {section.key === 'capability' ? (
-                  /* 词牌：V49 modern light glass style (not dark metal) */
+                  /* 词牌：V49.2 compact modern glass card (less whitespace) */
                   <div className={`flex items-center justify-center ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
-                    <div className="relative flex h-full w-full min-h-[280px] flex-col items-center justify-center overflow-hidden rounded-3xl border border-white/30 bg-gradient-to-br from-cyan-50 via-sky-50 to-white/80 p-10 shadow-xl backdrop-blur-sm">
-                      {/* Subtle ambient glow */}
-                      <div className="pointer-events-none absolute -top-12 start-1/2 h-36 w-36 -translate-x-1/2 rounded-full bg-cyan-300/20 blur-3xl" />
-                      <div className="pointer-events-none absolute inset-0 rounded-3xl border border-white/40" />
+                    <div className="relative flex h-full w-full min-h-[220px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-white/40 bg-gradient-to-br from-white/80 via-cyan-50/60 to-sky-50/50 p-6 shadow-lg backdrop-blur-md sm:p-8">
+                      {/* Ambient glow */}
+                      <div className="pointer-events-none absolute -top-8 start-1/2 h-28 w-28 -translate-x-1/2 rounded-full bg-cyan-300/25 blur-3xl" />
+                      {/* Subtle inner border */}
+                      <div className="pointer-events-none absolute inset-0 rounded-2xl border border-white/50" />
                       <div className="flex flex-col items-center text-center relative z-10">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 shadow-md shadow-cyan-400/30">
-                          <span className="text-base font-bold text-white">秋彦</span>
+                        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 shadow-md shadow-cyan-400/30">
+                          <span className="text-sm font-bold text-white">秋彦</span>
                         </div>
-                        <div className="mt-4 text-3xl font-bold tracking-wide text-slate-800">QTECH</div>
-                        <div className="mt-0.5 text-[10px] uppercase tracking-[0.25em] text-cyan-600/70 font-medium">Smart Vending · IoT</div>
+                        <div className="mt-3 text-2xl font-bold tracking-wide text-slate-800">QTECH</div>
+                        <div className="mt-0.5 text-[9px] uppercase tracking-[0.25em] text-cyan-600/75 font-medium">Smart Vending · IoT</div>
                         {/* Minimalist divider */}
-                        <div className="mt-4 h-px w-24 bg-gradient-to-r from-transparent via-cyan-300/40 to-transparent" />
+                        <div className="mt-3 h-px w-20 bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent" />
                       </div>
                     </div>
                   </div>
@@ -735,7 +739,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                 delay={idx * 80}
                 className={`h-full ${isLast ? 'sm:col-span-2 lg:col-span-2' : ''}`}
               >
-                <div className={`glass-surface group relative h-full overflow-hidden border-s-4 ${ac.border} ${isLast ? 'max-w-xl mx-auto' : ''}`}>
+                <div className={`glass-surface group relative h-full overflow-hidden border-s-4 ${ac.border}${isLast ? '' : ''}`}>
                   <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${ac.tile} flow-bar`} aria-hidden="true" />
                   <div className={`flex h-full items-center gap-5 p-6 ${reversed ? 'lg:flex-row-reverse lg:text-right' : ''}`}>
                     <IconTile

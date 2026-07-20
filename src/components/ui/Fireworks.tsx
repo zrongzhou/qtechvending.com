@@ -9,8 +9,9 @@ export interface FireworksProps {
   className?: string;
 }
 
-// V49: Soft pastel-cyan palette — decorative, not blinding.
-const COLORS = ['#22D3EE', '#0EA5E9', '#38BDF8', '#2DD4BF', '#FBBF24', '#A855F7'];
+// V49.2: REAL firework palette — gold, red, green, white, orange, magenta.
+// NOT pastel cyan (that's why they didn't look like fireworks).
+const COLORS = ['#FFD700', '#FF4444', '#00FF88', '#FFFFFF', '#FF8C00', '#FF00FF', '#FFE135', '#00E5FF'];
 
 interface Particle {
   tx: number;
@@ -38,27 +39,27 @@ interface Burst {
 function generateBursts(count: number): Burst[] {
   const arr: Burst[] = [];
   for (let b = 0; b < count; b += 1) {
-    const left = 10 + Math.random() * 80; // 10–90 %
-    const top = 10 + Math.random() * 60; // 10–70 %
-    const radius = 50 + Math.random() * 80; // 50–130 px (V49: modest spread)
-    const n = 10 + Math.floor(Math.random() * 8); // 10–17 particles (fewer, smaller)
+    const left = 8 + Math.random() * 84; // 8–92 %
+    const top = 8 + Math.random() * 55; // 8–63 % (upper area, like real sky)
+    const radius = 90 + Math.random() * 140; // 90–230 px (REAL spread)
+    const n = 14 + Math.floor(Math.random() * 12); // 14–25 particles (dense burst)
     const baseColor = COLORS[Math.floor(Math.random() * COLORS.length)];
     const particles: Particle[] = [];
     for (let i = 0; i < n; i += 1) {
-      const ang = (Math.PI * 2 * i) / n + Math.random() * 0.5;
-      const r = radius * (0.35 + Math.random() * 0.55);
+      const ang = (Math.PI * 2 * i) / n + Math.random() * 0.4;
+      const r = radius * (0.45 + Math.random() * 0.60);
       particles.push({
         tx: Math.cos(ang) * r,
-        ty: Math.sin(ang) * r,
-        color: Math.random() > 0.3 ? baseColor : COLORS[Math.floor(Math.random() * COLORS.length)],
-        size: 6 + Math.random() * 9, // V49: 6-15px (was 32-52px!)
+        ty: Math.sin(ang) * r - radius * 0.15, // slight upward bias like real fireworks
+        color: Math.random() > 0.25 ? baseColor : COLORS[Math.floor(Math.random() * COLORS.length)],
+        size: 10 + Math.random() * 16, // V49.2: 10-26px (visible particles)
       });
     }
     arr.push({
       left,
       top,
-      coreDelay: b * (0.8 + Math.random() * 1.2),
-      cycle: 4 + Math.random() * 2, // V49: 4-6s (faster cycles = less intrusive)
+      coreDelay: b * (1.0 + Math.random() * 1.5),
+      cycle: 5 + Math.random() * 2.5, // V49.2: 5-7.5s cycles
       particles,
     });
   }

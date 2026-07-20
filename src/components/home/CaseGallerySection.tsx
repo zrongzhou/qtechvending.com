@@ -92,9 +92,10 @@ export default function CaseGallerySection() {
                 fill
                 className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${imgLoaded[i] || (i === active) ? 'opacity-100' : 'opacity-0'}`}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                quality={100}
-                unoptimized  /* V48.7: bypass Next.js image optimizer — source WebP already 2560px/q88 */
+                quality={95}
+                unoptimized
                 decoding="async"
+                priority={i === 0 || i === 1}  /* V49.2: preload first 2 images for instant sharp render */
                 onLoad={() => setImgLoaded((prev) => ({ ...prev, [i]: true }))}
               />
             </button>
