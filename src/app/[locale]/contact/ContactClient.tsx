@@ -121,7 +121,7 @@ export default function ContactClient({
   }
 
   const inputCls =
-    'w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100';
+    'w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-2.5 text-sm outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-100';
 
   const infoRow = (Icon: LucideIcon, label: string, value: string) => (
     <li className="flex items-start gap-3">
@@ -134,6 +134,7 @@ export default function ContactClient({
   );
 
   return (
+    <div className="bg-gradient-to-br from-sky-50/40 via-white to-teal-50/20">
     <div className="container-qtech py-12 lg:py-16">
       <RevealOnScroll>
         <header className="mb-8 text-center">
@@ -147,7 +148,7 @@ export default function ContactClient({
 
       <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
         <RevealOnScroll className="h-full">
-          <form onSubmit={onSubmit} className="relative h-full space-y-5 overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-soft sm:p-8">
+          <form onSubmit={onSubmit} className="relative h-full space-y-5 overflow-hidden rounded-3xl border border-slate-200 bg-white/90 p-8 shadow-lg shadow-cyan-500/5 backdrop-blur-md sm:p-10">
             <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-cyan-400 to-teal-600" />
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
@@ -212,7 +213,7 @@ export default function ContactClient({
             <button
               type="submit"
               disabled={status === 'submitting'}
-              className="btn-primary w-full px-7 py-3 text-sm disabled:opacity-60"
+              className="btn-primary w-full px-7 py-3 text-sm shadow-lg shadow-teal-500/25 transition hover:-translate-y-0.5 hover:shadow-xl disabled:opacity-60"
             >
               {status === 'submitting' ? t('contact.submitting') : t('contact.submit')}
             </button>
@@ -222,7 +223,7 @@ export default function ContactClient({
         <RevealOnScroll delay={120} className="h-full">
           <aside className="space-y-6">
             {/* Contact info card */}
-            <div className="pro-card relative overflow-hidden p-6">
+            <div className="pro-card relative overflow-hidden bg-gradient-to-br from-white to-cyan-50/30 p-6">
               <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-cyan-400 to-teal-600" />
               <h2 className="text-lg font-semibold text-ink-900">{t('contact.info')}</h2>
               <ul className="mt-4 space-y-4 text-sm">
@@ -258,7 +259,7 @@ export default function ContactClient({
             </div>
 
             {/* Social media */}
-            <div className="pro-card relative overflow-hidden p-6">
+            <div className="pro-card relative overflow-hidden bg-gradient-to-br from-white to-cyan-50/30 p-6">
               <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-cyan-400 to-teal-600" />
               <h3 className="text-sm font-semibold uppercase tracking-wide text-ink-500">
                 {t('contact.connectWithUs')}
@@ -297,6 +298,7 @@ export default function ContactClient({
           </aside>
         </RevealOnScroll>
       </div>
+    </div>
     </div>
   );
 }

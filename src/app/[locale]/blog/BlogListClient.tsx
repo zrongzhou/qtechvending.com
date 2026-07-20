@@ -53,7 +53,7 @@ export default function BlogListClient({ initial }: { initial: Paginated<BlogPos
   const { data, totalPages } = result;
 
   return (
-    <div className="container-qtech bg-brand-50 py-12 lg:py-16">
+    <div className="container-qtech bg-gradient-to-b from-sky-50/80 via-white to-cyan-50/40 py-12 lg:py-16">
       <RevealOnScroll>
         <header className="mb-10 flex flex-col gap-5 border-b border-slate-100 pb-8 sm:flex-row sm:items-end sm:justify-between">
         <div>
@@ -69,10 +69,11 @@ export default function BlogListClient({ initial }: { initial: Paginated<BlogPos
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t('products.searchPlaceholder')}
-            className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
+            className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-200"
           />
         </div>
         </header>
+        <div className="mt-0 h-px w-full bg-gradient-to-r from-transparent via-cyan-200 to-transparent" />
       </RevealOnScroll>
 
       {data.length === 0 ? (

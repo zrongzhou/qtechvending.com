@@ -21,6 +21,8 @@ interface Particle {
   c: string;
   /** Diameter of the spark head (px). */
   size: number;
+  /** Travel angle (deg) — used to orient the streak along its flight path. */
+  ang: number;
   /** Small per-particle delay jitter (s) so the ring doesn't move as one disc. */
   pd: number;
 }
@@ -55,29 +57,33 @@ function generateBursts(count: number): Burst[] {
     const left = 8 + Math.random() * 84; // 8–92 %
     const top = 8 + Math.random() * 52; // 8–60 % (upper sky)
     const baseColor = COLORS[Math.floor(Math.random() * COLORS.length)];
-    const n = 22 + Math.floor(Math.random() * 12); // 22–33 sparks (dense but lean)
-    const radius = 80 + Math.random() * 130; // 80–210 px real spread
+    // V49.7: fewer, larger, more deliberate sparks — a real explosion, not a
+    // powder puff. 12–18 head sparks per burst (was 22–33), with strong size
+    // variance (3–14px) and a larger angular jitter so the ring reads organic.
+    const n = 12 + Math.floor(Math.random() * 7); // 12–18 sparks
+    const radius = 90 + Math.random() * 140; // 90–230 px real spread
     const particles: Particle[] = [];
     for (let i = 0; i < n; i += 1) {
-      // Even angular distribution + a little jitter so it isn't a perfect ring.
-      const ang = (Math.PI * 2 * i) / n + (Math.random() - 0.5) * 0.3;
-      const r = radius * (0.55 + Math.random() * 0.5); // varied depth
+      // Even angular distribution + LARGER jitter so it isn't a perfect ring.
+      const ang = (Math.PI * 2 * i) / n + (Math.random() - 0.5) * 0.8;
+      const r = radius * (0.5 + Math.random() * 0.6); // varied depth
       const dx = Math.cos(ang) * r;
-      const dy = Math.sin(ang) * r - radius * 0.18; // slight upward bias
-      const c = Math.random() > 0.32 ? baseColor : '#FFFFFF';
+      const dy = Math.sin(ang) * r - radius * 0.22; // stronger upward bias
+      const c = Math.random() > 0.25 ? baseColor : '#FFFFFF';
       particles.push({
         dx: +dx.toFixed(1),
         dy: +dy.toFixed(1),
         c,
-        size: +(3.5 + Math.random() * 4).toFixed(1), // 3.5–7.5px head
-        pd: +(Math.random() * 0.25).toFixed(2),
+        size: +(3 + Math.random() * 11).toFixed(1), // 3–14px head (real variance)
+        ang: +((ang * 180) / Math.PI).toFixed(1), // travel angle in deg
+        pd: +(Math.random() * 0.3).toFixed(2),
       });
     }
     arr.push({
       left,
       top,
       color: baseColor,
-      coreSize: +(34 + Math.random() * 16).toFixed(1), // 34–50px flash
+      coreSize: +(24 + Math.random() * 14).toFixed(1), // 24–38px flash (tighter)
       particles,
       cycle: +(4.5 + Math.random() * 2.5).toFixed(2), // 4.5–7s cycle
       delay: +(b * (1.0 + Math.random() * 1.5)).toFixed(2),
@@ -123,6 +129,7 @@ export default function Fireworks({ count = 5, className = '' }: FireworksProps)
                   '--size': `${p.size}px`,
                   '--dx': `${p.dx}px`,
                   '--dy': `${p.dy}px`,
+                  '--ang': `${p.ang}deg`,
                   '--cycle': `${burst.cycle}s`,
                   animationDelay: `${burst.delay + p.pd}s`,
                 } as React.CSSProperties

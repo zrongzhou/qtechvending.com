@@ -32,6 +32,8 @@ export interface ImageWithRetryProps {
   onClick?: () => void;
   /** Optional drag handler toggle. */
   draggable?: boolean;
+  /** Next.js <Image> quality (1-100). Bypass the default 75 for crisp product shots. */
+  quality?: number;
 }
 
 type Status = 'loading' | 'ready' | 'retrying' | 'failed';
@@ -63,6 +65,7 @@ export default function ImageWithRetry({
   style,
   onClick,
   draggable = true,
+  quality,
 }: ImageWithRetryProps) {
   const [displaySrc, setDisplaySrc] = useState<string>(src);
   const [status, setStatus] = useState<Status>('loading');
@@ -158,6 +161,7 @@ export default function ImageWithRetry({
         priority={fetchPriority === 'high'}
         fetchPriority={fetchPriority}
         unoptimized={isRetrying}
+        quality={quality}
         draggable={draggable}
         onClick={onClick}
         onLoad={() => setStatus('ready')}

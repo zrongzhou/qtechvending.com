@@ -114,13 +114,14 @@ export default function SolutionsGrid() {
           })}
         </div>
 
-        {/* Closing CTA band */}
-        <RevealOnScroll className="mt-16 overflow-hidden rounded-3xl bg-brand-50 px-8 py-14 text-center">
+        {/* Closing CTA band — V49.7: richer gradient + depth so it reads as a
+            premium call-to-action, not a flat pastel block. */}
+        <RevealOnScroll className="mt-16 overflow-hidden rounded-3xl bg-gradient-to-br from-cyan-50 via-sky-50 to-teal-50 px-8 py-14 text-center shadow-lg shadow-cyan-500/10 ring-1 ring-cyan-100/80">
           <h2 className="text-2xl font-bold text-ink-900 sm:text-3xl">{t('solutions.ctaTitle')}</h2>
           <p className="mx-auto mt-3 max-w-2xl text-ink-600">{t('solutions.ctaSubtitle')}</p>
           <Link
             href={`/${locale}/contact`}
-            className="btn-primary mt-8"
+            className="btn-primary mt-8 transition-transform duration-300 hover:-translate-y-0.5"
           >
             {t('solutions.ctaButton')}
           </Link>

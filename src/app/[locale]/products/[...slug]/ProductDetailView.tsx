@@ -237,11 +237,11 @@ export default function ProductDetailView({
         <div className="grid gap-10 lg:grid-cols-2">
           {/* Gallery — sticky on desktop so the main image stays in view while scrolling specs/description */}
           <div className="lg:sticky lg:top-24 lg:self-start">
-            <OceanGlassCard ripple surface="glass" depth="lg" hoverLift={false} rippleRings={3} ripplePointer rippleColor="rgba(56,189,248,0.28)" className="relative overflow-hidden p-2 sm:p-3">
+            <OceanGlassCard ripple surface="glass" depth="lg" hoverLift={false} rippleRings={3} ripplePointer rippleColor="rgba(56,189,248,0.28)" className="relative overflow-hidden rounded-[24px] p-2.5 sm:p-3 shadow-[0_24px_60px_-18px_rgba(2,6,23,0.30)] ring-1 ring-white/60">
               {/* Ocean top accent bar — card memory point */}
               <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-ocean-400 to-brand-600" aria-hidden="true" />
               <div
-                className="relative aspect-[4/3] cursor-zoom-in overflow-hidden rounded-xl bg-slate-100"
+                className="relative aspect-[4/3] cursor-zoom-in overflow-hidden rounded-[20px] bg-slate-100"
                 style={{
                   WebkitMaskImage: 'linear-gradient(to bottom, #000 80%, transparent)',
                   maskImage: 'linear-gradient(to bottom, #000 80%, transparent)',
@@ -257,7 +257,8 @@ export default function ProductDetailView({
                   }
                 }}
               >
-                <ImageWithRetry src={activeImage} alt={name} loading="eager" fetchPriority="high" className="h-full w-full object-cover" />
+                {/* V49.7: quality=100 + sharp edges so the product shot stays crisp. */}
+                <ImageWithRetry src={activeImage} alt={name} loading="eager" fetchPriority="high" quality={100} className="h-full w-full object-cover" />
               </div>
             {images.length > 1 && (
               <div className="mt-4 flex flex-wrap gap-3">
@@ -272,7 +273,7 @@ export default function ProductDetailView({
                     aria-label={name}
                     aria-pressed={activeImage === img}
                     className={`group relative h-20 w-20 overflow-hidden rounded-xl border-2 transition duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white active:scale-95 ${
-                      activeImage === img ? 'border-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.4)]' : 'border-slate-200 hover:border-cyan-400 hover:shadow-sm'
+                      activeImage === img ? 'border-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.4)] scale-[1.04]' : 'border-slate-200 hover:border-cyan-400 hover:shadow-sm'
                     }`}
                   >
                     <span className="absolute inset-0 transition-transform duration-500 group-hover:scale-110">

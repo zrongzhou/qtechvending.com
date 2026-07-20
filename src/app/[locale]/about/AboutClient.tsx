@@ -1148,12 +1148,13 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             );
           })}
 
-          {/* V49.6: pure-CSS birds drifting across the sky — brand-neutral
-              slate silhouettes (not coloured). Hidden under reduced-motion. */}
+          {/* V49.7: birds made clearly visible — larger, deeper slate, slower
+              drift, higher z-index so clouds don't bury them. Hidden under
+              reduced-motion (birds are NOT brand ambient). */}
           {[
-            { top: '14%', size: 22, dur: 19, delay: 0 },
-            { top: '31%', size: 17, dur: 25, delay: -7 },
-            { top: '22%', size: 27, dur: 15, delay: -12 },
+            { top: '14%', size: 44, dur: 38, delay: 0 },
+            { top: '31%', size: 34, dur: 32, delay: -11 },
+            { top: '22%', size: 50, dur: 42, delay: -20 },
           ].map((b, i) => (
             <div
               key={`bird-${i}`}

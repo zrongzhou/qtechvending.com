@@ -27,11 +27,11 @@ export default function FaqAccordion() {
   const visibleCats = active === 'all' ? FAQ_CATEGORIES : FAQ_CATEGORIES.filter((c) => c.id === active);
 
   return (
-    <RevealOnScroll className="bg-brand-50">
+    <RevealOnScroll className="bg-gradient-to-b from-white via-slate-50/50 to-cyan-50/30">
       <div className="container-qtech py-20 md:py-28">
         {/* Header */}
         <div className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-cyan-50 px-4 py-1.5 text-sm font-medium text-cyan-700">
+          <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-sm font-medium text-cyan-700 shadow-sm ring-1 ring-cyan-100 backdrop-blur-sm">
             <IconTile icon={HelpCircle} className="h-4 w-4" tileClassName="" />
             {t('faq.badge')}
           </span>
@@ -81,7 +81,7 @@ export default function FaqAccordion() {
                   return (
                     <RevealOnScroll key={idx} delay={idx * 60} className="h-full">
                     <div
-                      className="pro-card relative overflow-hidden rounded-2xl transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
+                      className="pro-card relative overflow-hidden rounded-2xl border bg-white/80 backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-50/40 hover:shadow-md"
                     >
                       <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
                       <button
