@@ -76,9 +76,12 @@ export default function FilterBar({
   };
 
   return (
-    <OceanGlassCard ripple surface="glass" depth="lg" hoverLift={false} className="relative overflow-hidden p-5">
-      {/* Ocean top accent bar — aligns with the ocean design system */}
-      <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-cyan-500 via-teal-500 to-brand-600" aria-hidden="true" />
+    <OceanGlassCard ripple surface="glass" depth="lg" hoverLift={false} className="relative overflow-visible p-5">
+      {/* Ocean top accent bar — aligns with the ocean design system.
+          NOTE: overflow-visible (not overflow-hidden) so the absolute category
+          dropdown panel is NOT clipped by the card. The bar keeps rounded-t to
+          follow the card's top corners. */}
+      <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-cyan-500 via-teal-500 to-brand-600" aria-hidden="true" />
       <div className="flex flex-col gap-4">
         {/* Search */}
         <div className="relative">

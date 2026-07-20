@@ -48,7 +48,7 @@ export async function PATCH(req: NextRequest) {
   const admin = await requireAdmin(req);
   if (!admin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-  let body: { ids?: number[]; action?: 'read' | 'delete' };
+  let body: { ids?: number[]; action?: 'read' | 'delete' | 'readAll' };
   try {
     body = await req.json();
   } catch {
@@ -57,6 +57,17 @@ export async function PATCH(req: NextRequest) {
 
   const ids = Array.isArray(body.ids) ? body.ids.filter((n) => Number.isInteger(n)) : [];
   const action = body.action;
+
+  // V49.8: "mark all as read" — no ids needed, flips every unread message.
+  if (action === 'readAll') {
+    try {
+      await prisma.contactMessage.updateMany({ where: { isRead: false }, data: { isRead: true } });
+      return NextResponse.json({ success: true });
+    } catch (err) {
+      console.error('[admin/contact-messages] PATCH readAll failed:', err);
+      return serverErrorResponse();
+    }
+  }
 
   if (!ids.length || (action !== 'read' && action !== 'delete')) {
     return badRequestResponse('ids and a valid action (read|delete) are required.');

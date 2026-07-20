@@ -103,6 +103,17 @@ export default function ContactMessagesPage() {
     }
   };
 
+  // V49.8: mark every unread message as read in one action.
+  const markAllRead = async () => {
+    const res = await fetch('/api/admin/contact-messages', {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'readAll' }),
+    });
+    if (res.ok) load(page, filter, search);
+  };
+
   const singleDelete = async (id: number) => {
     if (!confirm(t('admin.deleteConfirm'))) return;
     const res = await fetch(`/api/admin/contact-messages/${id}`, {
@@ -165,6 +176,13 @@ export default function ContactMessagesPage() {
             ))}
           </div>
           <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={markAllRead}
+              className="rounded-md border border-cyan-300 px-3 py-1.5 text-sm font-medium text-cyan-700 transition hover:bg-cyan-50"
+            >
+              {t('admin.markAllRead')}
+            </button>
             <button
               type="button"
               disabled={!selected.size}

@@ -37,6 +37,7 @@ import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
 import type { Locale } from '@/lib/i18n';
 import CaseGallerySection from '@/components/home/CaseGallerySection';
+import FactoryShowcase from '@/components/about/FactoryShowcase';
 
 export interface AboutSection {
   key: string;
@@ -810,6 +811,11 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           })}
         </div>
       </RevealOnScroll>
+
+      {/* ══════════════════ 4b. FACTORY & WORKSHOP SHOWCASE (V49.8) ════════════════
+          Slideshow of real factory / workshop photos, placed directly under the
+          "从研发到交付的全链路品质保障" manufacturing section. */}
+      <FactoryShowcase />
 
       {/* ══════════════════ 5. CORE STRENGTHS (6) ══════════════════
           V44: each card gets a distinct COLOURED LEFT BORDER (per accent) plus

@@ -55,9 +55,9 @@ export default function Logo({
         <defs>
           {/* Tech light-blue sphere gradient */}
           <linearGradient id={sphereId} x1="6" y1="4" x2="44" y2="46" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#22d3ee" />
-            <stop offset="0.5" stopColor="#0ea5e9" />
-            <stop offset="1" stopColor="#3b82f6" />
+            <stop stopColor="#0891B2" />
+            <stop offset="0.5" stopColor="#0E7490" />
+            <stop offset="1" stopColor="#155E75" />
           </linearGradient>
           {/* Soft top sheen for a 3-D sphere feel */}
           <radialGradient id={sheenId} cx="0.35" cy="0.28" r="0.55">

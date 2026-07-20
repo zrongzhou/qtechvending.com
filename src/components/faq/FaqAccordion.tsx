@@ -28,7 +28,13 @@ export default function FaqAccordion() {
 
   return (
     <RevealOnScroll className="bg-gradient-to-b from-white via-slate-50/50 to-cyan-50/30">
-      <div className="container-qtech py-20 md:py-28">
+        <div className="container-qtech relative overflow-hidden py-20 md:py-28">
+        {/* V49.8: decorative colour blooms so the page reads less flat. */}
+        <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+          <div className="absolute -top-20 start-0 h-72 w-72 rounded-full bg-cyan-300/20 blur-3xl" />
+          <div className="absolute top-1/3 end-0 h-80 w-80 rounded-full bg-violet-300/15 blur-3xl" />
+          <div className="absolute bottom-0 start-1/4 h-72 w-72 rounded-full bg-teal-300/20 blur-3xl" />
+        </div>
         {/* Header */}
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-4 py-1.5 text-sm font-medium text-cyan-700 shadow-sm ring-1 ring-cyan-100 backdrop-blur-sm">
