@@ -1,6 +1,7 @@
 'use client';
 
-import { Search, X, ChevronDown, type LucideIcon } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Search, X, ChevronDown, Check, type LucideIcon } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
 import OceanGlassCard from '@/components/ui/OceanGlassCard';
@@ -30,6 +31,50 @@ export default function FilterBar({
   const { t, locale } = useLocale();
   const hasFilters = selected.length > 0 || search.trim().length > 0;
 
+  // Custom category dropdown (replaces the native <select> so the list items
+  // can be styled: comfortable line-height, hover tint, selected marker, a
+  // rounded panel with scroll for long lists).
+  const [catOpen, setCatOpen] = useState(false);
+  const catRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!catOpen) return;
+    const onPointer = (e: MouseEvent) => {
+      if (catRef.current && !catRef.current.contains(e.target as Node)) setCatOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setCatOpen(false);
+    };
+    document.addEventListener('mousedown', onPointer);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onPointer);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [catOpen]);
+
+  const currentSlug = selected[0] ?? '';
+  const allLabel = locale === 'zh' ? '全部品类' : locale === 'ar' ? 'كل الفئات' : 'All Categories';
+  const currentLabel = currentSlug
+    ? (() => {
+        const cat = categories.find((c) => c.slug === currentSlug);
+        return cat ? localized(cat.name, locale) : currentSlug;
+      })()
+    : allLabel;
+
+  // Single-select: replace the current selection (or clear it when re-clicking).
+  const selectCat = (slug: string) => {
+    if (slug === '') {
+      if (selected.length) selected.forEach((s) => onToggleCategory(s));
+    } else if (slug === currentSlug) {
+      onToggleCategory(slug); // toggle off the active one
+    } else {
+      if (currentSlug) onToggleCategory(currentSlug); // drop the old pick
+      onToggleCategory(slug); // add the new one
+    }
+    setCatOpen(false);
+  };
+
   return (
     <OceanGlassCard ripple surface="glass" depth="lg" hoverLift={false} className="relative overflow-hidden p-5">
       {/* Ocean top accent bar — aligns with the ocean design system */}
@@ -52,27 +97,60 @@ export default function FilterBar({
           <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-ink-500">
             {t('products.filterTitle')}
           </label>
-          <div className="relative">
-            <select
-              value={selected[0] ?? ''}
-              onChange={(e) => {
-                const v = e.target.value;
-                // single-select dropdown: replace selection with chosen slug
-                if (v && !selected.includes(v)) onToggleCategory(v);
-                else if (!v && selected.length) selected.forEach((s) => onToggleCategory(s));
-              }}
-              className="w-full appearance-none rounded-lg border border-slate-300 bg-white/70 py-2.5 pe-10 ps-3 text-sm font-medium text-ink-800 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/30"
+          <div className="relative" ref={catRef}>
+            <button
+              type="button"
+              onClick={() => setCatOpen((o) => !o)}
+              aria-haspopup="listbox"
+              aria-expanded={catOpen}
+              className="flex w-full items-center justify-between rounded-lg border border-slate-300 bg-white/70 py-2.5 ps-3 pe-10 text-sm font-medium text-ink-800 outline-none transition hover:border-cyan-300 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/30"
             >
-              <option value="" className="bg-white text-ink-800">
-                {locale === 'zh' ? '全部品类' : locale === 'ar' ? 'كل الفئات' : 'All Categories'}
-              </option>
-              {categories.map((cat) => (
-                <option key={cat.id} value={cat.slug} className="bg-white text-ink-800">
-                  {localized(cat.name, locale)}
-                </option>
-              ))}
-            </select>
-            <ChevronDown className="pointer-events-none absolute end-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-400" />
+              <span className="truncate">{currentLabel}</span>
+              <ChevronDown
+                className={`pointer-events-none absolute end-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-400 transition-transform duration-200 ${catOpen ? 'rotate-180' : ''}`}
+              />
+            </button>
+
+            {catOpen && (
+              <div
+                role="listbox"
+                className="absolute z-30 mt-2 max-h-60 w-full overflow-y-auto rounded-xl border border-slate-200 bg-white p-1.5 shadow-lift"
+              >
+                <button
+                  type="button"
+                  role="option"
+                  aria-selected={currentSlug === ''}
+                  onClick={() => selectCat('')}
+                  className={`flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm leading-relaxed transition-colors ${
+                    currentSlug === '' ? 'bg-cyan-50 font-medium text-cyan-700' : 'text-ink-700 hover:bg-cyan-50'
+                  }`}
+                >
+                  <span>{allLabel}</span>
+                  {currentSlug === '' && <Check className="h-4 w-4 shrink-0 text-cyan-600" />}
+                </button>
+                {categories.map((cat) => {
+                  const active = cat.slug === currentSlug;
+                  return (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      role="option"
+                      aria-selected={active}
+                      onClick={() => selectCat(cat.slug)}
+                      className={`flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm leading-relaxed transition-colors ${
+                        active ? 'bg-cyan-50 font-medium text-cyan-700' : 'text-ink-700 hover:bg-cyan-50'
+                      }`}
+                    >
+                      <span className="flex items-center gap-2 truncate">
+                        {active && <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500" />}
+                        {localized(cat.name, locale)}
+                      </span>
+                      {active && <Check className="h-4 w-4 shrink-0 text-cyan-600" />}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {/* Active filter chip */}

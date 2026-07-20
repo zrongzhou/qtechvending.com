@@ -1148,6 +1148,34 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             );
           })}
 
+          {/* V49.6: pure-CSS birds drifting across the sky — brand-neutral
+              slate silhouettes (not coloured). Hidden under reduced-motion. */}
+          {[
+            { top: '14%', size: 22, dur: 19, delay: 0 },
+            { top: '31%', size: 17, dur: 25, delay: -7 },
+            { top: '22%', size: 27, dur: 15, delay: -12 },
+          ].map((b, i) => (
+            <div
+              key={`bird-${i}`}
+              className="cta-bird"
+              style={
+                {
+                  ['--bird-top' as string]: b.top,
+                  ['--bird-size' as string]: `${b.size}px`,
+                  ['--bird-dur' as string]: `${b.dur}s`,
+                  ['--bird-delay' as string]: `${b.delay}s`,
+                } as React.CSSProperties
+              }
+              aria-hidden="true"
+            >
+              <div className="cta-bird__inner">
+                <svg viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 31 C 14 14, 24 14, 32 29 C 40 14, 50 14, 62 31 C 50 22, 42 22, 32 35 C 22 22, 14 22, 2 31 Z" />
+                </svg>
+              </div>
+            </div>
+          ))}
+
           {/* Soft cool sun-glow pooling at the top-right (subtle, not a warm sun). */}
           <div
             className="pointer-events-none absolute inset-0"

@@ -55,7 +55,7 @@ function generateBursts(count: number): Burst[] {
     const left = 8 + Math.random() * 84; // 8–92 %
     const top = 8 + Math.random() * 52; // 8–60 % (upper sky)
     const baseColor = COLORS[Math.floor(Math.random() * COLORS.length)];
-    const n = 30 + Math.floor(Math.random() * 16); // 30–45 sparks (dense)
+    const n = 22 + Math.floor(Math.random() * 12); // 22–33 sparks (dense but lean)
     const radius = 80 + Math.random() * 130; // 80–210 px real spread
     const particles: Particle[] = [];
     for (let i = 0; i < n; i += 1) {
