@@ -53,12 +53,15 @@ export default function IconTile({
   const needsRing = !tileClassName && !isGradient;
   const ring = needsRing ? 'shadow-soft ring-1 ring-brand-100' : '';
   const anim = animate ? ANIMATE_CLASS[animate] : '';
+  // V49.5: gradient tiles get the refined .icon-chip (top sheen + inner
+  // shadow + soft drop) so icons read as floating, glossy surfaces.
+  const gloss = isGradient ? 'icon-chip' : '';
   const shape = variant === 'hex'
     ? '[clip-path:polygon(25%_5%,75%_5%,100%_50%,75%_95%,25%_95%,0%_50%)]'
     : 'rounded-xl';
 
   return (
-    <span className={`inline-flex items-center justify-center ${shape} ${tile} ${anim} ${ring}`}>
+    <span className={`relative inline-flex items-center justify-center ${shape} ${tile} ${gloss} ${anim} ${ring}`}>
       <Icon className={className} size={size} strokeWidth={1.75} />
     </span>
   );

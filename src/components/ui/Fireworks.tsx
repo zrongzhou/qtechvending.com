@@ -9,69 +9,78 @@ export interface FireworksProps {
   className?: string;
 }
 
-// V49.4: warmer, premium firework palette (gold / orange / pink / cyan / lilac).
+// V49.5: warmer, premium firework palette (gold / orange / pink / cyan / lilac).
 const COLORS = ['#FFD27D', '#FF9E5E', '#FF8FB1', '#7DEFFF', '#C9A7FF', '#FFC36B', '#A0E8C0', '#B5A8FF'];
+
+interface Particle {
+  /** Horizontal travel distance from the burst center (px, negative = left). */
+  dx: number;
+  /** Vertical travel distance from the burst center (px, positive = down). */
+  dy: number;
+  /** Spark colour (hex). */
+  c: string;
+  /** Diameter of the spark head (px). */
+  size: number;
+  /** Small per-particle delay jitter (s) so the ring doesn't move as one disc. */
+  pd: number;
+}
 
 interface Burst {
   left: number;
   top: number;
   color: string;
-  dot: number;
-  /** Full box-shadow value — every spark rendered as a crisp dot + soft glow. */
-  burst: string;
+  /** Diameter of the central ignition flash (px). */
+  coreSize: number;
+  particles: Particle[];
+  /** Full animation cycle length (s). */
   cycle: number;
+  /** Delay before this burst ignites (s). */
   delay: number;
 }
 
-/** Convert a #RRGGBB hex into an rgba() string at the given alpha. */
-function hexToRgba(hex: string, alpha: number): string {
-  if (hex === '#FFFFFF') return `rgba(255, 255, 255, ${alpha})`;
-  const h = hex.replace('#', '');
-  const r = parseInt(h.slice(0, 2), 16);
-  const g = parseInt(h.slice(2, 4), 16);
-  const b = parseInt(h.slice(4, 6), 16);
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-}
-
 /**
- * Fireworks (V49.4) — a lightweight, dependency-free decorative layer. Each
- * burst is a single element whose `box-shadow` list IS the explosion: a ring of
- * crisp sparks + soft glow halos expanding outward from the core center (driven
- * by `transform: scale`) then drooping with gravity and fading. A bright core
- * flash ignites each burst. Positions, colours, sizes and timings are randomised
- * once on mount. The whole layer is `pointer-events-none absolute inset-0 z-5`
- * so it sits above card backgrounds, and it stays visible under
- * `prefers-reduced-motion` (see globals.css).
+ * Fireworks (V49.5) — a lightweight, dependency-free decorative layer. Each
+ * burst is a small container holding ONE soft core flash + many tiny radial
+ * sparks. Every spark travels OUTWARD from the center along its own angle,
+ * arcs, then droops with gravity and fades — a genuine, clearly-animated
+ * firework explosion (the V49.4 box-shadow single-element approach read as
+ * static circles in the live build). Positions, colours, sizes and timings
+ * are randomised once on mount. The whole layer is `pointer-events-none
+ * absolute inset-0 z-5` so it sits above card backgrounds, and it stays
+ * visible under `prefers-reduced-motion` (see globals.css).
  */
 function generateBursts(count: number): Burst[] {
   const arr: Burst[] = [];
   for (let b = 0; b < count; b += 1) {
     const left = 8 + Math.random() * 84; // 8–92 %
-    const top = 8 + Math.random() * 55; // 8–63 % (upper area, like real sky)
+    const top = 8 + Math.random() * 52; // 8–60 % (upper sky)
     const baseColor = COLORS[Math.floor(Math.random() * COLORS.length)];
-    const n = 22 + Math.floor(Math.random() * 10); // 22–31 sparks (dense burst)
-    const radius = 80 + Math.random() * 120; // 80–200 px real spread
-    const sparks: string[] = [];
+    const n = 30 + Math.floor(Math.random() * 16); // 30–45 sparks (dense)
+    const radius = 80 + Math.random() * 130; // 80–210 px real spread
+    const particles: Particle[] = [];
     for (let i = 0; i < n; i += 1) {
       // Even angular distribution + a little jitter so it isn't a perfect ring.
-      const ang = (Math.PI * 2 * i) / n + (Math.random() - 0.5) * 0.35;
-      const r = radius * (0.35 + Math.random() * 0.7); // varied depth
+      const ang = (Math.PI * 2 * i) / n + (Math.random() - 0.5) * 0.3;
+      const r = radius * (0.55 + Math.random() * 0.5); // varied depth
       const dx = Math.cos(ang) * r;
-      const dy = Math.sin(ang) * r - radius * 0.12; // slight upward bias
-      const c = Math.random() > 0.3 ? baseColor : '#FFFFFF';
-      const glow = hexToRgba(c, 0.55);
-      // Crisp spark + soft glow halo at the same offset.
-      sparks.push(`${dx.toFixed(1)}px ${dy.toFixed(1)}px 0 0 ${c}`);
-      sparks.push(`${dx.toFixed(1)}px ${dy.toFixed(1)}px 6px 0 ${glow}`);
+      const dy = Math.sin(ang) * r - radius * 0.18; // slight upward bias
+      const c = Math.random() > 0.32 ? baseColor : '#FFFFFF';
+      particles.push({
+        dx: +dx.toFixed(1),
+        dy: +dy.toFixed(1),
+        c,
+        size: +(3.5 + Math.random() * 4).toFixed(1), // 3.5–7.5px head
+        pd: +(Math.random() * 0.25).toFixed(2),
+      });
     }
     arr.push({
       left,
       top,
       color: baseColor,
-      dot: 4 + Math.random() * 3, // 4–7px spark head
-      burst: sparks.join(', '),
-      cycle: 5 + Math.random() * 2.5, // 5–7.5s cycle
-      delay: b * (1.0 + Math.random() * 1.5),
+      coreSize: +(34 + Math.random() * 16).toFixed(1), // 34–50px flash
+      particles,
+      cycle: +(4.5 + Math.random() * 2.5).toFixed(2), // 4.5–7s cycle
+      delay: +(b * (1.0 + Math.random() * 1.5)).toFixed(2),
     });
   }
   return arr;
@@ -96,23 +105,30 @@ export default function Fireworks({ count = 5, className = '' }: FireworksProps)
         >
           <span
             className="firework__core"
-            style={{
-              animationDelay: `${burst.delay}s`,
-              animationDuration: `${burst.cycle}s`,
-            }}
-          />
-          <span
-            className="firework__burst"
             style={
               {
-                '--c': burst.color,
-                '--dot': `${burst.dot}px`,
-                '--burst': burst.burst,
+                '--core': `${burst.coreSize}px`,
                 '--cycle': `${burst.cycle}s`,
                 animationDelay: `${burst.delay}s`,
               } as React.CSSProperties
             }
           />
+          {burst.particles.map((p, pi) => (
+            <span
+              key={pi}
+              className="firework__p"
+              style={
+                {
+                  '--c': p.c,
+                  '--size': `${p.size}px`,
+                  '--dx': `${p.dx}px`,
+                  '--dy': `${p.dy}px`,
+                  '--cycle': `${burst.cycle}s`,
+                  animationDelay: `${burst.delay + p.pd}s`,
+                } as React.CSSProperties
+              }
+            />
+          ))}
         </div>
       ))}
     </div>

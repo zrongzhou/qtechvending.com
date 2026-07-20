@@ -71,7 +71,7 @@ export default function CaseGallerySection() {
 
       {/* Screen / main stage — full width, strict 16:9, images fill & crop. */}
       <div className="mx-auto mt-10 w-full max-w-6xl px-4 sm:px-6">
-        <div className="relative aspect-video w-full overflow-hidden rounded-3xl border border-white/60 bg-slate-900/5 shadow-2xl shadow-brand-500/10 ring-1 ring-black/5">
+        <div className="relative aspect-video w-full overflow-hidden rounded-[20px] border border-white/70 bg-slate-900/5 shadow-[0_25px_60px_-18px_rgba(2,6,23,0.45),inset_0_1px_0_rgba(255,255,255,0.6)] ring-1 ring-black/5">
           {GALLERY.map((src, i) => (
             <button
               key={src}
@@ -122,7 +122,7 @@ export default function CaseGallerySection() {
             type="button"
             onClick={() => go(-1)}
             aria-label={t('product.prev') || 'Previous'}
-            className="absolute start-3 top-1/2 z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white shadow-md backdrop-blur transition hover:bg-white/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rtl:-scale-x-100"
+            className="absolute start-3 top-1/2 z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-cyan-500/80 text-white shadow-lg backdrop-blur transition hover:bg-cyan-400 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 rtl:-scale-x-100"
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
@@ -130,7 +130,7 @@ export default function CaseGallerySection() {
             type="button"
             onClick={() => go(1)}
             aria-label={t('product.next') || 'Next'}
-            className="absolute end-3 top-1/2 z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/20 text-white shadow-md backdrop-blur transition hover:bg-white/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rtl:-scale-x-100"
+            className="absolute end-3 top-1/2 z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-cyan-500/80 text-white shadow-lg backdrop-blur transition hover:bg-cyan-400 hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 rtl:-scale-x-100"
           >
             <ChevronRight className="h-6 w-6" />
           </button>
@@ -156,10 +156,10 @@ export default function CaseGallerySection() {
               onClick={() => jump(i)}
               aria-label={`${altPrefix}${i + 1}`}
               aria-current={i === active}
-              className={`relative h-20 w-28 shrink-0 overflow-hidden rounded-lg sm:h-24 sm:w-32 ${
+              className={`relative h-20 w-28 shrink-0 overflow-hidden rounded-lg sm:h-24 sm:w-32 transition-transform duration-300 ${
                 i === active
-                  ? 'ring-2 ring-cyan-500'
-                  : 'ring-1 ring-black/10 opacity-70 hover:opacity-100'
+                  ? 'scale-[1.05] ring-[3px] ring-cyan-400 shadow-[0_0_0_3px_rgba(34,211,238,0.45),0_0_18px_rgba(34,211,238,0.5)]'
+                  : 'scale-100 ring-1 ring-black/10 opacity-70 hover:opacity-100 hover:scale-[1.02]'
               }`}
             >
               <Image src={src} alt="" width={128} height={80} className="h-full w-full object-cover" quality={95} unoptimized />

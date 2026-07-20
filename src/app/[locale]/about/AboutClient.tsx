@@ -831,7 +831,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             const a = ACCENTS[i % ACCENTS.length];
             return (
               <RevealOnScroll key={localeOr(s.title)} delay={i * 80} className="h-full">
-                <div className={`glass-surface group relative h-full overflow-hidden border-s-4 animate-pulse-border ${a.border}`}>
+                <div className={`glass-surface group relative h-full overflow-hidden border-s-4 pulse-soft ${a.border}`}>
                   <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile} flow-bar`} aria-hidden="true" />
                   <div className="p-6">
                     <IconTile
@@ -867,14 +867,15 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           {MISSION_STATEMENTS.map((m, i) => {
             const Icon = m.icon;
             const a = ACCENTS[i % ACCENTS.length];
+            const mb = ['border-cyan-400', 'border-teal-400', 'border-emerald-400'][i % 3];
             return (
               <RevealOnScroll key={localeOr(m.title)} delay={i * 80} className="h-full">
-                <div className={`glass-surface group relative flex h-full flex-col items-center rounded-2xl p-8 text-center animate-pulse-border ${a.soft}`}>
+                <div className={`glass-surface mission-card group relative flex h-full flex-col items-center rounded-2xl p-8 text-center border ${mb} ${a.soft}`}>
                   <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile} flow-bar`} aria-hidden="true" />
                   <IconTile
                     icon={Icon}
                     className="h-10 w-10"
-                    tileClassName={`flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 icon-pulse ${a.glow}`}
+                    tileClassName={`mission-icon flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-lg ${a.glow}`}
                   />
                   <h3 className="mt-5 text-xl font-bold text-ink-900">{localeOr(m.title)}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-ink-600">{localeOr(m.desc)}</p>
@@ -904,7 +905,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             const a = ACCENTS[(i + 1) % ACCENTS.length];
             return (
               <RevealOnScroll key={localeOr(v.title)} delay={i * 80} className="h-full">
-                <div className={`glass-surface group relative flex h-full flex-col items-center rounded-2xl p-8 text-center animate-pulse-border ${a.soft}`}>
+                <div className={`glass-surface vision-card group relative flex h-full flex-col items-center rounded-2xl p-8 text-center ${a.soft}`}>
                   <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile} flow-bar`} aria-hidden="true" />
                   <IconTile
                     icon={Icon}
@@ -972,8 +973,9 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               <RevealOnScroll key={localeOr(v.title)} delay={i * 80} className="h-full">
                 <div className={`glass-surface group relative flex h-full flex-col p-6 ${a.soft} border-s-4 animate-pulse-border ${a.border}`}>
                   <div className="flex items-center gap-2.5">
-                    {/* Small brand-cyan ordinal dot+number (replaces the big watermark). */}
-                    <span className={`inline-flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br ${a.tile} text-xs font-bold text-white`} aria-hidden="true">
+                    {/* Small brand-cyan ordinal dot+number (replaces the big watermark).
+                        V49.5: the badge now breathes (scale + cyan glow). */}
+                    <span className={`value-badge inline-flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br ${a.tile} text-xs font-bold text-white`} aria-hidden="true">
                       {i + 1}
                     </span>
                     <IconTile
@@ -1093,15 +1095,28 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             { left: '60%', top: '6%', scale: 0.8, dur: 29 },
             { left: '28%', top: '56%', scale: 1.4, dur: 18 },
             { left: '76%', top: '50%', scale: 0.92, dur: 25 },
-          ].map((c, i) => (
+            { left: '44%', top: '32%', scale: 1.0, dur: 33 },
+          ].map((c, i) => {
+            // V49.5: each cloud = a few tightly-stacked white puffs that read
+            // as ONE volumetric cloud (not scattered blur spots). The wrapper's
+            // scaleY(0.62) flattens it like a real flat-bottomed cloud.
+            const puffs = [
+              { l: 0, t: 18, w: 46, h: 46, o: 0.85 },
+              { l: 22, t: 0, w: 54, h: 54, o: 0.96 },
+              { l: 40, t: -6, w: 66, h: 66, o: 1 },
+              { l: 64, t: 4, w: 50, h: 50, o: 0.95 },
+              { l: 86, t: 18, w: 44, h: 44, o: 0.85 },
+              { l: 6, t: 22, w: 116, h: 30, o: 0.8 },
+            ];
+            return (
             <div
               key={`sky-cloud-${i}`}
               className="absolute"
               style={{
                 left: c.left,
                 top: c.top,
-                transform: `scale(${c.scale})`,
-                opacity: 0.9,
+                transform: `scale(${c.scale}) scaleY(0.62)`,
+                opacity: 0.95,
                 zIndex: 2,
               } as React.CSSProperties}
               aria-hidden="true"
@@ -1114,9 +1129,24 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     animationDelay: `${i * -4}s`,
                   } as React.CSSProperties
                 }
-              />
+              >
+                {puffs.map((p, pi) => (
+                  <span
+                    key={pi}
+                    className="cta-sky__puff"
+                    style={{
+                      left: `${p.l}px`,
+                      top: `${p.t}px`,
+                      width: `${p.w}px`,
+                      height: `${p.h}px`,
+                      opacity: p.o,
+                    }}
+                  />
+                ))}
+              </div>
             </div>
-          ))}
+            );
+          })}
 
           {/* Soft cool sun-glow pooling at the top-right (subtle, not a warm sun). */}
           <div

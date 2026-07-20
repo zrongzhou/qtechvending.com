@@ -475,20 +475,30 @@ input[type='number']::-webkit-inner-spin-button {
       box-shadow: 0 0 24px 3px rgba(34, 211, 238, 0.4);
     }
   }
-  /* V49.4: stronger, faster cyan breathing pulse specifically for the About
-     page stat cards (.glass-ice) so the glow is clearly perceptible. */
-  .glass-ice.animate-pulse-border::after {
-    animation-name: pulseBorderLineStrong;
-    animation-duration: 2.6s;
+  /* V49.5: stat-card pulse now animates the card's OWN box-shadow
+     (not a ::after overlay) so the cyan breathing edge is unmistakably
+     visible on the ice-glass stat cards. The :hover lift (transform) still
+     applies because only box-shadow is driven by the keyframe. */
+  .glass-ice.animate-pulse-border {
+    animation: glassIcePulse 2.4s ease-in-out infinite;
   }
-  @keyframes pulseBorderLineStrong {
+  .glass-ice.animate-pulse-border::after {
+    animation: none !important;
+  }
+  @keyframes glassIcePulse {
     0%, 100% {
-      border-color: rgba(34, 211, 238, 0.25);
-      box-shadow: 0 0 0 0 rgba(34, 211, 238, 0);
+      border-color: rgba(34, 211, 238, 0.45);
+      box-shadow:
+        0 8px 32px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85),
+        0 0 0 0 rgba(34, 211, 238, 0);
     }
     50% {
-      border-color: rgba(34, 211, 238, 0.95);
-      box-shadow: 0 0 30px 5px rgba(34, 211, 238, 0.5);
+      border-color: #22D3EE;
+      box-shadow:
+        0 8px 32px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        0 0 28px 6px rgba(34, 211, 238, 0.6);
     }
   }
 
@@ -1078,14 +1088,15 @@ input[type='number']::-webkit-inner-spin-button {
   .portal-ring--2 { transform: translateX(-50%) !important; }
 }
 
-/* ============ V49.4: Fireworks — RELIABLE REAL BURST ============
-   Rewritten from the previous per-particle-div approach (which read as slow
-   floating balloons) to a SINGLE-ELEMENT RADIAL BURST driven by layered
-   box-shadow sparks:
-     - a bright central flash (core) that ignites then vanishes;
-     - one element carrying many crisp sparks + soft glow halos that EXPAND
-       outward from the core center (transform: scale) and then droop with
-       gravity and fade — a genuine firework explosion, not drifting circles.
+/* ============ V49.5: Fireworks — RELIABLE MULTI-PARTICLE BURST ============
+   Replaced the V49.4 single-element box-shadow explosion (which read as
+   STATIC CIRCLES in the live build) with a REAL particle field: each burst is
+   a container holding one soft core flash + N small radial-gradient sparks
+   that travel OUTWARD from the center along their own vector, then droop with
+   gravity and fade — a genuine, clearly-animated firework.
+     - Core: a soft, warm-gold ignition flash (no longer a harsh yellow disc).
+     - Sparks: 30–45 tiny particles with a bright head + soft glow tail that
+       fan out, arc, and fall — visible motion, not floating balloons.
    Brand ambient: kept FULLY VISIBLE under prefers-reduced-motion (V36.1). */
 .fireworks {
   position: absolute;
@@ -1099,78 +1110,69 @@ input[type='number']::-webkit-inner-spin-button {
   width: 0;
   height: 0;
 }
-/* Core — bright ignition flash at the burst center. */
+/* Core — soft, warm-gold ignition flash (much gentler than the old yellow). */
 .firework__core {
   position: absolute;
   left: 0;
   top: 0;
-  width: 70px;
-  height: 70px;
-  margin: -35px 0 0 -35px;
+  width: var(--core, 42px);
+  height: var(--core, 42px);
+  margin: calc(var(--core, 42px) / -2) 0 0 calc(var(--core, 42px) / -2);
   border-radius: 9999px;
   background: radial-gradient(circle,
-    #ffffff 0%, #fff8e1 8%, #ffeb3b 18%,
-    rgba(255, 193, 7, 0.7) 32%, rgba(255, 152, 0, 0.4) 50%, transparent 70%);
+    #ffffff 0%, #fff7d6 16%, #ffd27d 42%,
+    rgba(255, 193, 7, 0.30) 66%, transparent 78%);
   box-shadow:
-    0 0 0 3px rgba(255, 255, 255, 1),
-    0 0 22px 9px rgba(255, 235, 59, 0.9),
-    0 0 50px 18px rgba(255, 193, 7, 0.5),
-    0 0 84px 30px rgba(255, 152, 0, 0.2);
+    0 0 14px 4px rgba(255, 224, 130, 0.55),
+    0 0 34px 10px rgba(255, 193, 7, 0.22);
   opacity: 0;
-  animation: firework-core-v494 5s ease-out infinite;
+  will-change: transform, opacity;
+  animation: fireworkCore var(--cycle, 6s) ease-out var(--delay, 0s) infinite;
 }
-/* Burst — a single element whose box-shadow list IS the explosion. Scaling the
-   element expands the whole spark ring from the core; gravity + fade finish it.
-   The --burst string (crisp spark + soft glow per spark) is built in TSX. */
-.firework__burst {
+/* Spark — one small particle. Travels outward via --dx/--dy, droops with
+   gravity, then fades. Bright head + soft glow reads as a real spark. */
+.firework__p {
   position: absolute;
   left: 0;
   top: 0;
-  width: var(--dot, 5px);
-  height: var(--dot, 5px);
-  margin-left: calc(var(--dot, 5px) / -2);
-  margin-top: calc(var(--dot, 5px) / -2);
+  width: var(--size, 6px);
+  height: var(--size, 6px);
+  margin: calc(var(--size, 6px) / -2) 0 0 calc(var(--size, 6px) / -2);
   border-radius: 9999px;
-  background: var(--c, #ffd27d);
-  box-shadow: var(--burst, none);
-  transform: scale(0.05);
+  background: radial-gradient(circle at 50% 35%, #ffffff 0%, var(--c, #ffd27d) 58%);
+  box-shadow: 0 0 6px 1px var(--c, #ffd27d);
   opacity: 0;
   will-change: transform, opacity;
-  animation-name: firework-burst-v494;
-  animation-duration: var(--cycle, 6s);
-  animation-timing-function: cubic-bezier(0.16, 0.84, 0.34, 1);
-  animation-iteration-count: infinite;
+  animation: fireworkParticle var(--cycle, 6s) cubic-bezier(0.16, 0.84, 0.34, 1) var(--delay, 0s) infinite;
 }
-@keyframes firework-core-v494 {
+@keyframes fireworkCore {
   0%   { transform: scale(0); opacity: 0; }
-  2%   { transform: scale(0.4); opacity: 1; }
-  9%   { transform: scale(1.1); opacity: 1; }
-  20%  { transform: scale(1.7); opacity: 0.8; }
-  38%  { transform: scale(2.6); opacity: 0.3; }
-  52%  { transform: scale(3.0); opacity: 0; }
-  100% { transform: scale(3.0); opacity: 0; }
+  3%   { transform: scale(0.55); opacity: 1; }
+  14%  { transform: scale(1.25); opacity: 0.9; }
+  34%  { transform: scale(1.8); opacity: 0; }
+  100% { transform: scale(1.8); opacity: 0; }
 }
-/* Expand from the core, hold, then gravity pulls the ring down while it fades. */
-@keyframes firework-burst-v494 {
-  0%   { transform: scale(0.05) translateY(0); opacity: 0; }
-  6%   { transform: scale(0.2) translateY(0); opacity: 1; }
-  20%  { transform: scale(1) translateY(0); opacity: 1; }
-  55%  { transform: scale(1.04) translateY(18px); opacity: 0.92; }
-  100% { transform: scale(1.12) translateY(64px); opacity: 0; }
+@keyframes fireworkParticle {
+  0%   { transform: translate(0, 0) scale(0.4); opacity: 0; }
+  4%   { transform: translate(calc(var(--dx, 0px) * 0.18), calc(var(--dy, 0px) * 0.18 - 4px)) scale(1); opacity: 1; }
+  24%  { transform: translate(calc(var(--dx, 0px) * 0.62), calc(var(--dy, 0px) * 0.62 - 10px)) scale(1); opacity: 1; }
+  62%  { transform: translate(var(--dx, 0px), calc(var(--dy, 0px) + 16px)) scale(0.92); opacity: 0.82; }
+  100% { transform: translate(var(--dx, 0px), calc(var(--dy, 0px) + 52px)) scale(0.7); opacity: 0; }
 }
-/* Brand ambient — ALWAYS visible under reduced-motion (freeze in a settled pose,
-   never hidden, per the stakeholder's repeated "completely invisible" reports). */
+/* Brand ambient — ALWAYS visible under reduced-motion: show the burst in a
+   settled, mid-explosion pose (never hidden, per the "completely invisible"
+   reports). The core keeps a gentle, slow breathing glow. */
 @media (prefers-reduced-motion: reduce) {
   .fireworks { opacity: 1; }
   .firework__core {
     animation: none !important;
-    opacity: 0.85 !important;
-    transform: scale(1.4) !important;
+    opacity: 0.7 !important;
+    transform: scale(1.1) !important;
   }
-  .firework__burst {
+  .firework__p {
     animation: none !important;
-    opacity: 1 !important;
-    transform: scale(0.95) !important;
+    opacity: 0.85 !important;
+    transform: translate(calc(var(--dx, 0px) * 0.6), calc(var(--dy, 0px) * 0.6 + 8px)) !important;
   }
 }
 
@@ -1288,12 +1290,13 @@ input[type='number']::-webkit-inner-spin-button {
   inset: 0;
   pointer-events: none;
   overflow: hidden;
-  /* V49.2: Base ice-blue tint so the section reads as cold/icy */
+  /* V49.5: STRONGER ice-blue base so the section reads as a cold
+     glacial world the instant the About page opens. */
   background: linear-gradient(160deg,
-    rgba(165, 243, 252, 0.20) 0%,
-    rgba(103, 232, 249, 0.14) 30%,
-    rgba(34, 211, 238, 0.12) 60%,
-    rgba(14, 165, 233, 0.16) 100%);
+    rgba(165, 243, 252, 0.42) 0%,
+    rgba(103, 232, 249, 0.34) 30%,
+    rgba(34, 211, 238, 0.30) 60%,
+    rgba(14, 165, 233, 0.40) 100%);
 }
 
 /* Layer 1: Aurora borealis bands — VISIBLE colour shift across the sky. */
@@ -1304,18 +1307,19 @@ input[type='number']::-webkit-inner-spin-button {
   background:
     linear-gradient(125deg,
       transparent 0%,
-      rgba(103, 232, 249, 0.22) 15%,
-      rgba(165, 243, 252, 0.30) 28%,
-      rgba(34, 211, 238, 0.18) 45%,
-      rgba(167, 139, 250, 0.22) 60%,
-      rgba(196, 181, 253, 0.16) 75%,
-      rgba(103, 232, 249, 0.10) 90%,
+      rgba(103, 232, 249, 0.55) 14%,
+      rgba(165, 243, 252, 0.70) 27%,
+      rgba(34, 211, 238, 0.48) 44%,
+      rgba(167, 139, 250, 0.55) 60%,
+      rgba(196, 181, 253, 0.42) 75%,
+      rgba(103, 232, 249, 0.30) 90%,
       transparent 100%);
+  mix-blend-mode: screen;
   animation: glacierAurora 18s ease-in-out infinite alternate;
 }
 @keyframes glacierAurora {
-  0%   { opacity: 0.85; transform: translateX(-6%) skewX(-4deg) scale(1.02); }
-  100% { opacity: 1; transform: translateX(6%) skewX(4deg) scale(1.06); }
+  0%   { opacity: 0.9; transform: translateX(-6%) skewX(-4deg) scale(1.04); }
+  100% { opacity: 1; transform: translateX(6%) skewX(4deg) scale(1.10); }
 }
 
 /* Layer 2: Ice facet texture — visible geometric "cracked ice" overlay. */
@@ -1323,7 +1327,7 @@ input[type='number']::-webkit-inner-spin-button {
   content: '';
   position: absolute;
   inset: 0;
-  opacity: 0.10;  /* V49.2: was 0.045 (invisible) → 0.10 (subtly visible) */
+  opacity: 0.20;  /* V49.5: stronger cracked-ice texture */
   background:
     repeating-conic-gradient(
       from 45deg at 20% 30%,
@@ -1352,36 +1356,37 @@ input[type='number']::-webkit-inner-spin-button {
   background: linear-gradient(
     200deg,
     transparent 0%,
-    rgba(56, 189, 248, 0.15) 20%,
-    rgba(14, 165, 233, 0.22) 45%,
-    rgba(139, 92, 246, 0.16) 70%,
-    rgba(165, 243, 252, 0.10) 85%,
+    rgba(56, 189, 248, 0.42) 20%,
+    rgba(14, 165, 233, 0.58) 45%,
+    rgba(139, 92, 246, 0.44) 70%,
+    rgba(165, 243, 252, 0.30) 85%,
     transparent 100%
   );
+  mix-blend-mode: screen;
   animation: glacierAurora2 22s ease-in-out infinite alternate;
 }
 @keyframes glacierAurora2 {
-  0%   { opacity: 0.7; transform: translateY(-4%) rotate(-1.2deg) scale(1.03); }
-  100% { opacity: 1; transform: translateY(4%) rotate(1.2deg) scale(1.07); }
+  0%   { opacity: 0.85; transform: translateY(-4%) rotate(-1.2deg) scale(1.05); }
+  100% { opacity: 1; transform: translateY(4%) rotate(1.2deg) scale(1.12); }
 }
 
 /* Light refraction ray — VISIBLE diagonal beam through ice */
 .glacier__ray {
   position: absolute;
   width: 220%;
-  height: 3px;  /* V49.2: was 1px (invisible) */
+  height: 5px;  /* V49.5: thicker, brighter beam */
   left: -60%;
   top: 40%;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.18) 15%,
-    rgba(165, 243, 252, 0.40) 40%,
-    rgba(255, 255, 255, 0.26) 60%,
-    rgba(103, 232, 249, 0.16) 80%,
+    rgba(255, 255, 255, 0.45) 14%,
+    rgba(165, 243, 252, 0.78) 40%,
+    rgba(255, 255, 255, 0.55) 60%,
+    rgba(103, 232, 249, 0.40) 80%,
     transparent 100%
   );
-  filter: blur(1.5px);
+  filter: blur(2px);
   transform: rotate(25deg);
   animation: glacierRay 14s ease-in-out infinite alternate;
 }
@@ -1402,12 +1407,12 @@ input[type='number']::-webkit-inner-spin-button {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 45%;
+  height: 52%;
   background:
-    radial-gradient(ellipse 50% 100% at 20% 100%, rgba(186,230,253,0.28), transparent 70%),
-    radial-gradient(ellipse 40% 100% at 75% 100%, rgba(165,243,252,0.24), transparent 65%),
-    radial-gradient(ellipse 60% 80% at 50% 100%, rgba(224,242,254,0.18), transparent 60%);
-  filter: blur(28px);
+    radial-gradient(ellipse 50% 100% at 20% 100%, rgba(186,230,253,0.55), transparent 70%),
+    radial-gradient(ellipse 40% 100% at 75% 100%, rgba(165,243,252,0.48), transparent 65%),
+    radial-gradient(ellipse 60% 80% at 50% 100%, rgba(224,242,254,0.40), transparent 62%);
+  filter: blur(26px);
   animation: glacierMist 12s ease-in-out infinite alternate;
 }
 @keyframes glacierMist {
@@ -1652,33 +1657,36 @@ input[type='number']::-webkit-inner-spin-button {
 .cta-sky {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, #38bdf8 0%, #7dd3fc 38%, #bae6fd 70%, #e0f2fe 100%);
+  background:
+    radial-gradient(120% 60% at 50% 0%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 42%),
+    linear-gradient(180deg, #0ea5e9 0%, #38bdf8 32%, #7dd3fc 62%, #bae6fd 86%, #e0f2fe 100%);
 }
-/* Fluffy white cloud — a single element whose box-shadow puffs form the cloud
-   body; it drifts slowly sideways (skyCloudDrift) at its own speed. Size is
-   varied by an outer wrapper's transform: scale. */
+/* Fluffy white cloud — V49.5: rebuilt as a REAL cloud. Each cloud is a
+   container holding several tightly-stacked circular puffs (not scattered blur
+   spots) that read as one volumetric cloud; the whole cloud is mildly flattened
+   (scaleY on the wrapper) and given a drop-shadow for volume. It drifts a
+   clear, visible distance (in vw) so the motion is obvious, not a tiny ±9%
+   jitter. Size/depth variation comes from the outer wrapper scale + per-puff
+   opacity. */
 .cta-sky__cloud {
   position: absolute;
-  width: 72px;
-  height: 72px;
+  width: 130px;
+  height: 48px;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 10px rgba(255, 255, 255, 0.35));
+  opacity: 0.95;
+  will-change: transform;
+  animation: skyCloudDrift var(--cloud-dur, 26s) ease-in-out infinite;
+}
+.cta-sky__puff {
+  position: absolute;
   border-radius: 50%;
   background: #ffffff;
-  opacity: 0.78;
-  filter: blur(3px);
-  pointer-events: none;
-  will-change: transform;
-  animation: skyCloudDrift var(--cloud-dur, 22s) ease-in-out infinite;
-  box-shadow:
-    -54px 14px 0 -20px #ffffff,
-    -30px -10px 0 -12px #ffffff,
-    8px -25px 0 -18px #ffffff,
-    44px -8px 0 -16px #ffffff,
-    70px 16px 0 -22px #ffffff,
-    30px 20px 0 -10px #ffffff;
 }
 @keyframes skyCloudDrift {
-  0%, 100% { transform: translateX(-9%); }
-  50% { transform: translateX(9%); }
+  0%   { transform: translateX(-12vw); }
+  50%  { transform: translateX(14vw); }
+  100% { transform: translateX(-12vw); }
 }
 /* Reduced-motion: keep clouds visible but still (no drift). */
 @media (prefers-reduced-motion: reduce) {
@@ -1764,57 +1772,171 @@ input[type='number']::-webkit-inner-spin-button {
   position: relative;
   transform: perspective(1500px) rotateX(5deg);
   transform-origin: center bottom;
-  background: linear-gradient(150deg, rgba(255, 255, 255, 0.85) 0%, rgba(224, 242, 254, 0.55) 50%, rgba(186, 230, 253, 0.45) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.92) 0%, rgba(224, 242, 254, 0.62) 48%, rgba(186, 230, 253, 0.52) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.78);
   box-shadow:
-    0 18px 40px rgba(8, 47, 73, 0.20),
-    0 8px 16px rgba(8, 47, 73, 0.14),
-    inset 0 2px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -2px 0 rgba(8, 47, 73, 0.10),
-    0 0 26px rgba(34, 211, 238, 0.18);
-  backdrop-filter: blur(16px) saturate(1.5);
-  -webkit-backdrop-filter: blur(16px) saturate(1.5);
+    0 22px 48px rgba(8, 47, 73, 0.24),
+    0 10px 20px rgba(8, 47, 73, 0.16),
+    inset 0 2px 0 rgba(255, 255, 255, 1),
+    inset 0 -3px 8px rgba(8, 47, 73, 0.12),
+    0 0 30px rgba(34, 211, 238, 0.22);
+  backdrop-filter: blur(18px) saturate(1.6);
+  -webkit-backdrop-filter: blur(18px) saturate(1.6);
   transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+/* V49.5: crisp glass sheen sweeping across the top-left of the plaque. */
+.nameplate-3d::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 38%);
+  pointer-events: none;
+  z-index: 0;
 }
 .nameplate-3d:hover {
   transform: perspective(1500px) rotateX(8deg) translateY(-4px);
   box-shadow:
-    0 28px 56px rgba(8, 47, 73, 0.26),
-    0 12px 24px rgba(8, 47, 73, 0.16),
+    0 32px 64px rgba(8, 47, 73, 0.30),
+    0 14px 28px rgba(8, 47, 73, 0.18),
     inset 0 2px 0 rgba(255, 255, 255, 1),
-    0 0 40px rgba(34, 211, 238, 0.30);
+    0 0 44px rgba(34, 211, 238, 0.34);
 }
 
-/* Small eyebrow / "词牌" label rendered as a floating 3D glass chip. */
+/* ===== V49.5: differentiated card motion across the About page ===== */
+
+/* Six Core Strengths — a VERY subtle breathing edge (no loud pulse), so the
+   section reads calmer than the other blocks. Hover lift stays on the card. */
+.glass-surface.pulse-soft {
+  animation: pulseSoft 4.6s ease-in-out infinite;
+}
+@keyframes pulseSoft {
+  0%, 100% {
+    box-shadow:
+      0 8px 32px rgba(15, 23, 42, 0.10),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+  50% {
+    box-shadow:
+      0 8px 32px rgba(15, 23, 42, 0.10),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7),
+      0 0 0 1px rgba(34, 211, 238, 0.28);
+  }
+}
+
+/* Our Mission — themed border per card + icon does a full 360° spin on hover. */
+.mission-card {
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.mission-card:hover {
+  transform: translateY(-4px);
+}
+.mission-icon {
+  transition: transform 0.8s cubic-bezier(0.16, 0.84, 0.34, 1);
+}
+.mission-card:hover .mission-icon {
+  transform: rotate(360deg);
+}
+
+/* Our Vision — card tilts slightly (rotateZ) on hover + a cyan bottom
+   gradient fades in, giving each card a distinct identity. */
+.vision-card {
+  position: relative;
+  transition: transform 0.4s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.vision-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 46%;
+  border-radius: 0 0 1rem 1rem;
+  background: linear-gradient(to top, rgba(34, 211, 238, 0.22), transparent 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.vision-card:hover {
+  transform: rotateZ(1deg) translateY(-4px);
+}
+.vision-card:hover::after {
+  opacity: 1;
+}
+
+/* Our Values — the little ordinal badges breathe (scale + glow). */
+.value-badge {
+  animation: badgeBreath 2.8s ease-in-out infinite;
+}
+@keyframes badgeBreath {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(34, 211, 238, 0);
+  }
+  50% {
+    transform: scale(1.12);
+    box-shadow: 0 0 12px 2px rgba(34, 211, 238, 0.35);
+  }
+}
+
+/* Small eyebrow / "词牌" label — V49.5: FLAT glass chip (no 3D tilt).
+   Only the QTECH nameplate (`.nameplate-3d`) keeps the 3D glass look.
+   A crisp coloured left-rail + faint gradient fill + subtle shadow reads as a
+   modern, premium chip without the skeuomorphic lean. */
 .brand-plaque {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.45rem 0.95rem;
+  padding: 0.5rem 0.95rem;
   border-radius: 0.75rem;
   font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #0e7490;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.78) 0%, rgba(186, 230, 253, 0.38) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  border-left: 3px solid #22D3EE;
   box-shadow:
-    0 6px 18px rgba(8, 47, 73, 0.18),
-    0 2px 4px rgba(8, 47, 73, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    inset 0 -1px 0 rgba(8, 47, 73, 0.06);
+    0 4px 14px rgba(8, 47, 73, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px) saturate(1.4);
   -webkit-backdrop-filter: blur(10px) saturate(1.4);
-  transform: perspective(1200px) rotateX(4deg);
-  transform-origin: center bottom;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 .brand-plaque:hover {
-  transform: perspective(1200px) rotateX(8deg) translateY(-2px);
+  transform: translateY(-2px);
+  border-color: rgba(34, 211, 238, 0.6);
   box-shadow:
-    0 12px 28px rgba(8, 47, 73, 0.22),
-    0 4px 8px rgba(8, 47, 73, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 0 16px rgba(34, 211, 238, 0.25);
+    0 8px 22px rgba(8, 47, 73, 0.14),
+    0 0 14px rgba(34, 211, 238, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* V49.5: refined icon chip — for gradient icon tiles across the site. Adds a
+   top sheen highlight + inner shadow + soft drop so the icon appears to float
+   above a glossy surface. Applied automaticaly to gradient IconTiles (see
+   IconTile.tsx) and can be added to any gradient tile manually. */
+.icon-chip {
+  position: relative;
+  overflow: hidden;
+  color: #ffffff;
+  box-shadow:
+    0 10px 22px -6px rgba(8, 47, 73, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -2px 6px rgba(2, 6, 23, 0.20);
+}
+.icon-chip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 44%);
+  pointer-events: none;
+  z-index: 0;
+}
+.icon-chip svg {
+  position: relative;
+  z-index: 1;
 }

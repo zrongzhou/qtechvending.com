@@ -45,7 +45,7 @@ const CASE_THEMES: CaseTheme[] = [
 // glass aesthetic that matches the Hero starfield.
 const CASES: CaseItem[] = [
   {
-    image: '/images/cases/case-1.webp',
+    image: '/images/cases/fresh-flower-kiosk.webp',
     icon: Flower2,
     title: { en: 'Fresh-Flower Kiosk', zh: '鲜花自助站', ar: 'Fresh-Flower Kiosk' },
     sub: {
