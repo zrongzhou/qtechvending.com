@@ -85,19 +85,35 @@ export default function CaseGallerySection() {
                 i === active ? 'z-10 opacity-100' : 'pointer-events-none opacity-0'
               }`}
             >
-              <Image
-                src={src}
-                alt={`${altPrefix}${i + 1}`}
-                loading={i === 0 ? 'eager' : 'lazy'}
-                fill
-                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${imgLoaded[i] || (i === active) ? 'opacity-100' : 'opacity-0'}`}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                quality={100}
-                unoptimized
-                decoding="async"
-                priority={i === 0 || i === 1}  /* V49.2: preload first 2 images for instant sharp render */
-                onLoad={() => setImgLoaded((prev) => ({ ...prev, [i]: true }))}
-              />
+              {i === 0 ? (
+                /* V49.4: first frame rendered as a plain <img> with eager +
+                   synchronous decode + high fetch priority so it paints sharp
+                   immediately and never depends on the Next.js image pipeline
+                   (the previous first frame looked blurry). */
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={src}
+                  alt={`${altPrefix}${i + 1}`}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  loading="eager"
+                  decoding="sync"
+                  fetchPriority="high"
+                  onLoad={() => setImgLoaded((prev) => ({ ...prev, [i]: true }))}
+                />
+              ) : (
+                <Image
+                  src={src}
+                  alt={`${altPrefix}${i + 1}`}
+                  loading="lazy"
+                  fill
+                  className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${imgLoaded[i] || (i === active) ? 'opacity-100' : 'opacity-0'}`}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                  quality={100}
+                  unoptimized
+                  decoding="async"
+                  onLoad={() => setImgLoaded((prev) => ({ ...prev, [i]: true }))}
+                />
+              )}
             </button>
           ))}
 

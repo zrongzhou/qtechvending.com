@@ -526,7 +526,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
   const localeOr = <T extends string>(rec: Record<string, T>): T => (rec[locale] as T) ?? (rec.en as T);
 
   return (
-    <div className="relative isolate overflow-hidden bg-gradient-to-b from-white via-slate-50 to-cyan-50/40">
+    <div className="relative isolate overflow-hidden bg-about">
       {/* Soft, luminous colour blooms — a light, airy atmosphere (not dark). */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
         <div className="absolute -top-24 start-0 h-[440px] w-[440px] rounded-full bg-cyan-200/40 blur-3xl" />
@@ -1084,116 +1084,56 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           用户明确指定：日照金山效果做在这个底部 Work With Us 深色区块。
           主 CTA（首页 CtaSection）已改为纯水族动画。 */}
       <RevealOnScroll as="section" className="container-qtech pb-20 lg:pb-28">
-        <div className="cta-sunrise relative overflow-hidden rounded-3xl px-8 py-16 text-center md:py-20">
-          {/* V48.7: Animated cloud wisps — warm golden-hour clouds drifting slowly */}
-          {Array.from({ length: 4 }, (_, i) => {
-            const rx = (Math.sin(i * 73.17 + 19.1) * 43758.5453) % 1;
-            return (
+        <div className="cta-sky relative overflow-hidden rounded-3xl px-8 py-16 text-center md:py-20">
+          {/* Drifting white clouds — 4 puffs at different positions / sizes /
+              speeds. Outer wrapper handles position + scale; the inner element
+              handles the sideways drift so the transforms never conflict. */}
+          {[
+            { left: '4%', top: '12%', scale: 1.15, dur: 22 },
+            { left: '60%', top: '6%', scale: 0.8, dur: 29 },
+            { left: '28%', top: '56%', scale: 1.4, dur: 18 },
+            { left: '76%', top: '50%', scale: 0.92, dur: 25 },
+          ].map((c, i) => (
+            <div
+              key={`sky-cloud-${i}`}
+              className="absolute"
+              style={{
+                left: c.left,
+                top: c.top,
+                transform: `scale(${c.scale})`,
+                opacity: 0.9,
+                zIndex: 2,
+              } as React.CSSProperties}
+              aria-hidden="true"
+            >
               <div
-                key={`cloud-${i}`}
-                className="absolute pointer-events-none rounded-full"
-                style={{
-                  left: `${(i * 22 + rx * 15) % 90}%`,
-                  top: `${5 + i * 8 + rx * 6}%`,
-                  width: `${120 + i * 50 + rx * 60}px`,
-                  height: `${30 + i * 12 + rx * 20}px`,
-                  background: `radial-gradient(ellipse at 40% 50%, rgba(255,240,220,${0.35 + i * 0.08}) 0%, rgba(255,220,180,${0.12 + i * 0.04}) 45%, transparent 70%)`,
-                  filter: 'blur(8px)',
-                  animation: `cloudDrift ${25 + i * 12}s ease-in-out infinite alternate`,
-                  animationDelay: `${i * -7}s`,
-                  opacity: 0.7 + i * 0.08,
-                  zIndex: 0,
-                } as React.CSSProperties}
-                aria-hidden="true"
-              />
-            );
-          })}
-
-          {/* Warm sky glow pooling at the top. */}
-          <div className="cta-sunrise__sky" aria-hidden="true" />
-
-          {/* V48.7: Bigger sun — now 140px with more intense corona */}
-          <div className="cta-sunrise__sun" aria-hidden="true" />
-
-          {/* Sweeping light beam from the sun (top-right). */}
-          <div className="cta-sunrise__beam" aria-hidden="true" />
-          <div className="cta-sunrise__beam cta-sunrise__beam--2" aria-hidden="true" />
-
-          {/* Multi-layer mountain silhouette (SVG) — far misty → near dark with gold rim. */}
-          {/* V48.6: Atmospheric HAZE layer between far & mid mountains —
-              creates depth via semi-transparent fog band. */}
-          <div className="absolute inset-x-0 bottom-[28%] h-24 pointer-events-none"
-            style={{ background: 'linear-gradient(to bottom, rgba(255,220,150,0.12), rgba(255,180,100,0.06), transparent)', zIndex: 2 }}
-            aria-hidden="true" />
-
-          <svg
-            className="cta-sunrise__mountain"
-            viewBox="0 0 1440 320"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
-            <path d="M0,320 L0,150 L200,95 L400,140 L600,80 L800,135 L1000,75 L1200,140 L1440,100 L1440,320 Z" fill="url(#aboutCtaFar)" />
-            <path d="M0,150 L200,95 L400,140 L600,80 L800,135 L1000,75 L1200,140 L1440,100" fill="none" stroke="rgba(253,224,138,0.5)" strokeWidth="1.5" />
-            <path d="M0,320 L0,205 L250,155 L450,195 L650,135 L850,185 L1050,125 L1250,185 L1440,155 L1440,320 Z" fill="url(#aboutCtaMid)" />
-            <path d="M0,205 L250,155 L450,195 L650,135 L850,185 L1050,125 L1250,185 L1440,155" fill="none" stroke="rgba(251,191,36,0.55)" strokeWidth="1.8" />
-            <path d="M0,320 L0,255 L300,205 L500,245 L700,185 L900,235 L1100,195 L1300,245 L1440,215 L1440,320 Z" fill="url(#aboutCtaNear)" />
-            <path d="M0,255 L300,205 L500,245 L700,185 L900,235 L1100,195 L1300,245 L1440,215" fill="none" stroke="rgba(253,224,138,0.75)" strokeWidth="2.2" />
-            <defs>
-              {/* V48.6: Atmospheric perspective — far=light+hazy, mid=warm+medium,
-                  near=dark+saturated. Each layer gets progressively darker and
-                  less transparent to create depth. */}
-              <linearGradient id="aboutCtaFar" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#fde68a" stopOpacity="0.50" />
-                <stop offset="50%" stopColor="#fbbf24" stopOpacity="0.40" />
-                <stop offset="100%" stopColor="#f59e0b" stopOpacity="0.30" />
-              </linearGradient>
-              <linearGradient id="aboutCtaMid" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#f97316" stopOpacity="0.72" />
-                <stop offset="45%" stopColor="#ea580c" stopOpacity="0.68" />
-                <stop offset="100%" stopColor="#be185d" stopOpacity="0.70" />
-              </linearGradient>
-              <linearGradient id="aboutCtaNear" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#4c1d95" stopOpacity="0.98" />
-                <stop offset="35%" stopColor="#312e81" stopOpacity="1" />
-                <stop offset="100%" stopColor="#17143a" stopOpacity="1" />
-              </linearGradient>
-            </defs>
-          </svg>
-
-          {/* V48.6: Second haze layer — between mid & near mountains */}
-          <div className="absolute inset-x-0 bottom-[16%] h-20 pointer-events-none"
-            style={{ background: 'linear-gradient(to bottom, rgba(139, 69, 120, 0.10), rgba(76, 29, 149, 0.06), transparent)', zIndex: 2 }}
-            aria-hidden="true" />
-
-          {/* V48.7: More golden dust motes — 60 instead of 40, brighter, larger. */}
-          {Array.from({ length: 60 }, (_, i) => {
-            const rx = (Math.sin(i * 53.17 + 9.1) * 43758.5453) % 1;
-            return (
-              <span
-                key={i}
-                className="cta-sunrise__dust"
+                className="cta-sky__cloud"
                 style={
                   {
-                    left: `${rx * 100}%`,
-                    bottom: `${((Math.sin((i + 300) * 127.1 + 311.7) * 43758.5453) % 1) * 50}%`,
-                    width: `${7 + ((Math.sin((i + 50) * 79.3 + 17.9) * 43758.5453) % 1) * 16}px`,
-                    height: `${7 + ((Math.sin((i + 50) * 79.3 + 17.9) * 43758.5453) % 1) * 16}px`,
-                    ['--sd-dur' as string]: `${6 + ((Math.sin((i + 100) * 31.7 + 43.1) * 43758.5453) % 1) * 10}s`,
-                    ['--sd-dx' as string]: `${(((Math.sin((i + 200) * 67.3 + 89.1) * 43758.5453) % 1) - 0.5) * 90}px`,
-                    animationDelay: `${((Math.sin((i + 150) * 41.3 + 27.1) * 43758.5453) % 1) * 10}s`,
+                    ['--cloud-dur' as string]: `${c.dur}s`,
+                    animationDelay: `${i * -4}s`,
                   } as React.CSSProperties
                 }
               />
-            );
-          })}
+            </div>
+          ))}
 
-          {/* Frosted glass overlay. */}
-          <div className="cta-sunrise__glass" aria-hidden="true" />
+          {/* Soft cool sun-glow pooling at the top-right (subtle, not a warm sun). */}
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(80% 55% at 78% -10%, rgba(255,255,255,0.55), transparent 60%)',
+            }}
+            aria-hidden="true"
+          />
 
-          {/* Content — sits above all layers. */}
+          {/* Content — dark text for contrast on the blue sky. */}
           <div className="relative z-10 flex flex-col items-center gap-5">
-            <h2 className="text-3xl font-bold drop-shadow-sm sm:text-4xl">{t('about.cta') || 'Ready to Partner with Qtech?'}</h2>
-            <p className="mx-auto max-w-xl text-white/85">
+            <h2 className="text-3xl font-bold text-slate-900 drop-shadow-[0_1px_2px_rgba(255,255,255,0.5)] sm:text-4xl">
+              {t('about.cta') || 'Ready to Partner with Qtech?'}
+            </h2>
+            <p className="mx-auto max-w-xl text-base font-medium text-slate-700 sm:text-lg">
               {locale === 'zh'
                 ? '联系我们获取定制报价与技术方案。'
                 : locale === 'ar'
@@ -1201,12 +1141,15 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                   : 'Contact us for custom quotes and technical solutions.'}
             </p>
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Link href={`/${locale}/contact`} className="btn-primary">
+              <Link
+                href={`/${locale}/contact`}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 to-teal-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-soft transition hover:-translate-y-0.5 hover:from-cyan-300 hover:to-teal-300 active:scale-[0.97]"
+              >
                 {t('nav.getQuote') || 'Get a Quote'}
               </Link>
               <Link
                 href={`/${locale}/products`}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/50 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/20 active:scale-[0.97]"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-sky-700/30 bg-white/70 px-6 py-3 text-sm font-semibold text-slate-800 transition hover:-translate-y-0.5 hover:bg-white active:scale-[0.97]"
               >
                 {t('nav.products') || 'Products'}
               </Link>

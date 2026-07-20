@@ -467,12 +467,28 @@ input[type='number']::-webkit-inner-spin-button {
   }
   @keyframes pulseBorderLine {
     0%, 100% {
-      border-color: rgba(34, 211, 238, 0.10);
+      border-color: rgba(34, 211, 238, 0.18);
       box-shadow: 0 0 0 0 rgba(34, 211, 238, 0);
     }
     50% {
-      border-color: rgba(34, 211, 238, 0.55);
-      box-shadow: 0 0 16px 2px rgba(34, 211, 238, 0.18);
+      border-color: rgba(34, 211, 238, 0.82);
+      box-shadow: 0 0 24px 3px rgba(34, 211, 238, 0.4);
+    }
+  }
+  /* V49.4: stronger, faster cyan breathing pulse specifically for the About
+     page stat cards (.glass-ice) so the glow is clearly perceptible. */
+  .glass-ice.animate-pulse-border::after {
+    animation-name: pulseBorderLineStrong;
+    animation-duration: 2.6s;
+  }
+  @keyframes pulseBorderLineStrong {
+    0%, 100% {
+      border-color: rgba(34, 211, 238, 0.25);
+      box-shadow: 0 0 0 0 rgba(34, 211, 238, 0);
+    }
+    50% {
+      border-color: rgba(34, 211, 238, 0.95);
+      box-shadow: 0 0 30px 5px rgba(34, 211, 238, 0.5);
     }
   }
 
@@ -1062,15 +1078,19 @@ input[type='number']::-webkit-inner-spin-button {
   .portal-ring--2 { transform: translateX(-50%) !important; }
 }
 
-/* ============ V49.2: Fireworks — REAL FIREWORK EFFECT ============
-   User complaint: "烟花的颜色、爆炸效果、运动轨迹都不像"
-   Root cause: cyan palette, 6-15px particles (too small), 50px core (tiny),
-   z-index:0 hidden behind cards. Fix: vivid colors, large particles,
-   visible trails, z-index:5 so they're visible in card gaps. */
+/* ============ V49.4: Fireworks — RELIABLE REAL BURST ============
+   Rewritten from the previous per-particle-div approach (which read as slow
+   floating balloons) to a SINGLE-ELEMENT RADIAL BURST driven by layered
+   box-shadow sparks:
+     - a bright central flash (core) that ignites then vanishes;
+     - one element carrying many crisp sparks + soft glow halos that EXPAND
+       outward from the core center (transform: scale) and then droop with
+       gravity and fade — a genuine firework explosion, not drifting circles.
+   Brand ambient: kept FULLY VISIBLE under prefers-reduced-motion (V36.1). */
 .fireworks {
   position: absolute;
   inset: 0;
-  z-index: 5;    /* V49.2: above card backgrounds but below content */
+  z-index: 5;    /* above card backgrounds, visible in the gaps */
   pointer-events: none;
   overflow: hidden;
 }
@@ -1079,92 +1099,79 @@ input[type='number']::-webkit-inner-spin-button {
   width: 0;
   height: 0;
 }
-/* V49.2: Core — bright flash like real firework ignition. 90px. */
+/* Core — bright ignition flash at the burst center. */
 .firework__core {
   position: absolute;
   left: 0;
   top: 0;
-  width: 90px;
-  height: 90px;
-  margin: -45px 0 0 -45px;
+  width: 70px;
+  height: 70px;
+  margin: -35px 0 0 -35px;
   border-radius: 9999px;
   background: radial-gradient(circle,
-    #ffffff 0%, #fff8e1 6%, #ffeb3b 14%,
-    rgba(255, 193, 7, 0.7) 28%, rgba(255, 152, 0, 0.4) 45%, transparent 70%);
+    #ffffff 0%, #fff8e1 8%, #ffeb3b 18%,
+    rgba(255, 193, 7, 0.7) 32%, rgba(255, 152, 0, 0.4) 50%, transparent 70%);
   box-shadow:
-    0 0 0 4px rgba(255,255,255,1),
-    0 0 24px 10px rgba(255,235,59,0.85),
-    0 0 56px 20px rgba(255,193,7,0.45),
-    0 0 90px 32px rgba(255,152,0,0.18);
+    0 0 0 3px rgba(255, 255, 255, 1),
+    0 0 22px 9px rgba(255, 235, 59, 0.9),
+    0 0 50px 18px rgba(255, 193, 7, 0.5),
+    0 0 84px 30px rgba(255, 152, 0, 0.2);
   opacity: 0;
-  animation: firework-core-v492 5s ease-out infinite;
+  animation: firework-core-v494 5s ease-out infinite;
 }
-/* V49.2: Particles — VISIBLE size (10-26px), vivid glow, long trail. */
-.firework__particle {
+/* Burst — a single element whose box-shadow list IS the explosion. Scaling the
+   element expands the whole spark ring from the core; gravity + fade finish it.
+   The --burst string (crisp spark + soft glow per spark) is built in TSX. */
+.firework__burst {
   position: absolute;
   left: 0;
   top: 0;
-  min-width: 8px;
-  min-height: 8px;
+  width: var(--dot, 5px);
+  height: var(--dot, 5px);
+  margin-left: calc(var(--dot, 5px) / -2);
+  margin-top: calc(var(--dot, 5px) / -2);
   border-radius: 9999px;
-  background: var(--c, #FFD27D);
-  box-shadow:
-    0 0 0 2px color-mix(in srgb, var(--c) 80%, white),
-    0 0 12px 5px color-mix(in srgb, var(--c) 60%, transparent),
-    0 0 28px 12px color-mix(in srgb, var(--c) 30%, transparent),
-    0 -1px 3px 1px rgba(0,0,0,0.15); /* depth shadow for visibility on light bg */
+  background: var(--c, #ffd27d);
+  box-shadow: var(--burst, none);
+  transform: scale(0.05);
   opacity: 0;
-  transform: translate(0, 0) scale(1);
-  animation-name: firework-burst-v49;
-  animation-timing-function: cubic-bezier(0.18, 0.7, 0.3, 1);
+  will-change: transform, opacity;
+  animation-name: firework-burst-v494;
+  animation-duration: var(--cycle, 6s);
+  animation-timing-function: cubic-bezier(0.16, 0.84, 0.34, 1);
   animation-iteration-count: infinite;
-  will-change: transform, opacity;
 }
-/* V49.3: Comet tail — a soft streak that trails each particle OPPOSITE to its
-   travel direction (using the per-particle --ang angle) so the burst reads as
-   real meteors scattering and falling. Inherits the particle colour. */
-.firework__particle::before {
-  content: '';
-  position: absolute;
-  right: 50%;
-  top: 50%;
-  width: 44px;
-  height: 3px;
-  border-radius: 9999px;
-  background: linear-gradient(to left, var(--c, #FFD27D) 0%, color-mix(in srgb, var(--c) 45%, transparent) 55%, transparent 100%);
-  transform-origin: right center;
-  transform: translateY(-50%) rotate(var(--ang, 0rad));
-  filter: blur(0.8px);
-  opacity: 0.85;
-  pointer-events: none;
-  will-change: transform, opacity;
-}
-@keyframes firework-core-v492 {
+@keyframes firework-core-v494 {
   0%   { transform: scale(0); opacity: 0; }
-  2%   { transform: scale(0.3); opacity: 1; }
-  8%   { transform: scale(1.0); opacity: 1; }
-  18%  { transform: scale(1.6); opacity: 0.85; }
-  35%  { transform: scale(2.4); opacity: 0.4; }
-  50%  { transform: scale(3.0); opacity: 0.1; }
-  60%  { transform: scale(3.0); opacity: 0; }
+  2%   { transform: scale(0.4); opacity: 1; }
+  9%   { transform: scale(1.1); opacity: 1; }
+  20%  { transform: scale(1.7); opacity: 0.8; }
+  38%  { transform: scale(2.6); opacity: 0.3; }
+  52%  { transform: scale(3.0); opacity: 0; }
   100% { transform: scale(3.0); opacity: 0; }
 }
-/* V49.3: meteor scatter — particles burst outward (--tx/--ty), get a brief
-   upward lift, then gravity pulls them DOWN (the +Y droop grows over time)
-   while they shrink and fade, like real falling fireworks. */
-@keyframes firework-burst-v49 {
-  0%   { transform: translate(0, 0) scale(1); opacity: 0; }
-  3%   { transform: translate(0, 0) scale(1); opacity: 1; }
-  18%  { transform: translate(calc(var(--tx, 0) * 0.45), calc(var(--ty, 0) * 0.45 - 12px)) scale(0.95); opacity: 1; }
-  42%  { transform: translate(calc(var(--tx, 0) * 0.78), calc(var(--ty, 0) * 0.78 + 6px)) scale(0.78); opacity: 0.9; }
-  68%  { transform: translate(var(--tx, 0), calc(var(--ty, 0) + 26px)) scale(0.55); opacity: 0.5; }
-  86%  { transform: translate(calc(var(--tx, 0) * 1.04), calc(var(--ty, 0) + 58px)) scale(0.4); opacity: 0.18; }
-  100% { transform: translate(calc(var(--tx, 0) * 1.06), calc(var(--ty, 0) + 80px)) scale(0.32); opacity: 0; }
+/* Expand from the core, hold, then gravity pulls the ring down while it fades. */
+@keyframes firework-burst-v494 {
+  0%   { transform: scale(0.05) translateY(0); opacity: 0; }
+  6%   { transform: scale(0.2) translateY(0); opacity: 1; }
+  20%  { transform: scale(1) translateY(0); opacity: 1; }
+  55%  { transform: scale(1.04) translateY(18px); opacity: 0.92; }
+  100% { transform: scale(1.12) translateY(64px); opacity: 0; }
 }
-/* V49.2: brand ambient motion — keep running AND fully visible under
-   reduced-motion (the stakeholder requires fireworks to always show). */
+/* Brand ambient — ALWAYS visible under reduced-motion (freeze in a settled pose,
+   never hidden, per the stakeholder's repeated "completely invisible" reports). */
 @media (prefers-reduced-motion: reduce) {
   .fireworks { opacity: 1; }
+  .firework__core {
+    animation: none !important;
+    opacity: 0.85 !important;
+    transform: scale(1.4) !important;
+  }
+  .firework__burst {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: scale(0.95) !important;
+  }
 }
 
 /* ============================================================================
@@ -1624,6 +1631,60 @@ input[type='number']::-webkit-inner-spin-button {
   100% { transform: translate(var(--sd-dx, 10px), -90px); opacity: 0; }
 }
 
+/* ============================================================
+   V49.4 — About page atmosphere + CTA "Clear Blue Sky"
+   ============================================================ */
+
+/* Deeper, atmospheric ice-blue page background for the About page (replaces the
+   too-white from-white/slate-50 gradient). Keeps the glass cards readable while
+   giving the page real depth and a cool, premium tone. */
+.bg-about {
+  background:
+    radial-gradient(70% 50% at 50% 0%, rgba(125, 211, 252, 0.22), transparent 60%),
+    radial-gradient(60% 45% at 85% 28%, rgba(167, 139, 250, 0.10), transparent 60%),
+    radial-gradient(60% 50% at 12% 72%, rgba(45, 212, 191, 0.14), transparent 60%),
+    linear-gradient(180deg, #dbeafe 0%, #e0f2fe 42%, #eff6ff 100%);
+}
+
+/* V49.4: CTA "Clear Blue Sky" — replaces the warm 日照金山 sunrise scene.
+   A clean sky-blue gradient with drifting white clouds. Content uses dark text
+   for WCAG AA contrast on the blue field; the brand-cyan button is preserved. */
+.cta-sky {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #38bdf8 0%, #7dd3fc 38%, #bae6fd 70%, #e0f2fe 100%);
+}
+/* Fluffy white cloud — a single element whose box-shadow puffs form the cloud
+   body; it drifts slowly sideways (skyCloudDrift) at its own speed. Size is
+   varied by an outer wrapper's transform: scale. */
+.cta-sky__cloud {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #ffffff;
+  opacity: 0.78;
+  filter: blur(3px);
+  pointer-events: none;
+  will-change: transform;
+  animation: skyCloudDrift var(--cloud-dur, 22s) ease-in-out infinite;
+  box-shadow:
+    -54px 14px 0 -20px #ffffff,
+    -30px -10px 0 -12px #ffffff,
+    8px -25px 0 -18px #ffffff,
+    44px -8px 0 -16px #ffffff,
+    70px 16px 0 -22px #ffffff,
+    30px 20px 0 -10px #ffffff;
+}
+@keyframes skyCloudDrift {
+  0%, 100% { transform: translateX(-9%); }
+  50% { transform: translateX(9%); }
+}
+/* Reduced-motion: keep clouds visible but still (no drift). */
+@media (prefers-reduced-motion: reduce) {
+  .cta-sky__cloud { animation: none !important; }
+}
+
 /* ---- R1 / R4 / R8: reduced-motion — keep layout, drop motion ---- */
 @media (prefers-reduced-motion: reduce) {
   .animate-pulse-glow { animation: none !important; }
@@ -1701,7 +1762,7 @@ input[type='number']::-webkit-inner-spin-button {
    the section eyebrow labels. Visual only — text content is unchanged. */
 .nameplate-3d {
   position: relative;
-  transform: perspective(900px) rotateX(10deg);
+  transform: perspective(1500px) rotateX(5deg);
   transform-origin: center bottom;
   background: linear-gradient(150deg, rgba(255, 255, 255, 0.85) 0%, rgba(224, 242, 254, 0.55) 50%, rgba(186, 230, 253, 0.45) 100%);
   border: 1px solid rgba(255, 255, 255, 0.7);
@@ -1716,7 +1777,7 @@ input[type='number']::-webkit-inner-spin-button {
   transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 .nameplate-3d:hover {
-  transform: perspective(900px) rotateX(3deg) translateY(-4px);
+  transform: perspective(1500px) rotateX(8deg) translateY(-4px);
   box-shadow:
     0 28px 56px rgba(8, 47, 73, 0.26),
     0 12px 24px rgba(8, 47, 73, 0.16),
@@ -1745,12 +1806,12 @@ input[type='number']::-webkit-inner-spin-button {
     inset 0 -1px 0 rgba(8, 47, 73, 0.06);
   backdrop-filter: blur(10px) saturate(1.4);
   -webkit-backdrop-filter: blur(10px) saturate(1.4);
-  transform: perspective(600px) rotateX(8deg);
+  transform: perspective(1200px) rotateX(4deg);
   transform-origin: center bottom;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 .brand-plaque:hover {
-  transform: perspective(600px) rotateX(2deg) translateY(-2px);
+  transform: perspective(1200px) rotateX(8deg) translateY(-2px);
   box-shadow:
     0 12px 28px rgba(8, 47, 73, 0.22),
     0 4px 8px rgba(8, 47, 73, 0.14),

@@ -131,9 +131,9 @@ export default function CtaSection() {
         {/* Light frosted-glass command pod — text floats on a translucent white
             panel so the aquarium stays visible behind it. */}
         <div className="relative z-10 flex min-h-[600px] items-center justify-center p-3 sm:p-5">
-          <div className="mx-auto flex w-full max-w-4xl min-h-[480px] flex-col items-center justify-center rounded-3xl border border-white/20 bg-white/10 px-6 py-12 text-center shadow-lift backdrop-blur-xl sm:px-16 sm:py-16">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/20 px-5 py-2 text-sm font-medium text-white ring-1 ring-white/30">
-              <IconTile icon={Sparkles} className="h-4 w-4" tileClassName="bg-gradient-to-br from-cyan-400 to-teal-400 text-white p-1.5" />
+          <div className="mx-auto flex w-full max-w-4xl min-h-[480px] flex-col items-center justify-center rounded-3xl border border-white/40 bg-white/65 px-6 py-12 text-center shadow-lift backdrop-blur-xl sm:px-16 sm:py-16">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/70 px-5 py-2 text-sm font-medium text-cyan-800 ring-1 ring-cyan-200">
+              <IconTile icon={Sparkles} className="h-4 w-4" tileClassName="bg-gradient-to-br from-cyan-500 to-teal-500 text-white p-1.5" />
               <span className="font-semibold">
                 {locale === 'zh' ? '立即开启合作'
                   : locale === 'ar' ? 'ابدأ التعاون الآن'
@@ -141,35 +141,35 @@ export default function CtaSection() {
               </span>
             </div>
 
-            <h2 className="mx-auto mt-7 text-4xl font-black leading-tight text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.55)] sm:text-5xl lg:text-6xl">
+            <h2 className="mx-auto mt-7 text-4xl font-black leading-tight text-ink-900 drop-shadow-[0_1px_1px_rgba(15,23,42,0.12)] sm:text-5xl lg:text-6xl">
               {ctaTitle}
             </h2>
 
             {ctaSubtitle && (
-              <p className="mx-auto mt-4 max-w-2xl text-base font-medium text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)] sm:text-lg">
+              <p className="mx-auto mt-4 max-w-2xl text-base font-medium text-slate-700 sm:text-lg">
                 {ctaSubtitle}
               </p>
             )}
 
             <Link
               href={`/${locale}/contact`}
-              className="group mt-10 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 to-teal-400 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-cyan-500/50 transition hover:-translate-y-0.5 hover:from-cyan-300 hover:to-teal-300 active:scale-[0.97]"
+              className="group mt-10 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-cyan-500/40 transition hover:-translate-y-0.5 hover:from-cyan-400 hover:to-teal-400 active:scale-[0.97]"
             >
               {ctaButton}
               <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1" strokeWidth={1.75} />
             </Link>
 
             {ctaProof && (
-              <div className="mt-10 flex w-full flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-white/20 pt-6 text-sm font-medium text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
+              <div className="mt-10 flex w-full flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-slate-300/70 pt-6 text-sm font-medium text-slate-700">
                 <span className="inline-flex items-center gap-1.5">
-                  <IconTile icon={CheckCircle2} className="h-4 w-4" tileClassName="bg-emerald-400/30 text-emerald-100 p-1.5" />
+                  <IconTile icon={CheckCircle2} className="h-4 w-4" tileClassName="bg-emerald-500/15 text-emerald-700 p-1.5" />
                   {ctaProof}
                 </span>
                 <span className="inline-flex items-center gap-1.5">
-                  <ShieldCheck className="h-4 w-4 text-cyan-200" strokeWidth={1.75} /> ISO &amp; CE Certified
+                  <ShieldCheck className="h-4 w-4 text-cyan-600" strokeWidth={1.75} /> ISO &amp; CE Certified
                 </span>
                 <span className="inline-flex items-center gap-1.5">
-                  <Globe2 className="h-4 w-4 text-cyan-200" strokeWidth={1.75} /> 80+ Countries Served
+                  <Globe2 className="h-4 w-4 text-cyan-600" strokeWidth={1.75} /> 80+ Countries Served
                 </span>
               </div>
             )}
