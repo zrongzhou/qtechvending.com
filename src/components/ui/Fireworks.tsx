@@ -9,15 +9,17 @@ export interface FireworksProps {
   className?: string;
 }
 
-// V49.2: REAL firework palette — gold, red, green, white, orange, magenta.
-// NOT pastel cyan (that's why they didn't look like fireworks).
-const COLORS = ['#FFD700', '#FF4444', '#00FF88', '#FFFFFF', '#FF8C00', '#FF00FF', '#FFE135', '#00E5FF'];
+// V49.3: softer, more "high-end" firework palette — warm gold, warm orange,
+// cherry pink, ice cyan, lilac, etc. (replaces the previous garish primaries).
+const COLORS = ['#FFD27D', '#FF9E5E', '#FF8FB1', '#7DEFFF', '#C9A7FF', '#FFC36B', '#A0E8C0', '#B5A8FF'];
 
 interface Particle {
   tx: number;
   ty: number;
   color: string;
   size: number;
+  /** Travel angle (radians) — used to orient the comet tail opposite to motion. */
+  ang: number;
 }
 
 interface Burst {
@@ -53,6 +55,7 @@ function generateBursts(count: number): Burst[] {
         ty: Math.sin(ang) * r - radius * 0.15, // slight upward bias like real fireworks
         color: Math.random() > 0.25 ? baseColor : COLORS[Math.floor(Math.random() * COLORS.length)],
         size: 10 + Math.random() * 16, // V49.2: 10-26px (visible particles)
+        ang,
       });
     }
     arr.push({
@@ -100,6 +103,7 @@ export default function Fireworks({ count = 5, className = '' }: FireworksProps)
                   '--tx': `${p.tx}px`,
                   '--ty': `${p.ty}px`,
                   '--c': p.color,
+                  '--ang': `${p.ang}rad`,
                   width: `${p.size}px`,
                   height: `${p.size}px`,
                   marginLeft: `${-p.size / 2}px`,

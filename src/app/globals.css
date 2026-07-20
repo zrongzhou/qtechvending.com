@@ -92,7 +92,7 @@ input[type='number']::-webkit-inner-spin-button {
      top-edge highlight and a soft inner shadow so the panel reads as real
      glass sitting on a colourful atmosphere background. */
   .glass-card-strong {
-    @apply relative overflow-hidden rounded-2xl border border-white/60 bg-white/55 p-6 shadow-lift backdrop-blur-xl;
+    @apply relative overflow-hidden rounded-2xl border border-white/45 bg-white/42 p-6 shadow-lift backdrop-blur-xl;
     box-shadow:
       0 4px 24px rgba(15, 23, 42, 0.08),
       0 12px 48px rgba(15, 23, 42, 0.05),
@@ -101,7 +101,7 @@ input[type='number']::-webkit-inner-spin-button {
     transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
   }
   .glass-card-strong:hover {
-    @apply bg-white/75;
+    @apply bg-white/62;
     transform: translateY(-6px);
     box-shadow:
       0 10px 36px rgba(15, 23, 42, 0.12),
@@ -378,7 +378,7 @@ input[type='number']::-webkit-inner-spin-button {
   .ocean-glass {
     position: relative;
     border-radius: 1rem;
-    background: rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.46);
     backdrop-filter: blur(20px) saturate(1.8);
     -webkit-backdrop-filter: blur(20px) saturate(1.8);
     border: 1px solid rgba(255, 255, 255, 0.45);
@@ -406,7 +406,7 @@ input[type='number']::-webkit-inner-spin-button {
     transition: background 0.5s ease, box-shadow 0.5s ease, transform 0.5s ease;
   }
   .ocean-glass--hover:hover {
-    background: rgba(255, 255, 255, 0.72);
+    background: rgba(255, 255, 255, 0.6);
     box-shadow:
       0 8px 32px rgba(0, 0, 0, 0.10),
       0 24px 64px rgba(0, 0, 0, 0.06),
@@ -427,24 +427,53 @@ input[type='number']::-webkit-inner-spin-button {
   .glass-surface {
     position: relative;
     border-radius: 1rem;
-    background: rgba(255, 255, 255, 0.72);
+    background: rgba(255, 255, 255, 0.56);
     backdrop-filter: blur(20px) saturate(1.8);
     -webkit-backdrop-filter: blur(20px) saturate(1.8);
-    border: 1px solid rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     box-shadow:
-      0 8px 32px rgba(15, 23, 42, 0.08),
-      0 2px 8px rgba(15, 23, 42, 0.04),
-      inset 0 1px 0 rgba(255, 255, 255, 0.85);
+      0 8px 32px rgba(15, 23, 42, 0.10),
+      0 2px 8px rgba(15, 23, 42, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
     transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
   }
   .glass-surface:hover {
     transform: translateY(-4px);
     border-color: rgba(34, 211, 238, 0.45);
-    background: rgba(255, 255, 255, 0.82);
+    background: rgba(255, 255, 255, 0.68);
     box-shadow:
-      0 16px 48px rgba(15, 23, 42, 0.12),
+      0 16px 48px rgba(15, 23, 42, 0.14),
       0 0 22px rgba(34, 211, 238, 0.16),
-      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+
+  /* V49.3: breathing border pulse for glass cards — a soft cyan glow that
+     fades the edge + outer shadow in and out like a slow heartbeat. Done via
+     a ::after overlay (no fill) so it never covers content or fights the
+     :hover lift. Brand ambient — stays visible under reduced-motion. Works on
+     any card that carries the class (.glass-surface, .glass-ice, …). */
+  .animate-pulse-border {
+    position: relative;
+  }
+  .animate-pulse-border::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 1px solid transparent;
+    pointer-events: none;
+    z-index: 1;
+    animation: pulseBorderLine 3.4s ease-in-out infinite;
+  }
+  @keyframes pulseBorderLine {
+    0%, 100% {
+      border-color: rgba(34, 211, 238, 0.10);
+      box-shadow: 0 0 0 0 rgba(34, 211, 238, 0);
+    }
+    50% {
+      border-color: rgba(34, 211, 238, 0.55);
+      box-shadow: 0 0 16px 2px rgba(34, 211, 238, 0.18);
+    }
   }
 
   /* Light, colourful page backgrounds that give the glass something to reflect. */
@@ -453,14 +482,14 @@ input[type='number']::-webkit-inner-spin-button {
       radial-gradient(60% 50% at 15% 12%, rgba(56, 189, 248, 0.12) 0%, transparent 60%),
       radial-gradient(55% 45% at 88% 22%, rgba(139, 92, 246, 0.10) 0%, transparent 60%),
       radial-gradient(60% 50% at 50% 100%, rgba(45, 212, 191, 0.12) 0%, transparent 60%),
-      linear-gradient(to bottom, #f8fafc 0%, #f0f9ff 50%, #f0fdfa 100%);
+      linear-gradient(to bottom, #eef2f7 0%, #e7f1f8 50%, #e9f6f2 100%);
   }
   .bg-glass-light-warm {
     background:
       radial-gradient(55% 45% at 18% 15%, rgba(56, 189, 248, 0.12) 0%, transparent 60%),
       radial-gradient(50% 45% at 85% 25%, rgba(244, 63, 94, 0.08) 0%, transparent 60%),
       radial-gradient(60% 50% at 50% 100%, rgba(45, 212, 191, 0.12) 0%, transparent 60%),
-      linear-gradient(to bottom, #ffffff 0%, #f6f9fc 50%, #eef6f5 100%);
+      linear-gradient(to bottom, #f3f6f9 0%, #eaf0f6 50%, #e8f3f0 100%);
   }
   /* V47: cold-tone product-page background — ice-blue / slate / blue-gray so
      the glass cards read cool instead of the previous warm-white wash. */
@@ -469,7 +498,7 @@ input[type='number']::-webkit-inner-spin-button {
       radial-gradient(55% 45% at 18% 15%, rgba(56, 189, 248, 0.14) 0%, transparent 60%),
       radial-gradient(50% 45% at 85% 25%, rgba(99, 102, 241, 0.08) 0%, transparent 60%),
       radial-gradient(60% 50% at 50% 100%, rgba(45, 212, 191, 0.12) 0%, transparent 60%),
-      linear-gradient(to bottom, #f1f5f9 0%, #eef6fb 50%, #eff6ff 100%);
+      linear-gradient(to bottom, #e9eff5 0%, #e5eff7 50%, #e7f0fb 100%);
   }
 
   /* === Atmospheric section backgrounds (give glass something to reflect) ===
@@ -895,10 +924,10 @@ input[type='number']::-webkit-inner-spin-button {
   position: relative;
   overflow: hidden;
   background: linear-gradient(180deg,
-    rgba(34, 211, 238, 0.25) 0%,
-    rgba(6, 182, 212, 0.18) 35%,
-    rgba(20, 184, 166, 0.22) 65%,
-    rgba(45, 212, 191, 0.16) 100%);
+    rgba(34, 211, 238, 0.16) 0%,
+    rgba(6, 182, 212, 0.12) 35%,
+    rgba(20, 184, 166, 0.14) 65%,
+    rgba(45, 212, 191, 0.10) 100%);
 }
 
 /* V49.2: Bright surface sunlight — crystal refraction feel. */
@@ -906,14 +935,14 @@ input[type='number']::-webkit-inner-spin-button {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.55) 0%, rgba(165, 243, 252, 0.30) 30%, rgba(34, 211, 238, 0.12) 55%, transparent 72%);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.38) 0%, rgba(165, 243, 252, 0.22) 30%, rgba(34, 211, 238, 0.10) 55%, transparent 72%);
 }
 /* Central aquarium lighting highlight — bright core for glassy depth. */
 .cta-aqua__lamp {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(ellipse at center, rgba(165, 243, 252, 0.42), rgba(34, 211, 238, 0.15) 50%, transparent 75%);
+  background: radial-gradient(ellipse at center, rgba(165, 243, 252, 0.30), rgba(34, 211, 238, 0.12) 50%, transparent 75%);
 }
 
 /* V49.2: Bright crystal god rays — wider, brighter, more visible beams. */
@@ -921,12 +950,12 @@ input[type='number']::-webkit-inner-spin-button {
   position: absolute;
   top: -25%;
   height: 150%;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.85), rgba(165, 243, 252, 0.45) 40%, rgba(34, 211, 238, 0.15) 65%, transparent 80%);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.70), rgba(165, 243, 252, 0.36) 40%, rgba(34, 211, 238, 0.12) 65%, transparent 80%);
   filter: blur(18px);
   transform-origin: top center;
   mix-blend-mode: screen;
   pointer-events: none;
-  opacity: 0.92;
+  opacity: 0.78;
   will-change: transform, opacity;
 }
 .cta-godray--1 { left: 8%;  width: 120px; transform: rotate(12deg); animation: ctaGodraySway 15s ease-in-out infinite; }
@@ -934,8 +963,8 @@ input[type='number']::-webkit-inner-spin-button {
 .cta-godray--3 { left: 58%; width: 110px; transform: rotate(10deg); opacity: 0.82; animation: ctaGodraySway 18s ease-in-out infinite; animation-delay: -9s; }
 .cta-godray--4 { left: 82%; width: 80px;  transform: rotate(22deg); opacity: 0.7; animation: ctaGodraySway 24s ease-in-out infinite; animation-delay: -13s; }
 @keyframes ctaGodraySway {
-  0%, 100% { transform: rotate(9deg) translateX(0); opacity: 0.62; }
-  50% { transform: rotate(16deg) translateX(22px); opacity: 0.95; }
+  0%, 100% { transform: rotate(9deg) translateX(0); opacity: 0.55; }
+  50% { transform: rotate(16deg) translateX(22px); opacity: 0.82; }
 }
 
 /* Shimmering water-surface ripple line across the top of the tank. */
@@ -1078,7 +1107,7 @@ input[type='number']::-webkit-inner-spin-button {
   min-width: 8px;
   min-height: 8px;
   border-radius: 9999px;
-  background: var(--c, #FFD700);
+  background: var(--c, #FFD27D);
   box-shadow:
     0 0 0 2px color-mix(in srgb, var(--c) 80%, white),
     0 0 12px 5px color-mix(in srgb, var(--c) 60%, transparent),
@@ -1089,6 +1118,26 @@ input[type='number']::-webkit-inner-spin-button {
   animation-name: firework-burst-v49;
   animation-timing-function: cubic-bezier(0.18, 0.7, 0.3, 1);
   animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+/* V49.3: Comet tail — a soft streak that trails each particle OPPOSITE to its
+   travel direction (using the per-particle --ang angle) so the burst reads as
+   real meteors scattering and falling. Inherits the particle colour. */
+.firework__particle::before {
+  content: '';
+  position: absolute;
+  right: 50%;
+  top: 50%;
+  width: 44px;
+  height: 3px;
+  border-radius: 9999px;
+  background: linear-gradient(to left, var(--c, #FFD27D) 0%, color-mix(in srgb, var(--c) 45%, transparent) 55%, transparent 100%);
+  transform-origin: right center;
+  transform: translateY(-50%) rotate(var(--ang, 0rad));
+  filter: blur(0.8px);
+  opacity: 0.85;
+  pointer-events: none;
+  will-change: transform, opacity;
 }
 @keyframes firework-core-v492 {
   0%   { transform: scale(0); opacity: 0; }
@@ -1100,19 +1149,22 @@ input[type='number']::-webkit-inner-spin-button {
   60%  { transform: scale(3.0); opacity: 0; }
   100% { transform: scale(3.0); opacity: 0; }
 }
+/* V49.3: meteor scatter — particles burst outward (--tx/--ty), get a brief
+   upward lift, then gravity pulls them DOWN (the +Y droop grows over time)
+   while they shrink and fade, like real falling fireworks. */
 @keyframes firework-burst-v49 {
-  0%   { transform: translate(0,0) scale(1); opacity: 0; }
-  2%   { transform: translate(0,0) scale(1); opacity: 1; }
-  12%  { transform: translate(calc(var(--tx,0)*0.12),calc(var(--ty,0)*0.12)) scale(0.95); opacity: 0.95; }
-  28%  { transform: translate(calc(var(--tx,0)*0.35),calc(var(--ty,0)*0.35)) scale(0.82); opacity: 0.8; }
-  48%  { transform: translate(calc(var(--tx,0)*0.62),calc(var(--ty,0)*0.62)) scale(0.65); opacity: 0.5; }
-  68%  { transform: translate(calc(var(--tx,0)*0.85),calc(var(--ty,0)*0.85)) scale(0.45); opacity: 0.2; }
-  82%  { transform: translate(var(--tx,0),var(--ty,0)) scale(0.32); opacity: 0; }
-  100% { transform: translate(var(--tx,0),var(--ty,0)) scale(0.32); opacity: 0; }
+  0%   { transform: translate(0, 0) scale(1); opacity: 0; }
+  3%   { transform: translate(0, 0) scale(1); opacity: 1; }
+  18%  { transform: translate(calc(var(--tx, 0) * 0.45), calc(var(--ty, 0) * 0.45 - 12px)) scale(0.95); opacity: 1; }
+  42%  { transform: translate(calc(var(--tx, 0) * 0.78), calc(var(--ty, 0) * 0.78 + 6px)) scale(0.78); opacity: 0.9; }
+  68%  { transform: translate(var(--tx, 0), calc(var(--ty, 0) + 26px)) scale(0.55); opacity: 0.5; }
+  86%  { transform: translate(calc(var(--tx, 0) * 1.04), calc(var(--ty, 0) + 58px)) scale(0.4); opacity: 0.18; }
+  100% { transform: translate(calc(var(--tx, 0) * 1.06), calc(var(--ty, 0) + 80px)) scale(0.32); opacity: 0; }
 }
-/* V49.2: brand ambient motion — keep running under reduced-motion. */
+/* V49.2: brand ambient motion — keep running AND fully visible under
+   reduced-motion (the stakeholder requires fireworks to always show). */
 @media (prefers-reduced-motion: reduce) {
-  .fireworks { opacity: 0.5; }
+  .fireworks { opacity: 1; }
 }
 
 /* ============================================================================
@@ -1122,12 +1174,12 @@ input[type='number']::-webkit-inner-spin-button {
 
 /* ---- R3 (V48.1): translucent product cards so the fireworks show through ---- */
 .product-card-glass.glass-surface {
-  background: rgba(255, 255, 255, 0.50);
+  background: rgba(255, 255, 255, 0.42);
   backdrop-filter: blur(16px) saturate(1.4);
   -webkit-backdrop-filter: blur(16px) saturate(1.4);
 }
 .product-card-glass.glass-surface:hover {
-  background: rgba(255, 255, 255, 0.62);
+  background: rgba(255, 255, 255, 0.52);
 }
 
 /* ---- R1: Hero trust-icon pulse glow + card flowing light border ----
@@ -1231,10 +1283,10 @@ input[type='number']::-webkit-inner-spin-button {
   overflow: hidden;
   /* V49.2: Base ice-blue tint so the section reads as cold/icy */
   background: linear-gradient(160deg,
-    rgba(165, 243, 252, 0.15) 0%,
-    rgba(103, 232, 249, 0.10) 30%,
-    rgba(34, 211, 238, 0.08) 60%,
-    rgba(14, 165, 233, 0.12) 100%);
+    rgba(165, 243, 252, 0.20) 0%,
+    rgba(103, 232, 249, 0.14) 30%,
+    rgba(34, 211, 238, 0.12) 60%,
+    rgba(14, 165, 233, 0.16) 100%);
 }
 
 /* Layer 1: Aurora borealis bands — VISIBLE colour shift across the sky. */
@@ -1255,8 +1307,8 @@ input[type='number']::-webkit-inner-spin-button {
   animation: glacierAurora 18s ease-in-out infinite alternate;
 }
 @keyframes glacierAurora {
-  0%   { opacity: 0.75; transform: translateX(-3%) skewX(-2deg); }
-  100% { opacity: 1; transform: translateX(3%) skewX(2deg); }
+  0%   { opacity: 0.85; transform: translateX(-6%) skewX(-4deg) scale(1.02); }
+  100% { opacity: 1; transform: translateX(6%) skewX(4deg) scale(1.06); }
 }
 
 /* Layer 2: Ice facet texture — visible geometric "cracked ice" overlay. */
@@ -1302,39 +1354,39 @@ input[type='number']::-webkit-inner-spin-button {
   animation: glacierAurora2 22s ease-in-out infinite alternate;
 }
 @keyframes glacierAurora2 {
-  0%   { opacity: 0.6; transform: translateY(-2%) rotate(-0.5deg); }
-  100% { opacity: 1; transform: translateY(2%) rotate(0.5deg); }
+  0%   { opacity: 0.7; transform: translateY(-4%) rotate(-1.2deg) scale(1.03); }
+  100% { opacity: 1; transform: translateY(4%) rotate(1.2deg) scale(1.07); }
 }
 
 /* Light refraction ray — VISIBLE diagonal beam through ice */
 .glacier__ray {
   position: absolute;
-  width: 200%;
-  height: 2px;  /* V49.2: was 1px (invisible) */
-  left: -50%;
+  width: 220%;
+  height: 3px;  /* V49.2: was 1px (invisible) */
+  left: -60%;
   top: 40%;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.12) 15%,
-    rgba(165, 243, 252, 0.28) 40%,
-    rgba(255, 255, 255, 0.18) 60%,
-    rgba(103, 232, 249, 0.10) 80%,
+    rgba(255, 255, 255, 0.18) 15%,
+    rgba(165, 243, 252, 0.40) 40%,
+    rgba(255, 255, 255, 0.26) 60%,
+    rgba(103, 232, 249, 0.16) 80%,
     transparent 100%
   );
-  filter: blur(1px);
+  filter: blur(1.5px);
   transform: rotate(25deg);
-  animation: glacierRay 15s ease-in-out infinite alternate;
+  animation: glacierRay 14s ease-in-out infinite alternate;
 }
 .glacier__ray:nth-child(even) {
   top: 65%;
   transform: rotate(-18deg);
-  animation-duration: 19s;
+  animation-duration: 18s;
   animation-delay: -7s;
 }
 @keyframes glacierRay {
-  0%   { opacity: 0.4; transform: rotate(25deg) translateX(-2%); }
-  100% { opacity: 1; transform: rotate(28deg) translateX(2%); }
+  0%   { opacity: 0.55; transform: rotate(24deg) translateX(-5%); }
+  100% { opacity: 1; transform: rotate(30deg) translateX(5%); }
 }
 
 /* Frost mist — VISIBLE ice fog at bottom */
@@ -1352,8 +1404,8 @@ input[type='number']::-webkit-inner-spin-button {
   animation: glacierMist 12s ease-in-out infinite alternate;
 }
 @keyframes glacierMist {
-  0%   { opacity: 0.7; }
-  100% { opacity: 1; }
+  0%   { opacity: 0.7; transform: translateX(-4%) scale(1.02); }
+  100% { opacity: 1; transform: translateX(4%) scale(1.06); }
 }
 
 /* Static frost sparkles — VISIBLE bright dots (was 2px invisible) */
@@ -1364,15 +1416,22 @@ input[type='number']::-webkit-inner-spin-button {
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.95);
   box-shadow:
-    0 0 6px 2px rgba(165, 243, 252, 0.7),
-    0 0 14px 4px rgba(103, 232, 249, 0.35);
+    0 0 8px 2px rgba(165, 243, 252, 0.8),
+    0 0 18px 5px rgba(103, 232, 249, 0.45);
+  /* V49.3: twinkle so the frost sparkles read as living ice crystals. */
+  animation: glacierSparkle var(--gs-dur, 4s) ease-in-out infinite;
+  animation-delay: var(--gs-delay, 0s);
+}
+@keyframes glacierSparkle {
+  0%, 100% { opacity: 0.4; transform: scale(0.8); }
+  50%      { opacity: 1; transform: scale(1.35); }
 }
 
 /* Half-translucent "ice glass" surface for the glacier stat cards. */
 .glass-ice {
   position: relative;
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.40);
+  background: rgba(255, 255, 255, 0.34);
   backdrop-filter: blur(14px) saturate(1.6);
   -webkit-backdrop-filter: blur(14px) saturate(1.6);
   border: 1px solid rgba(255, 255, 255, 0.60);
@@ -1381,10 +1440,10 @@ input[type='number']::-webkit-inner-spin-button {
     inset 0 1px 0 rgba(255, 255, 255, 0.85);
   transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
 }
-.glass-ice:hover {
-  transform: translateY(-4px);
-  border-color: rgba(34, 211, 238, 0.55);
-  background: rgba(255, 255, 255, 0.55);
+  .glass-ice:hover {
+    transform: translateY(-4px);
+    border-color: rgba(34, 211, 238, 0.55);
+    background: rgba(255, 255, 255, 0.46);
   box-shadow:
     0 16px 48px rgba(15, 23, 42, 0.12),
     0 0 22px rgba(34, 211, 238, 0.18),
@@ -1573,7 +1632,9 @@ input[type='number']::-webkit-inner-spin-button {
      guard was the root cause of "glacier never appears" reports. */
   .cta-sunrise__beam { animation: none !important; opacity: 0.5 !important; }
   .cta-sunrise__dust { animation: none !important; opacity: 0 !important; }
-  .footer-firefly { animation: none !important; opacity: 0.3 !important; }
+  /* V49.3: footer fireflies are BRAND AMBIENT — they MUST keep moving under
+     reduced-motion (the previous kill was the cause of "完全静止" reports).
+     Do NOT add `animation: none` here. */
 }
 
 /* ============================================================
@@ -1601,9 +1662,24 @@ input[type='number']::-webkit-inner-spin-button {
     0 0 16px 5px rgba(250, 204, 21, 0.4),
     0 0 30px 8px rgba(163, 230, 53, 0.2);
   opacity: 0;
-  animation: fireflyDrift var(--fd-dur, 10s) ease-in-out infinite;
+  /* V49.3: drift (slow floating) + twinkle (opacity breathing) so the
+     fireflies are clearly alive and moving. Brand ambient — keep visible. */
+  animation:
+    footerDrift var(--fd-dur, 10s) ease-in-out infinite,
+    footerTwinkle var(--fd-tw, 3.6s) ease-in-out infinite;
   animation-delay: var(--fd-delay, 0s);
   will-change: transform, opacity;
+}
+@keyframes footerDrift {
+  0%   { transform: translate(0, 0) scale(0.7); }
+  50%  { transform: translate(calc(var(--fd-x, 20px) * 0.6), calc(var(--fd-y, -20px) * 0.6)) scale(1); }
+  100% { transform: translate(var(--fd-x, 20px), var(--fd-y, -20px)) scale(0.7); }
+}
+@keyframes footerTwinkle {
+  0%, 100% { opacity: 0.12; }
+  25%      { opacity: 1; }
+  50%      { opacity: 0.5; }
+  75%      { opacity: 0.9; }
 }
 
 .footer-firefly:nth-child(1) { --fd-dur: 12s; --fd-delay: 0s; left: 8%; top: 20%; --fd-x: 60px; --fd-y: -40px; width: 3px; height: 3px; }
@@ -1619,32 +1695,65 @@ input[type='number']::-webkit-inner-spin-button {
 .footer-firefly:nth-child(11) { --fd-dur: 11s; --fd-delay: -2.5s; left: 42%; top: 8%; --fd-x: -45px; --fd-y: -35px; width: 3px; height: 3px; }
 .footer-firefly:nth-child(12) { --fd-dur: 13s; --fd-delay: -7.5s; left: 68%; top: 85%; --fd-x: 50px; --fd-y: -45px; width: 5px; height: 5px; background: #fde047; }
 
-@keyframes fireflyDrift {
-  0% {
-    transform: translate(0, 0) scale(0.6);
-    opacity: 0;
-  }
-  12% {
-    opacity: 1;
-    box-shadow:
-      0 0 6px 2px rgba(163, 230, 53, 1),
-      0 0 18px 6px rgba(250, 204, 21, 0.6),
-      0 0 36px 10px rgba(163, 230, 53, 0.3);
-  }
-  35% {
-    opacity: 0.85;
-    transform: translate(calc(var(--fd-x, 20px) * 0.3), calc(var(--fd-y, -20px) * 0.3)) scale(1);
-  }
-  60% {
-    opacity: 0.6;
-    transform: translate(calc(var(--fd-x, 20px) * 0.7), calc(var(--fd-y, -20px) * 0.7)) scale(0.85);
-  }
-  85% {
-    opacity: 0.25;
-    transform: translate(var(--fd-x, 20px), var(--fd-y, -20px)) scale(0.5);
-  }
-  100% {
-    transform: translate(var(--fd-x, 20px), var(--fd-y, -20px)) scale(0.3);
-    opacity: 0;
-  }
+/* ============ V49.3: 3D glass nameplate (词牌) ============
+   Floating, glassy brand plaque with a slight 3D tilt, multi-layer
+   highlight/shadow and backdrop blur. Used for the "词牌" nameplate card and
+   the section eyebrow labels. Visual only — text content is unchanged. */
+.nameplate-3d {
+  position: relative;
+  transform: perspective(900px) rotateX(10deg);
+  transform-origin: center bottom;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.85) 0%, rgba(224, 242, 254, 0.55) 50%, rgba(186, 230, 253, 0.45) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 18px 40px rgba(8, 47, 73, 0.20),
+    0 8px 16px rgba(8, 47, 73, 0.14),
+    inset 0 2px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -2px 0 rgba(8, 47, 73, 0.10),
+    0 0 26px rgba(34, 211, 238, 0.18);
+  backdrop-filter: blur(16px) saturate(1.5);
+  -webkit-backdrop-filter: blur(16px) saturate(1.5);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+.nameplate-3d:hover {
+  transform: perspective(900px) rotateX(3deg) translateY(-4px);
+  box-shadow:
+    0 28px 56px rgba(8, 47, 73, 0.26),
+    0 12px 24px rgba(8, 47, 73, 0.16),
+    inset 0 2px 0 rgba(255, 255, 255, 1),
+    0 0 40px rgba(34, 211, 238, 0.30);
+}
+
+/* Small eyebrow / "词牌" label rendered as a floating 3D glass chip. */
+.brand-plaque {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #0e7490;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.78) 0%, rgba(186, 230, 253, 0.38) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 6px 18px rgba(8, 47, 73, 0.18),
+    0 2px 4px rgba(8, 47, 73, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(8, 47, 73, 0.06);
+  backdrop-filter: blur(10px) saturate(1.4);
+  -webkit-backdrop-filter: blur(10px) saturate(1.4);
+  transform: perspective(600px) rotateX(8deg);
+  transform-origin: center bottom;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.brand-plaque:hover {
+  transform: perspective(600px) rotateX(2deg) translateY(-2px);
+  box-shadow:
+    0 12px 28px rgba(8, 47, 73, 0.22),
+    0 4px 8px rgba(8, 47, 73, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 0 16px rgba(34, 211, 238, 0.25);
 }

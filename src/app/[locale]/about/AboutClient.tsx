@@ -545,17 +545,21 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           <div className="glacier__ray" />
           <div className="glacier__mist" />
           {/* Frost sparkles — V49.2: larger, brighter, more visible */}
-          {Array.from({ length: 32 }, (_, i) => (
+          {Array.from({ length: 48 }, (_, i) => (
             <span
               key={`gs-${i}`}
               className="glacier__sparkle"
-              style={{
-                left: `${(Math.sin(i * 13.7) * 0.5 + 0.5) * 100}%`,
-                top: `${(Math.cos(i * 17.3) * 0.5 + 0.5) * 90}%`,
-                opacity: 0.6 + (i % 3) * 0.25,
-                width: `${4 + (i % 4)}px`,
-                height: `${4 + (i % 4)}px`,
-              }}
+              style={
+                {
+                  left: `${(Math.sin(i * 13.7) * 0.5 + 0.5) * 100}%`,
+                  top: `${(Math.cos(i * 17.3) * 0.5 + 0.5) * 90}%`,
+                  opacity: 0.6 + (i % 3) * 0.25,
+                  width: `${4 + (i % 4)}px`,
+                  height: `${4 + (i % 4)}px`,
+                  ['--gs-dur']: `${3 + (i % 4)}s`,
+                  ['--gs-delay']: `${(i % 6) * 0.5}s`,
+                } as React.CSSProperties
+              }
             />
           ))}
         </div>
@@ -578,7 +582,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               const accent = ACCENTS[i % ACCENTS.length];
               return (
                 <RevealOnScroll key={s.key} delay={i * 80} className="h-full">
-                  <div className="glass-ice flex h-full min-h-[160px] flex-col items-center justify-center gap-3 rounded-2xl p-5 text-center">
+                  <div className="glass-ice animate-pulse-border flex h-full min-h-[160px] flex-col items-center justify-center gap-3 rounded-2xl p-5 text-center">
                     <span
                       className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${accent.tile} ${accent.shadow} shadow-lg animate-pulse-glow`}
                       style={{ ['--glow-color' as string]: 'rgba(34, 211, 238, 0.55)' } as React.CSSProperties}
@@ -613,7 +617,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           </div>
           {/* Right: 以匠心 copy + CTA */}
           <div className="flex flex-col justify-center">
-            <span className="inline-flex items-center gap-2 border-l-2 border-cyan-500 pl-3 text-xs font-semibold uppercase tracking-widest text-cyan-600">
+            <span className="brand-plaque gap-2">
               {t('about.aboutTitle')}
             </span>
             <h2 className="mt-4 text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl">
@@ -659,7 +663,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               >
                 <div className={`flex flex-col justify-center ${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
                   {/* V49.2: Modern left-border label (not full-width pill) */}
-                  <span className={`inline-flex items-center gap-2 border-l-2 ${a.border === 'border-cyan-400' ? 'border-cyan-500' : a.border} pl-3 text-xs font-semibold uppercase tracking-widest ${a.text}`}>
+                  <span className="brand-plaque gap-2">
                     <IconTile icon={SectionIcon} className="h-4 w-4" tileClassName={`bg-gradient-to-br ${a.tile} text-white p-1.5`} />
                     {title}
                   </span>
@@ -677,7 +681,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                 {section.key === 'capability' ? (
                   /* 词牌：V49.2 compact modern glass card (less whitespace) */
                   <div className={`flex items-center justify-center ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
-                    <div className="relative flex h-full w-full min-h-[220px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-white/40 bg-gradient-to-br from-white/80 via-cyan-50/60 to-sky-50/50 p-6 shadow-lg backdrop-blur-md sm:p-8">
+                    <div className="nameplate-3d relative flex h-full w-full min-h-[220px] flex-col items-center justify-center overflow-hidden rounded-2xl p-6 shadow-lg sm:p-8">
                       {/* Ambient glow */}
                       <div className="pointer-events-none absolute -top-8 start-1/2 h-28 w-28 -translate-x-1/2 rounded-full bg-cyan-300/25 blur-3xl" />
                       {/* Subtle inner border */}
@@ -716,7 +720,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           content (see COMPANY_ADVANTAGES) plus the section heading via i18n. */}
       <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
         <div className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-2 border-l-2 border-cyan-500 pl-3 text-xs font-semibold uppercase tracking-widest text-cyan-600">
+          <span className="brand-plaque gap-2">
             <IconTile icon={Sparkles} className="h-4 w-4" tileClassName="bg-gradient-to-br from-cyan-500 to-teal-500 text-white p-1.5" />
             {t('about.advantages.eyebrow')}
           </span>
@@ -739,9 +743,9 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                 delay={idx * 80}
                 className={`h-full ${isLast ? 'sm:col-span-2 lg:col-span-2' : ''}`}
               >
-                <div className={`glass-surface group relative h-full overflow-hidden border-s-4 ${ac.border}${isLast ? '' : ''}`}>
+                <div className={`glass-surface group relative h-full overflow-hidden border-s-4 animate-pulse-border ${ac.border}`}>
                   <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${ac.tile} flow-bar`} aria-hidden="true" />
-                  <div className={`flex h-full items-center gap-5 p-6 ${reversed ? 'lg:flex-row-reverse lg:text-right' : ''}`}>
+                  <div className={`flex h-full items-center gap-5 p-6 ${reversed ? 'lg:flex-row-reverse lg:text-right' : ''} ${isLast ? 'flex-col items-center text-center' : ''}`}>
                     <IconTile
                       icon={Icon}
                       className="h-9 w-9 shrink-0"
@@ -827,7 +831,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             const a = ACCENTS[i % ACCENTS.length];
             return (
               <RevealOnScroll key={localeOr(s.title)} delay={i * 80} className="h-full">
-                <div className={`glass-surface group relative h-full overflow-hidden border-s-4 ${a.border}`}>
+                <div className={`glass-surface group relative h-full overflow-hidden border-s-4 animate-pulse-border ${a.border}`}>
                   <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile} flow-bar`} aria-hidden="true" />
                   <div className="p-6">
                     <IconTile
@@ -865,7 +869,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             const a = ACCENTS[i % ACCENTS.length];
             return (
               <RevealOnScroll key={localeOr(m.title)} delay={i * 80} className="h-full">
-                <div className={`glass-surface group relative flex h-full flex-col items-center rounded-2xl p-8 text-center ${a.soft}`}>
+                <div className={`glass-surface group relative flex h-full flex-col items-center rounded-2xl p-8 text-center animate-pulse-border ${a.soft}`}>
                   <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile} flow-bar`} aria-hidden="true" />
                   <IconTile
                     icon={Icon}
@@ -900,7 +904,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             const a = ACCENTS[(i + 1) % ACCENTS.length];
             return (
               <RevealOnScroll key={localeOr(v.title)} delay={i * 80} className="h-full">
-                <div className={`glass-surface group relative flex h-full flex-col items-center rounded-2xl p-8 text-center ${a.soft}`}>
+                <div className={`glass-surface group relative flex h-full flex-col items-center rounded-2xl p-8 text-center animate-pulse-border ${a.soft}`}>
                   <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile} flow-bar`} aria-hidden="true" />
                   <IconTile
                     icon={Icon}
@@ -934,7 +938,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               const a = ACCENTS[item.accent % ACCENTS.length];
               return (
                 <RevealOnScroll key={i} delay={i * 80}>
-                  <div className="glass-surface group flex h-full flex-col items-center rounded-2xl p-8 text-center">
+                  <div className="glass-surface group flex h-full flex-col items-center rounded-2xl p-8 text-center animate-pulse-border">
                     <span className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-lg`}>
                       <item.icon className="h-7 w-7" />
                     </span>
@@ -966,7 +970,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             const a = ACCENTS[i % ACCENTS.length];
             return (
               <RevealOnScroll key={localeOr(v.title)} delay={i * 80} className="h-full">
-                <div className={`glass-surface group relative flex h-full flex-col p-6 ${a.soft} border-s-4 ${a.border}`}>
+                <div className={`glass-surface group relative flex h-full flex-col p-6 ${a.soft} border-s-4 animate-pulse-border ${a.border}`}>
                   <div className="flex items-center gap-2.5">
                     {/* Small brand-cyan ordinal dot+number (replaces the big watermark). */}
                     <span className={`inline-flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br ${a.tile} text-xs font-bold text-white`} aria-hidden="true">
@@ -1015,7 +1019,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                   </div>
                   <div className="md:grid md:grid-cols-2 md:gap-10">
                     <div className={left ? 'md:col-start-1' : 'md:col-start-2'}>
-                      <div className="glass-surface group relative p-5">
+                      <div className="glass-surface group relative p-5 animate-pulse-border">
                         <div className="flex flex-wrap items-baseline gap-3">
                           <span className="text-base font-extrabold tracking-tight text-cyan-600">{m.year}</span>
                           <h3 className="text-lg font-bold text-ink-900">{localeOr(m.title)}</h3>
@@ -1048,7 +1052,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             const CertIcon = CERT_ICON[cert.icon] || ShieldCheck;
             const a = ACCENTS[i % ACCENTS.length];
             return (
-              <div key={cert.name} className="glass-surface relative flex min-w-[180px] flex-col items-center gap-3 p-6 text-center">
+              <div key={cert.name} className="glass-surface relative flex min-w-[180px] flex-col items-center gap-3 p-6 text-center animate-pulse-border">
                 <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile}`} />
                 <IconTile icon={CertIcon} className="h-8 w-8" tileClassName={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-md`} />
                 <span className="text-sm font-bold tracking-tight text-ink-900">{cert.name}</span>

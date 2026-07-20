@@ -92,7 +92,7 @@ export default function CaseGallerySection() {
                 fill
                 className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${imgLoaded[i] || (i === active) ? 'opacity-100' : 'opacity-0'}`}
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                quality={95}
+                quality={100}
                 unoptimized
                 decoding="async"
                 priority={i === 0 || i === 1}  /* V49.2: preload first 2 images for instant sharp render */
