@@ -242,24 +242,7 @@ export default function ContactClient({
                     <p className="text-ink-700">+86 190 1516 9848 (Sabina)</p>
                   </div>
                 </li>
-                <li className="flex items-start gap-3">
-                  <IconTile icon={MessageCircle} className="h-4 w-4" tileClassName="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-700" />
-                  <div>
-                    <p className="text-xs font-medium uppercase tracking-wide text-ink-500">WhatsApp</p>
-                    <p className="mt-0.5 text-ink-700">
-                      <a href="https://wa.me/8618319753992" target="_blank" rel="noopener noreferrer" className="hover:text-brand-700">+86 183 1975 3992</a>
-                      {' / '}
-                      <a href="https://wa.me/8619015169848" target="_blank" rel="noopener noreferrer" className="hover:text-brand-700">+86 190 1516 9848</a>
-                    </p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <IconTile icon={MessageSquare} className="h-4 w-4" tileClassName="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-700" />
-                  <div>
-                    <p className="text-xs font-medium uppercase tracking-wide text-ink-500">WeChat</p>
-                    <p className="mt-0.5 text-ink-700">Qtech Vending</p>
-                  </div>
-                </li>
+                {/* WhatsApp & WeChat removed per user request */}
               </ul>
             </div>
 

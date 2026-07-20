@@ -1556,4 +1556,78 @@ input[type='number']::-webkit-inner-spin-button {
      guard was the root cause of "glacier never appears" reports. */
   .cta-sunrise__beam { animation: none !important; opacity: 0.5 !important; }
   .cta-sunrise__dust { animation: none !important; opacity: 0 !important; }
+  .footer-firefly { animation: none !important; opacity: 0.3 !important; }
+}
+
+/* ============================================================
+   V49: Firefly animation for Footer ambient glow
+   Pure CSS floating fireflies — warm golden-green particles that
+   drift slowly across the dark footer, creating a magical night
+   atmosphere without blocking any content (pointer-events: none).
+   ============================================================ */
+.footer-fireflies {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.footer-firefly {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #a3e635;
+  box-shadow:
+    0 0 6px 2px rgba(163, 230, 53, 0.8),
+    0 0 16px 5px rgba(250, 204, 21, 0.4),
+    0 0 30px 8px rgba(163, 230, 53, 0.2);
+  opacity: 0;
+  animation: fireflyDrift var(--fd-dur, 10s) ease-in-out infinite;
+  animation-delay: var(--fd-delay, 0s);
+  will-change: transform, opacity;
+}
+
+.footer-firefly:nth-child(1) { --fd-dur: 12s; --fd-delay: 0s; left: 8%; top: 20%; --fd-x: 60px; --fd-y: -40px; width: 3px; height: 3px; }
+.footer-firefly:nth-child(2) { --fd-dur: 14s; --fd-delay: -2s; left: 18%; top: 65%; --fd-x: 45px; --fd-y: -55px; width: 5px; height: 5px; background: #fde047; }
+.footer-firefly:nth-child(3) { --fd-dur: 11s; --fd-delay: -4s; left: 32%; top: 35%; --fd-x: -50px; --fd-y: -35px; width: 3px; height: 3px; }
+.footer-firefly:nth-child(4) { --fd-dur: 15s; --fd-delay: -7s; left: 48%; top: 72%; --fd-x: 35px; --fd-y: -60px; width: 4px; height: 4px; background: #d9f99d; }
+.footer-firefly:nth-child(5) { --fd-dur: 13s; --fd-delay: -1.5s; left: 62%; top: 15%; --fd-x: -40px; --fd-y: -45px; width: 3px; height: 3px; }
+.footer-firefly:nth-child(6) { --fd-dur: 16s; --fd-delay: -5s; left: 75%; top: 55%; --fd-x: 55px; --fd-y: -30px; width: 5px; height: 5px; background: #fde047; }
+.footer-firefly:nth-child(7) { --fd-dur: 10s; --fd-delay: -8s; left: 88%; top: 30%; --fd-x: -35px; --fd-y: -50px; width: 3px; height: 3px; }
+.footer-firefly:nth-child(8) { --fd-dur: 14s; --fd-delay: -3s; left: 25%; top: 80%; --fd-x: 40px; --fd-y: -25px; width: 4px; height: 4px; }
+.footer-firefly:nth-child(9) { --fd-dur: 12s; --fd-delay: -6s; left: 55%; top: 45%; --fd-x: -55px; --fd-y: -40px; width: 3px; height: 3px; background: #d9f99d; }
+.footer-firefly:nth-child(10) { --fd-dur: 15s; --fd-delay: -9s; left: 92%; top: 70%; --fd-x: 30px; --fd-y: -55px; width: 4px; height: 4px; }
+.footer-firefly:nth-child(11) { --fd-dur: 11s; --fd-delay: -2.5s; left: 42%; top: 8%; --fd-x: -45px; --fd-y: -35px; width: 3px; height: 3px; }
+.footer-firefly:nth-child(12) { --fd-dur: 13s; --fd-delay: -7.5s; left: 68%; top: 85%; --fd-x: 50px; --fd-y: -45px; width: 5px; height: 5px; background: #fde047; }
+
+@keyframes fireflyDrift {
+  0% {
+    transform: translate(0, 0) scale(0.6);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+    box-shadow:
+      0 0 6px 2px rgba(163, 230, 53, 1),
+      0 0 18px 6px rgba(250, 204, 21, 0.6),
+      0 0 36px 10px rgba(163, 230, 53, 0.3);
+  }
+  35% {
+    opacity: 0.85;
+    transform: translate(calc(var(--fd-x, 20px) * 0.3), calc(var(--fd-y, -20px) * 0.3)) scale(1);
+  }
+  60% {
+    opacity: 0.6;
+    transform: translate(calc(var(--fd-x, 20px) * 0.7), calc(var(--fd-y, -20px) * 0.7)) scale(0.85);
+  }
+  85% {
+    opacity: 0.25;
+    transform: translate(var(--fd-x, 20px), var(--fd-y, -20px)) scale(0.5);
+  }
+  100% {
+    transform: translate(var(--fd-x, 20px), var(--fd-y, -20px)) scale(0.3);
+    opacity: 0;
+  }
 }
