@@ -843,13 +843,34 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                   ? 'بإتقان، نصقل كل آلة بيع ذكية'
                 : 'Crafting every smart vending machine with care'}
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-ink-600 sm:text-lg">
-              {locale === 'zh'
-                ? '广州秋彦科技（Qtech）专注于智能售货设备的研发与制造，为全球 80+ 国家和地区的合作伙伴提供定制化的自助零售解决方案。从鲜花保鲜柜到披萨自动售货机，我们以匠心打磨每一台设备。'
-                : locale === 'ar'
-                  ? 'تتركز تقنية تشيوان (Qtech) على البحث والتطوير وتصنيع آلات البيع الذكية، وتقدم حلولاً مخصصة للبيع بالتجزئة الذاتية لشركاء في أكثر من 80 دولة ومنطقة حول العالم.'
-                : 'Guangzhou Qiuyan Technology (Qtech) specializes in R&D and manufacturing of smart vending machines, delivering customized self-service retail solutions to partners in 80+ countries worldwide.'}
-            </p>
+            {/* 公司介绍 — Excel「公司介绍」行 (ROW 0) 原文，按表格来，三语一致 */}
+            {(() => {
+              const INTRO: Record<string, string[]> = {
+                zh: [
+                  'Qtech Vending 是一家拥有 10 余年经验的智能售货机厂家，深耕自动零售行业。我们从传统零食饮料售货机起步，持续拓展到鲜花售货机、披萨售货机、热食售货机、制冰售货机、鲜食售货机，以及面向不同业务场景的定制售货方案。',
+                  '我们深知，客户买的不仅是一台机器，而是一套可靠的经营方式——延长营业时间、降低人工成本、提升顾客便利、创造新的销售机会。因此，我们始终围绕客户想卖什么、机器用在哪、用户怎么付款、生意如何运营，提供务实可落地的方案。',
+                  '秉持以客户为中心的理念，Qtech Vending 持续优化产品质量、用户体验、支付系统、远程管理与定制能力，助力运营商、零售商、经销商与场地方打造灵活、智能、可盈利的 24/7 自助生意。',
+                ],
+                en: [
+                  'Qtech Vending is a smart vending machine manufacturer with more than 10 years of experience in the automated retail industry. We started with traditional snack and drink vending machines and have continued to expand into flower vending machines, pizza vending machines, hot food vending machines, ice vending machines, fresh food machines, and customized vending solutions for different business needs.',
+                  'We understand that customers are not just buying a machine. They are looking for a reliable way to extend business hours, reduce labor costs, improve customer convenience, and create new sales opportunities. That is why we focus on practical solutions based on what customers want to sell, where the machine will be used, how users will pay, and how the business will operate.',
+                  'With a customer-centered mindset, Qtech Vending continues to improve product quality, user experience, payment systems, remote management, and customization options. We aim to help operators, retailers, distributors, and venue owners build smart, flexible, and profitable 24/7 self-service businesses.',
+                ],
+                ar: [
+                  'Qtech Vending هي شركة مصنعة لآلات البيع الذكية بخبرة تزيد عن 10 سنوات في صناعة التجزئة الآلية. بدأنا بآلات بيع الوجبات الخفيفة والمشروبات التقليدية وتوسعنا إلى آلات بيع الزهور والبيتزا والطعام الساخن والثلج والأطعمة الطازجة وحلول البيع المخصصة لمختلف الاحتياجات التجارية.',
+                  'نحن ندرك أن العملاء لا يشترون مجرد آلة، بل يبحثون عن طريقة موثوقة لإطالة ساعات العمل، وتقليل تكاليف العمالة، وتحسين راحة العملاء، وخلق فرص مبيعات جديدات. لذلك نركز على حلول عملية تستند إلى ما يريد العملاء بيعه، وأين سيُستخدم الجهاز، وكيف يدفع المستخدمون، وكيف تدار الأعمال.',
+                  'ومع عقلية تركز على العميل، تواصل Qtech Vending تحسين جودة المنتج، وتجربة المستخدم، وأنظمة الدفع، والإدارة عن بُعد، وخيارات التخصيص، بهدف مساعدة المشغلين والتجار والموزعين وأصحاب المواقع على بناء أعمال خدمة ذاتية ذكية ومرنة ومربحة على مدار 24/7.',
+                ],
+              };
+              const paras = INTRO[locale] ?? INTRO.en;
+              return (
+                <div className="mt-4 space-y-4">
+                  {paras.map((p, i) => (
+                    <p key={i} className="text-base leading-relaxed text-ink-600 sm:text-lg">{p}</p>
+                  ))}
+                </div>
+              );
+            })()}
             <Link
               href={`/${locale}/contact`}
               className="mt-7 inline-flex w-fit items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-teal-500/25 transition hover:-translate-y-0.5 hover:from-cyan-400 hover:to-teal-400"
@@ -984,15 +1005,15 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           contrast against the white/glassmorphism sections above and below. */}
       <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
         <div className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-sky-50 px-4 py-1.5 text-sm font-medium text-sky-700 ring-1 ring-sky-200">
-            <IconTile icon={Factory} className="h-4 w-4" tileClassName="bg-gradient-to-br from-sky-500 to-cyan-500 text-white p-1.5" />
-            {locale === 'zh' ? '智造实力' : locale === 'ar' ? 'قدرات التصنيع' : 'Manufacturing Capability'}
-          </span>
-          <h2 className="mt-5 text-3xl font-extrabold text-ink-900 sm:text-4xl">
-            {locale === 'zh' ? '从研发到交付的全链路品质保障'
-              : locale === 'ar' ? 'ضمان الجودة من البحث حتى التسليم'
-              : 'End-to-End Quality from R&D to Delivery'}
-          </h2>
+            <span className="inline-flex items-center gap-2 rounded-full bg-sky-50 px-4 py-1.5 text-sm font-medium text-sky-700 ring-1 ring-sky-200">
+              <IconTile icon={Factory} className="h-4 w-4" tileClassName="bg-gradient-to-br from-sky-500 to-cyan-500 text-white p-1.5" />
+              {locale === 'zh' ? '智造实力' : locale === 'ar' ? 'قدرات التصنيع' : 'Manufacturing Capability'}
+            </span>
+            <h2 className="mt-5 text-3xl font-extrabold text-ink-900 sm:text-4xl">
+              {locale === 'zh' ? '售货机制作生产8大工序'
+                : locale === 'ar' ? '8 خطوات لتصنيع آلات البيع'
+                : '8 Steps of Vending Machine Manufacturing'}
+            </h2>
         </div>
 
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
