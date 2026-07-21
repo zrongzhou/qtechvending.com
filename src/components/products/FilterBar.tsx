@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Search, X, ChevronDown, Check, type LucideIcon } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
@@ -36,11 +37,47 @@ export default function FilterBar({
   // rounded panel with scroll for long lists).
   const [catOpen, setCatOpen] = useState(false);
   const catRef = useRef<HTMLDivElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  // Live viewport coords for the portal panel (fixed positioning).
+  const [coords, setCoords] = useState<{ top: number; left: number; width: number } | null>(null);
+
+  // V49.12: render the dropdown in a portal on <body> with `position: fixed`
+  // computed from the button's live rect. This escapes EVERY ancestor stacking
+  // context — previously the product column's `.glass-surface` (backdrop-filter
+  // creates its own stacking context) painted ON TOP of the dropdown and hid
+  // the category list. The portal can never be occluded by an ancestor, so the
+  // fix is definitive regardless of z-index gymnastics. We recompute on scroll
+  // (capture phase, since the sidebar is sticky) and resize so it tracks.
+  const updateCoords = () => {
+    const btn = btnRef.current;
+    if (!btn) return;
+    const r = btn.getBoundingClientRect();
+    setCoords({ top: r.bottom + 8, left: r.left, width: r.width });
+  };
+
+  useEffect(() => {
+    if (!catOpen) {
+      setCoords(null);
+      return;
+    }
+    updateCoords();
+    window.addEventListener('scroll', updateCoords, true);
+    window.addEventListener('resize', updateCoords);
+    return () => {
+      window.removeEventListener('scroll', updateCoords, true);
+      window.removeEventListener('resize', updateCoords);
+    };
+  }, [catOpen]);
 
   useEffect(() => {
     if (!catOpen) return;
     const onPointer = (e: MouseEvent) => {
-      if (catRef.current && !catRef.current.contains(e.target as Node)) setCatOpen(false);
+      const tgt = e.target as Node;
+      // The panel now lives on <body> (outside catRef), so check BOTH the
+      // trigger and the portal panel before closing.
+      if ((catRef.current && catRef.current.contains(tgt)) || (panelRef.current && panelRef.current.contains(tgt))) return;
+      setCatOpen(false);
     };
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setCatOpen(false);
@@ -75,12 +112,60 @@ export default function FilterBar({
     setCatOpen(false);
   };
 
+  // Portal panel — only mounted after we have coords (client-side, post-open).
+  const panel =
+    catOpen && coords
+      ? createPortal(
+          <div
+            ref={panelRef}
+            role="listbox"
+            style={{ position: 'fixed', top: coords.top, left: coords.left, width: coords.width, zIndex: 9999 }}
+            className="max-h-60 overflow-y-auto rounded-xl border border-slate-200 bg-white p-1.5 shadow-lift"
+          >
+            <button
+              type="button"
+              role="option"
+              aria-selected={currentSlug === ''}
+              onClick={() => selectCat('')}
+              className={`flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm leading-relaxed transition-colors ${
+                currentSlug === '' ? 'bg-cyan-50 font-medium text-cyan-700' : 'text-ink-700 hover:bg-cyan-50'
+              }`}
+            >
+              <span>{allLabel}</span>
+              {currentSlug === '' && <Check className="h-4 w-4 shrink-0 text-cyan-600" />}
+            </button>
+            {categories.map((cat) => {
+              const active = cat.slug === currentSlug;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  role="option"
+                  aria-selected={active}
+                  onClick={() => selectCat(cat.slug)}
+                  className={`flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm leading-relaxed transition-colors ${
+                    active ? 'bg-cyan-50 font-medium text-cyan-700' : 'text-ink-700 hover:bg-cyan-50'
+                  }`}
+                >
+                  <span className="flex items-center gap-2 truncate">
+                    {active && <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500" />}
+                    {localized(cat.name, locale)}
+                  </span>
+                  {active && <Check className="h-4 w-4 shrink-0 text-cyan-600" />}
+                </button>
+              );
+            })}
+          </div>,
+          document.body,
+        )
+      : null;
+
   return (
     <OceanGlassCard ripple surface="glass" depth="lg" hoverLift={false} className="relative z-50 overflow-visible p-5">
       {/* Ocean top accent bar — aligns with the ocean design system.
           NOTE: overflow-visible (not overflow-hidden) so the absolute category
-          dropdown panel is NOT clipped by the card. The bar keeps rounded-t to
-          follow the card's top corners. */}
+          dropdown trigger never clips. The dropdown panel itself is now a
+          portal on <body>, so it can never be clipped by this card either. */}
       <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-cyan-500 via-teal-500 to-brand-600" aria-hidden="true" />
       <div className="flex flex-col gap-4">
         {/* Search */}
@@ -102,6 +187,7 @@ export default function FilterBar({
           </label>
           <div className="relative" ref={catRef}>
             <button
+              ref={btnRef}
               type="button"
               onClick={() => setCatOpen((o) => !o)}
               aria-haspopup="listbox"
@@ -114,46 +200,7 @@ export default function FilterBar({
               />
             </button>
 
-            {catOpen && (
-              <div
-                role="listbox"
-                className="absolute z-30 mt-2 max-h-60 w-full overflow-y-auto rounded-xl border border-slate-200 bg-white p-1.5 shadow-lift"
-              >
-                <button
-                  type="button"
-                  role="option"
-                  aria-selected={currentSlug === ''}
-                  onClick={() => selectCat('')}
-                  className={`flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm leading-relaxed transition-colors ${
-                    currentSlug === '' ? 'bg-cyan-50 font-medium text-cyan-700' : 'text-ink-700 hover:bg-cyan-50'
-                  }`}
-                >
-                  <span>{allLabel}</span>
-                  {currentSlug === '' && <Check className="h-4 w-4 shrink-0 text-cyan-600" />}
-                </button>
-                {categories.map((cat) => {
-                  const active = cat.slug === currentSlug;
-                  return (
-                    <button
-                      key={cat.id}
-                      type="button"
-                      role="option"
-                      aria-selected={active}
-                      onClick={() => selectCat(cat.slug)}
-                      className={`flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-sm leading-relaxed transition-colors ${
-                        active ? 'bg-cyan-50 font-medium text-cyan-700' : 'text-ink-700 hover:bg-cyan-50'
-                      }`}
-                    >
-                      <span className="flex items-center gap-2 truncate">
-                        {active && <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-500" />}
-                        {localized(cat.name, locale)}
-                      </span>
-                      {active && <Check className="h-4 w-4 shrink-0 text-cyan-600" />}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
+            {panel}
           </div>
 
           {/* Active filter chip */}

@@ -134,12 +134,12 @@ export default function ContactClient({
   );
 
   return (
-    <div className="bg-gradient-to-br from-sky-50/40 via-white to-teal-50/20">
+    <div className="bg-gradient-to-br from-slate-50 via-white to-cyan-50/30">
     <div className="container-qtech relative overflow-hidden py-12 lg:py-16">
       {/* V49.8: decorative colour blooms so the page reads less flat. */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
         <div className="absolute -top-20 start-0 h-72 w-72 rounded-full bg-cyan-300/20 blur-3xl" />
-        <div className="absolute top-1/3 end-0 h-80 w-80 rounded-full bg-indigo-300/15 blur-3xl" />
+        <div className="absolute top-1/3 end-0 h-80 w-80 rounded-full bg-teal-300/15 blur-3xl" />
         <div className="absolute bottom-0 start-1/4 h-72 w-72 rounded-full bg-teal-300/20 blur-3xl" />
       </div>
       <RevealOnScroll>
@@ -264,10 +264,10 @@ export default function ContactClient({
               />
             </div>
 
-            {/* Social media — V49.10: indigo theme (cool family, matches blog/FAQ) to
-                differentiate from the cyan info card without clashing. */}
-            <div className="pro-card relative overflow-hidden bg-gradient-to-br from-white to-indigo-50/40 p-6">
-              <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-indigo-400 to-blue-600" />
+            {/* Social media — V49.12: cyan/teal brand theme (matches blog/FAQ),
+                unified with the rest of the site's calm brand family. */}
+            <div className="pro-card relative overflow-hidden bg-gradient-to-br from-white to-cyan-50/40 p-6">
+              <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-cyan-400 to-teal-600" />
               <h3 className="text-sm font-semibold uppercase tracking-wide text-ink-500">
                 {t('contact.connectWithUs')}
               </h3>
@@ -286,7 +286,7 @@ export default function ContactClient({
                       <IconTile
                         icon={Icon}
                         className="h-5 w-5"
-                        tileClassName="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-50 text-indigo-700 transition hover:bg-indigo-600 hover:text-white"
+                        tileClassName="flex h-10 w-10 items-center justify-center rounded-full bg-cyan-50 text-cyan-700 transition hover:bg-cyan-600 hover:text-white"
                       />
                     </a>
                   );

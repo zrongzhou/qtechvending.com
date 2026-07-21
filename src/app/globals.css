@@ -1733,8 +1733,11 @@ input[type='number']::-webkit-inner-spin-button {
   filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.65)) drop-shadow(0 0 6px rgba(255, 255, 255, 0.35));
 }
 @keyframes birdFlyX {
-  from { transform: translateX(-12vw); }
-  to   { transform: translateX(112vw); }
+  /* V49.12: keep birds fully inside the viewport (2vw -> 88vw) so they glide
+     across the visible sky instead of spending most of the loop off-screen to
+     the side (the old -12vw -> 112vw made them look "offset"/drifting away). */
+  from { transform: translateX(2vw); }
+  to   { transform: translateX(88vw); }
 }
 @keyframes birdFlap {
   0%, 100% { transform: scaleY(1) rotate(0deg); }

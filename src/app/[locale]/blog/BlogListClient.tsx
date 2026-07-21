@@ -53,11 +53,11 @@ export default function BlogListClient({ initial }: { initial: Paginated<BlogPos
   const { data, totalPages } = result;
 
   return (
-    <div className="container-qtech relative overflow-hidden bg-gradient-to-b from-sky-50/80 via-white to-cyan-50/40 py-12 lg:py-16">
+    <div className="container-qtech relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-cyan-50/30 py-12 lg:py-16">
       {/* V49.8: decorative colour blooms so the page reads less flat. */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
         <div className="absolute -top-20 start-0 h-72 w-72 rounded-full bg-cyan-300/20 blur-3xl" />
-        <div className="absolute top-1/3 end-0 h-80 w-80 rounded-full bg-violet-300/15 blur-3xl" />
+        <div className="absolute top-1/3 end-0 h-80 w-80 rounded-full bg-teal-300/15 blur-3xl" />
         <div className="absolute bottom-0 start-1/4 h-72 w-72 rounded-full bg-teal-300/20 blur-3xl" />
       </div>
       <RevealOnScroll>

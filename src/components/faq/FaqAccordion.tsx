@@ -18,7 +18,7 @@ import IconTile from '@/components/ui/IconTile';
  *  groups rather than a wall of identical white cards. */
 const CAT_ACCENT: Record<string, { from: string; to: string; border: string; chipBg: string; chipText: string }> = {
   general:         { from: '#22d3ee', to: '#0891b2', border: '#06b6d4', chipBg: 'bg-cyan-50',   chipText: 'text-cyan-700' },
-  technical:       { from: '#818cf8', to: '#4338ca', border: '#6366f1', chipBg: 'bg-indigo-50', chipText: 'text-indigo-700' },
+  technical:       { from: '#38bdf8', to: '#0e7490', border: '#0ea5e9', chipBg: 'bg-sky-50',    chipText: 'text-sky-700' },
   'order-support': { from: '#2dd4bf', to: '#0f766e', border: '#0d9488', chipBg: 'bg-teal-50',  chipText: 'text-teal-700' },
 };
 
@@ -35,12 +35,12 @@ export default function FaqAccordion() {
   const visibleCats = active === 'all' ? FAQ_CATEGORIES : FAQ_CATEGORIES.filter((c) => c.id === active);
 
   return (
-    <RevealOnScroll className="bg-gradient-to-b from-white via-slate-50/50 to-cyan-50/30">
+    <RevealOnScroll className="bg-gradient-to-b from-slate-50 via-white to-cyan-50/30">
         <div className="container-qtech relative overflow-hidden py-20 md:py-28">
         {/* V49.8: decorative colour blooms so the page reads less flat. */}
         <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
           <div className="absolute -top-20 start-0 h-72 w-72 rounded-full bg-cyan-300/20 blur-3xl" />
-          <div className="absolute top-1/3 end-0 h-80 w-80 rounded-full bg-violet-300/15 blur-3xl" />
+          <div className="absolute top-1/3 end-0 h-80 w-80 rounded-full bg-teal-300/15 blur-3xl" />
           <div className="absolute bottom-0 start-1/4 h-72 w-72 rounded-full bg-teal-300/20 blur-3xl" />
         </div>
         {/* Header */}

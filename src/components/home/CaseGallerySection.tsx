@@ -70,7 +70,7 @@ export default function CaseGallerySection() {
       </div>
 
       {/* Screen / main stage — full width, strict 16:9, images fill & crop. */}
-      <div className="mx-auto mt-10 w-full max-w-6xl px-4 sm:px-6">
+      <div className="mx-auto mt-10 w-full max-w-4xl px-4 sm:px-6">
         <div className="relative aspect-video w-full overflow-hidden rounded-[20px] border border-white/70 bg-slate-900/5 shadow-[0_25px_60px_-18px_rgba(2,6,23,0.45),inset_0_1px_0_rgba(255,255,255,0.6)] ring-1 ring-black/5">
           {GALLERY.map((src, i) => (
             <button
