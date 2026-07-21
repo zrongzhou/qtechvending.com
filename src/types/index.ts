@@ -21,6 +21,12 @@ export interface I18nStringList {
   [key: string]: string[] | undefined;
 }
 
+/** A single product FAQ entry: a question and answer, each localized. */
+export interface FaqItem {
+  q: I18nString;
+  a: I18nString;
+}
+
 export interface Category {
   id: string;
   slug: string;
@@ -50,6 +56,8 @@ export interface Product {
   order: number;
   relatedProducts: string[];
   categories: Category[];
+  /** V49.15: product Q&A entries, localized per language. */
+  faq?: FaqItem[] | null;
 }
 
 export interface BlogPost {

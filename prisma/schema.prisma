@@ -47,6 +47,7 @@ model Product {
   seoTitle         Json?
   seoDescription   Json?
   seoKeywords      Json?
+  faq              Json?    // [{ q: { en, zh, ar }, a: { en, zh, ar } }]
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
   categories       Category[] @relation(map: "ProductCategory")

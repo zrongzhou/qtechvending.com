@@ -6,6 +6,8 @@ import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
 import ProductCard from '@/components/products/ProductCard';
 import ProductFaqSection from './ProductFaqSection';
+import ProductFaqAccordion from './ProductFaqAccordion';
+import type { FaqItem } from '@/types';
 import ImageWithRetry from '@/components/ui/ImageWithRetry';
 import OceanGlassCard from '@/components/ui/OceanGlassCard';
 import OceanBubbles from '@/components/ui/OceanBubbles';
@@ -35,7 +37,7 @@ function renderParagraphs(text: string) {
     ));
 }
 
-type TabId = 'features' | 'specs' | 'description';
+type TabId = 'features' | 'specs' | 'description' | 'faq';
 
 /**
  * V41: combines Specifications / Key Features / Description into a single
@@ -47,11 +49,13 @@ function ProductDetailTabs({
   specs,
   features,
   description,
+  faq,
   t,
 }: {
   specs: Product['specs'];
   features: I18nStringList | null;
   description: string;
+  faq: FaqItem[] | null;
   t: (key: string) => string;
 }) {
   const [active, setActive] = useState<TabId>('features');
@@ -66,6 +70,8 @@ function ProductDetailTabs({
     { id: 'specs', label: t('product.specs') },
   ];
   if (description) tabs.push({ id: 'description', label: t('product.description') });
+  // V49.15: always show the FAQ tab when the product has Q&A entries.
+  if (faq && faq.length > 0) tabs.push({ id: 'faq', label: t('product.faq') });
 
   return (
     <div className="mt-10">
@@ -138,6 +144,8 @@ function ProductDetailTabs({
             <div className="mt-4 max-w-none">{renderParagraphs(description)}</div>
           </div>
         )}
+
+        {active === 'faq' && faq && faq.length > 0 && <ProductFaqAccordion faq={faq} />}
       </div>
     </div>
   );
@@ -157,6 +165,7 @@ export default function ProductDetailView({
   const short = localized(product.shortDescription, locale);
   const description = localized(product.description, locale);
   const specs = product.specs || [];
+  const faq = (product.faq as FaqItem[] | null) ?? null;
   const category = product.categories?.[0];
   const categoryName = category ? localized(category.name, locale) : '';
   const categorySlug = category?.slug || '';
@@ -309,6 +318,7 @@ export default function ProductDetailView({
               specs={specs}
               features={product.features}
               description={description}
+              faq={faq}
               t={t}
             />
           </div>

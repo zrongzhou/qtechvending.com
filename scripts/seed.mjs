@@ -64,38 +64,8 @@ function toI18n(value) {
 // ---- Professionally rewritten About-page copy (replaces source Lorem ipsum) ----
 // NOTE: English / Chinese copy is final. Arabic (ar) copy is AI-generated and
 // still pending human review — TODO: ar 人工校对.
-const ABOUT_SECTIONS = [
-  {
-    key: 'story',
-    title: { en: 'Who We Are', zh: '关于我们', ar: 'من نحن' },
-    body: {
-      en: 'Guangzhou Qiuyan Technology Co., Ltd. (brand: Qtech) is a manufacturer of intelligent vending and fresh-flower / garden automation equipment. Since our founding we have focused on one thing: making reliable self-service machines that help operators sell around the clock with minimal staff.\n\nFrom fresh-flower vending to pizza, cotton-candy, coffee and juice machines, every Qtech product is engineered in our Guangzhou facility and validated across real deployment sites — subway stations, malls, campuses and convenience stores.',
-      zh: '广州秋彦科技有限公司（品牌：Qtech）是一家智能售货与鲜花园艺自动化设备制造商。自成立以来，我们专注于一件事：打造可靠的无人自助设备，帮助运营商以最少的人力实现全天候销售。\n\n从鲜花售货机到披萨、棉花糖、咖啡与果汁设备，每一台 Qtech 产品都在我们的广州工厂研发，并在地铁站、商场、校园与便利店等真实场景中验证。',
-      ar: 'شركة قوانغتشو تشيويان للتكنولوجيا (العلامة التجارية: Qtech) هي شركة تصنيع لأجهزة البيع الذكية ومعدات أتمتة الزهور والحدائق. منذ تأسيسنا ركزنا على شيء واحد: تقديم آلات خدمة ذاتية موثوقة تساعد المشغلين على البيع على مدار الساعة بأقل عدد من الموظفين.\n\nمن آلات بيع الزهور إلى البيتزا والقطن والقهوة والعصير، كل منتج من Qtech مصمم في منشأتنا في غوانغتشو ويخضع للتحقق في مواقع نشر حقيقية.',
-    },
-    image: '/images/about/company.svg',
-  },
-  {
-    key: 'capabilities',
-    title: { en: 'What We Build', zh: '我们的产品', ar: 'ماذا نصنع' },
-    body: {
-      en: 'Our core lines include fresh-flower vending machines (with cooling and remote management), hot-food vending such as pizza and french fries, and beverage systems covering coffee, juice, bubble tea, ice and popcorn. Each machine supports card and cashless payments, cloud-based inventory and sales reporting, and remote temperature and fault monitoring.',
-      zh: '我们的核心产品线包括鲜花售货机（带制冷与远程管理）、披萨与薯条等热食售货设备，以及咖啡、果汁、奶茶、制冰与爆米花等饮品系统。每台设备均支持刷卡与无现金支付、基于云端的库存与销售报表，以及远程温控与故障监控。',
-      ar: 'تشمل خطوطنا الأساسية آلات بيع الزهور الطازجة (مع التبريد والإدارة عن بُعد)، وأجهزة بيع الطعام الساخن مثل البيتزا والبطاطس المقلية، وأنظمة المشروبات التي تغطي القهوة والعصير والشاي باللؤلؤ والثلج والفشار. تدعم كل آلة الدفع بالبطاقة والدفع غير النقدي والتقارير السحابية والمتابعة عن بُعد.',
-    },
-    image: '/images/about/capabilities.svg',
-  },
-  {
-    key: 'mission',
-    title: { en: 'Our Mission', zh: '我们的使命', ar: 'مهمتنا' },
-    body: {
-      en: 'To make intelligent self-service equipment accessible and profitable for operators everywhere — through factory-direct pricing, OEM customization, and dependable after-sales support in English, Chinese and Arabic.',
-      zh: '通过工厂直供的价格、OEM 定制能力，以及中文、英文、阿拉伯语的专业售后支持，让全球运营商都能用上并受益于智能自助设备。',
-      ar: 'جعل معدات الخدمة الذاتية الذكية متاحة ومربحة للمشغلين في كل مكان — من خلال الأسعار المباشرة من المصنع والتخصيص (OEM) ودعم موثوق بلغات صينية وإنجليزية وعربية.',
-    },
-    image: '/images/about/mission.svg',
-  },
-];
+const ABOUT_SECTIONS = [{"key": "story", "title": {"en": "Who We Are", "zh": "关于我们", "ar": "من نحن"}, "body": {"en": "Qtech Vending is a smart vending machine manufacturer with more than 10 years of experience in the automated retail industry. We started with traditional snack and drink vending machines and have continued to expand into flower vending machines, pizza vending machines, hot food vending machines, ice vending machines, fresh food machines, and customized vending solutions for different business needs.\n\nWe understand that customers are not just buying a machine. They are looking for a reliable way to extend business hours, reduce labor costs, improve customer convenience, and create new sales opportunities. That is why we focus on practical solutions based on what customers want to sell, where the machine will be used, how users will pay, and how the business will operate.\n\nWith a customer-centered mindset, Qtech Vending continues to improve product quality, user experience, payment systems, remote management, and customization options. We aim to help operators, retailers, distributors, and venue owners build smart, flexible, and profitable 24/7 self-service businesses.", "zh": "广州秋彦科技有限公司（品牌：Qtech）是一家智能售货与鲜花园艺自动化设备制造商。自成立以来，我们专注于一件事：打造可靠的无人自助设备，帮助运营商以最少的人力实现全天候销售。\n\n从鲜花售货机到披萨、棉花糖、咖啡与果汁设备，每一台 Qtech 产品都在我们的广州工厂研发，并在地铁站、商场、校园与便利店等真实场景中验证。", "ar": "شركة قوانغتشو تشيويان للتكنولوجيا (العلامة التجارية: Qtech) هي شركة تصنيع لأجهزة البيع الذكية ومعدات أتمتة الزهور والحدائق. منذ تأسيسنا ركزنا على شيء واحد: تقديم آلات خدمة ذاتية موثوقة تساعد المشغلين على البيع على مدار الساعة بأقل عدد من الموظفين.\n\nمن آلات بيع الزهور إلى البيتزا والقطن والقهوة والعصير، كل منتج من Qtech مصمم في منشأتنا في غوانغتشو ويخضع للتحقق في مواقع نشر حقيقية."}, "image": "/images/about/company.svg"}, {"key": "capability", "title": {"en": "Why Choose Us", "zh": "为什么选择我们", "ar": "لماذا تختارنا"}, "body": {"en": "Qtech Vending has more than 10 years of manufacturing experience in the vending machine industry. We understand that customers need more than a machine. They need a reliable solution that fits their product, location, payment method and business model.\n\nOur R&D team supports customized vending machine projects, including cabinet design, product layout, payment systems, software functions and branding. From sheet metal materials to assembly and testing, we follow strict QC control to reduce machine failure rates and improve long-term operation.\n\nWith our own sheet metal factory, we can better control production quality, delivery schedule and cost. This allows us to offer competitive pricing, usually about 3% lower than many comparable market options, while still keeping the machine reliable and practical for real business use.", "zh": "Qtech 拥有 10 年以上售货机行业制造经验。我们深知客户需要的不仅是一台机器，更是一套契合其产品、场地、支付方式与商业模式的可靠方案。\n\n我们的研发团队支持定制化售货机开发，从外观、货道到软件后台均可按需求调整；严格的质量控制贯穿来料、组装与出厂全流程；工厂直供的价格让运营商获得更高的利润空间。", "ar": "تمتلك Qtech أكثر من 10 سنوات من الخبرة التصنيعية في صناعة آلات البيع. نحن ندرك أن العملاء يحتاجون إلى أكثر من مجرد آلة — بل حل موثوق يناسب منتجهم وموقعهم وطريقة الدفع ونموذج أعمالهم.\n\nيدعم فريق البحث والتطوير لدينا تطوير آلات بيع مخصصة، من المظهر إلى قنوات المنتج وبرنامج الخلفية؛ ورقابة جودة صارمة عبر الاستلام والتجميع والشحن؛ وأسعار مباشرة من المصنع تمنح المشغلين هامش ربح أعلى."}, "image": "/images/about/capabilities.svg"}, {"key": "mission", "title": {"en": "Our Mission", "zh": "我们的使命", "ar": "مهمتنا"}, "body": {"en": "To make intelligent self-service equipment accessible and profitable for operators everywhere — through factory-direct pricing, OEM customization, and dependable after-sales support in English, Chinese and Arabic.", "zh": "通过工厂直供的价格、OEM 定制能力，以及中文、英文、阿拉伯语的专业售后支持，让全球运营商都能用上并受益于智能自助设备。", "ar": "جعل معدات الخدمة الذاتية الذكية متاحة ومربحة للمشغلين في كل مكان — من خلال الأسعار المباشرة من المصنع والتخصيص (OEM) ودعم موثوق بلغات صينية وإنجليزية وعربية."}, "image": "/images/about/mission.svg"}];
+
 
 async function main() {
   // ---------- Categories ----------
@@ -137,6 +107,25 @@ async function main() {
   if (existsSync(productsPath)) {
     products = JSON.parse(readFileSync(productsPath, 'utf-8'));
   }
+
+  // V49.15: the catalog was fully replaced with new slugs. Remove any products
+  // or categories that are no longer in the incoming set so they don't linger
+  // as orphaned/empty entries in listings and nav.
+  const newProductSlugs = products.map((p) => p.slug);
+  if (newProductSlugs.length) {
+    const deletedProducts = await prisma.product.deleteMany({
+      where: { slug: { notIn: newProductSlugs } },
+    });
+    if (deletedProducts.count) console.log(`Removed ${deletedProducts.count} stale product(s).`);
+  }
+  const newCatSlugs = categories.map((c) => c.slug);
+  if (newCatSlugs.length) {
+    const deletedCats = await prisma.category.deleteMany({
+      where: { slug: { notIn: newCatSlugs } },
+    });
+    if (deletedCats.count) console.log(`Removed ${deletedCats.count} stale categor(y/ies).`);
+  }
+
   let pCount = 0;
   for (const p of products) {
     const catSlugs = (p.categories || []).filter((s) => catMap.has(s));
@@ -148,6 +137,11 @@ async function main() {
         displayTitle: toI18n(p.displayTitle),
         shortDescription: toI18n(p.shortDescription),
         description: toI18n(p.description),
+        features: p.features ?? null,
+        faq: p.faq ?? null,
+        seoTitle: toI18n(p.seoTitle),
+        seoDescription: toI18n(p.seoDescription),
+        seoKeywords: p.seoKeywords ?? null,
         images: p.images || [],
         specs: p.specs || [],
         sku: p.sku,
@@ -162,6 +156,11 @@ async function main() {
         displayTitle: toI18n(p.displayTitle),
         shortDescription: toI18n(p.shortDescription),
         description: toI18n(p.description),
+        features: p.features ?? null,
+        faq: p.faq ?? null,
+        seoTitle: toI18n(p.seoTitle),
+        seoDescription: toI18n(p.seoDescription),
+        seoKeywords: p.seoKeywords ?? null,
         images: p.images || [],
         specs: p.specs || [],
         order: p.order ?? 0,
