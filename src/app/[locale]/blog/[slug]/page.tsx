@@ -5,6 +5,7 @@ import JsonLd from '@/components/JsonLd';
 import { getBlogBySlug, getBlogs } from '@/lib/data';
 import { localized } from '@/lib/localize';
 import { generatePageMetadata, jsonLdArticle } from '@/lib/seo';
+import { seoKeywordList } from '@/lib/seo-keywords';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,21 +17,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const post = await getBlogBySlug(params.slug);
   if (!post) return generatePageMetadata({ path: `/blog/${params.slug}` });
   const title = localized(post.title, params.locale as 'en' | 'zh' | 'ar');
+  const seoTitle = post.seoTitle ? localized(post.seoTitle, params.locale as 'en' | 'zh' | 'ar') : '';
   const desc = localized(post.excerpt, params.locale as 'en' | 'zh' | 'ar') || '';
+  const kw = seoKeywordList(post.seoKeywords, params.locale as 'en' | 'zh' | 'ar');
   return generatePageMetadata({
     path: `/blog/${params.slug}`,
-    title,
+    title: seoTitle || title,
     description: desc,
     image: post.image || undefined,
     type: 'article',
     publishedTime: post.publishedAt,
     author: post.author,
-    keywords: buildStaticKeywords(title),
+    keywords: kw && kw.length ? kw : [title],
   });
-}
-
-function buildStaticKeywords(title: string): string[] {
-  return ['Qtech blog', title].filter(Boolean);
 }
 
 export default async function BlogDetailPage({ params }: PageProps) {

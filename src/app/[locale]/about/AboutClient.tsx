@@ -580,9 +580,18 @@ const CERTS: CertBadge[] = [
 /* ── Hero stat cards ── */
 const HERO_STATS = [
   { end: 11, suffix: '+', icon: Factory, key: 'hero.statCategories' },
-  { end: 60, suffix: '+', icon: Globe2, key: 'hero.statCountries' },
+  { end: 80, suffix: '+', icon: Globe2, key: 'hero.statCountries' },
   { end: 500, suffix: '+', icon: Users, key: 'hero.statPartners' },
   { end: 24, suffix: '/7', icon: Clock, key: 'hero.statService' },
+];
+
+/* V49.20: cohesive cyan→blue family for the glacier hero stat cards so the
+   four icon tiles read as one cold, premium set (no violet/amber clash). */
+const HERO_STAT_ACCENTS = [
+  { tile: 'from-cyan-400 to-blue-500', shadow: 'shadow-cyan-500/30' },
+  { tile: 'from-sky-400 to-cyan-500', shadow: 'shadow-sky-500/30' },
+  { tile: 'from-teal-400 to-cyan-500', shadow: 'shadow-teal-500/30' },
+  { tile: 'from-blue-400 to-indigo-500', shadow: 'shadow-blue-500/30' },
 ];
 
 /* ── Global impact data wall ── */
@@ -796,7 +805,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           <div className="mx-auto mt-14 grid max-w-4xl grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
             {HERO_STATS.map((s, i) => {
               const Icon = s.icon;
-              const accent = ACCENTS[i % ACCENTS.length];
+              const accent = HERO_STAT_ACCENTS[i % HERO_STAT_ACCENTS.length];
               return (
                 <RevealOnScroll key={s.key} delay={i * 80} className="h-full">
                   <div className="glass-ice animate-pulse-border flex h-full min-h-[160px] flex-col items-center justify-center gap-3 rounded-2xl p-5 text-center">
@@ -822,9 +831,9 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
       {/* ══════════════════ 2. ABOUT US (以匠心 text + 公司外观图) ══════════════════
           Left: 公司外观实景图. Right: 以匠心 copy + CTA. (V49: image moved to left per user request) */}
       <section className="container-qtech py-16 lg:py-24">
-        <RevealOnScroll className="grid grid-cols-1 items-stretch gap-12 lg:gap-16 lg:grid-cols-2">
-          {/* Left: company building photo */}
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100">
+        <RevealOnScroll className="grid grid-cols-1 items-center gap-12 lg:gap-16 lg:grid-cols-2">
+          {/* Left: company building photo — fixed 4:3 ratio, never stretched by the grid */}
+          <div className="relative mx-auto aspect-[4/3] w-full max-w-[540px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100">
             <Image
               src="/images/about/company-building-3.jpg"
               alt={t('about.aboutTitle')}
@@ -956,7 +965,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                   {/* Micro gradient top bar (brand cyan → teal) */}
                   <span className="glass-card-ink__bar absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl" aria-hidden="true" />
                   {/* Process photo — Excel「售货机制作生产8大工序」配图 (step 1..8) */}
-                  <div className="relative h-44 w-full shrink-0 overflow-hidden">
+                  <div className="relative h-60 w-full shrink-0 overflow-hidden">
                     <Image
                       src={`/images/about/process/step${i + 1}.webp`}
                       alt={localeOr(card.title)}
@@ -1033,7 +1042,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                 {section.key === 'capability' ? (
                   /* 词牌：V49.2 compact modern glass card (less whitespace) */
                   <div className={`flex items-center justify-center ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
-                    <div className="nameplate-3d relative mx-auto flex w-full max-w-[360px] min-h-[260px] flex-col items-center justify-center overflow-hidden rounded-2xl p-6 shadow-lg sm:p-8">
+                    <div className="nameplate-3d relative mx-auto flex w-full max-w-[400px] min-h-[200px] flex-col items-center justify-center overflow-hidden rounded-2xl p-6 shadow-lg sm:p-8">
                       {/* Ambient glow */}
                       <div className="pointer-events-none absolute -top-8 start-1/2 h-28 w-28 -translate-x-1/2 rounded-full bg-cyan-300/25 blur-3xl" />
                       {/* Subtle inner border */}

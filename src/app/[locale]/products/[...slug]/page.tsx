@@ -5,6 +5,7 @@ import JsonLd from '@/components/JsonLd';
 import { getProductBySlug, getRelatedProducts } from '@/lib/data';
 import { localized } from '@/lib/localize';
 import { generatePageMetadata, jsonLdProduct, jsonLdBreadcrumb } from '@/lib/seo';
+import { seoKeywordList } from '@/lib/seo-keywords';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,20 +18,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const product = await getProductBySlug(slug);
   if (!product) return generatePageMetadata({ path: `/products/${slug}` });
   const name = localized(product.name, params.locale as 'en' | 'zh' | 'ar');
-  const desc = localized(product.description, params.locale as 'en' | 'zh' | 'ar')
+  const seoTitle = product.seoTitle ? localized(product.seoTitle, params.locale as 'en' | 'zh' | 'ar') : '';
+  const desc =
+    (product.seoDescription ? localized(product.seoDescription, params.locale as 'en' | 'zh' | 'ar') : '')
+    || localized(product.description, params.locale as 'en' | 'zh' | 'ar')
     || localized(product.shortDescription, params.locale as 'en' | 'zh' | 'ar');
+  const kw = seoKeywordList(product.seoKeywords, params.locale as 'en' | 'zh' | 'ar');
   return generatePageMetadata({
     path: `/products/${slug}`,
-    title: name,
+    title: seoTitle || name,
     description: desc,
     image: product.images?.[0],
     type: 'product',
-    keywords: buildStaticKeywords(name),
+    keywords: kw && kw.length ? kw : ['vending machine', 'Qtech', name].filter(Boolean),
   });
-}
-
-function buildStaticKeywords(name: string): string[] {
-  return ['vending machine', 'Qtech', name].filter(Boolean);
 }
 
 export default async function ProductDetailPage({ params }: PageProps) {

@@ -53,8 +53,8 @@ const IMAGE_MAP: Record<string, string> = {
   'food-vending-machine': '/images/categories/food-vending-machine.png',
   // V49.19: these two homepage categories previously had no cover → blank cards.
   // Reuse representative product photos as their category banners.
-  'pet-food-vending-machine': '/images/products/refrigerated-pet-food-vending-machine-for-fresh-meals-and-treats/image01.webp',
-  'beauty-products-vending-machine': '/images/products/beauty-products-vending-machine-for-eyelashes-and-cosmetics/image01.webp',
+  'pet-food-vending-machine': '/images/categories/pet-food-vending-machine.png',
+  'beauty-products-vending-machine': '/images/categories/beauty-products-vending-machine.png',
 };
 
 // V44: per-category theme colours (the V41 "CASE_THEMES" approach) so the 8+

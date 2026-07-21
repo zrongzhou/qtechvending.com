@@ -1293,16 +1293,17 @@ input[type='number']::-webkit-inner-spin-button {
   inset: 0;
   pointer-events: none;
   overflow: hidden;
-  /* V49.5: STRONGER ice-blue base so the section reads as a cold
-     glacial world the instant the About page opens. */
+  /* V49.20: STRONGER ice-blue base — deeper, more saturated glacial read. */
   background: linear-gradient(160deg,
-    rgba(165, 243, 252, 0.42) 0%,
-    rgba(103, 232, 249, 0.34) 30%,
-    rgba(34, 211, 238, 0.30) 60%,
-    rgba(14, 165, 233, 0.40) 100%);
+    rgba(165, 243, 252, 0.55) 0%,
+    rgba(103, 232, 249, 0.46) 30%,
+    rgba(34, 211, 238, 0.42) 60%,
+    rgba(14, 165, 233, 0.52) 100%);
 }
 
-/* Layer 1: Aurora borealis bands — VISIBLE colour shift across the sky. */
+/* Layer 1: Aurora borealis bands — VISIBLE colour shift across the sky.
+   V49.20: dropped the violet/purple (clashed with brand cyan/teal) for a
+   cohesive cyan→sky→blue glacial palette. */
 .glacier-scene::before {
   content: '';
   position: absolute;
@@ -1310,12 +1311,12 @@ input[type='number']::-webkit-inner-spin-button {
   background:
     linear-gradient(125deg,
       transparent 0%,
-      rgba(103, 232, 249, 0.55) 14%,
-      rgba(165, 243, 252, 0.70) 27%,
-      rgba(34, 211, 238, 0.48) 44%,
-      rgba(167, 139, 250, 0.55) 60%,
-      rgba(196, 181, 253, 0.42) 75%,
-      rgba(103, 232, 249, 0.30) 90%,
+      rgba(103, 232, 249, 0.65) 14%,
+      rgba(186, 230, 253, 0.82) 27%,
+      rgba(34, 211, 238, 0.62) 44%,
+      rgba(56, 189, 248, 0.58) 60%,
+      rgba(125, 211, 252, 0.50) 75%,
+      rgba(103, 232, 249, 0.40) 90%,
       transparent 100%);
   mix-blend-mode: screen;
   animation: glacierAurora 18s ease-in-out infinite alternate;
@@ -1330,7 +1331,7 @@ input[type='number']::-webkit-inner-spin-button {
   content: '';
   position: absolute;
   inset: 0;
-  opacity: 0.34;  /* V49.9②: STRONGER cracked-ice texture */
+  opacity: 0.46;  /* V49.20: STRONGER cracked-ice texture for more "ice" read */
   background:
     repeating-conic-gradient(
       from 45deg at 20% 30%,

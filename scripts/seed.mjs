@@ -179,6 +179,15 @@ async function main() {
     blogs = JSON.parse(readFileSync(blogsPath, 'utf-8'));
   }
   let bCount = 0;
+  // V49.20: the blog set is fully replaced from the docx. Remove any posts
+  // whose slug is no longer in the incoming file so stale entries don't linger.
+  const newBlogSlugs = blogs.map((b) => b.slug);
+  if (newBlogSlugs.length) {
+    const deletedBlogs = await prisma.blogPost.deleteMany({
+      where: { slug: { notIn: newBlogSlugs } },
+    });
+    if (deletedBlogs.count) console.log(`Removed ${deletedBlogs.count} stale blog post(s).`);
+  }
   for (const b of blogs) {
     await prisma.blogPost.upsert({
       where: { slug: b.slug },
@@ -188,6 +197,8 @@ async function main() {
         content: toI18n(b.content),
         publishedAt: new Date(b.publishedAt),
         image: b.image || null,
+        seoTitle: toI18n(b.seoTitle),
+        seoKeywords: b.seoKeywords ?? null,
         status: 'published',
       },
       create: {
@@ -197,6 +208,8 @@ async function main() {
         content: toI18n(b.content),
         publishedAt: new Date(b.publishedAt),
         image: b.image || null,
+        seoTitle: toI18n(b.seoTitle),
+        seoKeywords: b.seoKeywords ?? null,
         status: 'published',
         author: 'Qtech Team',
       },

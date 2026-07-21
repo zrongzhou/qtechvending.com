@@ -16,6 +16,51 @@ export function buildStaticPageKeywords(base: string[], locale?: string): string
 }
 
 /**
+ * Flatten a stored `seoKeywords` Json value into a locale-appropriate keyword
+ * array for the page <meta name="keywords"> tag.
+ *
+ * Accepts any of these shapes (as produced by the seed pipeline / docx import):
+ *   - string                → comma/semicolon split, trimmed
+ *   - string[]              → as-is
+ *   - { en:[...], zh:[...], ar:[...] }  → pick the requested locale, fall back
+ *                                         to en, then any present locale
+ *   - { en:"a,b", ... }     → split each string value on commas
+ * Returns `null` when there is nothing usable so the caller can fall back to
+ * static keywords.
+ */
+export function seoKeywordList(value: unknown, locale = 'en'): string[] | null {
+  if (value == null) return null;
+
+  const splitStr = (s: string): string[] =>
+    s.split(/[,;]/).map((x) => x.trim()).filter(Boolean);
+
+  if (typeof value === 'string') {
+    const arr = splitStr(value);
+    return arr.length ? arr : null;
+  }
+  if (Array.isArray(value)) {
+    const arr = value.filter((x): x is string => typeof x === 'string');
+    return arr.length ? arr : null;
+  }
+  if (typeof value === 'object') {
+    const o = value as Record<string, unknown>;
+    const locales = [locale, 'en', 'zh', 'ar'];
+    for (const l of locales) {
+      const v = o[l];
+      if (v == null) continue;
+      if (Array.isArray(v)) {
+        const arr = v.filter((x): x is string => typeof x === 'string');
+        if (arr.length) return arr;
+      } else if (typeof v === 'string') {
+        const arr = splitStr(v);
+        if (arr.length) return arr;
+      }
+    }
+  }
+  return null;
+}
+
+/**
  * Build the hreflang alternates object for a given page path (without locale prefix).
  * Both production (www) and staging (test) hosts serve the same bilingual set,
  * so the alternates only reference locale prefixes (resolved per-host by the crawler).

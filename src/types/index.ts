@@ -58,6 +58,10 @@ export interface Product {
   categories: Category[];
   /** V49.15: product Q&A entries, localized per language. */
   faq?: FaqItem[] | null;
+  /** V49.20: Excel-authored SEO fields (emitted to page meta). */
+  seoTitle?: I18nString | null;
+  seoDescription?: I18nString | null;
+  seoKeywords?: I18nStringList | null;
 }
 
 export interface BlogPost {
@@ -71,6 +75,9 @@ export interface BlogPost {
   status: string;
   featured: boolean;
   image: string | null;
+  /** V49.20: Excel/docx-authored SEO fields (emitted to page meta). */
+  seoTitle?: I18nString | null;
+  seoKeywords?: I18nStringList | null;
 }
 
 export type ContactSubject = 'general' | 'sales' | 'support' | 'customization' | 'partnership';

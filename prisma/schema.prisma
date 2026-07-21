@@ -69,6 +69,7 @@ model BlogPost {
   featured    Boolean  @default(false)
   image       String?  // /images/blog/<slug>.webp
   seoKeywords Json?
+  seoTitle    Json?    // { zh, en, ar } — distinct SERP title from the on-page H1
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   @@index([status, publishedAt])
