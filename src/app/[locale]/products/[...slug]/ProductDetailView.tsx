@@ -117,19 +117,30 @@ function ProductDetailTabs({
                   {t('product.specs')}
                 </h2>
               </div>
-              <dl className="divide-y divide-slate-200">
+              {/* Non-table spec layout — compact tag / statement grid.
+                  Looks good even when values are empty or keys are long sentences. */}
+              <div className="flex flex-col gap-3 p-6">
                 {specList.map((s, i) => (
                   <div
                     key={i}
-                    className="flex flex-col gap-1 px-6 py-4 transition-colors even:bg-cyan-50/50 hover:bg-cyan-50 sm:flex-row sm:gap-6"
+                    className="group flex flex-col gap-1 rounded-xl border border-slate-100 bg-white/50 px-4 py-3 transition-colors hover:bg-cyan-50/40 hover:border-cyan-200"
                   >
-                    <dt className="w-40 shrink-0 font-mono text-xs font-bold uppercase tracking-wider text-cyan-700">
-                      {s.param}
-                    </dt>
-                    <dd className="text-sm font-medium leading-relaxed text-ink-700">{s.value || '—'}</dd>
+                    {s.value ? (
+                      <>
+                        <span className="text-xs font-semibold uppercase tracking-wide text-cyan-600">
+                          {s.param}
+                        </span>
+                        <span className="text-sm leading-relaxed text-ink-700">{s.value}</span>
+                      </>
+                    ) : (
+                      /* Bare statement (no value) — render as a standalone line */
+                      <span className="text-sm leading-relaxed text-ink-700">
+                        {s.param}
+                      </span>
+                    )}
                   </div>
                 ))}
-              </dl>
+              </div>
             </RippleOnHover>
           ) : (
             <div className="flex items-center gap-3 rounded-2xl border border-dashed border-cyan-300/40 bg-white/60 px-6 py-5">

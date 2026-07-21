@@ -28,6 +28,7 @@ import {
   TrendingUp,
   ArrowUpCircle,
   Users,
+  ChevronDown,
   type LucideIcon,
 } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
@@ -303,62 +304,118 @@ const NUMBERS: NumberItem[] = [
   { end: 24, suffix: '/7', label: { en: 'Self-service operation', zh: '无人自助运营', ar: 'تشغيل ذاتي' } },
 ];
 
-/* ── Manufacturing process cards ── */
+/* ── Manufacturing process cards ── (Excel 售货机制作生产8大工序) */
 const MANU_CARDS = [
   {
-    icon: Factory,
-    title: { en: 'Automated Assembly Line', zh: '自动化装配线', ar: 'خط التجميع الآلي' },
+    icon: PenTool,
+    title: { en: 'Design & Engineering', zh: '设计与工程', ar: 'التصميم والهندسة' },
     desc: {
-      en: 'Robotic arms and skilled technicians assemble every cabinet on our ISO-certified production line in Guangzhou.',
-      zh: '在广州的 ISO 认证生产线上，由机械臂与熟练技师组装每一台设备。',
-      ar: 'تجمع ذراعات آلية وفنيون ماهرون كل خزانة على خط الإنتاج المعتمد من ISO في غوانغتشو.',
+      en: 'Production starts with technical drawings and structure design. The engineering team confirms machine layout, cabinet size, internal space, product flow and customer customization requirements before manufacturing.',
+      zh: '生产从技术图纸与结构设计开始。工程团队在制造前确认机器布局、柜体尺寸、内部空间、产品动线与客户的定制需求。',
+      ar: 'يبدأ الإنتاج بالرسومات التقنية والتصميم الهيكلي. يؤكد فريق الهندسة تخطيط الآلة وأبعاد الخزانة والمساحة الداخلية وتدفق المنتج ومتطلبات التخصيص قبل التصنيع.',
     },
     tags: {
-      zh: ['ISO 9001 认证产线', '月产能 1000+ 台', '机械臂 + 熟练技工'],
-      en: ['ISO 9001 certified line', '1000+ units / month', 'Robotic arms + skilled techs'],
-      ar: ['خط معتمد ISO 9001', 'أكثر من 1000 وحدة/شهر', 'ذراع آلي + فنيون ماهرون'],
+      zh: ['技术图纸', '定制需求'],
+      en: ['Technical drawing', 'Customization'],
+      ar: ['رسومات تقنية', 'تخصيص'],
+    },
+  },
+  {
+    icon: SlidersHorizontal,
+    title: { en: 'Sheet Metal Cutting', zh: '钣金切割', ar: 'قطع الصفائح المعدنية' },
+    desc: {
+      en: 'Metal sheets are cut according to the confirmed drawings. Accurate cutting ensures cabinet structure, installation holes and later assembly dimensions stay consistent.',
+      zh: '金属板材按确认图纸切割。精准切割确保柜体结构、安装孔位与后续装配尺寸一致。',
+      ar: 'تُقطع الصفائح المعدنية وفق الرسومات المؤكدة. يضمن القطع الدقيق اتساق هيكل الخزانة وثقوب التركيب وأبعاد التجميع اللاحقة.',
+    },
+    tags: {
+      zh: ['精准切割', '孔位一致'],
+      en: ['Precision cutting', 'Consistent holes'],
+      ar: ['قطع دقيق', 'ثقوب متسقة'],
     },
   },
   {
     icon: Cog,
-    title: { en: 'R&D & Innovation Center', zh: '研发与创新中心', ar: 'مركز البحث والتطوير والابتكار' },
+    title: { en: 'Bending & Forming', zh: '折弯成型', ar: 'الثني والتشكيل' },
     desc: {
-      en: '20+ engineers drive continuous improvement in smart payment, IoT monitoring and energy-efficient cooling systems.',
-      zh: '20+ 名工程师持续推进智能支付、IoT 监控和节能制冷系统的迭代升级。',
-      ar: 'أكثر من 20 مهندسًا يقودون التحسين المستمر في الدفع الذكي ومراقبة إنترنت الأشياء وأنظمة التبريد الموفرة للطاقة.',
+      en: 'Sheet metal parts are bent and formed by professional equipment, shaping panels, doors, brackets and structural parts for the vending machine cabinet.',
+      zh: '钣金件由专业设备折弯成型，塑造面板、门板、支架与柜体结构件。',
+      ar: 'تُثنى الصفائح وتُشكل بأجهزة احترافية، مما يشكل الألواح والأبواب والحوامل والأجزاء الهيكلية للخزانة.',
     },
     tags: {
-      zh: ['20+ 研发工程师', '智能支付与 IoT', '节能制冷系统'],
-      en: ['20+ R&D engineers', 'Smart payment & IoT', 'Energy-saving cooling'],
-      ar: ['أكثر من 20 مهندس تطوير', 'دفع ذكي وإنترنت الأشياء', 'تبريد موفر للطاقة'],
+      zh: ['折弯', '结构件'],
+      en: ['Bending', 'Structural parts'],
+      ar: ['ثني', 'أجزاء هيكلية'],
     },
   },
   {
     icon: ShieldCheck,
-    title: { en: 'Strict QC Testing', zh: '严格质检体系', ar: 'نظام مراقبة الجودة الصارم' },
+    title: { en: 'Parts Preparation & Inspection', zh: '零部件准备与检验', ar: 'تجهيز وفحص الأجزاء' },
     desc: {
-      en: 'Each unit undergoes 48-hour burn-in testing, drop test and environmental simulation before leaving the factory.',
-      zh: '每台设备在出厂前经过 48 小时老化测试、跌落试验和环境模拟测试。',
-      ar: 'تخضع كل وحدة لاختبار الاحتراق لمدة 48 ساعة وسقوط ومحاكاة بيئية قبل مغادرة المصنع.',
+      en: 'Processed metal parts are checked, sorted and prepared for the next assembly stage. This reduces assembly errors and keeps production quality stable.',
+      zh: '加工后的金属件经检验、分类与备料，减少装配误差、稳定生产质量。',
+      ar: 'تُفحص الأجزاء المعدنية المجهزة وتُصنف وتُجهز لمرحلة التجميع التالية، مما يقلل أخطاء التجميع ويحافظ على جودة الإنتاج.',
     },
     tags: {
-      zh: ['48 小时老化测试', '跌落与环境模拟', '出厂全检'],
-      en: ['48-hour burn-in test', 'Drop & environment sim', '100% pre-ship inspection'],
-      ar: ['اختبار احتراق 48 ساعة', 'محاكاة سقوط وبيئة', 'فحص كامل قبل الشحن'],
+      zh: ['质检', '分类备料'],
+      en: ['QC check', 'Sorted parts'],
+      ar: ['فحص جودة', 'أجزاء مصنفة'],
     },
   },
   {
-    icon: Globe2,
-    title: { en: 'Global Logistics Hub', zh: '全球物流枢纽', ar: 'مركز لوجستي عالمي' },
+    icon: Factory,
+    title: { en: 'Cabinet Assembly', zh: '柜体组装', ar: 'تجميع الخزانة' },
     desc: {
-      en: 'Strategic warehouse near Guangzhou Port enables fast shipping to 60+ countries within 7–15 days.',
-      zh: '广州港附近战略仓储，确保 7–15 天内发货至全球 60+ 国家和地区。',
-      ar: 'مخزون استراتيجي بالقرب من ميناء غوانغتشو يتيح الشحن السريع إلى أكثر من 60 دولة خلال 7–15 يومًا.',
+      en: 'The cabinet and key structural parts are assembled by skilled workers, building each machine body to support screens, payment systems, cooling/heating and internal components.',
+      zh: '由熟练技工组装柜体与关键结构件，为后续安装屏幕、支付系统、制冷/制热系统与内部组件打好基础。',
+      ar: 'يجمع عمال مهرة الخزانة والأجزاء الهيكلية الرئيسية، لتجهيز الهيكل لتركيب الشاشات وأنظمة الدفع وأنظمة التبريد/التسخين لاحقًا.',
     },
     tags: {
-      zh: ['广州港就近仓配', '7–15 天全球达', '60+ 国家覆盖'],
-      en: ['Warehouse near Guangzhou Port', '7–15 days worldwide', '60+ countries covered'],
-      ar: ['مستودع قرب ميناء غوانغتشو', '7–15 يومًا عالميًا', 'أكثر من 60 دولة'],
+      zh: ['技工组装', '柜体'],
+      en: ['Skilled assembly', 'Cabinet body'],
+      ar: ['تجميع ماهر', 'هيكل الخزانة'],
+    },
+  },
+  {
+    icon: Palette,
+    title: { en: 'Surface Treatment & Painting', zh: '表面处理与喷涂', ar: 'المعالجة السطحية والطلاء' },
+    desc: {
+      en: 'Cabinet parts go through surface treatment and painting to improve appearance, durability and corrosion resistance. Custom colors and branding can be prepared per customer needs.',
+      zh: '柜体部件经表面处理与喷涂，提升外观、耐久与防腐性能，并可按客户需求定制颜色与品牌标识。',
+      ar: 'تمر أجزاء الخزانة بالمعالجة السطحية والطلاء لتحسين المظهر والمتانة ومقاومة التآكل، ويمكن تخصيص الألوان والعلامة التجارية حسب الطلب.',
+    },
+    tags: {
+      zh: ['喷涂', '品牌定制'],
+      en: ['Painting', 'Custom branding'],
+      ar: ['طلاء', 'علامة مخصصة'],
+    },
+  },
+  {
+    icon: Cpu,
+    title: { en: 'Machine Assembly', zh: '整机装配', ar: 'تجميع الآلة' },
+    desc: {
+      en: 'The main cabinet, display, shelves, doors, payment modules, electronic parts and internal systems are installed step by step according to the machine model.',
+      zh: '按机型逐步安装主机柜、显示屏、货架、门体、支付模块、电子件与内部系统。',
+      ar: 'تُركّب الخزانة الرئيسية والشاشة والأرفف والأبواب ووحدات الدفع والأجزاء الإلكترونية والأنظمة الداخلية خطوة بخطوة حسب الطراز.',
+    },
+    tags: {
+      zh: ['整机装配', '按机型'],
+      en: ['Full assembly', 'By model'],
+      ar: ['تجميع كامل', 'حسب الطراز'],
+    },
+  },
+  {
+    icon: ShieldCheck,
+    title: { en: 'Testing & Quality Control', zh: '测试与质检', ar: 'الاختبار ومراقبة الجودة' },
+    desc: {
+      en: 'Before delivery, each machine is tested for appearance, structure, power, payment, screen operation, refrigeration/heating and overall performance to ensure it is ready for commercial use.',
+      zh: '出货前逐台测试外观、结构、通电、支付、屏幕、制冷/制热与整体性能，确保可商用。',
+      ar: 'قبل التسليم، تُختبر كل آلة من حيث المظهر والهيكل والطاقة والدفع والشاشة ووظائف التبريد/التسخين والأداء العام لضمان جاهزيتها للاستخدام التجاري.',
+    },
+    tags: {
+      zh: ['全面测试', '可商用'],
+      en: ['Full test', 'Commercial ready'],
+      ar: ['اختبار شامل', 'جاهز تجاريًا'],
     },
   },
 ];
@@ -425,51 +482,87 @@ const VISION_STATEMENTS: StatementItem[] = [
   },
 ];
 
-/* ── Company timeline ── */
+/* ── Company timeline ── (Excel 公司发展历史程, 9 milestones) */
 const TIMELINE: MilestoneItem[] = [
   {
     year: '2015',
-    title: { en: 'Company Founded', zh: '公司成立', ar: 'تأسيس الشركة' },
+    title: { en: 'The Beginning', zh: '起步之年', ar: 'البداية' },
     desc: {
-      en: 'Qtech was founded in Guangzhou, initially producing advertising display screens before moving into smart vending.',
-      zh: 'Qtech 于广州成立，最初从事广告屏制造，随后进军智能售货领域。',
-      ar: 'تأسست Qtech في غوانغتشو، وبدأت بإنتاج شاشات العرض الإعلانية قبل التحول إلى آلات البيع الذكية.',
+      en: 'Qtech Vending was founded in 2015, starting with advertising display screens and traditional snack and drink vending machines. From the beginning, we focused on practical vending solutions that help customers sell products more efficiently.',
+      zh: 'Qtech Vending 于 2015 年成立，从广告屏与传统零食饮料售货机起步，始终专注于帮助客户更高效销售产品的实用方案。',
+      ar: 'تأسست Qtech Vending في 2015، بدأت بشاشات العرض الإعلانية وآلات البيع التقليدية للوجبات والمشروبات. ومنذ البداية ركزنا على حلول بيع عملية تساعد العملاء على البيع بكفاءة.',
+    },
+  },
+  {
+    year: '2016',
+    title: { en: 'Ice Vending Development', zh: '制冰机研发', ar: 'تطوير آلات الثلج' },
+    desc: {
+      en: 'After strong demand from customers in South America, we began developing ice vending machines. This customer-driven project taught us that different markets need different vending solutions.',
+      zh: '应南美客户的强烈需求，我们开始研发制冰售货机。这次以客户驱动的项目让我们意识到不同市场需要不同的售货方案。',
+      ar: 'بناءً على طلب قوي من عملاء في أمريكا الجنوبية، بدأنا تطوير آلات بيع الثلج. علّمنا هذا المشروع المدفوع بالعملاء أن الأسواق المختلفة تحتاج حلول بيع مختلفة.',
     },
   },
   {
     year: '2017',
-    title: { en: 'Pivot to Custom Vending', zh: '转型售货定制', ar: 'التحول إلى آلات البيع المخصصة' },
+    title: { en: 'Expanding Ice Vending', zh: '制冰方案拓展', ar: 'توسيع حلول الثلج' },
     desc: {
-      en: 'We shifted focus to customized vending machines, building our first flower and fresh-food units for overseas clients.',
-      zh: '业务转型为定制售货机，为海外客户打造首批鲜花与鲜食售货设备。',
-      ar: 'حولنا تركيزنا إلى آلات البيع المخصصة، وصنعنا أول وحدات للزهور والطعام الطازج لعملاء خارجيين.',
+      en: 'As our business grew, the specifications and capacity of our ice vending machines kept expanding. With stable performance and practical design, they were exported in larger volumes to overseas markets.',
+      zh: '随着业务增长，制冰机的规格与容量持续拓展。凭借稳定性能与实用设计，出口海外的数量不断增加。',
+      ar: 'مع نمو أعمالنا، استمر توسيع مواصفات وسعة آلات الثلج. بفضل الأداء المستقر والتصميم العملي، زادت صادراتها إلى الأسواق الخارجية.',
+    },
+  },
+  {
+    year: '2018',
+    title: { en: 'Hot Food Vending', zh: '进军热食售货', ar: 'الانتقال إلى بيع الطعام الساخن' },
+    desc: {
+      en: 'To meet growing demand for automated food retail, we started developing food vending machines — including pizza, French fries and other hot-food vending solutions.',
+      zh: '为满足自动食品零售的增长需求，我们开始研发食品售货机，包括披萨、薯条等热食售货方案。',
+      ar: 'تلبيةً للطلب المتزايد على البيع بالتجزئة الآلي للأطعمة، بدأنا تطوير آلات بيع الطعام بما فيها البيتزا والبطاطس المقلية وحلول الطعام الساخن.',
     },
   },
   {
     year: '2019',
-    title: { en: 'Full-Scale Launch', zh: '全面启动', ar: 'الانطلاق على نطاق واسع' },
+    title: { en: 'Entering Global Markets', zh: '迈向全球市场', ar: 'دخول أسواق عالمية' },
     desc: {
-      en: 'Full-scale production launched across flower, pizza, coffee and cotton-candy vending lines.',
-      zh: '鲜花、披萨、咖啡与棉花糖等多条售货机产线全面启动量产。',
-      ar: 'انطلاق الإنتاج على نطاق واسع عبر خطوط بيع الزهور والبيتزا والقهوة والحلوى القطنية.',
+      en: 'By 2019, Qtech Vending had exported machines to multiple countries — especially Europe, the United States and Canada. These markets pushed us to raise product quality, UX and service standards.',
+      zh: '截至 2019 年，Qtech 售货机已出口至多个国家，尤其是欧洲、美国与加拿大。这些市场推动我们提升产品质量、体验与服务标准。',
+      ar: 'بحلول 2019، صدّرت Qtech آلاتها إلى عدة بلدان — لا سيما أوروبا والولايات المتحدة وكندا. دفعتنا هذه الأسواق لرفع جودة المنتج وتجربة المستخدم ومعايير الخدمة.',
     },
   },
   {
-    year: '2020',
-    title: { en: 'Focus on Niche Markets', zh: '专注细分市场', ar: 'التركيز على الأسواق المتخصصة' },
+    year: '2022',
+    title: { en: 'Stronger R&D & Customization', zh: '研发与定制升级', ar: 'قدرات أقوى في البحث والتخصيص' },
     desc: {
-      en: 'We doubled down on niche segments — fruit & vegetable, flower, pizza and cotton-candy vending — becoming a specialist manufacturer.',
-      zh: '聚焦水果蔬菜、鲜花、披萨与棉花糖等细分市场，成为专业化制造商。',
-      ar: 'ركّزنا على قطاعات متخصصة — الفواكه والخضروات والزهور والبيتزا والحلوى القطنية — وأصبحنا مصنعًا متخصصًا.',
+      en: 'Our R&D team kept growing, enabling us to deliver more customized vending solutions for different customers, products, locations and business models.',
+      zh: '研发团队持续壮大，使我们能为不同客户、产品、场景与商业模式提供更定制化的售货方案。',
+      ar: 'استمر نمو فريق البحث والتطوير، مما مكّننا من تقديم حلول بيع مخصصة أكثر لعملاء ومنتجات ومواقع ونماذج أعمال مختلفة.',
+    },
+  },
+  {
+    year: '2023',
+    title: { en: 'Flower Vending Innovation', zh: '鲜花售货创新', ar: 'ابتكار آلات الزهور' },
+    desc: {
+      en: 'Seeing the potential of fresh-flower retail, we developed flower vending machines with refrigerated display, self-service payment and smart management for florists and gift retailers.',
+      zh: '看好鲜花零售潜力，我们推出带冷藏展示、自助支付与智能管理的鲜花售货机，服务花店与礼品零售。',
+      ar: 'إدراكًا لإمكانات تجارة الزهور الطازجة، طوّرنا آلات بيع الزهور بعرض مبرّد ودفع ذاتي وإدارة ذكية لأصحاب الزهور ومتاجر الهدايا.',
     },
   },
   {
     year: '2025',
-    title: { en: '10th Anniversary · 60+ Countries', zh: '十周年 · 60+ 国家', ar: 'الذكرى العاشرة · 60+ دولة' },
+    title: { en: 'Customer-Centered Strategy', zh: '客户为先战略', ar: 'استراتيجية محورها العميل' },
     desc: {
-      en: 'Celebrating our 10th anniversary, with Qtech vending machines now serving customers in 60+ countries worldwide.',
-      zh: '迎来十周年，Qtech 售货机已服务全球 60+ 国家与地区的客户。',
-      ar: 'نحتفل بمرور عقد على التأسيس، وباتت آلات Qtech تخدم العملاء في أكثر من 60 دولة حول العالم.',
+      en: 'In 2025 we refined our direction — focusing on major standard vending categories while strengthening custom solutions. Our goal is not only to sell machines, but to help customers create real business value.',
+      zh: '2025 年我们厘清方向：聚焦主要标准品类，同时强化定制能力。目标不仅是卖机器，更是帮客户创造真实的商业价值。',
+      ar: 'في 2025 رسمنا توجهنا — التركيز على الفئات القياسية الرئيسية مع تعزيز الحلول المخصصة. هدفنا ليس بيع الآلات فحسب، بل مساعدة العملاء على خلق قيمة تجارية حقيقية.',
+    },
+  },
+  {
+    year: '2026',
+    title: { en: '800+ Customers & Beyond', zh: '800+ 客户，持续前行', ar: 'أكثر من 800 عميل ومستمرون' },
+    desc: {
+      en: 'By 2026, Qtech Vending had helped 800+ customers solve practical vending challenges. We keep improving machines, services and customization with one principle: customer value comes first.',
+      zh: '截至 2026 年，Qtech 已帮助 800+ 客户解决实际售货难题。我们持续打磨设备、服务与定制能力，坚持一条原则：客户价值第一。',
+      ar: 'بحلول 2026، ساعدت Qtech أكثر من 800 عميل على حل تحديات البيع العملية. نواصل تحسين الآلات والخدمات والتخصيص بمبدأ واحد: قيمة العميل أولًا.',
     },
   },
 ];
@@ -515,6 +608,128 @@ const STORY_IMAGES = [
   '/images/cases/partnership.webp',
   '/images/cases/ice-cream-vending.webp',
   '/images/cases/pet-wash-demo.webp',
+];
+
+/* ── Company FAQ (Excel 客户经常问的问题) ── */
+const COMPANY_FAQ: { q: Record<string, string>; a: Record<string, string> }[] = [
+  {
+    q: { en: 'What is your MOQ?', zh: '你们的最小起订量是多少？', ar: 'ما هو الحد الأدنى للطلب؟' },
+    a: {
+      en: 'Our MOQ is 1 unit. We support both sample orders and bulk orders.',
+      zh: '最小起订量为 1 台，支持样品订单与批量订单。',
+      ar: 'الحد الأدنى للطلب هو وحدة واحدة. ندعم طلبات العينات والطلبات بالجملة.',
+    },
+  },
+  {
+    q: { en: 'Can you customize vending machines?', zh: '你们可以定制售货机吗？', ar: 'هل يمكنكم تخصيص آلات البيع؟' },
+    a: {
+      en: 'Yes. We have a strong R&D team for both hardware and software customization, including cabinet design, product layout, payment system, touch screen interface, cooling or heating functions, and branding.',
+      zh: '可以。我们拥有强大的软硬件研发团队，可定制柜体设计、产品布局、支付系统、触摸屏界面、制冷或制热功能以及品牌外观。',
+      ar: 'نعم. لدينا فريق قوي للبحث والتطوير للأجهزة والبرمجيات، بما في ذلك تصميم الخزانة وتخطيط المنتج ونظام الدفع وواجهة اللمس ووظائف التبريد أو التسخين والعلامة التجارية.',
+    },
+  },
+  {
+    q: { en: 'How do you pack the machines for shipping?', zh: '机器如何包装运输？', ar: 'كيف تغلفون الآلات للشحن؟' },
+    a: {
+      en: 'We use export-standard wooden case packaging. Our machines have been exported to many countries, and the packaging protects the machine from moisture, sea-transport corrosion and collision damage.',
+      zh: '采用出口标准木箱包装。我们的设备已出口至多个国家，该包装可有效防潮、防海运腐蚀并避免运输碰撞损伤。',
+      ar: 'نستخدم تغليفًا بصناديق خشبية بمعيار التصدير. صُدرت آلاتنا إلى العديد من البلدان، ويحمي التغليف الآلة من الرطوبة وتآكل الشحن البحري وأضرار الاصطدام.',
+    },
+  },
+  {
+    q: { en: 'What vending machines do you offer?', zh: '你们提供哪些售货机？', ar: 'ما آلات البيع التي تقدمونها؟' },
+    a: {
+      en: 'We offer snack and drink vending machines, pizza vending machines, ice vending machines, hot food vending machines, ice cream vending machines, blind box vending machines, flower vending machines, and other customized vending solutions.',
+      zh: '我们提供零食饮料机、披萨机、制冰机、热食机、冰淇淋机、盲盒机、鲜花机及其他定制售货方案。',
+      ar: 'نقدم آلات وجبات ومشروبات، بيتزا، ثلج، أطعمة ساخنة، آيس كريم، صناديق مفاجآت، زهور، وحلول بيع مخصصة أخرى.',
+    },
+  },
+  {
+    q: { en: 'Do you provide after-sales service?', zh: '你们提供售后服务吗？', ar: 'هل تقدمون خدمة ما بعد البيع؟' },
+    a: {
+      en: 'Yes. Our after-sales team can guide you on machine operation and help solve problems during use. We require our service team to reply within 24 hours and provide a solution plan within 48 hours.',
+      zh: '提供。售后团队可指导设备操作并协助解决使用问题，承诺 24 小时内响应、48 小时内给出解决方案。',
+      ar: 'نعم. يمكن لفريق ما بعد البيع إرشادك في تشغيل الآلة والمساعدة في حل المشكلات، مع الرد خلال 24 ساعة وتقديم خطة حل خلال 48 ساعة.',
+    },
+  },
+  {
+    q: { en: 'What is the warranty?', zh: '保修期是多久？', ar: 'ما هي فترة الضمان؟' },
+    a: {
+      en: 'We provide a 2-year warranty for our vending machines.',
+      zh: '我们提供 2 年质保。',
+      ar: 'نوفر ضمانًا لمدة سنتين لآلات البيع.',
+    },
+  },
+];
+
+/* ── Company solutions (Excel 能给客户解决什么问题) ── */
+const COMPANY_SOLUTIONS: { icon: LucideIcon; title: Record<string, string>; desc: Record<string, string> }[] = [
+  {
+    icon: Package,
+    title: { en: 'Food & Beverage Solutions', zh: '食品饮料方案', ar: 'حلول الأطعمة والمشروبات' },
+    desc: {
+      en: 'For snacks, drinks, coffee, ready meals, hot food, frozen food and fast food retail. Suitable for offices, schools, hospitals, factories, hotels, stations and malls.',
+      zh: '适用于零食、饮料、咖啡、鲜食、热食、冷冻与快餐零售，覆盖办公室、学校、医院、工厂、酒店、车站与商场。',
+      ar: 'للبيع بالتجزئة للوجبات والمشروبات والقهوة والوجبات الجاهزة والأطعمة الساخنة والمجمدة والوجبات السريعة. مناسب للمكاتب والمدارس والمستشفيات والمصانع والفنادق والمحطات والمراكز التجارية.',
+    },
+  },
+  {
+    icon: Cog,
+    title: { en: 'Pizza Vending Solutions', zh: '披萨售货方案', ar: 'حلول بيع البيتزا' },
+    desc: {
+      en: 'For indoor, semi-outdoor and fully outdoor pizza vending projects. The machine supports frozen storage, automatic heating, payment system, pickup area and custom branding.',
+      zh: '适用于室内、半室外与全室外披萨售货项目。设备支持冷冻储存、自动加热、支付系统、取货区与品牌定制。',
+      ar: 'لمشاريع بيع البيتزا داخليًا ونصف خارجي وخارجي بالكامل. تدعم الآلة التخزين المجمد والتسخين التلقائي ونظام الدفع ومنطقة الاستلام والعلامة المخصصة.',
+    },
+  },
+  {
+    icon: Cpu,
+    title: { en: 'Ice Vending Solutions', zh: '制冰售货方案', ar: 'حلول بيع الثلج' },
+    desc: {
+      en: 'For bagged ice, bulk ice and ice-and-water vending businesses. Suitable for gas stations, convenience stores, fishing ports, seafood markets, resorts and communities.',
+      zh: '适用于袋装冰、散装冰与冰水售货，覆盖加油站、便利店、渔港、海鲜市场、度假村与社区。',
+      ar: 'لأعمال الثلج المعبأ والثلج بالجملة والثلج والمياه. مناسب لمحطات الوقود والمتاجر والموانئ والأسواق البحرية والمنتجعات والمجتمعات.',
+    },
+  },
+  {
+    icon: Sparkles,
+    title: { en: 'Flower Vending Solutions', zh: '鲜花售货方案', ar: 'حلول بيع الزهور' },
+    desc: {
+      en: 'For bouquets, roses, floral gifts and preserved flowers. Refrigerated cabinets, transparent display, lighting and self-service payment help florists sell flowers 24/7.',
+      zh: '适用于花束、玫瑰、花卉礼品与永生花。冷藏柜、透明展示、灯光与自助支付助花店 24/7 售花。',
+      ar: 'للباقات والورود والهدايا الزهرية والزهور المحفوظة. الخزائن المبردة والعرض الشفاف والإضاءة والدفع الذاتي تساعد بائعي الزهور على البيع على مدار الساعة.',
+    },
+  },
+  {
+    icon: Palette,
+    title: { en: 'Beauty & Pet Vending Solutions', zh: '美妆与宠物方案', ar: 'حلول التجميل والحيوانات الأليفة' },
+    desc: {
+      en: 'For cosmetics, eyelashes, skincare, pet food, pet treats and pet care products. Cabinet design, product layout, cooling system and screen interface can be customized.',
+      zh: '适用于化妆品、假睫毛、护肤、宠物粮、宠物零食与宠物护理品。柜体设计、产品布局、制冷系统与屏幕界面均可定制。',
+      ar: 'لمستحضرات التجميل والرموش والعناية بالبشرة وأغذية الحيوانات وأطعمتها ومنتجات العناية. يمكن تخصيص تصميم الخزانة وتخطيط المنتج ونظام التبريد والشاشة.',
+    },
+  },
+  {
+    icon: SlidersHorizontal,
+    title: { en: 'Blind Box & Locker Solutions', zh: '盲盒与柜格方案', ar: 'حلول الصناديق المفاجئة والخزائن' },
+    desc: {
+      en: 'For blind boxes, toys, gifts, collectibles, trading cards and other surprise retail products. Locker quantity, compartment size and random opening function can be customized.',
+      zh: '适用于盲盒、玩具、礼品、收藏品、卡牌等惊喜零售。柜格数量、格口尺寸与随机开启功能均可定制。',
+      ar: 'لصناديق المفاجآت والألعاب والهدايا والتحف وبطاقات التداول وغيرها. يمكن تخصيص عدد الخزائن وحجم الحجرات ووظيفة الفتح العشوائي.',
+    },
+  },
+];
+
+/* ── What we can customize (Excel 8 items) ── */
+const CUSTOMIZE_LIST: Record<string, string>[] = [
+  { en: 'Cabinet size and product layout', zh: '柜体尺寸与产品布局', ar: 'أبعاد الخزانة وتخطيط المنتج' },
+  { en: 'Cooling, freezing or heating system', zh: '制冷、冷冻或制热系统', ar: 'نظام تبريد أو تجميد أو تسخين' },
+  { en: 'Touch screen interface and language', zh: '触摸屏界面与语言', ar: 'واجهة اللمس واللغة' },
+  { en: 'Cashless payment system', zh: '无现金支付系统', ar: 'نظام دفع بدون نقد' },
+  { en: 'Remote management system', zh: '远程管理系统', ar: 'نظام إدارة عن بُعد' },
+  { en: 'Product dispensing method', zh: '商品出货方式', ar: 'طريقة صرف المنتج' },
+  { en: 'Logo, color, lighting and cabinet branding', zh: 'Logo、颜色、灯光与柜体品牌', ar: 'الشعار والألوان والإضاءة والعلامة' },
+  { en: 'Export packaging and after-sales support', zh: '出口包装与售后支持', ar: 'تغليف التصدير ودعم ما بعد البيع' },
 ];
 
 export default function AboutClient({ sections }: { sections: AboutSection[] }) {
@@ -1087,6 +1302,82 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
 
       {/* ══════════════════ 11b. CUSTOMER CASES (real install photos) ══════════════════ */}
       <CaseGallerySection />
+
+      {/* ══════════════════ 11c. SOLUTIONS (Excel 能给客户解决什么问题) ══════════════════ */}
+      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full bg-cyan-50 px-4 py-1.5 text-sm font-medium text-cyan-700 ring-1 ring-cyan-200">
+            <IconTile icon={Package} className="h-4 w-4" tileClassName="bg-gradient-to-br from-cyan-500 to-teal-500 text-white p-1.5" />
+            {locale === 'zh' ? '解决方案' : locale === 'ar' ? 'حلولنا' : 'Our Solutions'}
+          </span>
+          <h2 className="mt-5 text-3xl font-extrabold text-ink-900 sm:text-4xl">
+            {locale === 'zh' ? '我们能提供的售货机方案' : locale === 'ar' ? 'حلول آلات البيع التي نقدمها' : 'Vending Machine Solutions We Provide'}
+          </h2>
+        </div>
+
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {COMPANY_SOLUTIONS.map((s, i) => {
+            const Icon = s.icon;
+            const a = ACCENTS[i % ACCENTS.length];
+            return (
+              <RevealOnScroll key={i} delay={i * 80} className="h-full">
+                <div className={`glass-surface group relative h-full overflow-hidden border-s-4 animate-pulse-border ${a.border}`}>
+                  <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${a.tile} flow-bar`} aria-hidden="true" />
+                  <div className="p-6">
+                    <IconTile
+                      icon={Icon}
+                      className="h-9 w-9"
+                      tileClassName={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${a.tile} text-white shadow-lg transition-transform duration-300 group-hover:scale-110 icon-pulse ${a.glow}`}
+                    />
+                    <h3 className="mt-5 text-xl font-bold text-ink-900">{s.title[locale] ?? s.title.en}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-ink-600">{s.desc[locale] ?? s.desc.en}</p>
+                  </div>
+                </div>
+              </RevealOnScroll>
+            );
+          })}
+        </div>
+
+        {/* What we can customize (Excel 8 items) */}
+        <div className="mx-auto mt-10 max-w-4xl rounded-2xl border border-slate-200 bg-white/60 p-7 backdrop-blur-xl">
+          <h3 className="text-center text-lg font-bold text-ink-900">
+            {locale === 'zh' ? '我们能定制的内容' : locale === 'ar' ? 'ما يمكننا تخصيصه' : 'What We Can Customize'}
+          </h3>
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {CUSTOMIZE_LIST.map((c, i) => (
+              <div key={i} className="flex items-center gap-3 rounded-xl bg-cyan-50/60 px-4 py-3">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 text-xs font-bold text-white">{i + 1}</span>
+                <span className="text-sm font-medium text-ink-700">{c[locale] ?? c.en}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </RevealOnScroll>
+
+      {/* ══════════════════ 11d. COMPANY FAQ (Excel 客户经常问的问题) ══════════════════ */}
+      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full bg-teal-50 px-4 py-1.5 text-sm font-medium text-teal-700 ring-1 ring-teal-200">
+            <IconTile icon={ChevronDown} className="h-4 w-4" tileClassName="bg-gradient-to-br from-teal-500 to-emerald-500 text-white p-1.5" />
+            {locale === 'zh' ? '常见问题' : locale === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'}
+          </span>
+          <h2 className="mt-5 text-3xl font-extrabold text-ink-900 sm:text-4xl">
+            {locale === 'zh' ? '客户经常问的问题' : locale === 'ar' ? 'الأسئلة التي يطرحها العملاء غالبًا' : 'Frequently Asked Questions'}
+          </h2>
+        </div>
+
+        <div className="mx-auto mt-10 max-w-3xl space-y-3">
+          {COMPANY_FAQ.map((item, i) => (
+            <details key={i} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white/70 backdrop-blur-xl shadow-soft">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-4">
+                <span className="text-sm font-medium text-ink-800">{localized(item.q, locale)}</span>
+                <ChevronDown className="h-5 w-5 shrink-0 text-ink-400 transition-transform duration-200 group-open:rotate-180" />
+              </summary>
+              <p className="px-6 pb-5 text-sm leading-relaxed text-ink-600">{localized(item.a, locale)}</p>
+            </details>
+          ))}
+        </div>
+      </RevealOnScroll>
 
       {/* ══════════════════ 12. CTA — 日照金山 / Golden Mountain at Sunrise ══════════════════
           用户明确指定：日照金山效果做在这个底部 Work With Us 深色区块。
