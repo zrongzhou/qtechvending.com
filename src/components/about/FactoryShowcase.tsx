@@ -61,7 +61,7 @@ export default function FactoryShowcase() {
 
       {/* Glass-framed slideshow */}
       <div
-        className="group relative mt-12 overflow-hidden rounded-3xl bg-white/40 p-2 shadow-lift ring-1 ring-white/70 backdrop-blur-sm"
+        className="group relative mx-auto mt-12 max-w-4xl overflow-hidden rounded-3xl bg-white/40 p-2 shadow-lift ring-1 ring-white/70 backdrop-blur-sm"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >

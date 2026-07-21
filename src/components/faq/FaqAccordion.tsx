@@ -18,7 +18,7 @@ import IconTile from '@/components/ui/IconTile';
  *  groups rather than a wall of identical white cards. */
 const CAT_ACCENT: Record<string, { from: string; to: string; border: string; chipBg: string; chipText: string }> = {
   general:         { from: '#22d3ee', to: '#0891b2', border: '#06b6d4', chipBg: 'bg-cyan-50',   chipText: 'text-cyan-700' },
-  technical:       { from: '#a78bfa', to: '#6d28d9', border: '#7c3aed', chipBg: 'bg-violet-50', chipText: 'text-violet-700' },
+  technical:       { from: '#818cf8', to: '#4338ca', border: '#6366f1', chipBg: 'bg-indigo-50', chipText: 'text-indigo-700' },
   'order-support': { from: '#2dd4bf', to: '#0f766e', border: '#0d9488', chipBg: 'bg-teal-50',  chipText: 'text-teal-700' },
 };
 

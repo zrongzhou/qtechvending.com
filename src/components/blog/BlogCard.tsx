@@ -22,14 +22,14 @@ function formatDate(iso: string, locale: string): string {
   }
 }
 
-/** V49.9⑥: cycle a brand palette across blog cards so the grid isn't a single
- *  uniform ocean-blue — each card gets its own top bar / glow / pill hue. */
+/** V49.10: a TIGHT, harmonious cool palette (cyan / indigo / teal) shared with
+ *  the FAQ + Contact pages so the whole site reads as one intentional system —
+ *  no clashing magenta/sky that made V49.9 feel messy. Each card still gets its
+ *  own top bar / glow / pill hue, just within the same family. */
 const BLOG_ACCENTS = [
   { from: '#22d3ee', to: '#0891b2' }, // cyan
   { from: '#818cf8', to: '#4338ca' }, // indigo
   { from: '#2dd4bf', to: '#0f766e' }, // teal
-  { from: '#f0abfc', to: '#a21caf' }, // fuchsia
-  { from: '#38bdf8', to: '#0369a1' }, // sky
 ];
 
 export default function BlogCard({ post, index = 0 }: { post: BlogPost; index?: number }) {
