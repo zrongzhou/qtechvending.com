@@ -833,7 +833,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
       <section className="container-qtech py-16 lg:py-24">
         <RevealOnScroll className="grid grid-cols-1 items-center gap-12 lg:gap-16 lg:grid-cols-2">
           {/* Left: company building photo — fixed 4:3 ratio, never stretched by the grid */}
-          <div className="relative mx-auto aspect-[4/3] w-full max-w-[540px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100">
+          <div className="relative mx-auto aspect-[16/10] w-full max-w-[460px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100">
             <Image
               src="/images/about/company-building-3.jpg"
               alt={t('about.aboutTitle')}
@@ -875,9 +875,9 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               };
               const paras = INTRO[locale] ?? INTRO.en;
               return (
-                <div className="mt-4 space-y-4">
+                <div className="mt-4 max-w-prose space-y-5">
                   {paras.map((p, i) => (
-                    <p key={i} className="text-base leading-relaxed text-ink-600 sm:text-lg">{p}</p>
+                    <p key={i} className="text-base leading-relaxed text-ink-700 sm:text-lg">{p}</p>
                   ))}
                 </div>
               );
@@ -1029,13 +1029,13 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     {title}
                   </span>
                   <h2 className="mt-4 text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl">{title}</h2>
-                  <div className="mt-4 space-y-4">
+                  <div className="mt-4 max-w-prose space-y-5">
                     {body
                       .split(/\n{2,}/)
                       .map((p) => p.trim())
                       .filter(Boolean)
                       .map((p, i) => (
-                        <p key={i} className="text-base leading-relaxed text-ink-600">{p}</p>
+                        <p key={i} className="text-base leading-relaxed text-ink-700">{p}</p>
                       ))}
                   </div>
                 </div>
