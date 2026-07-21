@@ -74,7 +74,6 @@ function renderRichContent(text: string, t: (key: string) => string) {
         idx < raw.length
         && raw[idx].trim() !== ''
         && !/^##\s/.test(raw[idx])
-        && !/^###\s*Q\d/i.test(raw[idx])
         && !/^###\s*Conclusion/i.test(raw[idx])
       ) {
         block.push(raw[idx]); idx++;
