@@ -123,7 +123,12 @@ export default function ProductsClient({ categories, initial }: ProductsClientPr
         </RevealOnScroll>
 
         <div className="grid gap-8 lg:grid-cols-[320px_1fr]">
-          <aside className="lg:sticky lg:top-20 lg:self-start">
+          {/* V49.11: the category dropdown overflows the filter card downward. The
+              product column (.glass-surface) creates its own stacking context via
+              backdrop-filter, so without a z-index here the later-DOM product card
+              paints ON TOP of the dropdown and covers it. Lifting the whole sidebar
+              above the product column fixes the "dropdown hidden behind a frame" bug. */}
+          <aside className="relative z-50 lg:sticky lg:top-20 lg:self-start">
             <FilterBar
               categories={categories}
               selected={selected}
