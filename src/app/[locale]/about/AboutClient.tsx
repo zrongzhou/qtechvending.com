@@ -609,7 +609,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           {/* Left: company building photo */}
           <div className="relative min-h-[320px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100 lg:min-h-[360px]">
             <Image
-              src="/images/about/company-building-2.jpg"
+              src="/images/about/company-building-3.jpg"
               alt={t('about.aboutTitle')}
               fill
               className="object-cover"
