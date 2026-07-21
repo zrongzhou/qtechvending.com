@@ -58,6 +58,7 @@ function ProductDetailTabs({
   faq: FaqItem[] | null;
   t: (key: string) => string;
 }) {
+  const { locale } = useLocale();
   const [active, setActive] = useState<TabId>('features');
   const specList = specs ?? [];
   // V45: a calm, slightly-warmer frosted panel. Lower opacity (slate-50/60)
@@ -120,26 +121,30 @@ function ProductDetailTabs({
               {/* Non-table spec layout — compact tag / statement grid.
                   Looks good even when values are empty or keys are long sentences. */}
               <div className="flex flex-col gap-3 p-6">
-                {specList.map((s, i) => (
+                {specList.map((s, i) => {
+                  const paramText = typeof s.param === 'string' ? s.param : localized(s.param, locale);
+                  const valueText = typeof s.value === 'string' ? s.value : localized(s.value, locale);
+                  return (
                   <div
                     key={i}
                     className="group flex flex-col gap-1 rounded-xl border border-slate-100 bg-white/50 px-4 py-3 transition-colors hover:bg-cyan-50/40 hover:border-cyan-200"
                   >
-                    {s.value ? (
+                    {valueText ? (
                       <>
                         <span className="text-xs font-semibold uppercase tracking-wide text-cyan-600">
-                          {s.param}
+                          {paramText}
                         </span>
-                        <span className="text-sm leading-relaxed text-ink-700">{s.value}</span>
+                        <span className="text-sm leading-relaxed text-ink-700">{valueText}</span>
                       </>
                     ) : (
                       /* Bare statement (no value) — render as a standalone line */
                       <span className="text-sm leading-relaxed text-ink-700">
-                        {s.param}
+                        {paramText}
                       </span>
                     )}
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </RippleOnHover>
           ) : (

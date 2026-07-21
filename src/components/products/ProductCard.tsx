@@ -56,8 +56,14 @@ export default function ProductCard({
     : `bg-gradient-to-r ${isHot ? HOT_BADGE : accent.badge} text-white`;
 
   // Bottom info line: model number (preferred) or category tag as a fallback.
-  const modelSpec = product.specs?.find((s) => s.param.trim().toLowerCase() === 'model');
-  const modelLabel = modelSpec?.value?.trim() || '';
+  const modelSpec = product.specs?.find((s) => {
+    const p = typeof s.param === 'string' ? s.param : localized(s.param, 'en');
+    return p.trim().toLowerCase() === 'model';
+  });
+  const modelLabel =
+    modelSpec != null
+      ? (typeof modelSpec.value === 'string' ? modelSpec.value : localized(modelSpec.value, 'en'))?.trim() || ''
+      : '';
 
   // Light-glass (products page / related cards on the light detail page) vs a
   // clean white card (home). The `ocean` flag now renders the universal

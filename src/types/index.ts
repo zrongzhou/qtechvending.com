@@ -1,9 +1,10 @@
 import type { Locale } from '@/lib/i18n';
 
-/** A normalized spec row: [{ param, value }]. */
+/** A normalized spec row. `param`/`value` may be a plain string (legacy) or a
+ *  localized I18nString so specs render in the active language. */
 export interface ProductSpec {
-  param: string;
-  value: string;
+  param: I18nString | string;
+  value: I18nString | string;
 }
 
 /** Shape of the Prisma `Json` i18n field. */

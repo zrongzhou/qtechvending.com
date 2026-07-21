@@ -1,7 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, CalendarDays } from 'lucide-react';
+import { ArrowLeft, CalendarDays, ChevronDown } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
 import BlogCard from '@/components/blog/BlogCard';
@@ -21,17 +22,119 @@ function formatDate(iso: string, locale: string): string {
   }
 }
 
-function renderRichContent(text: string) {
+interface FaqItem { q: string; a: string }
+
+function parseFaqBlock(lines: string[]): FaqItem[] {
+  const items: FaqItem[] = [];
+  let cur: FaqItem | null = null;
+  for (const raw of lines) {
+    const ln = raw.trim();
+    const m = ln.match(/^###\s*Q\d*[:.]?\s*(.+)$/i);
+    if (m) {
+      if (cur) items.push(cur);
+      cur = { q: m[1].trim(), a: '' };
+      continue;
+    }
+    if (!cur) continue;
+    // answer line may start with "A:" / "Answer:" — strip that prefix
+    const am = ln.match(/^(?:A|Answer)\s*[:.]?\s*(.+)$/i);
+    const body = am ? am[1] : ln;
+    if (body) cur.a = cur.a ? `${cur.a} ${body}` : body;
+  }
+  if (cur) items.push(cur);
+  return items;
+}
+
+/* Detect whether a block of consecutive lines reads like a bare-line list
+   (e.g. "Shopping malls" / "Amusement parks" with no "- " prefix). */
+function looksLikeBareList(lines: string[]): boolean {
+  if (lines.length < 3) return false;
+  return lines.every((l) => {
+    const t = l.trim();
+    return t.length > 0 && t.length < 80 && !/^[#>*`\-*]/.test(t);
+  });
+}
+
+function renderRichContent(text: string, t: (key: string) => string) {
   const raw = text.split('\n');
   const els: (JSX.Element | null)[] = [];
   let idx = 0;
+  const faqAccents = ['#0891B2', '#0E7490', '#155E75', '#0D9488', '#0284C7'];
+  let faqCount = 0;
+
   while (idx < raw.length) {
     const ln = raw[idx].trim();
     if (!ln) { idx++; continue; }
 
+    // FAQ block: starts with ### Q... and runs until next ## / ### Q / EOF
+    if (/^###\s*Q\d/i.test(ln) || /^###\s*FAQ/i.test(ln)) {
+      const block: string[] = [];
+      if (/^###\s*FAQ/i.test(ln)) { idx++; } // skip a standalone "FAQ" heading
+      while (
+        idx < raw.length
+        && raw[idx].trim() !== ''
+        && !/^##\s/.test(raw[idx])
+        && !/^###\s*Q\d/i.test(raw[idx])
+        && !/^###\s*Conclusion/i.test(raw[idx])
+      ) {
+        block.push(raw[idx]); idx++;
+      }
+      const faqs = parseFaqBlock(block);
+      if (faqs.length > 0) {
+        faqCount++;
+        els.push(
+          <div key={`faq-${faqCount}`} className="mt-10">
+            <div className="mb-5 flex items-center gap-3">
+              <span className="h-5 w-1.5 rounded-full bg-brand-500" />
+              <h2 className="text-2xl font-bold text-ink-900">{t('blog.faqTitle')}</h2>
+            </div>
+            <BlogFaqAccordion items={faqs} accents={faqAccents} />
+          </div>,
+        );
+      }
+      continue;
+    }
+
+    // Conclusion block — render with a highlighted panel
+    if (/^##\s*(Conclusion|结论|خاتمة)/i.test(ln)) {
+      idx++;
+      const block: string[] = [];
+      while (
+        idx < raw.length
+        && raw[idx].trim() !== ''
+        && !/^##\s/.test(raw[idx])
+        && !/^###\s/.test(raw[idx])
+      ) {
+        block.push(raw[idx].trim()); idx++;
+      }
+      const text2 = block.join(' ');
+      els.push(
+        <div key={idx} className="mt-10 rounded-2xl border border-brand-100 bg-brand-50/60 p-6">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-brand-700">{t('blog.conclusion')}</p>
+          <p className="leading-relaxed text-ink-700">{text2}</p>
+        </div>,
+      );
+      continue;
+    }
+
     // headings
-    if (ln.startsWith('### ')) { els.push(<h3 key={idx} className="mt-8 mb-3 text-xl font-bold text-ink-900">{ln.slice(4)}</h3>); idx++; }
-    else if (ln.startsWith('## ')) { els.push(<h2 key={idx} className="mt-10 mb-4 text-2xl font-bold tracking-tight text-ink-900">{ln.slice(3)}</h2>); idx++; }
+    if (ln.startsWith('### ')) {
+      els.push(<h3 key={idx} className="mt-8 mb-3 flex items-center gap-2 text-xl font-bold text-ink-900"><span className="h-4 w-1 rounded-full bg-brand-400" />{ln.slice(4)}</h3>); idx++;
+    }
+    else if (ln.startsWith('## ')) {
+      const numMatch = ln.slice(3).match(/^(\d+)\.\s*(.*)$/);
+      if (numMatch) {
+        els.push(
+          <h2 key={idx} className="mt-10 mb-4 flex items-start gap-3 border-s-4 border-brand-300 ps-4 text-2xl font-bold tracking-tight text-ink-900">
+            <span className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white">{numMatch[1]}</span>
+            <span>{numMatch[2]}</span>
+          </h2>,
+        );
+      } else {
+        els.push(<h2 key={idx} className="mt-10 mb-4 border-s-4 border-brand-300 ps-4 text-2xl font-bold tracking-tight text-ink-900">{ln.slice(3)}</h2>);
+      }
+      idx++;
+    }
     else if (ln.startsWith('# ')) { els.push(<h1 key={idx} className="mt-8 mb-4 text-3xl font-bold text-ink-900">{ln.slice(2)}</h1>); idx++; }
     // unordered list
     else if (ln.startsWith('- ') || ln.startsWith('* ')) {
@@ -57,11 +160,62 @@ function renderRichContent(text: string) {
         parts.push(raw[idx].trim()); idx++;
       }
       if (parts.length > 0) {
-        els.push(<p key={idx} className="mb-4 leading-relaxed text-ink-600">{parts.join(' ')}</p>);
+        // bare-line list detection: a block that joined reads as many short lines
+        if (looksLikeBareList(parts)) {
+          els.push(
+            <ul key={idx} className="mb-5 ms-6 space-y-1.5 list-disc marker:text-brand-600 text-ink-600">
+              {parts.map((it, j) => <li key={j} className="leading-relaxed">{it}</li>)}
+            </ul>,
+          );
+        } else {
+          els.push(<p key={idx} className="mb-4 leading-relaxed text-ink-600">{parts.join(' ')}</p>);
+        }
       }
     }
   }
   return els;
+}
+
+function BlogFaqAccordion({ items, accents }: { items: FaqItem[]; accents: string[] }) {
+  const [open, setOpen] = useState<number>(0);
+  return (
+    <div className="space-y-3">
+      {items.map((it, i) => {
+        const isOpen = open === i;
+        const accent = accents[i % accents.length];
+        return (
+          <div
+            key={i}
+            className="faq-accent-card overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft transition"
+            style={{ borderInlineStart: `4px solid ${accent}` } as React.CSSProperties}
+          >
+            <button
+              type="button"
+              onClick={() => setOpen(isOpen ? -1 : i)}
+              className="flex w-full items-center justify-between gap-3 px-5 py-4 text-left transition-colors hover:bg-slate-50"
+              aria-expanded={isOpen}
+            >
+              <span className="flex items-center gap-3">
+                <span
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white"
+                  style={{ background: accent }}
+                >
+                  {i + 1}
+                </span>
+                <span className="font-semibold text-ink-900">{it.q}</span>
+              </span>
+              <ChevronDown
+                className={`h-5 w-5 shrink-0 text-brand-600 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+              />
+            </button>
+            {isOpen && (
+              <div className="px-5 pb-5 ps-12 text-ink-600 leading-relaxed">{it.a}</div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 export default function BlogDetailClient({
@@ -109,8 +263,8 @@ export default function BlogDetailClient({
         </div>
       </RevealOnScroll>
 
-      <RevealOnScroll className="prose-qtech mx-auto mt-10 max-w-3xl">
-        {renderRichContent(content)}
+      <RevealOnScroll className="mx-auto mt-10 max-w-3xl">
+        {renderRichContent(content, t)}
       </RevealOnScroll>
 
       {related.length > 0 && (

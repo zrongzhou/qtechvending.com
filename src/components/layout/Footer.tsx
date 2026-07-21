@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Facebook, Youtube, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Youtube, Twitter, Music2, Mail, Phone, MapPin } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import Logo from '@/components/Logo';
 import IconTile from '@/components/ui/IconTile';
@@ -11,7 +11,8 @@ const YEAR = new Date().getFullYear();
 const FOOTER_SOCIALS = [
   { name: 'Facebook', href: 'https://www.facebook.com/merin.zhou.7', icon: Facebook },
   { name: 'Twitter', href: 'https://x.com/merinzhou?s=21', icon: Twitter },
-  { name: 'YouTube', href: 'https://www.youtube.com/@flowervending-VD', icon: Youtube },
+  { name: 'YouTube', href: 'https://www.youtube.com/@Qtechvending-VD', icon: Youtube },
+  { name: 'TikTok', href: 'https://www.tiktok.com/@qtechvending', icon: Music2 },
 ];
 
 export default function Footer() {
@@ -89,7 +90,7 @@ export default function Footer() {
             <ul className="mt-5 space-y-3.5 text-sm text-slate-400">
               <li className="flex items-start gap-2.5">
                 <Mail className="mt-0.5 h-4 w-4 shrink-0 text-cyan-400/70" />
-                <a href="mailto:glvending.sabina@gmail.com" className="hover:text-cyan-300 transition-colors">glvending.sabina@gmail.com</a>
+                <a href="mailto:info@qtechvending.com" className="hover:text-cyan-300 transition-colors">info@qtechvending.com</a>
               </li>
               <li className="flex items-start gap-2.5">
                 <Phone className="mt-0.5 h-4 w-4 shrink-0 text-cyan-400/70" />

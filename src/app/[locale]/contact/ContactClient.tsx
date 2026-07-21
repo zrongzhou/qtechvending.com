@@ -11,6 +11,7 @@ import {
   Facebook,
   Youtube,
   Twitter,
+  Music2,
   type LucideIcon,
 } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
@@ -32,7 +33,8 @@ interface SocialLink {
 const SOCIALS: SocialLink[] = [
   { name: 'Facebook', href: 'https://www.facebook.com/merin.zhou.7', icon: Facebook },
   { name: 'Twitter', href: 'https://x.com/merinzhou?s=21', icon: Twitter },
-  { name: 'YouTube', href: 'https://www.youtube.com/@flowervending-VD', icon: Youtube },
+  { name: 'YouTube', href: 'https://www.youtube.com/@Qtechvending-VD', icon: Youtube },
+  { name: 'TikTok', href: 'https://www.tiktok.com/@qtechvending', icon: Music2 },
 ];
 
 export default function ContactClient({
@@ -238,7 +240,7 @@ export default function ContactClient({
                   <IconTile icon={Mail} className="h-4 w-4" tileClassName="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-700" />
                   <div>
                     <p className="text-xs font-medium uppercase tracking-wide text-ink-500">{t('contact.emailUs')}</p>
-                    <a href="mailto:glvending.sabina@gmail.com" className="mt-0.5 block text-brand-700 hover:underline">glvending.sabina@gmail.com</a>
+                    <a href="mailto:info@qtechvending.com" className="mt-0.5 block text-brand-700 hover:underline">info@qtechvending.com</a>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">

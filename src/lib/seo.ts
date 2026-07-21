@@ -44,8 +44,13 @@ export const SITE_CONFIG = {
   ],
   ogImage: '/images/og-default.svg',
   twitterHandle: '@qtechvending',
-  sameAs: [] as string[],
-  email: 'glvending.sabina@gmail.com',
+  sameAs: [
+    'https://www.facebook.com/merin.zhou.7',
+    'https://x.com/merinzhou?s=21',
+    'https://www.youtube.com/@Qtechvending-VD',
+    'https://www.tiktok.com/@qtechvending',
+  ],
+  email: 'info@qtechvending.com',
   phone: '+86 183 1975 3992',
 };
 
