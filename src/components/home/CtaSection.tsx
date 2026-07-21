@@ -131,7 +131,7 @@ export default function CtaSection() {
         {/* Light frosted-glass command pod — text floats on a translucent white
             panel so the aquarium stays visible behind it. */}
         <div className="relative z-10 flex min-h-[600px] items-center justify-center p-3 sm:p-5">
-          <div className="mx-auto flex w-full max-w-4xl min-h-[480px] flex-col items-center justify-center rounded-3xl border border-white/40 bg-white/65 px-6 py-12 text-center shadow-lift backdrop-blur-xl sm:px-16 sm:py-16">
+          <div className="mx-auto flex w-full max-w-4xl min-h-[480px] flex-col items-center justify-center rounded-3xl border border-white/50 bg-white/85 px-6 py-12 text-center shadow-lift backdrop-blur-md sm:px-16 sm:py-16">
             <div className="inline-flex items-center gap-2 rounded-full bg-white/70 px-5 py-2 text-sm font-medium text-cyan-800 ring-1 ring-cyan-200">
               <IconTile icon={Sparkles} className="h-4 w-4" tileClassName="bg-gradient-to-br from-cyan-500 to-teal-500 text-white p-1.5" />
               <span className="font-semibold">

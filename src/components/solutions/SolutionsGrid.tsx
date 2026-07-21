@@ -38,7 +38,7 @@ export default function SolutionsGrid() {
   const { t, locale } = useLocale();
 
   return (
-    <div className="bg-white">
+    <div className="bg-slate-50">
       <div className="container-qtech py-20 md:py-28">
         <RevealOnScroll className="section-head">
           <p className="eyebrow">{t('solutions.badge')}</p>

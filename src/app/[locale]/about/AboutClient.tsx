@@ -531,13 +531,13 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
       {/* Soft, luminous colour blooms — a light, airy atmosphere (not dark). */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
         <div className="absolute -top-24 start-0 h-[440px] w-[440px] rounded-full bg-cyan-200/40 blur-3xl" />
-        <div className="absolute top-1/4 end-0 h-[460px] w-[460px] rounded-full bg-violet-200/30 blur-3xl" />
+        <div className="absolute top-1/4 end-0 h-[460px] w-[460px] rounded-full bg-teal-200/30 blur-3xl" />
         <div className="absolute bottom-1/3 start-10 h-[420px] w-[420px] rounded-full bg-teal-200/40 blur-3xl" />
         <div className="absolute bottom-0 end-1/4 h-[360px] w-[360px] rounded-full bg-sky-200/30 blur-3xl" />
       </div>
 
       {/* ══════════════════ 1. HERO (glacier world · V48 R4) ══════════════════ */}
-      <section className="relative isolate overflow-hidden bg-gradient-to-b from-cyan-100 via-sky-50 to-blue-200">
+      <section className="relative isolate overflow-hidden bg-gradient-to-b from-cyan-50 via-slate-50 to-white">
         {/* V49: Glacier scene — ambient ice environment (NOT falling shards).
             Pure CSS aurora + ice facets + light rays + frost mist. */}
         <div className="glacier-scene" aria-hidden="true">

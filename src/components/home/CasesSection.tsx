@@ -116,27 +116,27 @@ export default function CasesSection() {
   const { t, locale } = useLocale();
 
   return (
-    <RevealOnScroll as="section" className="relative overflow-hidden bg-gradient-to-b from-slate-800 via-slate-900 to-cyan-950 py-20 md:py-28">
-      {/* Subtle deep-space nebula — lighter than the hero, adds colour and depth
-          so the dark glass has something to blur (no longer pure black). */}
+    <RevealOnScroll as="section" className="relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-cyan-50/20 py-20 md:py-28">
+      {/* Soft brand nebula — gentle cyan/teal/sky blooms so the light glass cards
+          have a calm tinted backdrop that flows with the rest of the site. */}
       <div
-        className="pointer-events-none absolute -top-24 end-0 h-96 w-96 rounded-full bg-violet-500/15 blur-3xl"
+        className="pointer-events-none absolute -top-24 end-0 h-96 w-96 rounded-full bg-teal-400/20 blur-3xl"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute bottom-0 start-0 h-96 w-96 rounded-full bg-cyan-500/15 blur-3xl"
+        className="pointer-events-none absolute bottom-0 start-0 h-96 w-96 rounded-full bg-cyan-400/20 blur-3xl"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute top-1/3 start-1/3 h-80 w-80 rounded-full bg-sky-500/10 blur-3xl"
+        className="pointer-events-none absolute top-1/3 start-1/3 h-80 w-80 rounded-full bg-sky-400/15 blur-3xl"
         aria-hidden="true"
       />
 
       <div className="container-qtech relative">
         <div className="section-head">
           <p className="eyebrow">{t('home.partners.eyebrow')}</p>
-          <h2 className="section-title text-white">{t('home.partners.title')}</h2>
-          <p className="section-subtitle text-white/70">{t('home.partners.subtitle')}</p>
+          <h2 className="section-title text-ink-900">{t('home.partners.title')}</h2>
+          <p className="section-subtitle text-ink-600">{t('home.partners.subtitle')}</p>
         </div>
 
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -149,12 +149,12 @@ export default function CasesSection() {
                   pointerDriven
                   rippleColor={theme.ripple}
                   rings={2}
-                  className={`group relative h-full glass-card-dark rounded-2xl transition-all duration-300 hover:-translate-y-2 ${theme.glow} ${theme.border}`}
+                  className={`group relative h-full glass-card rounded-2xl transition-all duration-300 hover:-translate-y-2 ${theme.glow} ${theme.border}`}
                 >
                   {/* Per-card accent bar — colour identity for each case. */}
                   <span className={`absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r ${theme.accent}`} aria-hidden="true" />
                   <div className="group flex h-full flex-col">
-                    <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-ink-900/40">
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-slate-100">
                       <ImageWithRetry
                         src={c.image}
                         alt={localized(c.title, locale)}
