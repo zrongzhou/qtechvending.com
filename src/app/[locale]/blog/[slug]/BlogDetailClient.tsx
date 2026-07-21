@@ -135,15 +135,19 @@ function renderRichContent(text: string, t: (key: string) => string) {
       idx++;
     }
     else if (ln.startsWith('# ')) { els.push(<h1 key={idx} className="mt-8 mb-4 text-3xl font-semibold text-ink-900">{ln.slice(2)}</h1>); idx++; }
-    // unordered list
+    // unordered list (markdown-style)
     else if (ln.startsWith('- ') || ln.startsWith('* ')) {
       const items: string[] = [];
       while (idx < raw.length && (raw[idx].trim().startsWith('- ') || raw[idx].trim().startsWith('* '))) {
         items.push(raw[idx].trim().slice(2)); idx++;
       }
       els.push(
-        <ul key={idx} className="mb-5 ms-6 space-y-1.5 list-disc marker:text-brand-600 text-ink-600">
-          {items.map((it, j) => <li key={j} className="leading-relaxed">{it}</li>)}
+        <ul key={idx} className="mb-7 space-y-3 ps-5">
+          {items.map((it, j) => (
+            <li key={j} className="relative text-[15px] leading-7 text-ink-700 sm:text-[16px] before:content-[''] before:absolute before:-left-4 before:top-[0.6em] before:h-1.5 before:w-1.5 before:rounded-full before:bg-brand-500">
+              {it}
+            </li>
+          ))}
         </ul>,
       );
     }
@@ -162,12 +166,20 @@ function renderRichContent(text: string, t: (key: string) => string) {
         // bare-line list detection: a block that joined reads as many short lines
         if (looksLikeBareList(parts)) {
           els.push(
-            <ul key={idx} className="mb-5 ms-6 space-y-2 list-disc marker:text-brand-500 text-ink-700 text-[15px] leading-7 sm:text-[17px]">
-              {parts.map((it, j) => <li key={j} className="leading-relaxed">{it}</li>)}
+            <ul key={idx} className="mb-7 rounded-xl bg-slate-50/70 p-5 ps-6 space-y-3">
+              {parts.map((it, j) => (
+                <li key={j} className="relative text-[15px] leading-7 text-ink-700 sm:text-[16px] before:content-[''] before:absolute before:-left-5 before:top-[0.6em] before:h-2 before:w-2 before:rounded-full before:bg-brand-400 before:shadow-sm before:shadow-brand-200">
+                  {it}
+                </li>
+              ))}
             </ul>,
           );
         } else {
-          els.push(<p key={idx} className="mb-5 text-[15px] leading-8 text-ink-700 sm:text-[17px]">{parts.join(' ')}</p>);
+          els.push(
+            <p key={idx} className="mb-6 ps-4 text-[15px] leading-8 text-ink-800 sm:text-[16px]" style={{ borderLeft: '3px solid rgba(8,145,178,0.25)' }}>
+              {parts.join(' ')}
+            </p>
+          );
         }
       }
     }
@@ -263,7 +275,9 @@ export default function BlogDetailClient({
       </RevealOnScroll>
 
       <RevealOnScroll className="mx-auto mt-10 max-w-prose">
-        {renderRichContent(content, t)}
+        <div className="rounded-2xl border border-slate-200/80 bg-white/70 p-8 shadow-lg backdrop-blur-sm lg:p-10">
+          {renderRichContent(content, t)}
+        </div>
       </RevealOnScroll>
 
       {related.length > 0 && (

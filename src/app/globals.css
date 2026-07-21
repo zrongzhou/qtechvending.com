@@ -1315,12 +1315,12 @@ input[type='number']::-webkit-inner-spin-button {
   inset: 0;
   pointer-events: none;
   overflow: hidden;
-  /* V49.20: STRONGER ice-blue base — deeper, more saturated glacial read. */
+  /* V49.21: RICHER ice-blue base — deeper saturation, more "crystalline" presence */
   background: linear-gradient(160deg,
-    rgba(165, 243, 252, 0.55) 0%,
-    rgba(103, 232, 249, 0.46) 30%,
-    rgba(34, 211, 238, 0.42) 60%,
-    rgba(14, 165, 233, 0.52) 100%);
+    rgba(125, 211, 252, 0.70) 0%,
+    rgba(34, 211, 238, 0.62) 30%,
+    rgba(14, 165, 233, 0.58) 60%,
+    rgba(2, 132, 199, 0.65) 100%);
 }
 
 /* Layer 1: Aurora borealis bands — VISIBLE colour shift across the sky.
@@ -1476,24 +1476,25 @@ input[type='number']::-webkit-inner-spin-button {
 .glass-ice {
   position: relative;
   border-radius: 1rem;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.46) 0%, rgba(255, 255, 255, 0.30) 100%);
-  backdrop-filter: blur(16px) saturate(1.7);
-  -webkit-backdrop-filter: blur(16px) saturate(1.7);
-  border: 1px solid rgba(255, 255, 255, 0.70);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0.45) 100%);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.82);
   box-shadow:
-    0 8px 32px rgba(15, 23, 42, 0.10),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    0 8px 32px rgba(15, 23, 42, 0.08),
+    0 2px 12px rgba(34, 211, 238, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
   transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
 }
   .glass-ice:hover {
     transform: translateY(-4px);
-    border-color: rgba(34, 211, 238, 0.55);
-    background: rgba(255, 255, 255, 0.46);
-  box-shadow:
-    0 16px 48px rgba(15, 23, 42, 0.12),
-    0 0 22px rgba(34, 211, 238, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
-}
+    border-color: rgba(34, 211, 238, 0.60);
+    background: rgba(255, 255, 255, 0.58);
+    box-shadow:
+      0 16px 48px rgba(15, 23, 42, 0.10),
+      0 0 28px rgba(34, 211, 238, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  }
 
 /* ---- V48.6: CTA "日照金山 / Golden Mountain at Sunrise" — POLISHED ----
    V48.5 had correct layers but looked flat/cheap (user feedback). V48.6 upgrades:
@@ -1690,9 +1691,10 @@ input[type='number']::-webkit-inner-spin-button {
 .cta-sky {
   position: relative;
   overflow: hidden;
+  /* V49.21: deeper sky gradient — richer blue, more depth, less "washed out" */
   background:
-    radial-gradient(120% 60% at 50% 0%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 42%),
-    linear-gradient(180deg, #0ea5e9 0%, #38bdf8 32%, #7dd3fc 62%, #bae6fd 86%, #e0f2fe 100%);
+    radial-gradient(100% 50% at 50% 0%, rgba(255, 255, 255, 0.30) 0%, rgba(255, 255, 255, 0) 40%),
+    linear-gradient(180deg, #0284c7 0%, #0ea5e9 22%, #38bdf8 48%, #7dd3fc 72%, #bae6fd 90%, #e0f2fe 100%);
 }
 /* Fluffy white cloud — V49.5: rebuilt as a REAL cloud. Each cloud is a
    container holding several tightly-stacked circular puffs (not scattered blur
@@ -1756,11 +1758,10 @@ input[type='number']::-webkit-inner-spin-button {
   filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.65)) drop-shadow(0 0 6px rgba(255, 255, 255, 0.35));
 }
 @keyframes birdFlyX {
-  /* V49.12: keep birds fully inside the viewport (2vw -> 88vw) so they glide
-     across the visible sky instead of spending most of the loop off-screen to
-     the side (the old -12vw -> 112vw made them look "offset"/drifting away). */
-  from { transform: translateX(2vw); }
-  to   { transform: translateX(88vw); }
+  /* V49.21: diagonal flight path — birds glide DOWN-RIGHT (8° descent) so they
+     look like they're soaring, not floating horizontally. */
+  from { transform: translate(2vw, -2vh) rotate(-3deg); }
+  to   { transform: translate(88vw, 6vh) rotate(1deg); }
 }
 @keyframes birdFlap {
   0%, 100% { transform: scaleY(1) rotate(0deg); }

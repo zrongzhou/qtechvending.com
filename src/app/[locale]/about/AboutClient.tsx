@@ -829,8 +829,9 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
 
 
       {/* ══════════════════ 2. ABOUT US (以匠心 text + 公司外观图) ══════════════════
-          Left: 公司外观实景图. Right: 以匠心 copy + CTA. (V49: image moved to left per user request) */}
-      <section className="container-qtech py-16 lg:py-24">
+          Left: 公司外观实景图. Right: 以匠心 copy + CTA. (V49: image moved to left per user request)
+          V49.21: subtle cyan-tinted background for smooth transition from glacier hero */}
+      <section className="container-qtech bg-gradient-to-b from-slate-50/80 via-white to-white py-16 lg:py-24">
         <RevealOnScroll className="grid grid-cols-1 items-center gap-12 lg:gap-16 lg:grid-cols-2">
           {/* Left: company building photo — fixed 4:3 ratio, never stretched by the grid */}
           <div className="relative mx-auto aspect-[16/10] w-full max-w-[460px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100">
@@ -875,9 +876,9 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               };
               const paras = INTRO[locale] ?? INTRO.en;
               return (
-                <div className="mt-4 max-w-prose space-y-5">
+                <div className="mt-4 max-w-prose space-y-4 rounded-xl bg-white/60 p-6 backdrop-blur-sm ring-1 ring-slate-200/70">
                   {paras.map((p, i) => (
-                    <p key={i} className="text-[15px] leading-8 text-ink-700 sm:text-[17px]">{p}</p>
+                    <p key={i} className="ps-3 text-[15px] leading-8 text-ink-800 sm:text-[16px]" style={{ borderLeft: '3px solid rgba(8,145,178,0.2)' }}>{p}</p>
                   ))}
                 </div>
               );
@@ -1029,13 +1030,13 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     {title}
                   </span>
                   <h2 className="mt-4 text-2xl font-semibold tracking-tight text-ink-900 sm:text-3xl">{title}</h2>
-                  <div className="mt-4 max-w-prose space-y-5">
+                  <div className="mt-4 max-w-prose space-y-4 rounded-xl bg-white/60 p-6 backdrop-blur-sm ring-1 ring-slate-200/70">
                     {body
                       .split(/\n{2,}/)
                       .map((p) => p.trim())
                       .filter(Boolean)
                       .map((p, i) => (
-                        <p key={i} className="text-[15px] leading-8 text-ink-700 sm:text-[17px]">{p}</p>
+                        <p key={i} className="ps-3 text-[15px] leading-8 text-ink-800 sm:text-[16px]" style={{ borderLeft: '3px solid rgba(8,145,178,0.2)' }}>{p}</p>
                       ))}
                   </div>
                 </div>
@@ -1557,13 +1558,14 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
                 href={`/${locale}/contact`}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 to-teal-400 px-6 py-3 text-sm font-semibold text-slate-900 shadow-soft transition hover:-translate-y-0.5 hover:from-cyan-300 hover:to-teal-300 active:scale-[0.97]"
+                className="group inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-teal-500/25 ring-1 ring-white/40 transition-all duration-300 hover:-translate-y-1 hover:from-cyan-400 hover:to-teal-400 hover:shadow-xl hover:shadow-teal-400/30 active:scale-[0.97]"
               >
                 {t('nav.getQuote') || 'Get a Quote'}
+                <span className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
               </Link>
               <Link
                 href={`/${locale}/products`}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-sky-700/30 bg-white/70 px-6 py-3 text-sm font-semibold text-slate-800 transition hover:-translate-y-0.5 hover:bg-white active:scale-[0.97]"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300/60 bg-white/80 px-8 py-3.5 text-sm font-semibold text-slate-700 shadow-md backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-sky-300 hover:bg-white hover:shadow-lg active:scale-[0.97]"
               >
                 {t('nav.products') || 'Products'}
               </Link>
