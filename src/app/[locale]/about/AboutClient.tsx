@@ -824,7 +824,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
       <section className="container-qtech py-16 lg:py-24">
         <RevealOnScroll className="grid grid-cols-1 items-stretch gap-12 lg:gap-16 lg:grid-cols-2">
           {/* Left: company building photo */}
-          <div className="relative min-h-[320px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100 lg:min-h-[360px]">
+          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100">
             <Image
               src="/images/about/company-building-3.jpg"
               alt={t('about.aboutTitle')}
@@ -1011,7 +1011,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               <RevealOnScroll
                 key={section.key}
                 as="section"
-                className="grid grid-cols-1 items-stretch gap-12 lg:gap-16 lg:grid-cols-2"
+                className="grid grid-cols-1 items-center gap-12 lg:gap-16 lg:grid-cols-2"
               >
                 <div className={`flex flex-col justify-center ${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
                   {/* V49.2: Modern left-border label (not full-width pill) */}
@@ -1033,7 +1033,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                 {section.key === 'capability' ? (
                   /* 词牌：V49.2 compact modern glass card (less whitespace) */
                   <div className={`flex items-center justify-center ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
-                    <div className="nameplate-3d relative flex h-full w-full min-h-[220px] flex-col items-center justify-center overflow-hidden rounded-2xl p-6 shadow-lg sm:p-8">
+                    <div className="nameplate-3d relative mx-auto flex w-full max-w-[360px] min-h-[260px] flex-col items-center justify-center overflow-hidden rounded-2xl p-6 shadow-lg sm:p-8">
                       {/* Ambient glow */}
                       <div className="pointer-events-none absolute -top-8 start-1/2 h-28 w-28 -translate-x-1/2 rounded-full bg-cyan-300/25 blur-3xl" />
                       {/* Subtle inner border */}
@@ -1065,32 +1065,6 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           })
         )}
       </section>
-
-
-      {/* ══════════════════ 6. 客户经常问的问题 / FAQ (表格顺序) ══════════════════ */}
-      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
-        <div className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-teal-50 px-4 py-1.5 text-sm font-medium text-teal-700 ring-1 ring-teal-200">
-            <IconTile icon={ChevronDown} className="h-4 w-4" tileClassName="bg-gradient-to-br from-teal-500 to-emerald-500 text-white p-1.5" />
-            {locale === 'zh' ? '常见问题' : locale === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'}
-          </span>
-          <h2 className="mt-5 text-3xl font-extrabold text-ink-900 sm:text-4xl">
-            {locale === 'zh' ? '客户经常问的问题' : locale === 'ar' ? 'الأسئلة التي يطرحها العملاء غالبًا' : 'Frequently Asked Questions'}
-          </h2>
-        </div>
-
-        <div className="mx-auto mt-10 max-w-3xl space-y-3">
-          {COMPANY_FAQ.map((item, i) => (
-            <details key={i} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white/70 backdrop-blur-xl shadow-soft">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-4">
-                <span className="text-sm font-medium text-ink-800">{localized(item.q, locale)}</span>
-                <ChevronDown className="h-5 w-5 shrink-0 text-ink-400 transition-transform duration-200 group-open:rotate-180" />
-              </summary>
-              <p className="px-6 pb-5 text-sm leading-relaxed text-ink-600">{localized(item.a, locale)}</p>
-            </details>
-          ))}
-        </div>
-      </RevealOnScroll>
 
 
       {/* ══════════════════ 7. 能给客户解决什么问题 / SOLUTIONS (表格顺序) ══════════════════ */}
@@ -1141,6 +1115,32 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               </div>
             ))}
           </div>
+        </div>
+      </RevealOnScroll>
+
+
+      {/* ══════════════════ (moved) 客户经常问的问题 / FAQ — now rendered after Solutions ══════════════════ */}
+      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full bg-teal-50 px-4 py-1.5 text-sm font-medium text-teal-700 ring-1 ring-teal-200">
+            <IconTile icon={ChevronDown} className="h-4 w-4" tileClassName="bg-gradient-to-br from-teal-500 to-emerald-500 text-white p-1.5" />
+            {locale === 'zh' ? '常见问题' : locale === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'}
+          </span>
+          <h2 className="mt-5 text-3xl font-extrabold text-ink-900 sm:text-4xl">
+            {locale === 'zh' ? '客户经常问的问题' : locale === 'ar' ? 'الأسئلة التي يطرحها العملاء غالبًا' : 'Frequently Asked Questions'}
+          </h2>
+        </div>
+
+        <div className="mx-auto mt-10 max-w-3xl space-y-3">
+          {COMPANY_FAQ.map((item, i) => (
+            <details key={i} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white/70 backdrop-blur-xl shadow-soft">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-4">
+                <span className="text-sm font-medium text-ink-800">{localized(item.q, locale)}</span>
+                <ChevronDown className="h-5 w-5 shrink-0 text-ink-400 transition-transform duration-200 group-open:rotate-180" />
+              </summary>
+              <p className="px-6 pb-5 text-sm leading-relaxed text-ink-600">{localized(item.a, locale)}</p>
+            </details>
+          ))}
         </div>
       </RevealOnScroll>
 

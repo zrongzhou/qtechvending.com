@@ -11,6 +11,7 @@ import {
   Coffee,
   IceCream,
   PawPrint,
+  Sparkles,
   UtensilsCrossed,
   type LucideIcon,
 } from 'lucide-react';
@@ -34,6 +35,8 @@ const ICON_MAP: Record<string, LucideIcon> = {
   'ice-cream-vending-machine': IceCream,
   'pet-washing-machine': PawPrint,
   'food-vending-machine': UtensilsCrossed,
+  'pet-food-vending-machine': PawPrint,
+  'beauty-products-vending-machine': Sparkles,
 };
 
 // Banner photo per category slug (generated visuals in public/images/categories).
@@ -48,6 +51,10 @@ const IMAGE_MAP: Record<string, string> = {
   'ice-cream-vending-machine': '/images/categories/ice-cream-vending-machine.png',
   'pet-washing-machine': '/images/categories/pet-washing-machine.png',
   'food-vending-machine': '/images/categories/food-vending-machine.png',
+  // V49.19: these two homepage categories previously had no cover → blank cards.
+  // Reuse representative product photos as their category banners.
+  'pet-food-vending-machine': '/images/products/refrigerated-pet-food-vending-machine-for-fresh-meals-and-treats/image01.webp',
+  'beauty-products-vending-machine': '/images/products/beauty-products-vending-machine-for-eyelashes-and-cosmetics/image01.webp',
 };
 
 // V44: per-category theme colours (the V41 "CASE_THEMES" approach) so the 8+
@@ -70,6 +77,8 @@ const CATEGORY_THEMES: Record<string, CatTheme> = {
   'ice-cream-vending-machine': { topBar: 'from-cyan-400 to-blue-500', tile: 'from-cyan-500 to-blue-500', glow: 'rgba(34,211,238,0.45)' },
   'pet-washing-machine': { topBar: 'from-pink-500 to-rose-500', tile: 'from-pink-500 to-rose-500', glow: 'rgba(244,114,182,0.45)' },
   'food-vending-machine': { topBar: 'from-orange-400 to-red-500', tile: 'from-orange-500 to-red-500', glow: 'rgba(239,68,68,0.45)' },
+  'pet-food-vending-machine': { topBar: 'from-pink-400 to-rose-500', tile: 'from-pink-500 to-rose-500', glow: 'rgba(244,114,182,0.45)' },
+  'beauty-products-vending-machine': { topBar: 'from-violet-400 to-fuchsia-500', tile: 'from-violet-500 to-fuchsia-500', glow: 'rgba(167,139,250,0.45)' },
 };
 const DEFAULT_THEME: CatTheme = { topBar: 'from-cyan-400 to-teal-500', tile: 'from-cyan-500 to-teal-500', glow: 'rgba(20,184,166,0.45)' };
 const themeFor = (slug: string): CatTheme => CATEGORY_THEMES[slug] ?? DEFAULT_THEME;

@@ -25,6 +25,7 @@ export default function CaseGallerySection() {
   const altPrefix =
     t('about.caseGallery.altPrefix') || 'Qtech vending installation case ';
   const title = t('about.caseGallery.title') || 'Customer Cases';
+  const subtitle = t('about.caseGallery.subtitle') || '';
   const viewLabel = t('about.caseGallery.viewLabel') || 'Customer Case';
 
   const [active, setActive] = useState(0);
@@ -36,7 +37,6 @@ export default function CaseGallerySection() {
     (dir: number) => setActive((i) => (i + dir + total) % total),
     [total],
   );
-  const jump = (i: number) => setActive(i);
 
   // Auto-rotate every 5s with a soft cross-fade (paused while lightbox open).
   useEffect(() => {
@@ -67,10 +67,13 @@ export default function CaseGallerySection() {
         <h2 className="mt-3 text-3xl font-extrabold text-ink-900 sm:text-4xl">
           {title}
         </h2>
+        {subtitle && (
+          <p className="mx-auto mt-3 max-w-2xl text-base text-slate-600 dark:text-slate-300">{subtitle}</p>
+        )}
       </div>
 
       {/* Screen / main stage — full width, strict 16:9, images fill & crop. */}
-      <div className="mx-auto mt-10 w-full max-w-4xl px-4 sm:px-6">
+      <div className="mx-auto mt-10 w-full max-w-5xl px-4 sm:px-6">
         <div className="relative aspect-video w-full overflow-hidden rounded-[20px] border border-white/70 bg-slate-900/5 shadow-[0_25px_60px_-18px_rgba(2,6,23,0.45),inset_0_1px_0_rgba(255,255,255,0.6)] ring-1 ring-black/5">
           {GALLERY.map((src, i) => (
             <button
@@ -145,26 +148,6 @@ export default function CaseGallerySection() {
               {active + 1}
             </p>
           </div>
-        </div>
-
-        {/* Thumbnail strip — fixed height, uniform aspect, active ring. */}
-        <div className="no-scrollbar mt-4 flex gap-3 overflow-x-auto pb-1">
-          {GALLERY.map((src, i) => (
-            <button
-              key={src}
-              type="button"
-              onClick={() => jump(i)}
-              aria-label={`${altPrefix}${i + 1}`}
-              aria-current={i === active}
-              className={`relative h-20 w-28 shrink-0 overflow-hidden rounded-lg sm:h-24 sm:w-32 transition-transform duration-300 ${
-                i === active
-                  ? 'scale-[1.05] ring-[3px] ring-cyan-400 shadow-[0_0_0_3px_rgba(34,211,238,0.45),0_0_18px_rgba(34,211,238,0.5)]'
-                  : 'scale-100 ring-1 ring-black/10 opacity-70 hover:opacity-100 hover:scale-[1.02]'
-              }`}
-            >
-              <Image src={src} alt="" width={128} height={80} className="h-full w-full object-cover" quality={95} unoptimized />
-            </button>
-          ))}
         </div>
       </div>
 
