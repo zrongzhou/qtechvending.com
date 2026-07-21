@@ -48,6 +48,17 @@ export default function LocaleLayout({ children, params: { locale } }: LocaleLay
     <ErrorBoundary>
       <LocaleProvider locale={currentLocale} messages={messages}>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        {/* V49.21: refined web-font stack (Inter for Latin, Noto Sans SC for
+            Chinese, Noto Sans Arabic for Arabic) — replaces the blunt OS-default
+            system-ui so headings/body read as a premium, calm typeface instead
+            of a heavy blocky system bold. Runtime-loaded via <link> (no build
+            dependency); display=swap avoids invisible-text flash. */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap"
+        />
         <JsonLd
           data={{
             '@context': 'https://schema.org',

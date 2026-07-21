@@ -13,6 +13,28 @@ html {
 body {
   @apply bg-slate-50 text-ink-800 antialiased;
   min-height: 100vh;
+  /* V49.21: refined long-form typography foundation — kerning + ligatures +
+     optimised legibility so the new web-font stack reads crisp, not blunt. */
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+}
+
+/* Refined text-selection highlight (brand tint, not the default blue). */
+::selection {
+  background: rgba(8, 145, 178, 0.18);
+  color: #0f172a;
+}
+
+/* V49.21: body-copy helper — comfortable, CJK-friendly reading rhythm
+   (1.8+ line-height + ink-700 contrast). Used by About / Blog long-form
+   text to replace the blunt default `text-base leading-relaxed text-ink-600`. */
+.copy {
+  @apply text-[15px] leading-8 text-ink-700 sm:text-[17px];
+}
+.copy-lg {
+  @apply text-base leading-8 text-ink-700 sm:text-lg;
 }
 
 /* RTL adjustments for Arabic */

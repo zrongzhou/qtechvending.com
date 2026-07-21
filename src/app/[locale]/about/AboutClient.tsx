@@ -847,7 +847,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             <span className="brand-plaque gap-2">
               {t('about.aboutTitle')}
             </span>
-            <h2 className="mt-4 text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl">
+            <h2 className="mt-4 text-2xl font-semibold tracking-tight text-ink-900 sm:text-3xl">
               {locale === 'zh'
                 ? '以匠心，打磨每一台智能售货设备'
                 : locale === 'ar'
@@ -877,7 +877,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               return (
                 <div className="mt-4 max-w-prose space-y-5">
                   {paras.map((p, i) => (
-                    <p key={i} className="text-base leading-relaxed text-ink-700 sm:text-lg">{p}</p>
+                    <p key={i} className="text-[15px] leading-8 text-ink-700 sm:text-[17px]">{p}</p>
                   ))}
                 </div>
               );
@@ -1028,14 +1028,14 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     <IconTile icon={SectionIcon} className="h-4 w-4" tileClassName={`bg-gradient-to-br ${a.tile} text-white p-1.5`} />
                     {title}
                   </span>
-                  <h2 className="mt-4 text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl">{title}</h2>
+                  <h2 className="mt-4 text-2xl font-semibold tracking-tight text-ink-900 sm:text-3xl">{title}</h2>
                   <div className="mt-4 max-w-prose space-y-5">
                     {body
                       .split(/\n{2,}/)
                       .map((p) => p.trim())
                       .filter(Boolean)
                       .map((p, i) => (
-                        <p key={i} className="text-base leading-relaxed text-ink-700">{p}</p>
+                        <p key={i} className="text-[15px] leading-8 text-ink-700 sm:text-[17px]">{p}</p>
                       ))}
                   </div>
                 </div>

@@ -67,6 +67,9 @@ const config: Config = {
       },
       fontFamily: {
         sans: [
+          'Inter',
+          'Noto Sans SC',
+          'Noto Sans Arabic',
           'ui-sans-serif',
           'system-ui',
           '-apple-system',

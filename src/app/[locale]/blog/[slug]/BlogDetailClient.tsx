@@ -85,7 +85,7 @@ function renderRichContent(text: string, t: (key: string) => string) {
           <div key={`faq-${faqCount}`} className="mt-10">
             <div className="mb-5 flex items-center gap-3">
               <span className="h-5 w-1.5 rounded-full bg-brand-500" />
-              <h2 className="text-2xl font-bold text-ink-900">{t('blog.faqTitle')}</h2>
+              <h2 className="text-2xl font-semibold text-ink-900">{t('blog.faqTitle')}</h2>
             </div>
             <BlogFaqAccordion items={faqs} accents={faqAccents} />
           </div>,
@@ -110,7 +110,7 @@ function renderRichContent(text: string, t: (key: string) => string) {
       els.push(
         <div key={idx} className="mt-10 rounded-2xl border border-brand-100 bg-brand-50/60 p-6">
           <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-brand-700">{t('blog.conclusion')}</p>
-          <p className="leading-relaxed text-ink-700">{text2}</p>
+          <p className="text-[15px] leading-8 text-ink-700 sm:text-[17px]">{text2}</p>
         </div>,
       );
       continue;
@@ -118,7 +118,7 @@ function renderRichContent(text: string, t: (key: string) => string) {
 
     // headings
     if (ln.startsWith('### ')) {
-      els.push(<h3 key={idx} className="mt-8 mb-3 flex items-center gap-2 text-xl font-bold text-ink-900"><span className="h-4 w-1 rounded-full bg-brand-400" />{ln.slice(4)}</h3>); idx++;
+      els.push(<h3 key={idx} className="mt-8 mb-3 flex items-center gap-2 text-xl font-semibold text-ink-900"><span className="h-4 w-1 rounded-full bg-brand-400" />{ln.slice(4)}</h3>); idx++;
     }
     else if (ln.startsWith('## ')) {
       const numMatch = ln.slice(3).match(/^(\d+)\.\s*(.*)$/);
@@ -130,11 +130,11 @@ function renderRichContent(text: string, t: (key: string) => string) {
           </h2>,
         );
       } else {
-        els.push(<h2 key={idx} className="mt-10 mb-4 border-s-4 border-brand-300 ps-4 text-2xl font-bold tracking-tight text-ink-900">{ln.slice(3)}</h2>);
+        els.push(<h2 key={idx} className="mt-10 mb-4 border-s-4 border-brand-300 ps-4 text-2xl font-semibold tracking-tight text-ink-900">{ln.slice(3)}</h2>);
       }
       idx++;
     }
-    else if (ln.startsWith('# ')) { els.push(<h1 key={idx} className="mt-8 mb-4 text-3xl font-bold text-ink-900">{ln.slice(2)}</h1>); idx++; }
+    else if (ln.startsWith('# ')) { els.push(<h1 key={idx} className="mt-8 mb-4 text-3xl font-semibold text-ink-900">{ln.slice(2)}</h1>); idx++; }
     // unordered list
     else if (ln.startsWith('- ') || ln.startsWith('* ')) {
       const items: string[] = [];
@@ -162,12 +162,12 @@ function renderRichContent(text: string, t: (key: string) => string) {
         // bare-line list detection: a block that joined reads as many short lines
         if (looksLikeBareList(parts)) {
           els.push(
-            <ul key={idx} className="mb-5 ms-6 space-y-1.5 list-disc marker:text-brand-600 text-ink-600">
+            <ul key={idx} className="mb-5 ms-6 space-y-2 list-disc marker:text-brand-500 text-ink-700 text-[15px] leading-7 sm:text-[17px]">
               {parts.map((it, j) => <li key={j} className="leading-relaxed">{it}</li>)}
             </ul>,
           );
         } else {
-          els.push(<p key={idx} className="mb-4 leading-relaxed text-ink-600">{parts.join(' ')}</p>);
+          els.push(<p key={idx} className="mb-5 text-[15px] leading-8 text-ink-700 sm:text-[17px]">{parts.join(' ')}</p>);
         }
       }
     }
@@ -178,7 +178,7 @@ function renderRichContent(text: string, t: (key: string) => string) {
 function BlogFaqAccordion({ items, accents }: { items: FaqItem[]; accents: string[] }) {
   const [open, setOpen] = useState<number>(0);
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       {items.map((it, i) => {
         const isOpen = open === i;
         const accent = accents[i % accents.length];
@@ -201,14 +201,14 @@ function BlogFaqAccordion({ items, accents }: { items: FaqItem[]; accents: strin
                 >
                   {i + 1}
                 </span>
-                <span className="font-semibold text-ink-900">{it.q}</span>
+                <span className="text-[15px] font-semibold text-ink-900">{it.q}</span>
               </span>
               <ChevronDown
                 className={`h-5 w-5 shrink-0 text-brand-600 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
               />
             </button>
             {isOpen && (
-              <div className="px-5 pb-5 ps-12 text-ink-600 leading-relaxed">{it.a}</div>
+              <div className="border-t border-slate-100 bg-slate-50/40 px-5 pb-5 ps-12 text-[15px] leading-7 text-ink-700 sm:text-[17px]">{it.a}</div>
             )}
           </div>
         );
@@ -262,7 +262,7 @@ export default function BlogDetailClient({
         </div>
       </RevealOnScroll>
 
-      <RevealOnScroll className="mx-auto mt-10 max-w-3xl">
+      <RevealOnScroll className="mx-auto mt-10 max-w-prose">
         {renderRichContent(content, t)}
       </RevealOnScroll>
 
