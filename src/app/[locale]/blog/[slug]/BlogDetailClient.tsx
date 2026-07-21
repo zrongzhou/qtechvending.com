@@ -187,7 +187,7 @@ function BlogFaqAccordion({ items, accents }: { items: FaqItem[]; accents: strin
           <div
             key={i}
             className="faq-accent-card overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft transition"
-            style={{ borderInlineStart: `4px solid ${accent}` } as React.CSSProperties}
+            style={{ borderInlineStart: `4px solid ${accent}`, '--accent': accent } as React.CSSProperties}
           >
             <button
               type="button"
