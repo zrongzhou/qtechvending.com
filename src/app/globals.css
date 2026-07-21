@@ -84,6 +84,16 @@ input[type='number']::-webkit-inner-spin-button {
     @apply rounded-2xl border border-slate-200 bg-white p-6 shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-lift;
   }
 
+  /* V49.9⑥: FAQ cards colour-coded by category. --accent is set inline per
+     card; the left border carries the hue and the hover tint pulls from it. */
+  .faq-accent-card {
+    border-left: 4px solid var(--accent, #22d3ee);
+  }
+  .faq-accent-card:hover {
+    background: color-mix(in srgb, var(--accent, #22d3ee) 10%, white);
+    border-color: color-mix(in srgb, var(--accent, #22d3ee) 45%, white);
+  }
+
   /* Light glass surface — subtle frosted panel on light backgrounds */
   .glass-card {
     @apply relative rounded-2xl border border-slate-200 bg-white/70 p-6 shadow-soft backdrop-blur;
@@ -1311,7 +1321,7 @@ input[type='number']::-webkit-inner-spin-button {
   animation: glacierAurora 18s ease-in-out infinite alternate;
 }
 @keyframes glacierAurora {
-  0%   { opacity: 0.9; transform: translateX(-6%) skewX(-4deg) scale(1.04); }
+  0%   { opacity: 1; transform: translateX(-6%) skewX(-4deg) scale(1.04); }
   100% { opacity: 1; transform: translateX(6%) skewX(4deg) scale(1.10); }
 }
 
@@ -1320,23 +1330,30 @@ input[type='number']::-webkit-inner-spin-button {
   content: '';
   position: absolute;
   inset: 0;
-  opacity: 0.20;  /* V49.5: stronger cracked-ice texture */
+  opacity: 0.34;  /* V49.9②: STRONGER cracked-ice texture */
   background:
     repeating-conic-gradient(
       from 45deg at 20% 30%,
-      rgba(255,255,255,0.5) 0deg 90deg,
+      rgba(255,255,255,0.55) 0deg 90deg,
       transparent 90deg 180deg
     ),
     repeating-conic-gradient(
       from -30deg at 70% 60%,
-      rgba(34,211,238,0.28) 0deg 120deg,
+      rgba(34,211,238,0.34) 0deg 120deg,
       transparent 120deg 240deg
     ),
     repeating-conic-gradient(
       from 15deg at 50% 80%,
-      rgba(165,243,252,0.20) 0deg 80deg,
+      rgba(165,243,252,0.26) 0deg 80deg,
       transparent 80deg 160deg
-    );
+    ),
+    /* V49.9②: fine hairline fracture lines — crisper ice-crystal read */
+    repeating-linear-gradient(118deg,
+      rgba(255,255,255,0) 0px, rgba(255,255,255,0) 22px,
+      rgba(255,255,255,0.22) 23px, rgba(255,255,255,0) 25px),
+    repeating-linear-gradient(62deg,
+      rgba(186,230,253,0) 0px, rgba(186,230,253,0) 30px,
+      rgba(186,230,253,0.18) 31px, rgba(186,230,253,0) 33px);
   mix-blend-mode: overlay;
 }
 
@@ -1367,19 +1384,19 @@ input[type='number']::-webkit-inner-spin-button {
 .glacier__ray {
   position: absolute;
   width: 220%;
-  height: 5px;  /* V49.5: thicker, brighter beam */
+  height: 6px;  /* V49.9②: thicker, brighter beam */
   left: -60%;
   top: 40%;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.45) 14%,
-    rgba(165, 243, 252, 0.78) 40%,
-    rgba(255, 255, 255, 0.55) 60%,
-    rgba(103, 232, 249, 0.40) 80%,
+    rgba(255, 255, 255, 0.6) 12%,
+    rgba(165, 243, 252, 0.92) 38%,
+    rgba(255, 255, 255, 0.7) 60%,
+    rgba(103, 232, 249, 0.55) 82%,
     transparent 100%
   );
-  filter: blur(2px);
+  filter: blur(3px) drop-shadow(0 0 6px rgba(165, 243, 252, 0.5));
   transform: rotate(25deg);
   animation: glacierRay 14s ease-in-out infinite alternate;
 }
@@ -1703,8 +1720,11 @@ input[type='number']::-webkit-inner-spin-button {
   animation-delay: var(--bird-delay, 0s);
 }
 .cta-bird__inner {
-  animation: birdFlyY 3s ease-in-out infinite;
   transform-origin: center;
+  /* V49.9⑤: replaced the up-down float (birdFlyY) with a gentle WING-FLAP so
+     the birds clearly travel LEFT→RIGHT (outer .cta-bird birdFlyX) instead of
+     appearing to bob in place. */
+  animation: birdFlap 0.9s ease-in-out infinite;
 }
 .cta-bird svg { display: block; width: 100%; height: 100%; }
 /* V49.7: deeper slate + white halo so birds read clearly on the blue sky. */
@@ -1716,14 +1736,16 @@ input[type='number']::-webkit-inner-spin-button {
   from { transform: translateX(-12vw); }
   to   { transform: translateX(112vw); }
 }
-@keyframes birdFlyY {
-  0%, 100% { transform: translateY(6px); }
-  50%      { transform: translateY(-9px); }
+@keyframes birdFlap {
+  0%, 100% { transform: scaleY(1) rotate(0deg); }
+  50%      { transform: scaleY(0.82) rotate(-2deg); }
 }
 @media (prefers-reduced-motion: reduce) {
   /* V49.8: birds stay VISIBLE (static, spread across the sky) under reduced
      motion — the stakeholder explicitly wants them. Do NOT hide. */
   .cta-bird { animation: none !important; left: 34%; }
+  /* V49.9⑤: also stop the wing-flap so birds are fully static under reduced motion. */
+  .cta-bird__inner { animation: none !important; }
 }
 
 /* ---- R1 / R4 / R8: reduced-motion — keep layout, drop motion ---- */

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import Link from 'next/link';
 import { ChevronDown, HelpCircle, MessageCircle } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
@@ -14,6 +14,14 @@ import IconTile from '@/components/ui/IconTile';
  * drives which group is shown. Selected group renders as a clean accordion of
  * frosted cards. "All" shows every question in one scrollable column.
  */
+/** V49.9⑥: per-category accent colours so the FAQ cards read as colour-coded
+ *  groups rather than a wall of identical white cards. */
+const CAT_ACCENT: Record<string, { from: string; to: string; border: string; chipBg: string; chipText: string }> = {
+  general:         { from: '#22d3ee', to: '#0891b2', border: '#06b6d4', chipBg: 'bg-cyan-50',   chipText: 'text-cyan-700' },
+  technical:       { from: '#a78bfa', to: '#6d28d9', border: '#7c3aed', chipBg: 'bg-violet-50', chipText: 'text-violet-700' },
+  'order-support': { from: '#2dd4bf', to: '#0f766e', border: '#0d9488', chipBg: 'bg-teal-50',  chipText: 'text-teal-700' },
+};
+
 export default function FaqAccordion() {
   const { t, locale } = useLocale();
   const [active, setActive] = useState<string>('all');
@@ -73,11 +81,13 @@ export default function FaqAccordion() {
 
         {/* Questions */}
         <div className="mx-auto mt-10 max-w-3xl">
-          {visibleCats.map((cat) => (
+          {visibleCats.map((cat) => {
+            const accent = CAT_ACCENT[cat.id] ?? CAT_ACCENT.general;
+            return (
             <section key={cat.id} className={active === 'all' ? 'mb-10' : ''}>
               {active === 'all' && (
                 <h2 className="mb-4 flex items-center gap-2 text-lg font-bold text-ink-900">
-                  <span className="h-5 w-1.5 rounded-full bg-cyan-500" />
+                  <span className="h-5 w-1.5 rounded-full" style={{ background: accent.border }} />
                   {localized(cat.title, locale)}
                 </h2>
               )}
@@ -87,9 +97,10 @@ export default function FaqAccordion() {
                   return (
                     <RevealOnScroll key={idx} delay={idx * 60} className="h-full">
                     <div
-                      className="pro-card relative overflow-hidden rounded-2xl border bg-white/80 backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-cyan-200 hover:bg-cyan-50/40 hover:shadow-md"
+                      className="pro-card faq-accent-card relative overflow-hidden rounded-2xl border border-white/70 bg-white/80 backdrop-blur-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                      style={{ ['--accent' as string]: accent.from } as CSSProperties}
                     >
-                      <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-brand-400 to-brand-700" />
+                      <span className="absolute inset-x-0 top-0 z-20 h-1" style={{ background: `linear-gradient(to right, ${accent.from}, ${accent.to})` }} />
                       <button
                           type="button"
                           onClick={() => toggle(cat.id, idx)}
@@ -97,7 +108,7 @@ export default function FaqAccordion() {
                           className="flex w-full items-center justify-between gap-4 rounded-xl px-5 py-4 text-start outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2"
                         >
                           <span className="flex items-center gap-3 text-base font-semibold text-ink-900">
-                            <IconTile icon={HelpCircle} className="h-4 w-4" tileClassName="bg-cyan-50 text-cyan-700 p-1.5" />
+                            <IconTile icon={HelpCircle} className="h-4 w-4" tileClassName={`${accent.chipBg} ${accent.chipText} p-1.5`} />
                             {localized(item.question, locale)}
                           </span>
                           <ChevronDown
@@ -125,7 +136,8 @@ export default function FaqAccordion() {
                 })}
               </div>
             </section>
-          ))}
+            );
+          })}
         </div>
 
         {/* Contact CTA */}

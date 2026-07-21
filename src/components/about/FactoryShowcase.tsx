@@ -106,8 +106,9 @@ export default function FactoryShowcase() {
         </div>
       </div>
 
-      {/* Thumbnail navigation */}
-      <div className="no-scrollbar mt-5 flex gap-3 overflow-x-auto pb-1">
+      {/* Thumbnail navigation — V49.9④: hidden per request (the preview row
+          under the slideshow is no longer wanted). */}
+      <div className="no-scrollbar mt-5 hidden flex gap-3 overflow-x-auto pb-1">
         {FACTORY_IMAGES.map((src, i) => (
           <button
             key={src}

@@ -1,5 +1,6 @@
 'use client';
 
+import type { CSSProperties } from 'react';
 import Link from 'next/link';
 import { CalendarDays, ArrowUpRight } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
@@ -21,22 +22,33 @@ function formatDate(iso: string, locale: string): string {
   }
 }
 
-export default function BlogCard({ post }: { post: BlogPost }) {
+/** V49.9⑥: cycle a brand palette across blog cards so the grid isn't a single
+ *  uniform ocean-blue — each card gets its own top bar / glow / pill hue. */
+const BLOG_ACCENTS = [
+  { from: '#22d3ee', to: '#0891b2' }, // cyan
+  { from: '#818cf8', to: '#4338ca' }, // indigo
+  { from: '#2dd4bf', to: '#0f766e' }, // teal
+  { from: '#f0abfc', to: '#a21caf' }, // fuchsia
+  { from: '#38bdf8', to: '#0369a1' }, // sky
+];
+
+export default function BlogCard({ post, index = 0 }: { post: BlogPost; index?: number }) {
   const { locale, t } = useLocale();
+  const accent = BLOG_ACCENTS[index % BLOG_ACCENTS.length];
   const title = localized(post.title, locale);
   const excerpt = localized(post.excerpt, locale);
 
   return (
     <div className="relative h-full">
       {/* Soft ocean-brand glow behind the glass blog card */}
-      <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-ocean-400 to-brand-600 opacity-20 blur-xl" aria-hidden="true" />
+      <div className="absolute -inset-1 rounded-2xl opacity-20 blur-xl" aria-hidden="true" style={{ background: `linear-gradient(to bottom right, ${accent.from}, ${accent.to})` }} />
       <OceanGlassCard depth="sm" hoverLift className="group relative z-10 h-full border border-ocean-200/50">
         <Link
           href={`/${locale}/blog/${post.slug}`}
           className="group/link relative flex h-full flex-col overflow-hidden rounded-2xl"
         >
           {/* Persistent ocean top accent bar — card memory point */}
-          <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl bg-gradient-to-r from-ocean-400 to-brand-600" />
+          <span className="absolute inset-x-0 top-0 z-20 h-1 rounded-t-2xl" style={{ background: `linear-gradient(to right, ${accent.from}, ${accent.to})` }} />
 
           <div className="relative aspect-video overflow-hidden bg-slate-100">
             <ImageWithRetry
@@ -55,7 +67,7 @@ export default function BlogCard({ post }: { post: BlogPost }) {
               {formatDate(post.publishedAt, locale)}
             </span>
             {/* Category tag — revealed on hover, same premium treatment */}
-            <span className="absolute bottom-3 start-3 inline-flex items-center gap-1.5 rounded-full border border-white/60 bg-white/90 px-3 py-1.5 text-xs font-semibold text-brand-700 opacity-0 shadow-sm backdrop-blur transition-opacity duration-300 group-hover:opacity-100">
+            <span className="absolute bottom-3 start-3 inline-flex items-center gap-1.5 rounded-full border border-white/60 bg-white/90 px-3 py-1.5 text-xs font-semibold opacity-0 shadow-sm backdrop-blur transition-opacity duration-300 group-hover:opacity-100" style={{ color: accent.to }}>
               {locale === 'zh' ? '博客' : locale === 'ar' ? 'المدونة' : 'Blog'}
             </span>
           </div>
@@ -68,7 +80,7 @@ export default function BlogCard({ post }: { post: BlogPost }) {
 
             <div className="mt-auto flex items-center justify-between pt-4">
               {/* Ocean primary "read more" pill — gently pulses on hover */}
-              <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-ocean-500 to-brand-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition group-hover:animate-[pillPulse_1.6s_ease-in-out_infinite] group-hover:shadow-ocean">
+              <span className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition group-hover:animate-[pillPulse_1.6s_ease-in-out_infinite] group-hover:shadow-ocean" style={{ background: `linear-gradient(to right, ${accent.from}, ${accent.to})` }}>
                 {t('blog.readMore')}
                 <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1" strokeWidth={2.25} />
               </span>

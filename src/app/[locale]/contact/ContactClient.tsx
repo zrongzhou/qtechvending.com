@@ -264,9 +264,9 @@ export default function ContactClient({
               />
             </div>
 
-            {/* Social media */}
-            <div className="pro-card relative overflow-hidden bg-gradient-to-br from-white to-cyan-50/30 p-6">
-              <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-cyan-400 to-teal-600" />
+            {/* Social media — V49.9⑥: violet theme to differentiate from the cyan info card */}
+            <div className="pro-card relative overflow-hidden bg-gradient-to-br from-white to-violet-50/40 p-6">
+              <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-violet-400 to-purple-600" />
               <h3 className="text-sm font-semibold uppercase tracking-wide text-ink-500">
                 {t('contact.connectWithUs')}
               </h3>
@@ -285,7 +285,7 @@ export default function ContactClient({
                       <IconTile
                         icon={Icon}
                         className="h-5 w-5"
-                        tileClassName="flex h-10 w-10 items-center justify-center rounded-full bg-cyan-50 text-cyan-700 transition hover:bg-cyan-600 hover:text-white"
+                        tileClassName="flex h-10 w-10 items-center justify-center rounded-full bg-violet-50 text-violet-700 transition hover:bg-violet-600 hover:text-white"
                       />
                     </a>
                   );

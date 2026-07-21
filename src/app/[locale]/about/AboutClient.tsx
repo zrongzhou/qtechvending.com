@@ -1158,9 +1158,9 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               drift, higher z-index so clouds don't bury them. Hidden under
               reduced-motion (birds are NOT brand ambient). */}
           {[
-            { top: '14%', size: 44, dur: 38, delay: 0 },
-            { top: '31%', size: 34, dur: 32, delay: -11 },
-            { top: '22%', size: 50, dur: 42, delay: -20 },
+            { top: '14%', size: 44, dur: 24, delay: 0 },
+            { top: '31%', size: 34, dur: 19, delay: -8 },
+            { top: '22%', size: 50, dur: 27, delay: -14 },
           ].map((b, i) => (
             <div
               key={`bird-${i}`}

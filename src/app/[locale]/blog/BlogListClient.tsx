@@ -90,7 +90,7 @@ export default function BlogListClient({ initial }: { initial: Paginated<BlogPos
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {data.map((post, i) => (
             <RevealOnScroll key={post.id} delay={(i % 9) * 60} className="h-full">
-              <BlogCard post={post} />
+              <BlogCard post={post} index={i} />
             </RevealOnScroll>
           ))}
         </div>
