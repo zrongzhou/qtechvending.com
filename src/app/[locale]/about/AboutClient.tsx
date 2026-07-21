@@ -1119,32 +1119,6 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
       </RevealOnScroll>
 
 
-      {/* ══════════════════ (moved) 客户经常问的问题 / FAQ — now rendered after Solutions ══════════════════ */}
-      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
-        <div className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full bg-teal-50 px-4 py-1.5 text-sm font-medium text-teal-700 ring-1 ring-teal-200">
-            <IconTile icon={ChevronDown} className="h-4 w-4" tileClassName="bg-gradient-to-br from-teal-500 to-emerald-500 text-white p-1.5" />
-            {locale === 'zh' ? '常见问题' : locale === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'}
-          </span>
-          <h2 className="mt-5 text-3xl font-extrabold text-ink-900 sm:text-4xl">
-            {locale === 'zh' ? '客户经常问的问题' : locale === 'ar' ? 'الأسئلة التي يطرحها العملاء غالبًا' : 'Frequently Asked Questions'}
-          </h2>
-        </div>
-
-        <div className="mx-auto mt-10 max-w-3xl space-y-3">
-          {COMPANY_FAQ.map((item, i) => (
-            <details key={i} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white/70 backdrop-blur-xl shadow-soft">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-4">
-                <span className="text-sm font-medium text-ink-800">{localized(item.q, locale)}</span>
-                <ChevronDown className="h-5 w-5 shrink-0 text-ink-400 transition-transform duration-200 group-open:rotate-180" />
-              </summary>
-              <p className="px-6 pb-5 text-sm leading-relaxed text-ink-600">{localized(item.a, locale)}</p>
-            </details>
-          ))}
-        </div>
-      </RevealOnScroll>
-
-
       {/* ══════════════════ 3b. COMPANY ADVANTAGES (7) · V48 R7 ══════════════════
           Icon + title + description cards in the brand glassmorphism language,
           sitting directly under the "我们的业务 / What We Do" block. Trilingual
@@ -1427,6 +1401,31 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
 
       {/* ══════════════════ 11b. CUSTOMER CASES (real install photos) ══════════════════ */}
       <CaseGallerySection />
+
+      {/* ══════════════════ (moved) 客户经常问的问题 / FAQ — now rendered as the LAST section, after CaseGallerySection ══════════════════ */}
+      <RevealOnScroll as="section" className="container-qtech py-16 lg:py-24">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full bg-teal-50 px-4 py-1.5 text-sm font-medium text-teal-700 ring-1 ring-teal-200">
+            <IconTile icon={ChevronDown} className="h-4 w-4" tileClassName="bg-gradient-to-br from-teal-500 to-emerald-500 text-white p-1.5" />
+            {locale === 'zh' ? '常见问题' : locale === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'}
+          </span>
+          <h2 className="mt-5 text-3xl font-extrabold text-ink-900 sm:text-4xl">
+            {locale === 'zh' ? '客户经常问的问题' : locale === 'ar' ? 'الأسئلة التي يطرحها العملاء غالبًا' : 'Frequently Asked Questions'}
+          </h2>
+        </div>
+
+        <div className="mx-auto mt-10 max-w-3xl space-y-3">
+          {COMPANY_FAQ.map((item, i) => (
+            <details key={i} className="group overflow-hidden rounded-2xl border border-slate-200 bg-white/70 backdrop-blur-xl shadow-soft">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-4">
+                <span className="text-sm font-medium text-ink-800">{localized(item.q, locale)}</span>
+                <ChevronDown className="h-5 w-5 shrink-0 text-ink-400 transition-transform duration-200 group-open:rotate-180" />
+              </summary>
+              <p className="px-6 pb-5 text-sm leading-relaxed text-ink-600">{localized(item.a, locale)}</p>
+            </details>
+          ))}
+        </div>
+      </RevealOnScroll>
 
 
       {/* ══════════════════ 12. CTA — 日照金山 / Golden Mountain at Sunrise ══════════════════
