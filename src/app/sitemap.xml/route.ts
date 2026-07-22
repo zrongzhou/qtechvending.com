@@ -11,10 +11,18 @@ export const dynamic = 'force-dynamic';
 
 /**
  * Build a human-readable, indented XML sitemap and return it as a proper
- * `application/xml` Response. Unlike the built-in `app/sitemap.ts` convention
+ * `text/xml` Response. Unlike the built-in `app/sitemap.ts` convention
  * (which serialises an array into a single un-indented line), this route
  * handler emits one `<url>` block per line with clear 2-space indentation so
  * the file is legible when opened directly in a browser.
+ *
+ * Rendering notes (why text/xml + xsi namespace + nosniff):
+ *  - `text/xml; charset=utf-8` makes browsers render the XML tree (rather than
+ *    showing raw source) more reliably than `application/xml`.
+ *  - The `xmlns:xsi` + `xsi:schemaLocation` attributes give the document a
+ *    recognised XML schema so the browser is forced into XML-parsing mode.
+ *  - `X-Content-Type-Options: nosniff` stops proxies/browsers from sniffing a
+ *    different MIME type and falling back to plain-text display.
  */
 export async function GET(): Promise<Response> {
   let productSlugs: string[] = [];
@@ -81,7 +89,7 @@ export async function GET(): Promise<Response> {
 
   const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">',
     ...urlBlocks,
     '</urlset>',
     '',
@@ -89,7 +97,8 @@ export async function GET(): Promise<Response> {
 
   return new Response(xml, {
     headers: {
-      'Content-Type': 'application/xml; charset=utf-8',
+      'Content-Type': 'text/xml; charset=utf-8',
+      'X-Content-Type-Options': 'nosniff',
       'Cache-Control': 'public, max-age=3600',
     },
   });

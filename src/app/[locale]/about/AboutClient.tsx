@@ -588,9 +588,9 @@ const HERO_STATS = [
 /* V49.20: cohesive cyan→blue family for the glacier hero stat cards so the
    four icon tiles read as one cold, premium set (no violet/amber clash). */
 const HERO_STAT_ACCENTS = [
-  { tile: 'from-cyan-400 to-blue-500', icon: 'from-cyan-300 to-sky-400', shadow: 'shadow-cyan-500/30', glow: 'rgba(8,145,178,0.55)' },
-  { tile: 'from-sky-400 to-cyan-500', icon: 'from-sky-300 to-cyan-400', shadow: 'shadow-sky-500/30', glow: 'rgba(14,165,233,0.55)' },
-  { tile: 'from-teal-400 to-cyan-500', icon: 'from-teal-300 to-cyan-400', shadow: 'shadow-teal-500/30', glow: 'rgba(13,148,136,0.55)' },
+  { tile: 'from-cyan-400 to-blue-500', icon: 'from-cyan-300 to-sky-400', shadow: 'shadow-cyan-500/30', glow: 'rgba(8,145,178,0.75)' },
+  { tile: 'from-sky-400 to-cyan-500', icon: 'from-sky-300 to-cyan-400', shadow: 'shadow-sky-500/30', glow: 'rgba(14,165,233,0.75)' },
+  { tile: 'from-teal-400 to-cyan-500', icon: 'from-teal-300 to-cyan-400', shadow: 'shadow-teal-500/30', glow: 'rgba(13,148,136,0.75)' },
   { tile: 'from-blue-400 to-indigo-500', icon: 'from-cyan-300 to-indigo-400', shadow: 'shadow-blue-500/30', glow: 'rgba(37,99,235,0.55)' },
 ];
 
@@ -830,26 +830,28 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     {/* Brighter icon + glow halo (提亮 + 发光效果) */}
                     <span className="relative inline-flex">
                       {/* Breathing glow halo behind the icon — frozen under reduced-motion.
-                          Per-accent hue so the halo matches each card's gradient family. */}
+                          Per-accent hue with a stronger alpha (0.75) and a bigger blur
+                          so the halo reads clearly against the deep glacier background. */}
                       <span
-                        className="pointer-events-none absolute -inset-1.5 rounded-2xl blur-md animate-pulse-glow motion-reduce:animate-none"
+                        className="pointer-events-none absolute -inset-2 rounded-2xl blur-lg animate-pulse-glow motion-reduce:animate-none"
                         style={{
                           ['--glow-color' as string]: accent.glow,
-                          backgroundColor: accent.glow.replace('0.55)', '0.35)'),
+                          backgroundColor: accent.glow.replace('0.75)', '0.5)'),
                         } as React.CSSProperties}
                         aria-hidden="true"
                       />
-                      {/* Container keeps the colour gradient; icon switches to a dark,
-                          high-contrast ink so it reads clearly on the light gradient.
-                          White ring replaced with a thin white highlight; per-accent
-                          box-shadow glow + coloured drop-shadow on the glyph. */}
+                      {/* Container keeps the brand gradient; icon switches to PURE WHITE
+                          (high contrast on the gradient) with a stronger white+coloured
+                          drop-shadow and a brighter 2px white ring for a glowing badge. */}
                       <span
-                        className={`relative inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${accent.icon} text-slate-900 ${accent.shadow} ring-1 ring-white/50 transition-transform duration-300 group-hover:scale-110`}
+                        className={`relative inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${accent.icon} text-white ${accent.shadow} ring-2 ring-white/70 transition-transform duration-300 group-hover:scale-110`}
                       >
                         <Icon
                           className="h-6 w-6"
-                          strokeWidth={2.1}
-                          style={{ filter: `drop-shadow(0 0 6px ${accent.glow})` }}
+                          strokeWidth={2.5}
+                          style={{
+                            filter: `drop-shadow(0 0 10px rgba(255,255,255,0.9)) drop-shadow(0 0 16px ${accent.glow})`,
+                          }}
                         />
                       </span>
                     </span>

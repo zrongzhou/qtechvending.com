@@ -34,16 +34,16 @@ interface SocialLink {
   iconClassName: string;
 }
 
-/* V49.23: restore each platform's official brand colour so the social row is
-   legible and recognisable on the glass card — idle = white tile + brand-colour
-   glyph; hover = brand-colour tile + white glyph + matching glow. */
+/* V50.1: each platform shows its official brand colour at ALL times — idle =
+   brand-colour tile + white glyph + matching glow; hover = brighter glow + lift.
+   This pops against the dark contact glass and reads as a recognisable row. */
 const SOCIALS: SocialLink[] = [
   {
     name: 'Facebook',
     href: 'https://www.facebook.com/merin.zhou.7',
     icon: Facebook,
     tileClassName:
-      'flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#1877F2] ring-1 ring-[#1877F2]/20 shadow-sm transition-all duration-300 hover:bg-[#1877F2] hover:text-white hover:shadow-[0_0_18px_rgba(24,119,242,0.55)] hover:-translate-y-0.5',
+      'flex h-10 w-10 items-center justify-center rounded-full bg-[#1877F2] text-white ring-1 ring-white/20 shadow-[0_0_16px_rgba(24,119,242,0.5)] transition-all duration-300 hover:shadow-[0_0_28px_rgba(24,119,242,0.9)] hover:-translate-y-0.5',
     iconClassName: 'h-5 w-5',
   },
   {
@@ -51,7 +51,7 @@ const SOCIALS: SocialLink[] = [
     href: 'https://x.com/merinzhou?s=21',
     icon: Twitter,
     tileClassName:
-      'flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#0F1419] ring-1 ring-[#0F1419]/20 shadow-sm transition-all duration-300 hover:bg-[#0F1419] hover:text-white hover:shadow-[0_0_18px_rgba(15,20,25,0.55)] hover:-translate-y-0.5',
+      'flex h-10 w-10 items-center justify-center rounded-full bg-[#0F1419] text-white ring-1 ring-white/25 shadow-[0_0_16px_rgba(255,255,255,0.18)] transition-all duration-300 hover:shadow-[0_0_28px_rgba(15,20,25,0.95)] hover:-translate-y-0.5',
     iconClassName: 'h-5 w-5',
   },
   {
@@ -59,7 +59,7 @@ const SOCIALS: SocialLink[] = [
     href: 'https://www.youtube.com/@Qtechvending-VD',
     icon: Youtube,
     tileClassName:
-      'flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#FF0000] ring-1 ring-[#FF0000]/20 shadow-sm transition-all duration-300 hover:bg-[#FF0000] hover:text-white hover:shadow-[0_0_18px_rgba(255,0,0,0.55)] hover:-translate-y-0.5',
+      'flex h-10 w-10 items-center justify-center rounded-full bg-[#FF0000] text-white ring-1 ring-white/20 shadow-[0_0_16px_rgba(255,0,0,0.5)] transition-all duration-300 hover:shadow-[0_0_28px_rgba(255,0,0,0.9)] hover:-translate-y-0.5',
     iconClassName: 'h-5 w-5',
   },
   {
@@ -67,7 +67,7 @@ const SOCIALS: SocialLink[] = [
     href: 'https://www.tiktok.com/@qtechvending',
     icon: Music2,
     tileClassName:
-      'flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#000000] ring-1 ring-black/10 shadow-sm transition-all duration-300 hover:bg-[#000000] hover:text-white hover:shadow-[0_0_18px_rgba(0,0,0,0.5)] hover:-translate-y-0.5',
+      'flex h-10 w-10 items-center justify-center rounded-full bg-[#000000] text-white ring-1 ring-white/25 shadow-[0_0_16px_rgba(255,255,255,0.18)] transition-all duration-300 hover:shadow-[0_0_28px_rgba(0,0,0,0.9)] hover:-translate-y-0.5',
     iconClassName: 'h-5 w-5',
   },
 ];
@@ -146,83 +146,87 @@ export default function ContactClient({
   if (status === 'success') {
     return (
       <div className="container-qtech py-20">
-        <div className="mx-auto max-w-xl rounded-2xl border border-brand-200 bg-brand-50 p-10 text-center">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-brand-600 text-white">
+        <div className="mx-auto max-w-xl rounded-2xl border border-white/10 bg-slate-900/60 p-10 text-center shadow-[0_20px_60px_rgba(0,0,0,0.45)] backdrop-blur-xl">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-teal-600 text-white shadow-lg shadow-cyan-500/40">
             ✓
           </div>
-          <h2 className="mt-4 text-2xl font-bold text-ink-900">{t('contact.successTitle')}</h2>
-          <p className="mt-2 text-ink-500">{t('contact.successDesc')}</p>
+          <h2 className="mt-4 text-2xl font-bold text-white">{t('contact.successTitle')}</h2>
+          <p className="mt-2 text-cyan-100/70">{t('contact.successDesc')}</p>
         </div>
       </div>
     );
   }
 
   const inputCls =
-    'w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-2.5 text-sm text-ink-800 outline-none transition-all duration-200 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/15 focus:shadow-[0_0_0_4px_rgba(34,211,238,0.12)]';
+    'w-full rounded-xl border border-white/20 bg-white/10 px-4 py-2.5 text-sm text-white placeholder-white/50 outline-none transition-all duration-200 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/30 focus:shadow-[0_0_0_4px_rgba(34,211,238,0.18)] [&>option]:bg-white [&>option]:text-ink-900';
 
   const infoRow = (Icon: LucideIcon, label: string, value: string) => (
     <li className="flex items-start gap-3">
-      <IconTile icon={Icon} className="h-4 w-4" tileClassName="flex h-9 w-9 items-center justify-center rounded-lg bg-cyan-50 text-cyan-700" />
+      <IconTile
+        icon={Icon}
+        className="h-4 w-4"
+        tileClassName="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-400 to-teal-600 text-white shadow-lg shadow-cyan-500/30"
+      />
       <div>
-        <p className="text-xs font-medium uppercase tracking-wide text-ink-500">{label}</p>
-        <p className="mt-0.5 text-sm text-ink-700">{value}</p>
+        <p className="text-xs font-medium uppercase tracking-wide text-cyan-100/60">{label}</p>
+        <p className="mt-0.5 text-sm text-cyan-100/90">{value}</p>
       </div>
     </li>
   );
 
   return (
-    <div className="relative bg-gradient-to-br from-slate-50 via-white to-cyan-50/30">
+    <div className="relative bg-gradient-to-br from-slate-900 via-[#0B3A4A] to-slate-900">
     <div className="container-qtech relative overflow-hidden py-12 lg:py-16">
-      {/* V49.8: decorative colour blooms so the page reads less flat. */}
+      {/* V50.1: large colourful blur orbs so the dark page reads rich, not flat. */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
         {/* subtle brand grid for depth */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(8,145,178,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(8,145,178,0.05)_1px,transparent_1px)] [background-size:40px_40px]" />
-        <div className="absolute -top-20 start-0 h-72 w-72 rounded-full bg-cyan-300/25 blur-3xl" />
-        <div className="absolute top-1/3 end-0 h-80 w-80 rounded-full bg-teal-300/22 blur-3xl" />
-        <div className="absolute bottom-0 start-1/4 h-72 w-72 rounded-full bg-teal-300/25 blur-3xl" />
-        <div className="absolute top-2/3 end-1/3 h-60 w-60 rounded-full bg-sky-300/12 blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(34,211,238,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(34,211,238,0.06)_1px,transparent_1px)] [background-size:40px_40px]" />
+        <div className="absolute -top-24 start-0 h-80 w-80 rounded-full bg-cyan-400/30 blur-3xl" />
+        <div className="absolute top-1/3 end-0 h-96 w-96 rounded-full bg-teal-400/25 blur-3xl" />
+        <div className="absolute bottom-0 start-1/4 h-80 w-80 rounded-full bg-cyan-500/20 blur-3xl" />
+        <div className="absolute top-2/3 end-1/3 h-72 w-72 rounded-full bg-sky-400/15 blur-3xl" />
       </div>
       <RevealOnScroll>
         <header className="mb-8 text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-brand-700">
+          <p className="text-sm font-semibold uppercase tracking-wide text-cyan-400">
             {t('contact.eyebrow')}
           </p>
-          <h1 className="mt-3 text-4xl font-bold tracking-tight text-ink-900 sm:text-5xl">{t('contact.title')}</h1>
-          <p className="mt-2 text-base leading-relaxed text-ink-600">{t('contact.subtitle')}</p>
+          <h1 className="mt-3 text-4xl font-bold tracking-tight text-white sm:text-5xl">{t('contact.title')}</h1>
+          <p className="mt-2 text-base leading-relaxed text-cyan-100/80">{t('contact.subtitle')}</p>
         </header>
       </RevealOnScroll>
 
       <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
         <RevealOnScroll className="h-full">
-          <form onSubmit={onSubmit} className="relative h-full space-y-5 overflow-hidden rounded-3xl border border-white/60 bg-white/75 p-8 shadow-[0_20px_60px_rgba(15,23,42,0.12),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-xl sm:p-10">
+          <form onSubmit={onSubmit} className="relative h-full space-y-5 overflow-hidden rounded-3xl border border-white/10 bg-slate-900/60 p-8 shadow-[0_20px_60px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl sm:p-10">
             <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-cyan-400 to-teal-600" />
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-ink-700">
+                <label className="mb-1.5 block text-sm font-medium text-cyan-100/90">
                   {t('contact.name')} <span className="text-red-500">*</span>
                 </label>
                 <input className={inputCls} value={form.name} onChange={(e) => set('name', e.target.value)} placeholder={t('contact.namePlaceholder')} />
               </div>
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-ink-700">
+                <label className="mb-1.5 block text-sm font-medium text-cyan-100/90">
                   {t('contact.email')} <span className="text-red-500">*</span>
                 </label>
                 <input type="email" className={inputCls} value={form.email} onChange={(e) => set('email', e.target.value)} placeholder={t('contact.emailPlaceholder')} />
               </div>
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-ink-700">{t('contact.phone')}</label>
+                <label className="mb-1.5 block text-sm font-medium text-cyan-100/90">{t('contact.phone')}</label>
                 <input className={inputCls} value={form.phone} onChange={(e) => set('phone', e.target.value)} placeholder={t('contact.phonePlaceholder')} />
               </div>
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-ink-700">{t('contact.company')}</label>
+                <label className="mb-1.5 block text-sm font-medium text-cyan-100/90">{t('contact.company')}</label>
                 <input className={inputCls} value={form.company} onChange={(e) => set('company', e.target.value)} placeholder={t('contact.companyPlaceholder')} />
               </div>
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-ink-700">{t('contact.country')}</label>
+                <label className="mb-1.5 block text-sm font-medium text-cyan-100/90">{t('contact.country')}</label>
                 <input className={inputCls} value={form.country} onChange={(e) => set('country', e.target.value)} placeholder={t('contact.countryPlaceholder')} />
               </div>
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-ink-700">{t('contact.productInterest')}</label>
+                <label className="mb-1.5 block text-sm font-medium text-cyan-100/90">{t('contact.productInterest')}</label>
                 <select className={inputCls} value={form.productInterest} onChange={(e) => set('productInterest', e.target.value)}>
                   <option value="">{t('contact.productInterestPlaceholder')}</option>
                   {categories.map((c) => (
@@ -235,7 +239,7 @@ export default function ContactClient({
             </div>
 
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-ink-700">{t('contact.subject')}</label>
+              <label className="mb-1.5 block text-sm font-medium text-cyan-100/90">{t('contact.subject')}</label>
               <select className={inputCls} value={form.subject} onChange={(e) => set('subject', e.target.value)}>
                 {SUBJECTS.map((s) => (
                   <option key={s} value={s}>
@@ -246,14 +250,14 @@ export default function ContactClient({
             </div>
 
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-ink-700">
+              <label className="mb-1.5 block text-sm font-medium text-cyan-100/90">
                 {t('contact.message')} <span className="text-red-500">*</span>
               </label>
               <textarea rows={5} className={inputCls} value={form.message} onChange={(e) => set('message', e.target.value)} placeholder={t('contact.messagePlaceholder')} />
             </div>
 
             {status === 'error' && (
-              <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{errorMsg}</p>
+              <p className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">{errorMsg}</p>
             )}
 
             <button
@@ -269,24 +273,32 @@ export default function ContactClient({
         <RevealOnScroll delay={120} className="h-full">
           <aside className="space-y-6">
             {/* Contact info card */}
-            <div className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/70 p-6 shadow-[0_16px_44px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.85)] backdrop-blur-xl">
+            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-slate-900/60 p-6 shadow-[0_16px_44px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl">
               <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-cyan-400 to-teal-600" />
-              <h2 className="text-lg font-semibold text-ink-900">{t('contact.info')}</h2>
+              <h2 className="text-lg font-semibold text-white">{t('contact.info')}</h2>
               <ul className="mt-4 space-y-4 text-sm">
                 {infoRow(MapPin, t('contact.address'), '2nd Floor No. 131, Jinlong Road, Dalong street, Panyu, Guangzhou, China')}
                 <li className="flex items-start gap-3">
-                  <IconTile icon={Mail} className="h-4 w-4" tileClassName="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-700" />
+                  <IconTile
+                    icon={Mail}
+                    className="h-4 w-4"
+                    tileClassName="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-400 to-teal-600 text-white shadow-lg shadow-cyan-500/30"
+                  />
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wide text-ink-500">{t('contact.emailUs')}</p>
-                    <a href="mailto:info@qtechvending.com" className="mt-0.5 block text-brand-700 hover:underline">info@qtechvending.com</a>
+                    <p className="text-xs font-medium uppercase tracking-wide text-cyan-100/60">{t('contact.emailUs')}</p>
+                    <a href="mailto:info@qtechvending.com" className="mt-0.5 block text-cyan-300 hover:text-cyan-200 hover:underline">info@qtechvending.com</a>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <IconTile icon={Phone} className="h-4 w-4" tileClassName="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-700" />
+                  <IconTile
+                    icon={Phone}
+                    className="h-4 w-4"
+                    tileClassName="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-400 to-teal-600 text-white shadow-lg shadow-cyan-500/30"
+                  />
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wide text-ink-500">{t('contact.callUs')}</p>
-                    <p className="mt-0.5 text-ink-700">+86 183 1975 3992 (Anne)</p>
-                    <p className="text-ink-700">+86 190 1516 9848 (Sabina)</p>
+                    <p className="text-xs font-medium uppercase tracking-wide text-cyan-100/60">{t('contact.callUs')}</p>
+                    <p className="mt-0.5 text-cyan-100/90">+86 183 1975 3992 (Anne)</p>
+                    <p className="text-cyan-100/90">+86 190 1516 9848 (Sabina)</p>
                   </div>
                 </li>
                 {/* WhatsApp & WeChat removed per user request */}
@@ -294,7 +306,7 @@ export default function ContactClient({
             </div>
 
             {/* Map / location */}
-            <div className="overflow-hidden rounded-2xl border border-white/60 bg-white/60 p-1.5 shadow-[0_16px_44px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.85)] backdrop-blur-xl">
+            <div className="overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 p-1.5 shadow-[0_16px_44px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl">
               <iframe
                 title="Qtech Vending — Guangzhou"
                 src="https://maps.google.com/maps?q=2nd+Floor+No.+131+Jinlong+Road+Dalong+street+Panyu+Guangzhou+China&t=&z=15&ie=UTF8&iwloc=&output=embed"
@@ -306,9 +318,9 @@ export default function ContactClient({
 
             {/* Social media — V49.12: cyan/teal brand theme (matches blog/FAQ),
                 unified with the rest of the site's calm brand family. */}
-            <div className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/70 p-6 shadow-[0_16px_44px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.85)] backdrop-blur-xl">
+            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-slate-900/60 p-6 shadow-[0_16px_44px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl">
               <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-cyan-400 to-teal-600" />
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-ink-500">
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-cyan-100/60">
                 {t('contact.connectWithUs')}
               </h3>
               <div className="mt-4 flex flex-wrap gap-3">
@@ -319,7 +331,7 @@ export default function ContactClient({
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.name}
-                    className="inline-flex rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 active:scale-95"
+                    className="inline-flex rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 active:scale-95"
                   >
                     <IconTile icon={s.icon} className={s.iconClassName} tileClassName={s.tileClassName} />
                   </a>
@@ -330,7 +342,7 @@ export default function ContactClient({
             {/* FAQ quick link */}
             <Link
               href={`/${locale}/faq`}
-              className="group flex items-center justify-between gap-2 rounded-2xl border border-cyan-100 bg-cyan-50 px-5 py-4 text-sm font-medium text-cyan-700 transition hover:bg-cyan-100"
+              className="group flex items-center justify-between gap-2 rounded-2xl bg-gradient-to-r from-cyan-500 to-teal-600 px-5 py-4 text-sm font-medium text-white shadow-lg shadow-cyan-500/25 transition hover:from-cyan-400 hover:to-teal-500 hover:shadow-cyan-400/40 hover:-translate-y-0.5"
             >
               {t('contact.faqLink')}
               <span aria-hidden="true" className="transition group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5">→</span>
