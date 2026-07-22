@@ -2,7 +2,8 @@ import type { MetadataRoute } from 'next';
 import { prisma } from '@/lib/prisma';
 
 const LOCALES = ['en', 'zh', 'ar'] as const;
-const HOSTS = ['https://www.qtechvending.com', 'https://test.qtechvending.com'];
+// V49.22: Production only — test domain removed (was causing duplicate indexing)
+const HOSTS = ['https://www.qtechvending.com'];
 const STATIC_PATHS = ['', '/products', '/blog', '/about', '/contact'];
 
 export const dynamic = 'force-dynamic';

@@ -12,6 +12,16 @@ export const metadata: Metadata = {
   metadataBase: process.env.NEXT_PUBLIC_BASE_URL
     ? new URL(process.env.NEXT_PUBLIC_BASE_URL)
     : undefined,
+  // V49.22: Search engine verification — replace content values with actual
+  // verification codes from Google Search Console / Bing Webmaster Tools etc.
+  verification: {
+    google: 'YOUR_GOOGLE_VERIFICATION_CODE_HERE',
+    other: {
+      'msvalidate.YOUR_BING_CODE': 'YOUR_BING_VERIFICATION_CODE_HERE',
+      'yandex-verification': 'YOUR_YANDEX_VERIFICATION_CODE_HERE',
+      'baidu-site-verification': 'YOUR_BAIDU_VERIFICATION_CODE_HERE',
+    },
+  },
 };
 
 // Reading the middleware-injected `x-pathname` forces dynamic rendering, which

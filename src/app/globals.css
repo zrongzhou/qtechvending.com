@@ -1340,10 +1340,11 @@ input[type='number']::-webkit-inner-spin-button {
     rgba(14, 85, 120, 0.95) 100%);
 }
 
-/* Layer 1: Aurora borealis bands — VISIBLE colour shift across the sky.
-   V49.20: dropped the violet/purple (clashed with brand cyan/teal) for a
-   cohesive cyan→sky→blue glacial palette.
-   V49.22c: boosted opacity + brighter cores for deep-blue base. */
+/* Layer 1: Aurora borealis bands — V49.22d: FIXED wash-out issue.
+   ROOT CAUSE: mix-blend-mode:screen + bright cyan/white (0.78-0.98 op) was
+   BLEACHING the dark navy base into light cyan. Screen mode LIGHTENS everything.
+   FIX: changed to overlay mode + deep teal/cyan (not white) + lower opacity.
+   Result: dark glacier cave with SUBTLE colour shimmer, not washed-out sky. */
 .glacier-scene::before {
   content: '';
   position: absolute;
@@ -1351,14 +1352,14 @@ input[type='number']::-webkit-inner-spin-button {
   background:
     linear-gradient(125deg,
       transparent 0%,
-      rgba(56, 189, 248, 0.92) 14%,
-      rgba(125, 211, 252, 0.98) 27%,
-      rgba(14, 165, 233, 0.90) 44%,
-      rgba(2, 132, 199, 0.88) 60%,
-      rgba(34, 211, 238, 0.85) 75%,
-      rgba(103, 232, 249, 0.78) 90%,
+      rgba(8, 120, 165, 0.45) 14%,
+      rgba(14, 165, 233, 0.55) 27%,
+      rgba(2, 100, 155, 0.42) 44%,
+      rgba(3, 85, 140, 0.38) 60%,
+      rgba(34, 211, 238, 0.35) 75%,
+      rgba(56, 189, 248, 0.28) 90%,
       transparent 100%);
-  mix-blend-mode: screen;
+  mix-blend-mode: overlay;
   animation: glacierAurora 18s ease-in-out infinite alternate;
 }
 @keyframes glacierAurora {
@@ -1366,55 +1367,55 @@ input[type='number']::-webkit-inner-spin-button {
   100% { opacity: 1; transform: translateX(6%) skewX(4deg) scale(1.10); }
 }
 
-/* Layer 2: Ice facet texture — visible geometric "cracked ice" overlay.
-   V49.22c: stronger opacity for deep-blue base readability. */
+/* Layer 2: Ice facet texture — V49.22d: reduced white fraction to avoid
+   lightening the dark base. More cyan-tinted, less pure white. */
 .glacier-scene::after {
   content: '';
   position: absolute;
   inset: 0;
-  opacity: 0.58;  /* V49.22c: stronger cracked-ice texture */
+  opacity: 0.42;
   background:
     repeating-conic-gradient(
       from 45deg at 20% 30%,
-      rgba(255,255,255,0.55) 0deg 90deg,
+      rgba(125,211,252,0.35) 0deg 90deg,
       transparent 90deg 180deg
     ),
     repeating-conic-gradient(
       from -30deg at 70% 60%,
-      rgba(34,211,238,0.34) 0deg 120deg,
+      rgba(34,211,238,0.22) 0deg 120deg,
       transparent 120deg 240deg
     ),
     repeating-conic-gradient(
       from 15deg at 50% 80%,
-      rgba(165,243,252,0.26) 0deg 80deg,
+      rgba(14,165,233,0.18) 0deg 80deg,
       transparent 80deg 160deg
     ),
-    /* V49.9②: fine hairline fracture lines — crisper ice-crystal read */
+    /* Fine hairline fracture lines — crisper ice-crystal read */
     repeating-linear-gradient(118deg,
       rgba(255,255,255,0) 0px, rgba(255,255,255,0) 22px,
-      rgba(255,255,255,0.22) 23px, rgba(255,255,255,0) 25px),
+      rgba(125,211,252,0.14) 23px, rgba(255,255,255,0) 25px),
     repeating-linear-gradient(62deg,
       rgba(186,230,253,0) 0px, rgba(186,230,253,0) 30px,
-      rgba(186,230,253,0.18) 31px, rgba(186,230,253,0) 33px);
+      rgba(56,189,248,0.11) 31px, rgba(186,230,253,0) 33px);
   mix-blend-mode: overlay;
 }
 
 /* --- Child layers (rendered via React spans inside .glacier-scene) --- */
 
-/* Aurora band 2 — VISIBLE secondary aurora. V49.22c: brighter for deep base. */
+/* Aurora band 2 — V49.22d: overlay mode + deep colours (was screen + bright = washed out) */
 .glacier__aurora-2 {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     200deg,
     transparent 0%,
-    rgba(103, 232, 249, 0.55) 20%,
-    rgba(56, 189, 248, 0.70) 45%,
-    rgba(139, 92, 246, 0.52) 70%,
-    rgba(165, 243, 252, 0.42) 85%,
+    rgba(34, 211, 238, 0.25) 20%,
+    rgba(8, 145, 178, 0.35) 45%,
+    rgba(56, 189, 248, 0.22) 70%,
+    rgba(14, 165, 233, 0.18) 85%,
     transparent 100%
   );
-  mix-blend-mode: screen;
+  mix-blend-mode: overlay;
   animation: glacierAurora2 22s ease-in-out infinite alternate;
 }
 @keyframes glacierAurora2 {
@@ -1422,23 +1423,23 @@ input[type='number']::-webkit-inner-spin-button {
   100% { opacity: 1; transform: translateY(4%) rotate(1.2deg) scale(1.12); }
 }
 
-/* Light refraction ray — VISIBLE diagonal beam through ice. V49.22c: thicker + brighter */
+/* Light refraction ray — V49.22d: visible but not bleaching (reduced white peaks) */
 .glacier__ray {
   position: absolute;
   width: 220%;
-  height: 8px;  /* V49.22c: was 6px, now thicker */
+  height: 8px;
   left: -60%;
   top: 40%;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.7) 12%,
-    rgba(165, 243, 252, 0.96) 38%,
-    rgba(255, 255, 255, 0.82) 60%,
-    rgba(103, 232, 249, 0.65) 82%,
+    rgba(165, 243, 252, 0.45) 12%,
+    rgba(125, 211, 252, 0.70) 38%,
+    rgba(165, 243, 252, 0.55) 60%,
+    rgba(56, 189, 248, 0.40) 82%,
     transparent 100%
   );
-  filter: blur(3px) drop-shadow(0 0 10px rgba(165, 243, 252, 0.65));
+  filter: blur(3px) drop-shadow(0 0 8px rgba(125, 211, 252, 0.40));
   transform: rotate(25deg);
   animation: glacierRay 14s ease-in-out infinite alternate;
 }
@@ -1453,7 +1454,7 @@ input[type='number']::-webkit-inner-spin-button {
   100% { opacity: 1; transform: rotate(30deg) translateX(5%); }
 }
 
-/* Frost mist — VISIBLE ice fog at bottom. V49.22c: brighter for deep base */
+/* Frost mist — V49.22d: deeper blue-cyan fog (was too bright/white) */
 .glacier__mist {
   position: absolute;
   bottom: 0;
@@ -1461,9 +1462,9 @@ input[type='number']::-webkit-inner-spin-button {
   right: 0;
   height: 52%;
   background:
-    radial-gradient(ellipse 50% 100% at 20% 100%, rgba(186,230,253,0.68), transparent 70%),
-    radial-gradient(ellipse 40% 100% at 75% 100%, rgba(165,243,252,0.60), transparent 65%),
-    radial-gradient(ellipse 60% 80% at 50% 100%, rgba(224,242,254,0.52), transparent 62%);
+    radial-gradient(ellipse 50% 100% at 20% 100%, rgba(8,100,155,0.45), transparent 70%),
+    radial-gradient(ellipse 40% 100% at 75% 100%, rgba(14,130,180,0.38), transparent 65%),
+    radial-gradient(ellipse 60% 80% at 50% 100%, rgba(2,85,140,0.32), transparent 62%);
   filter: blur(26px);
   animation: glacierMist 12s ease-in-out infinite alternate;
 }
@@ -1472,16 +1473,16 @@ input[type='number']::-webkit-inner-spin-button {
   100% { opacity: 1; transform: translateX(4%) scale(1.06); }
 }
 
-/* Frost sparkles — V49.22c: multi-colour ice crystals, larger + brighter for deep base */
+/* Frost sparkles — V49.22d: cooler, dimmer ice crystals (not bright white dots) */
 .glacier__sparkle {
   position: absolute;
-  width: 6px;   /* was 5px */
-  height: 6px;  /* was 5px */
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: hsl(var(--gs-hue, 195), 92%, 88%);
+  background: hsl(var(--gs-hue, 195), 85%, 70%);
   box-shadow:
-    0 0 10px 3px hsl(var(--gs-hue, 195), 85%, 78% / 0.85),
-    0 0 24px 8px hsl(var(--gs-hue, 195), 80%, 68% / 0.5);
+    0 0 8px 2px hsl(var(--gs-hue, 195), 80%, 60% / 0.7),
+    0 0 20px 6px hsl(var(--gs-hue, 195), 75%, 50% / 0.4);
   /* V49.3: twinkle so the frost sparkles read as living ice crystals. */
   animation: glacierSparkle var(--gs-dur, 4s) ease-in-out infinite;
   animation-delay: var(--gs-delay, 0s);

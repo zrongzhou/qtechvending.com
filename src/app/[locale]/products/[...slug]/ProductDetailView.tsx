@@ -244,7 +244,7 @@ export default function ProductDetailView({
   }, [lightboxOpen]);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-glass-light-cold">
+    <div className="relative min-h-screen bg-glass-light-cold">
       {/* V47: cold-tone fireworks backdrop behind the product detail content. */}
       <Fireworks count={14} />
 

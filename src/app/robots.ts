@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 
+// V49.22: Production domain — only www (test domain removed from sitemap refs)
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.qtechvending.com';
 
 export default function robots(): MetadataRoute.Robots {
@@ -9,10 +10,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/xiaozhouBackend/', '/api/'],
     },
-    sitemap: [
-      'https://www.qtechvending.com/sitemap.xml',
-      'https://test.qtechvending.com/sitemap.xml',
-    ],
+    sitemap: `${BASE_URL}/sitemap.xml`,
     host: BASE_URL,
   };
 }
