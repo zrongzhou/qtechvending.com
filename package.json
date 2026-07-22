@@ -14,6 +14,7 @@
     "scrape": "node scripts/scrape.mjs",
     "download:images": "node scripts/download-images.mjs",
     "seed": "tsx scripts/seed.mjs",
+    "seed:site": "tsx scripts/seed-site.mjs",
     "db:seed": "tsx prisma/seed.ts",
     "qa:i18n": "node scripts/qa/check-i18n-keys.mjs",
     "qa:data": "node scripts/qa/check-data-files.mjs",
