@@ -20,10 +20,20 @@ export const dynamic = 'force-dynamic';
  *  - `application/xml` is the standard MIME type for XML and makes browsers
  *    render the XML tree (rather than showing raw source or falling back to
  *    HTML / plain text) reliably.
- *  - The `xmlns:xsi` + `xsi:schemaLocation` attributes give the document a
- *    recognised XML schema so the browser is forced into XML-parsing mode.
  *  - `X-Content-Type-Options: nosniff` stops proxies/browsers from sniffing a
  *    different MIME type and falling back to plain-text display.
+ *
+ * IMPORTANT — no `xhtml:link` / `xmlns:xhtml` / `xmlns:xsi`:
+ *  Chrome's XML renderer treats the `xmlns:xhtml` namespace and any
+ *  `<xhtml:link rel="alternate" hreflang="...">` child elements as a signal to
+ *  switch into an HTML-like document mode. In that mode it only paints the
+ *  text-node content and hides the XML element tree, so the sitemap appears as
+ *  plain text instead of the familiar collapsible XML tree. To keep the sitemap
+ *  rendering as a proper XML tree across browsers (Chrome included), we emit a
+ *  plain sitemap/0.9 document with only `xmlns` and the standard
+ *  loc / lastmod / changefreq / priority children. Hreflang alternates (when
+ *  needed) are still validly expressed via the sitemap protocol, but we omit
+ *  the XHTML namespace form that breaks Chrome's rendering.
  *
  * Caching notes (aligned with the test.wstoolcabinet.com reference):
  *  - `Content-Type: application/xml` (no charset) so the browser parses the
@@ -67,18 +77,6 @@ export async function GET(): Promise<Response> {
       for (const path of allPaths) {
         const url = `${host}/${locale}${path}`;
         const priority = path === '' ? 1 : 0.7;
-        const alternates: Record<string, string> = {
-          en: `${host}/en${path}`,
-          'zh-CN': `${host}/zh${path}`,
-          ar: `${host}/ar${path}`,
-          'x-default': `${host}/en${path}`,
-        };
-        const links = Object.entries(alternates)
-          .map(
-            ([lang, href]) =>
-              `    <xhtml:link rel="alternate" hreflang="${lang}" href="${href}" />`,
-          )
-          .join('\n');
         urlBlocks.push(
           [
             '  <url>',
@@ -86,11 +84,8 @@ export async function GET(): Promise<Response> {
             `    <lastmod>${lastmod}</lastmod>`,
             '    <changefreq>weekly</changefreq>',
             `    <priority>${priority}</priority>`,
-            links,
             '  </url>',
-          ]
-            .filter((line) => line !== '')
-            .join('\n'),
+          ].join('\n'),
         );
       }
     }
@@ -98,7 +93,7 @@ export async function GET(): Promise<Response> {
 
   const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ...urlBlocks,
     '</urlset>',
     '',
