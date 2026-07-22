@@ -39,14 +39,23 @@ try {
   console.log('ALTER OK: added images column (if not present)');
 
   // 2) Backfill: move legacy single `image` into images[0] for rows that do
-  //    not yet have any images. Guarded so re-runs are safe.
-  const backfill = await p.$executeRawUnsafe(`
-    UPDATE "${table}"
-    SET "images" = ARRAY["image"]
-    WHERE "image" IS NOT NULL
-      AND ("images" IS NULL OR array_length("images", 1) IS NULL);
-  `);
-  console.log('Backfill legacy image -> images[0]:', JSON.stringify(backfill));
+  //    not yet have any images. Only runs if the deprecated `image` column is
+  //    still present — on DBs where a previous migration already dropped it
+  //    this is a safe no-op (guards re-runs).
+  const imageCol = await p.$queryRawUnsafe(
+    `SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = '${table}' AND column_name = 'image';`
+  );
+  if (imageCol?.length) {
+    const backfill = await p.$executeRawUnsafe(`
+      UPDATE "${table}"
+      SET "images" = ARRAY["image"]
+      WHERE "image" IS NOT NULL
+        AND ("images" IS NULL OR array_length("images", 1) IS NULL);
+    `);
+    console.log('Backfill legacy image -> images[0]:', JSON.stringify(backfill));
+  } else {
+    console.log('Backfill skipped: legacy image column already dropped');
+  }
 
   // 3) Drop the deprecated `image` column now that data is migrated.
   //    `IF EXISTS` keeps this idempotent (no-op on later runs).
