@@ -66,14 +66,18 @@ function renderRichContent(text: string, t: (key: string) => string) {
   const els: (JSX.Element | null)[] = [];
   let idx = 0;
   const faqAccents = ['#0891B2', '#0E7490', '#155E75', '#0D9488', '#0284C7'];
-  let faqCount = 0;
+
+  // Collect ALL FAQ items across the entire content; render once at first FAQ position.
+  const allFaqs: FaqItem[] = [];
+  let firstFaqPosition = -1; // index into `els` where FAQ section should be inserted
 
   while (idx < raw.length) {
     const ln = raw[idx].trim();
     if (!ln) { idx++; continue; }
 
-    // FAQ block: starts with ### Q... and runs until next ## / ### Q / EOF
+    // FAQ block: collect items (don't render inline — we batch them later)
     if (/^###\s*Q\d/i.test(ln) || /^###\s*FAQ/i.test(ln)) {
+      if (firstFaqPosition < 0) firstFaqPosition = els.length;
       const block: string[] = [];
       if (/^###\s*FAQ/i.test(ln)) { idx++; } // skip a standalone "FAQ" heading
       while (
@@ -85,18 +89,7 @@ function renderRichContent(text: string, t: (key: string) => string) {
         block.push(raw[idx]); idx++;
       }
       const faqs = parseFaqBlock(block);
-      if (faqs.length > 0) {
-        faqCount++;
-        els.push(
-          <div key={`faq-${faqCount}`} className="mt-10">
-            <div className="mb-5 flex items-center gap-3">
-              <span className="h-5 w-1.5 rounded-full bg-brand-500" />
-              <h2 className="text-2xl font-semibold text-ink-900">{t('blog.faqTitle')}</h2>
-            </div>
-            <BlogFaqAccordion items={faqs} accents={faqAccents} />
-          </div>,
-        );
-      }
+      allFaqs.push(...faqs);
       continue;
     }
 
@@ -239,6 +232,24 @@ function renderRichContent(text: string, t: (key: string) => string) {
       }
     }
   }
+  // Render ALL collected FAQs as ONE single section (one heading, one accordion)
+  if (allFaqs.length > 0) {
+    const faqSection = (
+      <div key="faq-unified" className="mt-10">
+        <div className="mb-5 flex items-center gap-3">
+          <span className="h-5 w-1.5 rounded-full bg-brand-500" />
+          <h2 className="text-2xl font-semibold text-ink-900">{t('blog.faqTitle')}</h2>
+        </div>
+        <BlogFaqAccordion items={allFaqs} accents={faqAccents} />
+      </div>
+    );
+    if (firstFaqPosition >= 0) {
+      els.splice(firstFaqPosition, 0, faqSection);
+    } else {
+      els.push(faqSection);
+    }
+  }
+
   return els;
 }
 

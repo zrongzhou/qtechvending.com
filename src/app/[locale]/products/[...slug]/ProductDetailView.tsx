@@ -76,10 +76,13 @@ function ProductDetailTabs({
 
   return (
     <div className="mt-10">
-      {/* Tab bar — frosted glass rail; the active tab uses a brand-cyan
-          bottom border (border-b-2) instead of a coloured fill. */}
-      <div className="glass-surface flex gap-1 overflow-x-auto rounded-2xl p-1.5 scrollbar-visible">
-        {tabs.map((tab) => {
+      {/* Tab bar — frosted glass rail; right-edge fade hints horizontal scroll on mobile */}
+      <div className="relative">
+        <div
+          className="glass-surface flex gap-1 overflow-x-auto rounded-2xl p-1.5"
+          style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'thin' }}
+        >
+          {tabs.map((tab) => {
           const isActive = active === tab.id;
           return (
             <button
@@ -97,6 +100,9 @@ function ProductDetailTabs({
             </button>
           );
         })}
+      </div>
+      {/* Right-edge fade gradient — visual hint that more tabs exist off-screen (mobile) */}
+      <div className="pointer-events-none absolute inset-y-0 end-0 w-10 rounded-e-2xl bg-gradient-to-l from-slate-50/80 to-transparent" />
       </div>
 
       {/* Panel — dark glass, soft fade on every switch (V42: never a white
