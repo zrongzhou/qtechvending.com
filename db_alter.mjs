@@ -98,6 +98,9 @@ try {
       CONSTRAINT "SiteFaqItemCategory" FOREIGN KEY ("categoryId")
         REFERENCES "site_faq_categories" ("id") ON DELETE CASCADE
     );
+  `);
+
+  await p.$executeRawUnsafe(`
     CREATE INDEX IF NOT EXISTS "site_faq_items_categoryId_faqOrder_idx"
       ON "site_faq_items" ("categoryId", "faqOrder");
   `);
