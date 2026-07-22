@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
@@ -66,6 +66,12 @@ function ProductDetailTabs({
   const tabPanel =
     'relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-50/60 backdrop-blur-sm shadow-soft';
 
+  // Mobile tab scroll: ref + programmatic scrollBy for arrow buttons
+  const tabScrollRef = useRef<HTMLDivElement>(null);
+  const scrollTabs = (dir: -1 | 1) => {
+    tabScrollRef.current?.scrollBy({ left: dir * 160, behavior: 'smooth' });
+  };
+
   const tabs: { id: TabId; label: string }[] = [
     { id: 'features', label: t('product.features') },
     { id: 'specs', label: t('product.specs') },
@@ -76,11 +82,20 @@ function ProductDetailTabs({
 
   return (
     <div className="mt-10">
-      {/* Tab bar — frosted glass rail; right-edge fade hints horizontal scroll on mobile */}
+      {/* Tab bar — frosted glass rail with mobile arrow scroll buttons */}
       <div className="relative">
+        <button
+          type="button"
+          onClick={() => scrollTabs(-1)}
+          aria-label="Scroll tabs left"
+          className="absolute -start-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-cyan-200 bg-white/90 p-1.5 shadow-md backdrop-blur-sm transition-colors hover:bg-cyan-50 lg:hidden"
+        >
+          <ChevronLeft className="h-4 w-4 text-cyan-600" />
+        </button>
         <div
-          className="glass-surface flex gap-1 overflow-x-auto rounded-2xl p-1.5"
-          style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'thin' }}
+          ref={tabScrollRef}
+          className="glass-surface flex snap-x snap-mandatory gap-1 overflow-x-auto rounded-2xl p-1.5"
+          style={{ WebkitOverflowScrolling: 'touch' }}
         >
           {tabs.map((tab) => {
           const isActive = active === tab.id;
@@ -90,7 +105,7 @@ function ProductDetailTabs({
               type="button"
               onClick={() => setActive(tab.id)}
               aria-pressed={isActive}
-              className={`relative whitespace-nowrap border-b-2 px-5 py-2.5 text-sm font-semibold transition-colors ${
+              className={`relative snap-start whitespace-nowrap border-b-2 px-5 py-2.5 text-sm font-semibold transition-colors ${
                 isActive
                   ? 'border-cyan-500 bg-cyan-50/40 text-cyan-700'
                   : 'border-transparent text-ink-400 hover:text-ink-700'
@@ -101,8 +116,16 @@ function ProductDetailTabs({
           );
         })}
       </div>
-      {/* Right-edge fade gradient — visual hint that more tabs exist off-screen (mobile) */}
-      <div className="pointer-events-none absolute inset-y-0 end-0 w-10 rounded-e-2xl bg-gradient-to-l from-slate-50/80 to-transparent" />
+      {/* Right arrow + edge fade gradient — mobile only */}
+      <button
+        type="button"
+        onClick={() => scrollTabs(1)}
+        aria-label="Scroll tabs right"
+        className="absolute -end-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-cyan-200 bg-white/90 p-1.5 shadow-md backdrop-blur-sm transition-colors hover:bg-cyan-50 lg:hidden"
+      >
+        <ChevronRight className="h-4 w-4 text-cyan-600" />
+      </button>
+      <div className="pointer-events-none absolute inset-y-0 end-6 w-10 rounded-e-2xl bg-gradient-to-l from-slate-50/80 to-transparent lg:hidden" />
       </div>
 
       {/* Panel — dark glass, soft fade on every switch (V42: never a white

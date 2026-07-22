@@ -796,37 +796,47 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
         </div>
 
         <div className="container-qtech relative py-24 text-center lg:py-32">
-          <span className="inline-flex items-center rounded-full bg-cyan-50 px-4 py-1.5 text-sm font-medium text-cyan-700 ring-1 ring-cyan-200">
+          <span className="inline-flex items-center rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium text-cyan-100 backdrop-blur-sm ring-1 ring-white/25">
             {t('about.badge') || 'About Qtech'}
           </span>
-          <h1 className="mx-auto mt-6 max-w-4xl text-4xl font-extrabold tracking-tight text-ink-900 drop-shadow-sm sm:text-5xl lg:text-6xl">
+          <h1 className="mx-auto mt-6 max-w-4xl text-4xl font-extrabold tracking-tight text-white drop-shadow-md sm:text-5xl lg:text-6xl">
             {t('about.title')}
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-lg text-ink-500">
+          <p className="mx-auto mt-5 max-w-2xl text-lg text-cyan-100/85">
             {t('about.subtitle')}
           </p>
 
-          {/* Stat strip with animated counters — refined glass-morphism cards */}
+          {/* Stat strip with animated counters — glass-morphism cards with per-card light sweep */}
           <div className="mx-auto mt-8 grid max-w-4xl grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
             {HERO_STATS.map((s, i) => {
               const Icon = s.icon;
               const accent = HERO_STAT_ACCENTS[i % HERO_STAT_ACCENTS.length];
               return (
                 <RevealOnScroll key={s.key} delay={i * 80} className="h-full">
-                  <div className="group relative h-full min-h-[160px] overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-br from-white/70 via-cyan-50/40 to-white/60 p-5 shadow-lg shadow-slate-200/50 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-100/40">
+                  <div className="group relative h-full min-h-[160px] overflow-hidden rounded-2xl bg-white/10 p-5 shadow-lg shadow-cyan-900/10 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-500/20 ring-1 ring-white/20">
+                  {/* Per-card pulsing light beam — staggered per card */}
+                  <div
+                    className="card-beam-container"
+                    style={{
+                      ['--card-beam-dur' as string]: `${3.5 + (i * 0.6)}s`,
+                      ['--card-beam-delay' as string]: `${i * 0.7}s`,
+                    } as React.CSSProperties}
+                  />
                   {/* Top accent line per card */}
                   <span className={`absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r ${accent.tile}`} aria-hidden="true" />
+                  {/* Subtle inner glow on hover */}
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-b from-white/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   <div className="flex h-full flex-col items-center justify-center gap-3 text-center relative z-10">
                     <span
-                      className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${accent.tile} ${accent.shadow} shadow-lg transition-transform duration-300 group-hover:scale-110`}
+                      className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${accent.tile} ${accent.shadow} shadow-lg shadow-black/10 transition-transform duration-300 group-hover:scale-110 group-hover:shadow-cyan-400/30`}
                       style={{ ['--glow-color' as string]: 'rgba(34, 211, 238, 0.55)' } as React.CSSProperties}
                     >
                       <Icon className="h-6 w-6" strokeWidth={1.8} />
                     </span>
-                    <dt className="text-3xl font-extrabold tracking-tight text-ink-900">
+                    <dt className="text-3xl font-extrabold tracking-tight text-white drop-shadow-sm">
                       <CountUp end={s.end} suffix={s.suffix} />
                     </dt>
-                    <dd className="text-sm font-medium text-ink-500">{t(s.key)}</dd>
+                    <dd className="text-sm font-medium text-cyan-100/80">{t(s.key)}</dd>
                   </div>
                 </div>
                 </RevealOnScroll>

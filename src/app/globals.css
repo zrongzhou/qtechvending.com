@@ -1331,13 +1331,14 @@ input[type='number']::-webkit-inner-spin-button {
   inset: 0;
   pointer-events: none;
   overflow: hidden;
-  /* V49.22: DEEP ice-blue base — much richer saturation, lower transparency
-     for a "deep glacier" feel instead of washed-out sky. */
+  /* V49.22b: DEEP ice-blue — rich saturation, near-opaque for "deep ice cave"
+     Shifted from sky-400/500 to sky-600/700 + cyan-700 for real depth. */
   background: linear-gradient(160deg,
-    rgba(56, 189, 248, 0.85) 0%,
-    rgba(14, 165, 233, 0.80) 30%,
-    rgba(2, 132, 199, 0.78) 60%,
-    rgba(8, 145, 178, 0.82) 100%);
+    rgba(14, 165, 233, 0.90) 0%,
+    rgba(2, 132, 199, 0.88) 25%,
+    rgba(3, 105, 161, 0.86) 50%,
+    rgba(8, 145, 178, 0.90) 75%,
+    rgba(21, 94, 117, 0.88) 100%);
 }
 
 /* Layer 1: Aurora borealis bands — VISIBLE colour shift across the sky.
@@ -1350,12 +1351,12 @@ input[type='number']::-webkit-inner-spin-button {
   background:
     linear-gradient(125deg,
       transparent 0%,
-      rgba(56, 189, 248, 0.78) 14%,
-      rgba(165, 243, 252, 0.90) 27%,
-      rgba(14, 165, 233, 0.75) 44%,
-      rgba(2, 132, 199, 0.72) 60%,
-      rgba(34, 211, 238, 0.65) 75%,
-      rgba(56, 189, 248, 0.55) 90%,
+      rgba(14, 165, 233, 0.85) 14%,
+      rgba(125, 211, 252, 0.94) 27%,
+      rgba(2, 132, 199, 0.82) 44%,
+      rgba(3, 105, 161, 0.80) 60%,
+      rgba(34, 211, 238, 0.75) 75%,
+      rgba(56, 189, 248, 0.65) 90%,
       transparent 100%);
   mix-blend-mode: screen;
   animation: glacierAurora 18s ease-in-out infinite alternate;
@@ -1932,6 +1933,43 @@ input[type='number']::-webkit-inner-spin-button {
   30% { opacity: 1; }
   70% { opacity: 1; }
   100% { transform: translateX(320%); opacity: 0; }
+}
+
+/* Per-card pulsing light sweep — glacial shimmer across each stat card */
+@keyframes card-beam-sweep {
+  0%   { transform: translateX(-120%); opacity: 0; }
+  20%  { opacity: 0.9; }
+  50%  { opacity: 0.6; }
+  80%  { opacity: 0.3; }
+  100% { transform: translateX(280%); opacity: 0; }
+}
+
+/* Container for the per-card beam: full-width, overflow hidden */
+.card-beam-container {
+  position: absolute;
+  inset-x-0;
+  top: 0;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.card-beam-container::after {
+  content: '';
+  position: absolute;
+  inset-y-0;
+  left: 0;
+  width: 60%;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 20%,
+    rgba(255, 255, 255, 0.85) 50%,
+    rgba(34, 211, 238, 0.7) 80%,
+    transparent 100%
+  );
+  filter: blur(0.5px);
+  animation: card-beam-sweep var(--card-beam-dur, 4s) ease-in-out infinite;
+  animation-delay: var(--card-beam-delay, 0s);
 }
 
 /* Our Mission — themed border per card + icon does a full 360° spin on hover. */
