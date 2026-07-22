@@ -78,7 +78,7 @@ function ProductDetailTabs({
     <div className="mt-10">
       {/* Tab bar — frosted glass rail; the active tab uses a brand-cyan
           bottom border (border-b-2) instead of a coloured fill. */}
-      <div className="glass-surface flex gap-1 overflow-x-auto rounded-2xl p-1.5 no-scrollbar">
+      <div className="glass-surface flex gap-1 overflow-x-auto rounded-2xl p-1.5 scrollbar-visible">
         {tabs.map((tab) => {
           const isActive = active === tab.id;
           return (

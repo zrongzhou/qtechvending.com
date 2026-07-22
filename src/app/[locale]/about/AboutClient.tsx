@@ -770,8 +770,11 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           <div className="glacier__ray" />
           <div className="glacier__ray" />
           <div className="glacier__mist" />
-          {/* Frost sparkles — V49.2: larger, brighter, more visible */}
-          {Array.from({ length: 48 }, (_, i) => (
+          {/* Frost sparkles — V49.22: multi-colour ice crystals with varied hues */}
+          {Array.from({ length: 48 }, (_, i) => {
+            // Cycle through cyan / sky-blue / teal / ice-blue hues for visual variety
+            const hues = [195, 200, 187, 210, 175, 220];
+            return (
             <span
               key={`gs-${i}`}
               className="glacier__sparkle"
@@ -784,10 +787,12 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                   height: `${4 + (i % 4)}px`,
                   ['--gs-dur']: `${3 + (i % 4)}s`,
                   ['--gs-delay']: `${(i % 6) * 0.5}s`,
+                  ['--gs-hue']: `${hues[i % hues.length]}`,
                 } as React.CSSProperties
               }
             />
-          ))}
+          );
+          })}
         </div>
 
         <div className="container-qtech relative py-24 text-center lg:py-32">
@@ -831,8 +836,8 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
 
           {/* Pulsing light beam below stat cards — thicker & slower */}
           <div className="relative mx-auto mt-10 w-full max-w-4xl overflow-hidden">
-            <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-cyan-300/40 to-transparent" />
-            <div className="absolute top-0 h-[2px] w-56 animate-[beam-sweep_4s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-cyan-400/80 to-transparent" />
+            <div className="h-[3px] w-full bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent" />
+            <div className="absolute top-0 h-[3px] w-56 animate-[beam-sweep_4s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-cyan-400/90 to-transparent" />
           </div>
         </div>
       </section>
@@ -1090,8 +1095,8 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     </div>
                     {/* Pulsing light beam below the nameplate — thicker & slower */}
                     <div className="relative mt-5 w-full max-w-[320px] overflow-hidden">
-                      <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-brand-300/50 to-transparent" />
-                      <div className="absolute top-0 h-[2px] w-44 animate-[beam-sweep_3.5s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-cyan-400/80 to-transparent" />
+                      <div className="h-[3px] w-full bg-gradient-to-r from-transparent via-brand-300/60 to-transparent" />
+                      <div className="absolute top-0 h-[3px] w-44 animate-[beam-sweep_3.5s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-cyan-400/90 to-transparent" />
                     </div>
                   </div>
                 ) : (
