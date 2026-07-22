@@ -26,6 +26,7 @@ export default function ProductForm({
 }) {
   const [tab, setTab] = useState<'details' | 'faq'>('details');
   const [slug, setSlug] = useState(initial?.slug ?? '');
+  const [sku, setSku] = useState(initial?.sku ?? '');
   const [title, setTitle] = useState<I18nString>(initial?.name ?? emptyI18n());
   const [shortDescription, setShortDescription] = useState<I18nString | null>(initial?.shortDescription ?? null);
   const [description, setDescription] = useState<I18nString | null>(initial?.description ?? null);
@@ -68,10 +69,15 @@ export default function ProductForm({
       setError(t('admin.slugRequired'));
       return;
     }
+    if (!sku.trim()) {
+      setError(t('admin.skuRequired'));
+      return;
+    }
     setSaving(true);
     setError('');
     const payload = {
       slug: slug.trim(),
+      sku: sku.trim(),
       name: title,
       shortDescription: shortDescription ?? null,
       description: description ?? null,
@@ -141,6 +147,18 @@ export default function ProductForm({
               onChange={(e) => setSlug(e.target.value)}
               className={inputCls}
               placeholder="e.g. rose-vending-machine"
+              disabled={!!initial}
+            />
+          </div>
+          <div>
+            <label className={labelCls}>
+              {t('admin.fieldSku')} <span className="text-red-500">*</span>
+            </label>
+            <input
+              value={sku}
+              onChange={(e) => setSku(e.target.value)}
+              className={inputCls}
+              placeholder="e.g. RV-001"
               disabled={!!initial}
             />
           </div>
