@@ -23,6 +23,14 @@ export const dynamic = 'force-dynamic';
  *    recognised XML schema so the browser is forced into XML-parsing mode.
  *  - `X-Content-Type-Options: nosniff` stops proxies/browsers from sniffing a
  *    different MIME type and falling back to plain-text display.
+ *
+ * Caching notes (fix for "sitemap shows plain text / stale content"):
+ *  - `no-store, must-revalidate` tells the browser to never serve a cached
+ *    copy and to revalidate on every request.
+ *  - `CDN-Cache-Control: no-store` and `Surrogate-Control: no-store` override
+ *    Cloudflare / EdgeOne / enterprise CDN edge caching so they always hit
+ *    origin.
+ *  - `Pragma: no-cache` provides HTTP/1.0 compatibility.
  */
 export async function GET(): Promise<Response> {
   let productSlugs: string[] = [];
@@ -99,7 +107,10 @@ export async function GET(): Promise<Response> {
     headers: {
       'Content-Type': 'text/xml; charset=utf-8',
       'X-Content-Type-Options': 'nosniff',
-      'Cache-Control': 'public, max-age=60, must-revalidate',
+      'Cache-Control': 'no-store, must-revalidate',
+      'CDN-Cache-Control': 'no-store',
+      'Surrogate-Control': 'no-store',
+      Pragma: 'no-cache',
     },
   });
 }

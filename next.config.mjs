@@ -1,14 +1,50 @@
 /** @type {import('next').NextConfig} */
 import generatedRedirects from './redirects.generated.mjs';
+import { createRequire } from 'module';
+
+// `require` is re-created via createRequire because next.config.mjs is loaded
+// as an ES module where `require` is not in scope. Reading the short git
+// commit hash gives every build a stable, deploy-wide identifier that is
+// inlined into NEXT_PUBLIC_BUILD_ID so the client can detect new deployments.
+const require = createRequire(import.meta.url);
+
+let buildHash;
+try {
+  buildHash = require('child_process')
+    .execSync('git rev-parse --short HEAD')
+    .toString()
+    .trim();
+} catch {
+  // Git unavailable (e.g. shallow/exported checkout) — fall back to a
+  // time-based token so the build id is always defined and unique per build.
+  buildHash = Date.now().toString(36);
+}
 
 const nextConfig = {
   reactStrictMode: true,
+
+  // Inject the build id at build time so both the server components
+  // (layout.tsx) and route handlers (api/build-info) read the same value,
+  // enabling stale-page detection / auto-reload in the browser.
+  env: {
+    NEXT_PUBLIC_BUILD_ID: buildHash,
+  },
 
   // Port is controlled by the PORT env var (pm2 injects 3001 in production,
   // `next dev -p 3001` / `next start -p 3001` in local scripts).
   experimental: {
     serverActions: {
       bodySizeLimit: '5mb',
+      // Allow Server Actions to be invoked from the production domains and
+      // local dev ports. Without this, a redeploy / origin mismatch can cause
+      // "Failed to find Server Action" errors on user clicks.
+      allowedOrigins: [
+        'www.qtechvending.com',
+        'qtechvending.com',
+        'test.qtechvending.com',
+        'localhost:3000',
+        'localhost:3001',
+      ],
     },
   },
 
@@ -26,6 +62,16 @@ const nextConfig = {
       {
         source: '/:path*',
         headers: [{ key: 'google', value: 'notranslate' }],
+      },
+      {
+        // HTML responses only — give them a short cache + must-revalidate so a
+        // CDN is unlikely to keep an old page (with stale Server Action IDs)
+        // for long. Dynamic pages already send private, no-cache, no-store.
+        source: '/:path*',
+        has: [{ type: 'header', key: 'Accept', value: '(.*text/html.*)' }],
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' },
+        ],
       },
       {
         source: '/:all*(svg|png|jpg|jpeg|gif|webp|avif|ico|woff|woff2|ttf|eot)',

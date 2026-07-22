@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import './globals.css';
+import BuildVersionChecker from '@/components/BuildVersionChecker';
 
 export const metadata: Metadata = {
   title: {
@@ -49,16 +50,42 @@ function resolveLocale(): { locale: string; dir: 'ltr' | 'rtl' } {
   return { locale: 'en', dir: 'ltr' };
 }
 
+/**
+ * Escapes a value for safe embedding inside a single-quoted inline <script>.
+ * Build IDs only contain [A-Za-z0-9-], but we still neutralise quotes and
+ * backslashes to stay defensive against any future value source.
+ */
+function escapeForInlineScript(value: string): string {
+  return value.replace(/['"\\]/g, '\\$&');
+}
+
+// Build id injected at build time via next.config.mjs `env.NEXT_PUBLIC_BUILD_ID`.
+// Falls back to the deployment pipeline's GIT_COMMIT, then 'dev' for local runs
+// where the value was not inlined.
+const BUILD_ID =
+  process.env.NEXT_PUBLIC_BUILD_ID ?? process.env.GIT_COMMIT ?? 'dev';
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const { locale, dir } = resolveLocale();
+  // Reflects the moment this HTML response was rendered (informational only;
+  // the client compares buildId, not builtAt).
+  const builtAt = new Date().toISOString();
   return (
     <html lang={locale} dir={dir}>
       <body className="flex min-h-screen flex-col bg-slate-50 text-ink-800 antialiased">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.__BUILD_ID__='${escapeForInlineScript(
+              BUILD_ID,
+            )}';window.__BUILT_AT__='${escapeForInlineScript(builtAt)}';`,
+          }}
+        />
         {children}
+        <BuildVersionChecker />
       </body>
     </html>
   );
