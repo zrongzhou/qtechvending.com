@@ -28,13 +28,48 @@ interface SocialLink {
   name: string;
   href: string;
   icon: LucideIcon;
+  /** Tile (container) classes — controls idle + hover colours & shape. */
+  tileClassName: string;
+  /** Icon (svg) classes — controls icon size. */
+  iconClassName: string;
 }
 
+/* V49.23: restore each platform's official brand colour so the social row is
+   legible and recognisable on the glass card — idle = white tile + brand-colour
+   glyph; hover = brand-colour tile + white glyph + matching glow. */
 const SOCIALS: SocialLink[] = [
-  { name: 'Facebook', href: 'https://www.facebook.com/merin.zhou.7', icon: Facebook },
-  { name: 'Twitter', href: 'https://x.com/merinzhou?s=21', icon: Twitter },
-  { name: 'YouTube', href: 'https://www.youtube.com/@Qtechvending-VD', icon: Youtube },
-  { name: 'TikTok', href: 'https://www.tiktok.com/@qtechvending', icon: Music2 },
+  {
+    name: 'Facebook',
+    href: 'https://www.facebook.com/merin.zhou.7',
+    icon: Facebook,
+    tileClassName:
+      'flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#1877F2] ring-1 ring-[#1877F2]/20 shadow-sm transition-all duration-300 hover:bg-[#1877F2] hover:text-white hover:shadow-[0_0_18px_rgba(24,119,242,0.55)] hover:-translate-y-0.5',
+    iconClassName: 'h-5 w-5',
+  },
+  {
+    name: 'Twitter',
+    href: 'https://x.com/merinzhou?s=21',
+    icon: Twitter,
+    tileClassName:
+      'flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#0F1419] ring-1 ring-[#0F1419]/20 shadow-sm transition-all duration-300 hover:bg-[#0F1419] hover:text-white hover:shadow-[0_0_18px_rgba(15,20,25,0.55)] hover:-translate-y-0.5',
+    iconClassName: 'h-5 w-5',
+  },
+  {
+    name: 'YouTube',
+    href: 'https://www.youtube.com/@Qtechvending-VD',
+    icon: Youtube,
+    tileClassName:
+      'flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#FF0000] ring-1 ring-[#FF0000]/20 shadow-sm transition-all duration-300 hover:bg-[#FF0000] hover:text-white hover:shadow-[0_0_18px_rgba(255,0,0,0.55)] hover:-translate-y-0.5',
+    iconClassName: 'h-5 w-5',
+  },
+  {
+    name: 'TikTok',
+    href: 'https://www.tiktok.com/@qtechvending',
+    icon: Music2,
+    tileClassName:
+      'flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#000000] ring-1 ring-black/10 shadow-sm transition-all duration-300 hover:bg-[#000000] hover:text-white hover:shadow-[0_0_18px_rgba(0,0,0,0.5)] hover:-translate-y-0.5',
+    iconClassName: 'h-5 w-5',
+  },
 ];
 
 export default function ContactClient({
@@ -277,25 +312,18 @@ export default function ContactClient({
                 {t('contact.connectWithUs')}
               </h3>
               <div className="mt-4 flex flex-wrap gap-3">
-                {SOCIALS.map((s) => {
-                  const Icon = s.icon;
-                  return (
-                    <a
-                      key={s.name}
-                      href={s.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={s.name}
-                      className="inline-flex rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 active:scale-95"
-                    >
-                      <IconTile
-                        icon={Icon}
-                        className="h-5 w-5"
-                        tileClassName="flex h-10 w-10 items-center justify-center rounded-full bg-cyan-50 text-cyan-700 transition-all duration-300 hover:bg-gradient-to-br hover:from-cyan-500 hover:to-teal-600 hover:text-white hover:shadow-[0_0_18px_rgba(34,211,238,0.6)] hover:-translate-y-0.5"
-                      />
-                    </a>
-                  );
-                })}
+                {SOCIALS.map((s) => (
+                  <a
+                    key={s.name}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.name}
+                    className="inline-flex rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 active:scale-95"
+                  >
+                    <IconTile icon={s.icon} className={s.iconClassName} tileClassName={s.tileClassName} />
+                  </a>
+                ))}
               </div>
             </div>
 
