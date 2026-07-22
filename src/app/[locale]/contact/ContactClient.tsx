@@ -42,32 +42,32 @@ const SOCIALS: SocialLink[] = [
     name: 'Facebook',
     href: 'https://www.facebook.com/merin.zhou.7',
     icon: Facebook,
-    tileClassName:
-      'flex h-10 w-10 items-center justify-center rounded-full bg-[#1877F2] text-white ring-1 ring-white/20 shadow-[0_0_16px_rgba(24,119,242,0.5)] transition-all duration-300 hover:shadow-[0_0_28px_rgba(24,119,242,0.9)] hover:-translate-y-0.5',
+      tileClassName:
+        'flex h-10 w-10 items-center justify-center rounded-full bg-[#1877F2] text-white ring-1 ring-black/5 shadow-[0_0_16px_rgba(24,119,242,0.5)] transition-all duration-300 hover:shadow-[0_0_28px_rgba(24,119,242,0.9)] hover:-translate-y-0.5',
     iconClassName: 'h-5 w-5',
   },
   {
     name: 'Twitter',
     href: 'https://x.com/merinzhou?s=21',
     icon: Twitter,
-    tileClassName:
-      'flex h-10 w-10 items-center justify-center rounded-full bg-[#0F1419] text-white ring-1 ring-white/25 shadow-[0_0_16px_rgba(255,255,255,0.18)] transition-all duration-300 hover:shadow-[0_0_28px_rgba(15,20,25,0.95)] hover:-translate-y-0.5',
+      tileClassName:
+        'flex h-10 w-10 items-center justify-center rounded-full bg-[#0F1419] text-white ring-1 ring-black/10 shadow-[0_0_16px_rgba(255,255,255,0.18)] transition-all duration-300 hover:shadow-[0_0_28px_rgba(15,20,25,0.95)] hover:-translate-y-0.5',
     iconClassName: 'h-5 w-5',
   },
   {
     name: 'YouTube',
     href: 'https://www.youtube.com/@Qtechvending-VD',
     icon: Youtube,
-    tileClassName:
-      'flex h-10 w-10 items-center justify-center rounded-full bg-[#FF0000] text-white ring-1 ring-white/20 shadow-[0_0_16px_rgba(255,0,0,0.5)] transition-all duration-300 hover:shadow-[0_0_28px_rgba(255,0,0,0.9)] hover:-translate-y-0.5',
+      tileClassName:
+        'flex h-10 w-10 items-center justify-center rounded-full bg-[#FF0000] text-white ring-1 ring-black/5 shadow-[0_0_16px_rgba(255,0,0,0.5)] transition-all duration-300 hover:shadow-[0_0_28px_rgba(255,0,0,0.9)] hover:-translate-y-0.5',
     iconClassName: 'h-5 w-5',
   },
   {
     name: 'TikTok',
     href: 'https://www.tiktok.com/@qtechvending',
     icon: Music2,
-    tileClassName:
-      'flex h-10 w-10 items-center justify-center rounded-full bg-[#000000] text-white ring-1 ring-white/25 shadow-[0_0_16px_rgba(255,255,255,0.18)] transition-all duration-300 hover:shadow-[0_0_28px_rgba(0,0,0,0.9)] hover:-translate-y-0.5',
+      tileClassName:
+        'flex h-10 w-10 items-center justify-center rounded-full bg-[#000000] text-white ring-1 ring-black/10 shadow-[0_0_16px_rgba(255,255,255,0.18)] transition-all duration-300 hover:shadow-[0_0_28px_rgba(0,0,0,0.9)] hover:-translate-y-0.5',
     iconClassName: 'h-5 w-5',
   },
 ];
