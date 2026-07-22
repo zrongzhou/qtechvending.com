@@ -801,12 +801,6 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             {t('about.subtitle')}
           </p>
 
-          {/* Pulsing light beam above stat cards */}
-          <div className="relative mx-auto mt-12 w-full max-w-4xl overflow-hidden">
-            <div className="h-px w-full bg-gradient-to-r from-transparent via-cyan-300/30 to-transparent" />
-            <div className="absolute top-0 h-[2px] w-48 animate-[beam-sweep_2.5s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-cyan-400/70 to-transparent" />
-          </div>
-
           {/* Stat strip with animated counters — refined glass-morphism cards */}
           <div className="mx-auto mt-8 grid max-w-4xl grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
             {HERO_STATS.map((s, i) => {
@@ -834,6 +828,12 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               );
             })}
           </div>
+
+          {/* Pulsing light beam below stat cards — thicker & slower */}
+          <div className="relative mx-auto mt-10 w-full max-w-4xl overflow-hidden">
+            <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-cyan-300/40 to-transparent" />
+            <div className="absolute top-0 h-[2px] w-56 animate-[beam-sweep_4s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-cyan-400/80 to-transparent" />
+          </div>
         </div>
       </section>
 
@@ -842,6 +842,13 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           Left: 公司外观实景图. Right: 以匠心 copy + CTA. (V49: image moved to left per user request)
           V49.21: subtle cyan-tinted background for smooth transition from glacier hero */}
       <section className="container-qtech bg-gradient-to-b from-slate-50/80 via-white to-white py-16 lg:py-24">
+        {/* ABOUT US plaque — section-level centered (between image & text columns) */}
+        <div className="mb-10 flex justify-center">
+          <span className="brand-plaque gap-2">
+            {t('about.aboutTitle')}
+          </span>
+        </div>
+
         <RevealOnScroll className="grid grid-cols-1 items-center gap-12 lg:gap-16 lg:grid-cols-2">
           {/* Left: company building photo — fixed 4:3 ratio, never stretched by the grid */}
           <div className="flex flex-col items-center gap-5">
@@ -865,12 +872,9 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
               <div className="h-px w-24 bg-gradient-to-r from-transparent via-brand-200 to-transparent" />
             </div>
           </div>
-          {/* Right: 以匠心 copy + CTA */}
+          {/* Right: 以匠心 copy (badge moved to section-level) */}
           <div className="flex flex-col justify-center">
-            <span className="brand-plaque gap-2">
-              {t('about.aboutTitle')}
-            </span>
-            <h2 className="mt-4 text-2xl font-semibold tracking-tight text-ink-900 sm:text-3xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-ink-900 sm:text-3xl">
               {locale === 'zh'
                 ? '以匠心，打磨每一台智能售货设备'
                 : locale === 'ar'
@@ -905,14 +909,18 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                 </div>
               );
             })()}
-            <Link
-              href={`/${locale}/contact`}
-              className="mt-7 inline-flex w-fit items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-teal-500/25 transition hover:-translate-y-0.5 hover:from-cyan-400 hover:to-teal-400"
-            >
-              {locale === 'zh' ? '获取报价' : locale === 'ar' ? 'اطلب عرض سعر' : 'Get a Quote'} →
-            </Link>
           </div>
         </RevealOnScroll>
+
+        {/* CTA button — section-level centered (between image & text columns) */}
+        <div className="mt-10 flex justify-center">
+          <Link
+            href={`/${locale}/contact`}
+            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-teal-500/25 transition hover:-translate-y-0.5 hover:from-cyan-400 hover:to-teal-400"
+          >
+            {locale === 'zh' ? '获取报价' : locale === 'ar' ? 'اطلب عرض سعر' : 'Get a Quote'} →
+          </Link>
+        </div>
       </section>
 
 
@@ -1080,10 +1088,10 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                         <div className="mt-3 h-px w-20 bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent" />
                       </div>
                     </div>
-                    {/* Pulsing light beam below the nameplate */}
+                    {/* Pulsing light beam below the nameplate — thicker & slower */}
                     <div className="relative mt-5 w-full max-w-[320px] overflow-hidden">
-                      <div className="h-px w-full bg-gradient-to-r from-transparent via-brand-300/40 to-transparent" />
-                      <div className="absolute top-0 h-px w-40 animate-[beam-sweep_2s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
+                      <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-brand-300/50 to-transparent" />
+                      <div className="absolute top-0 h-[2px] w-44 animate-[beam-sweep_3.5s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-cyan-400/80 to-transparent" />
                     </div>
                   </div>
                 ) : (
