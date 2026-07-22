@@ -16,9 +16,12 @@ export const dynamic = 'force-dynamic';
  * handler emits one `<url>` block per line with clear 2-space indentation so
  * the file is legible when opened directly in a browser.
  *
- * Rendering notes (why text/xml + xsi namespace + nosniff):
- *  - `text/xml; charset=utf-8` makes browsers render the XML tree (rather than
- *    showing raw source) more reliably than `application/xml`.
+ * Rendering notes (why application/xml + xsi namespace + nosniff):
+ *  - `application/xml; charset=utf-8` is the standard MIME type for XML and
+ *    makes browsers render the XML tree (rather than showing raw source or
+ *    falling back to HTML / plain text) reliably. `text/xml` is non-standard
+ *    here and can be treated as HTML by some browsers, so `application/xml`
+ *    is preferred.
  *  - The `xmlns:xsi` + `xsi:schemaLocation` attributes give the document a
  *    recognised XML schema so the browser is forced into XML-parsing mode.
  *  - `X-Content-Type-Options: nosniff` stops proxies/browsers from sniffing a
@@ -105,7 +108,7 @@ export async function GET(): Promise<Response> {
 
   return new Response(xml, {
     headers: {
-      'Content-Type': 'text/xml; charset=utf-8',
+      'Content-Type': 'application/xml; charset=utf-8',
       'X-Content-Type-Options': 'nosniff',
       'Cache-Control': 'no-store, no-transform, must-revalidate',
       'CDN-Cache-Control': 'no-store',
