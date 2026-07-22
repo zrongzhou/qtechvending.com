@@ -1958,7 +1958,8 @@ input[type='number']::-webkit-inner-spin-button {
 .card-beam-container::after {
   content: '';
   position: absolute;
-  inset-y-0;
+  top: 0;
+  bottom: 0;
   left: 0;
   width: 60%;
   background: linear-gradient(90deg,
