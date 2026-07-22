@@ -116,3 +116,52 @@ model User {
   updatedAt    DateTime @updatedAt
   @@map("users")
 }
+
+// ==================== 站点设置（迁移自 SITE_CONFIG）====================
+// 单例行：slug = 'main'。标题/公司/地址等多语言字段统一为 { en, zh, ar }。
+// 注：V49.22 废弃了最初设计中的 defaultTitleZh 字段，标题统一用 defaultTitle Json。
+model SiteSetting {
+  id                String   @id @default(cuid())
+  slug              String   @unique @default("main")
+  company           Json     // { en, zh, ar } 公司全称
+  email             String
+  phone             String
+  address           Json?    // { en, zh, ar } 地址文本
+  addressLine       String?  // 简版地址（页脚/地图用，单语）
+  socials           Json?    // [{ name, href }] 社交链接
+  sameAs            Json?    // string[] 品牌社媒 URL 列表
+  ogImage           String?  @default("/images/og-default.svg")
+  twitterHandle     String?  @default("@qtechvending")
+  keywords          Json?    // { en:[], zh:[], ar:[] }
+  defaultTitle      Json?    // { en, zh, ar }
+  defaultDescription Json?   // { en, zh, ar }
+  updatedAt         DateTime @updatedAt
+  @@map("site_settings")
+}
+
+// ==================== 全局 FAQ 分类 ====================
+model SiteFaqCategory {
+  id        String        @id @default(cuid())
+  key       String        @unique // 稳定标识：general / technical / order-support
+  title     Json          // { en, zh, ar }
+  faqOrder  Int           @default(0)
+  items     SiteFaqItem[]
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  @@index([faqOrder])
+  @@map("site_faq_categories")
+}
+
+// ==================== 全局 FAQ 条目 ====================
+model SiteFaqItem {
+  id          String          @id @default(cuid())
+  categoryId  String
+  category    SiteFaqCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade, map: "SiteFaqItemCategory")
+  question    Json            // { en, zh, ar }
+  answer      Json            // { en, zh, ar }
+  faqOrder    Int             @default(0)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  @@index([categoryId, faqOrder])
+  @@map("site_faq_items")
+}

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import FaqAccordion from '@/components/faq/FaqAccordion';
+import { getSiteFaqCategories } from '@/lib/data';
 import { generatePageMetadata, SITE_CONFIG } from '@/lib/seo';
 import { buildStaticPageKeywords } from '@/lib/seo-keywords';
 
@@ -18,6 +19,7 @@ export async function generateMetadata({ params: { locale } }: PageProps): Promi
   });
 }
 
-export default function FaqPage() {
-  return <FaqAccordion />;
+export default async function FaqPage() {
+  const categories = await getSiteFaqCategories();
+  return <FaqAccordion categories={categories} />;
 }

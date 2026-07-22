@@ -26,6 +26,8 @@ export interface I18nStringList {
 export interface FaqItem {
   q: I18nString;
   a: I18nString;
+  /** Display / sort order within the product FAQ list. */
+  order?: number;
 }
 
 export interface Category {
@@ -102,4 +104,50 @@ export interface Paginated<T> {
   totalPages: number;
   page: number;
   pageSize: number;
+}
+
+/** A single social link used by SiteSetting. */
+export interface SocialLink {
+  name: string;
+  href: string;
+}
+
+/**
+ * Site-wide settings migrated from the legacy `SITE_CONFIG` constant.
+ * Single row identified by `slug = 'main'`. Multi-language fields follow the
+ * `{ en, zh, ar }` convention (see I18nString).
+ */
+export interface SiteSetting {
+  id: string;
+  slug: string;
+  company: I18nString | null;
+  email: string;
+  phone: string;
+  address: I18nString | null;
+  addressLine: string | null;
+  socials: SocialLink[] | null;
+  sameAs: string[] | null;
+  ogImage: string | null;
+  twitterHandle: string | null;
+  keywords: I18nStringList | null;
+  defaultTitle: I18nString | null;
+  defaultDescription: I18nString | null;
+  updatedAt: string;
+}
+
+/** A single global FAQ entry (SiteFaqItem). */
+export interface SiteFaqItem {
+  id: string;
+  question: I18nString;
+  answer: I18nString;
+  faqOrder: number;
+}
+
+/** A global FAQ category with its nested items (SiteFaqCategory). */
+export interface SiteFaqCategory {
+  id: string;
+  key: string;
+  title: I18nString;
+  faqOrder: number;
+  items: SiteFaqItem[];
 }

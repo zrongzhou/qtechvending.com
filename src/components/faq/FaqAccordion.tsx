@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ChevronDown, HelpCircle, MessageCircle } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
-import { FAQ_CATEGORIES } from '@/lib/faq-data';
+import type { SiteFaqCategory } from '@/types';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
 
@@ -22,7 +22,7 @@ const CAT_ACCENT: Record<string, { from: string; to: string; border: string; chi
   'order-support': { from: '#2dd4bf', to: '#0f766e', border: '#0d9488', chipBg: 'bg-teal-50',  chipText: 'text-teal-700' },
 };
 
-export default function FaqAccordion() {
+export default function FaqAccordion({ categories = [] }: { categories?: SiteFaqCategory[] }) {
   const { t, locale } = useLocale();
   const [active, setActive] = useState<string>('all');
   const [open, setOpen] = useState<Record<string, number>>({});
@@ -31,8 +31,8 @@ export default function FaqAccordion() {
     setOpen((prev) => ({ ...prev, [catId]: prev[catId] === idx ? -1 : idx }));
   };
 
-  const tabs = [{ id: 'all', title: { en: 'All', zh: '全部', ar: 'الكل' } }, ...FAQ_CATEGORIES];
-  const visibleCats = active === 'all' ? FAQ_CATEGORIES : FAQ_CATEGORIES.filter((c) => c.id === active);
+  const tabs = [{ id: 'all', title: { en: 'All', zh: '全部', ar: 'الكل' } }, ...categories];
+  const visibleCats = active === 'all' ? categories : categories.filter((c) => c.id === active);
 
   return (
     <RevealOnScroll className="relative bg-gradient-to-b from-slate-50 via-white to-cyan-50/30">

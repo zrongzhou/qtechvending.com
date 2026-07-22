@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import ContactClient from './ContactClient';
-import { getCategories } from '@/lib/data';
+import { getCategories, getSiteSetting } from '@/lib/data';
 import { generatePageMetadata, SITE_CONFIG } from '@/lib/seo';
 import { buildStaticPageKeywords } from '@/lib/seo-keywords';
 
@@ -21,6 +21,6 @@ export async function generateMetadata({ params: { locale } }: PageProps): Promi
 }
 
 export default async function ContactPage({ params, searchParams }: PageProps) {
-  const categories = await getCategories();
-  return <ContactClient categories={categories} initialProductInterest={searchParams.product || ''} />;
+  const [categories, site] = await Promise.all([getCategories(), getSiteSetting()]);
+  return <ContactClient categories={categories} site={site} initialProductInterest={searchParams.product || ''} />;
 }

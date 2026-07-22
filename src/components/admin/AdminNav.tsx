@@ -19,6 +19,11 @@ export default function AdminNav() {
   const links = [
     { href: '/xiaozhouBackend', label: t('admin.dashboard') },
     { href: '/xiaozhouBackend/contact-messages', label: t('admin.contactMessages') },
+    { href: '/xiaozhouBackend/categories', label: t('admin.categories') },
+    { href: '/xiaozhouBackend/products', label: t('admin.products') },
+    { href: '/xiaozhouBackend/blogs', label: t('admin.blogs') },
+    { href: '/xiaozhouBackend/site-settings', label: t('admin.siteSettings') },
+    { href: '/xiaozhouBackend/faq', label: t('admin.faq') },
   ];
 
   return (

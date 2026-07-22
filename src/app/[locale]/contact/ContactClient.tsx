@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
-import type { Category } from '@/types';
+import type { Category, SiteSetting } from '@/types';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
 
@@ -74,12 +74,22 @@ const SOCIALS: SocialLink[] = [
 
 export default function ContactClient({
   categories,
+  site,
   initialProductInterest = '',
 }: {
   categories: Category[];
+  site: SiteSetting;
   initialProductInterest?: string;
 }) {
   const { t, locale } = useLocale();
+
+  // Contact details now come from SiteSetting (DB) instead of hardcoded SITE_CONFIG.
+  const contactEmail = site?.email || 'info@qtechvending.com';
+  const contactAddress =
+    (site?.address ? localized(site.address, locale) : '') ||
+    site?.addressLine ||
+    '2nd Floor No. 131, Jinlong Road, Dalong street, Panyu, Guangzhou, China';
+  const contactPhone = site?.phone || '+86 183 1975 3992';
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -277,7 +287,7 @@ export default function ContactClient({
               <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-cyan-400 to-teal-600" />
               <h2 className="text-lg font-semibold text-ink-900">{t('contact.info')}</h2>
               <ul className="mt-4 space-y-4 text-sm">
-                {infoRow(MapPin, t('contact.address'), '2nd Floor No. 131, Jinlong Road, Dalong street, Panyu, Guangzhou, China')}
+                {infoRow(MapPin, t('contact.address'), contactAddress)}
                 <li className="flex items-start gap-3">
                   <IconTile
                     icon={Mail}
@@ -286,7 +296,7 @@ export default function ContactClient({
                   />
                   <div>
                     <p className="text-xs font-medium uppercase tracking-wide text-slate-500">{t('contact.emailUs')}</p>
-                    <a href="mailto:info@qtechvending.com" className="mt-0.5 block text-cyan-700 hover:text-cyan-600 hover:underline">info@qtechvending.com</a>
+                    <a href={`mailto:${contactEmail}`} className="mt-0.5 block text-cyan-700 hover:text-cyan-600 hover:underline">{contactEmail}</a>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
@@ -297,8 +307,7 @@ export default function ContactClient({
                   />
                   <div>
                     <p className="text-xs font-medium uppercase tracking-wide text-slate-500">{t('contact.callUs')}</p>
-                    <p className="mt-0.5 text-slate-700">+86 183 1975 3992 (Anne)</p>
-                    <p className="text-slate-700">+86 190 1516 9848 (Sabina)</p>
+                    <p className="mt-0.5 text-slate-700">{contactPhone}</p>
                   </div>
                 </li>
                 {/* WhatsApp & WeChat removed per user request */}

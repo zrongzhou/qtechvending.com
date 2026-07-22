@@ -50,6 +50,58 @@ try {
     bt
   );
   console.log('blog_posts.seoTitle column:', JSON.stringify(bcols));
+
+  // === V49.22: SiteSetting / SiteFaqCategory / SiteFaqItem ===
+  // 与 prisma/schema.prisma 的 @map / 字段 / 类型严格对应。
+  // 全部用 IF NOT EXISTS（表）与 CREATE INDEX IF NOT EXISTS（索引），幂等可重复运行。
+  // 注意：废弃了最初设计中的 defaultTitleZh 字段；FK 约束名与 @relation(map) 一致（SiteFaqItemCategory）。
+  await p.$executeRawUnsafe(`
+    CREATE TABLE IF NOT EXISTS "site_settings" (
+      "id"                TEXT PRIMARY KEY,
+      "slug"              TEXT NOT NULL UNIQUE,
+      "company"           JSONB,
+      "email"             TEXT,
+      "phone"             TEXT,
+      "address"           JSONB,
+      "addressLine"       TEXT,
+      "socials"           JSONB,
+      "sameAs"            JSONB,
+      "ogImage"           TEXT,
+      "twitterHandle"     TEXT,
+      "keywords"          JSONB,
+      "defaultTitle"      JSONB,
+      "defaultDescription" JSONB,
+      "updatedAt"         TIMESTAMP NOT NULL DEFAULT now()
+    );
+  `);
+
+  await p.$executeRawUnsafe(`
+    CREATE TABLE IF NOT EXISTS "site_faq_categories" (
+      "id"        TEXT PRIMARY KEY,
+      "key"       TEXT NOT NULL UNIQUE,
+      "title"     JSONB NOT NULL,
+      "faqOrder"  INTEGER NOT NULL DEFAULT 0,
+      "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
+      "updatedAt" TIMESTAMP NOT NULL DEFAULT now()
+    );
+  `);
+
+  await p.$executeRawUnsafe(`
+    CREATE TABLE IF NOT EXISTS "site_faq_items" (
+      "id"        TEXT PRIMARY KEY,
+      "categoryId" TEXT NOT NULL,
+      "question"  JSONB NOT NULL,
+      "answer"    JSONB NOT NULL,
+      "faqOrder"  INTEGER NOT NULL DEFAULT 0,
+      "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
+      "updatedAt" TIMESTAMP NOT NULL DEFAULT now(),
+      CONSTRAINT "SiteFaqItemCategory" FOREIGN KEY ("categoryId")
+        REFERENCES "site_faq_categories" ("id") ON DELETE CASCADE
+    );
+    CREATE INDEX IF NOT EXISTS "site_faq_items_categoryId_faqOrder_idx"
+      ON "site_faq_items" ("categoryId", "faqOrder");
+  `);
+  console.log('ALTER OK: site_settings / site_faq_categories / site_faq_items');
 } catch (e) {
   console.error('ALTER FAILED:', e.message);
   process.exitCode = 1;

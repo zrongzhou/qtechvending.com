@@ -12,6 +12,10 @@ import { PrismaClient } from '@prisma/client';
 import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+// V49.22: pull the legacy site config + FAQ copy so we can seed the new
+// SiteSetting / SiteFaq models on first run (and skip thereafter).
+import { SITE_CONFIG } from '../src/lib/site-config.ts';
+import { FAQ_CATEGORIES } from '../src/lib/faq-data.ts';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = join(__dirname, 'data');
@@ -225,6 +229,64 @@ async function main() {
     create: { slug: 'main', sections: ABOUT_SECTIONS },
   });
   console.log('Seeded CompanyInfo (About page).');
+
+  // ---------- SiteSetting (skip-if-exists) ----------
+  // On first run (no `main` row) we write defaults derived from SITE_CONFIG.
+  // On re-seed we pass `update: {}` so admin edits are NEVER overwritten.
+  await prisma.siteSetting.upsert({
+    where: { slug: 'main' },
+    update: {},
+    create: {
+      slug: 'main',
+      company: { en: SITE_CONFIG.company, zh: '广州秋彦科技有限公司', ar: SITE_CONFIG.company },
+      email: SITE_CONFIG.email,
+      phone: SITE_CONFIG.phone,
+      address: { en: SITE_CONFIG.addressLine, zh: SITE_CONFIG.addressLine, ar: SITE_CONFIG.addressLine },
+      addressLine: SITE_CONFIG.addressLine,
+      socials: (SITE_CONFIG.sameAs || []).map((href) => ({ name: href, href })),
+      sameAs: SITE_CONFIG.sameAs,
+      ogImage: SITE_CONFIG.ogImage,
+      twitterHandle: SITE_CONFIG.twitterHandle,
+      keywords: { en: SITE_CONFIG.keywords, zh: [], ar: [] },
+      defaultTitle: { en: SITE_CONFIG.defaultTitle, zh: SITE_CONFIG.defaultTitleZh, ar: SITE_CONFIG.defaultTitle },
+      defaultDescription: {
+        en: SITE_CONFIG.defaultDescription,
+        zh: SITE_CONFIG.defaultDescriptionZh,
+        ar: SITE_CONFIG.defaultDescription,
+      },
+    },
+  });
+  console.log('Seeded SiteSetting (main).');
+
+  // ---------- Global FAQ (skip-if-exists) ----------
+  // Upsert categories by stable `key`; for items, dedupe by (categoryId +
+  // exact question JSON) so re-running seed never appends duplicate entries.
+  const faqCatCount = FAQ_CATEGORIES.length;
+  let faqItemCount = 0;
+  for (const cat of FAQ_CATEGORIES) {
+    const createdCat = await prisma.siteFaqCategory.upsert({
+      where: { key: cat.id },
+      update: { title: cat.title },
+      create: { key: cat.id, title: cat.title, faqOrder: 0 },
+    });
+    for (let i = 0; i < cat.items.length; i++) {
+      const item = cat.items[i];
+      const existing = await prisma.siteFaqItem.findFirst({
+        where: { categoryId: createdCat.id, question: { equals: item.question } },
+      });
+      if (existing) continue; // already seeded — skip
+      await prisma.siteFaqItem.create({
+        data: {
+          categoryId: createdCat.id,
+          question: item.question,
+          answer: item.answer,
+          faqOrder: i,
+        },
+      });
+      faqItemCount++;
+    }
+  }
+  console.log(`Seeded ${faqCatCount} FAQ categories and ${faqItemCount} new FAQ items.`);
 
   console.log('\nSeed complete.');
 }
