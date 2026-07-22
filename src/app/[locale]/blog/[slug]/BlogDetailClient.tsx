@@ -176,7 +176,7 @@ function renderRichContent(text: string, t: (key: string) => string) {
           );
         } else {
           els.push(
-            <p key={idx} className="mb-6 ps-4 text-[15px] leading-8 text-ink-800 sm:text-[16px]" style={{ borderLeft: '3px solid rgba(8,145,178,0.25)' }}>
+            <p key={idx} className="mb-6 text-[15px] leading-8 text-ink-800 sm:text-[16px]">
               {parts.join(' ')}
             </p>
           );
