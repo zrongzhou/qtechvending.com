@@ -834,14 +834,26 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
       <section className="container-qtech bg-gradient-to-b from-slate-50/80 via-white to-white py-16 lg:py-24">
         <RevealOnScroll className="grid grid-cols-1 items-center gap-12 lg:gap-16 lg:grid-cols-2">
           {/* Left: company building photo — fixed 4:3 ratio, never stretched by the grid */}
-          <div className="relative mx-auto aspect-[16/10] w-full max-w-[460px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100">
-            <Image
-              src="/images/about/company-building-3.jpg"
-              alt={t('about.aboutTitle')}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
+          <div className="flex flex-col items-center gap-5">
+            <div className="relative aspect-[16/10] w-full max-w-[460px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100">
+              <Image
+                src="/images/about/company-building-3.jpg"
+                alt={t('about.aboutTitle')}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </div>
+            {/* Decorative line + caption below photo */}
+            <div className="flex flex-col items-center gap-2">
+              <div className="h-px w-32 bg-gradient-to-r from-transparent via-brand-300 to-transparent" />
+              <p className="text-xs font-medium tracking-widest text-brand-600/70 uppercase">
+                {locale === 'zh' ? '广州 · 研发与生产基地'
+                  : locale === 'ar' ? 'غوانغتشو · مركز البحث والتطوير والإنتاج'
+                  : 'Guangzhou · R&D & Manufacturing Base'}
+              </p>
+              <div className="h-px w-24 bg-gradient-to-r from-transparent via-brand-200 to-transparent" />
+            </div>
           </div>
           {/* Right: 以匠心 copy + CTA */}
           <div className="flex flex-col justify-center">
@@ -883,12 +895,14 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                 </div>
               );
             })()}
-            <Link
-              href={`/${locale}/contact`}
-              className="mt-7 inline-flex w-fit items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-teal-500/25 transition hover:-translate-y-0.5 hover:from-cyan-400 hover:to-teal-400"
-            >
-              {locale === 'zh' ? '获取报价' : locale === 'ar' ? 'اطلب عرض سعر' : 'Get a Quote'} →
-            </Link>
+            <div className="mt-7 flex justify-center">
+              <Link
+                href={`/${locale}/contact`}
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-teal-500/25 transition hover:-translate-y-0.5 hover:from-cyan-400 hover:to-teal-400"
+              >
+                {locale === 'zh' ? '获取报价' : locale === 'ar' ? 'اطلب عرض سعر' : 'Get a Quote'} →
+              </Link>
+            </div>
           </div>
         </RevealOnScroll>
       </section>

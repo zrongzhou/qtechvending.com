@@ -55,6 +55,12 @@ function looksLikeBareList(lines: string[]): boolean {
   });
 }
 
+/** Check if a single line looks like a bare list item (short, no markdown prefix). */
+function looksLikeBareListItem(line: string): boolean {
+  const t = line.trim();
+  return t.length > 0 && t.length < 80 && !/^[#>*`\-*]/.test(t);
+}
+
 function renderRichContent(text: string, t: (key: string) => string) {
   const raw = text.split('\n');
   const els: (JSX.Element | null)[] = [];
@@ -151,7 +157,8 @@ function renderRichContent(text: string, t: (key: string) => string) {
         </ul>,
       );
     }
-    // paragraph(s) — collect consecutive non-empty non-markdown lines
+    // paragraph(s) or cross-blank-line bare list — collect consecutive non-empty
+    // non-markdown lines, then look ahead for more single-line items separated by blanks
     else {
       const parts: string[] = [];
       while (
@@ -163,8 +170,56 @@ function renderRichContent(text: string, t: (key: string) => string) {
         parts.push(raw[idx].trim()); idx++;
       }
       if (parts.length > 0) {
-        // bare-line list detection: a block that joined reads as many short lines
-        if (looksLikeBareList(parts)) {
+        // If parts is a single short line, peek ahead for a cross-blank-line bare list:
+        // e.g. "Good vending products usually have these features:" followed by
+        // blank lines and then "Easy to package", "Stable under refrigerated", etc.
+        if (parts.length === 1 && looksLikeBareListItem(parts[0])) {
+          let pIdx = idx;
+          const futureItems: string[] = [];
+          while (pIdx < raw.length) {
+            // skip blank lines
+            while (pIdx < raw.length && raw[pIdx].trim() === '') pIdx++;
+            if (pIdx >= raw.length) break;
+            const peekLn = raw[pIdx].trim();
+            // stop at heading, markdown list, FAQ marker, conclusion
+            if (/^#{1,3}\s/.test(peekLn) || /^[*-]\s/.test(peekLn)
+              || /^###\s*Q\d/i.test(peekLn) || /^###\s*FAQ/i.test(peekLn)
+              || /^##\s*(Conclusion|结论|خاتمة)/i.test(peekLn)) break;
+            if (!looksLikeBareListItem(peekLn)) break; // not a list item → stop
+            futureItems.push(peekLn);
+            pIdx++; // consume this item
+          }
+          // If we found 2+ items ahead, treat lead-in + items as paragraph + list
+          if (futureItems.length >= 2) {
+            els.push(<p key={idx} className="mb-4 text-[15px] leading-8 text-ink-800 sm:text-[16px]">{parts[0]}</p>);
+            els.push(
+              <ul key={`${idx}-ul`} className="mb-7 rounded-xl bg-slate-50/70 p-5 ps-6 space-y-3">
+                {futureItems.map((it, j) => (
+                  <li key={j} className="relative text-[15px] leading-7 text-ink-700 sm:text-[16px] before:content-[''] before:absolute before:-left-5 before:top-[0.6em] before:h-2 before:w-2 before:rounded-full before:bg-brand-400 before:shadow-sm before:shadow-brand-200">
+                    {it}
+                  </li>
+                ))}
+              </ul>,
+            );
+            idx = pIdx; // advance cursor past consumed items
+          } else if (looksLikeBareList(parts)) {
+            els.push(
+              <ul key={idx} className="mb-7 rounded-xl bg-slate-50/70 p-5 ps-6 space-y-3">
+                {parts.map((it, j) => (
+                  <li key={j} className="relative text-[15px] leading-7 text-ink-700 sm:text-[16px] before:content-[''] before:absolute before:-left-5 before:top-[0.6em] before:h-2 before:w-2 before:rounded-full before:bg-brand-400 before:shadow-sm before:shadow-brand-200">
+                    {it}
+                  </li>
+                ))}
+              </ul>,
+            );
+          } else {
+            els.push(
+              <p key={idx} className="mb-6 text-[15px] leading-8 text-ink-800 sm:text-[16px]">
+                {parts.join(' ')}
+              </p>
+            );
+          }
+        } else if (looksLikeBareList(parts)) {
           els.push(
             <ul key={idx} className="mb-7 rounded-xl bg-slate-50/70 p-5 ps-6 space-y-3">
               {parts.map((it, j) => (
@@ -274,7 +329,7 @@ export default function BlogDetailClient({
         </div>
       </RevealOnScroll>
 
-      <RevealOnScroll className="mx-auto mt-10 max-w-prose">
+      <RevealOnScroll className="mx-auto mt-10 max-w-4xl">
         <div className="rounded-2xl border border-slate-200/80 bg-white/70 p-8 shadow-lg backdrop-blur-sm lg:p-10">
           {renderRichContent(content, t)}
         </div>
