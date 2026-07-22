@@ -88,7 +88,7 @@ function ProductDetailTabs({
           type="button"
           onClick={() => scrollTabs(-1)}
           aria-label="Scroll tabs left"
-          className="absolute -start-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-cyan-200 bg-white/90 p-1.5 shadow-md backdrop-blur-sm transition-colors hover:bg-cyan-50 lg:hidden"
+          className="absolute -start-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-cyan-200 bg-white/90 p-1.5 shadow-md backdrop-blur-sm transition-colors hover:bg-cyan-50 active:scale-95 lg:hidden"
         >
           <ChevronLeft className="h-4 w-4 text-cyan-600" />
         </button>
@@ -115,17 +115,17 @@ function ProductDetailTabs({
             </button>
           );
         })}
-      </div>
-      {/* Right arrow + edge fade gradient — mobile only */}
-      <button
-        type="button"
-        onClick={() => scrollTabs(1)}
-        aria-label="Scroll tabs right"
-        className="absolute -end-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-cyan-200 bg-white/90 p-1.5 shadow-md backdrop-blur-sm transition-colors hover:bg-cyan-50 lg:hidden"
-      >
-        <ChevronRight className="h-4 w-4 text-cyan-600" />
-      </button>
-      <div className="pointer-events-none absolute inset-y-0 end-6 w-10 rounded-e-2xl bg-gradient-to-l from-slate-50/80 to-transparent lg:hidden" />
+        </div>
+        {/* Right arrow + edge fade gradient — mobile only, INSIDE relative container */}
+        <button
+          type="button"
+          onClick={() => scrollTabs(1)}
+          aria-label="Scroll tabs right"
+          className="absolute -end-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-cyan-200 bg-white/90 p-1.5 shadow-md backdrop-blur-sm transition-colors hover:bg-cyan-50 active:scale-95 lg:hidden"
+        >
+          <ChevronRight className="h-4 w-4 text-cyan-600" />
+        </button>
+        <div className="pointer-events-none absolute inset-y-0 end-6 w-10 rounded-e-2xl bg-gradient-to-l from-slate-50/80 to-transparent lg:hidden" />
       </div>
 
       {/* Panel — dark glass, soft fade on every switch (V42: never a white

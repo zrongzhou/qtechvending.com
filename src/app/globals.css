@@ -1331,19 +1331,19 @@ input[type='number']::-webkit-inner-spin-button {
   inset: 0;
   pointer-events: none;
   overflow: hidden;
-  /* V49.22b: DEEP ice-blue — rich saturation, near-opaque for "deep ice cave"
-     Shifted from sky-400/500 to sky-600/700 + cyan-700 for real depth. */
+  /* V49.22c: DEEP ice-blue cave — near-opaque, rich saturation for "deep glacier" */
   background: linear-gradient(160deg,
-    rgba(14, 165, 233, 0.90) 0%,
-    rgba(2, 132, 199, 0.88) 25%,
-    rgba(3, 105, 161, 0.86) 50%,
-    rgba(8, 145, 178, 0.90) 75%,
-    rgba(21, 94, 117, 0.88) 100%);
+    rgba(8, 78, 148, 0.95) 0%,
+    rgba(2, 100, 155, 0.93) 25%,
+    rgba(3, 85, 140, 0.92) 50%,
+    rgba(6, 120, 165, 0.94) 75%,
+    rgba(14, 85, 120, 0.95) 100%);
 }
 
 /* Layer 1: Aurora borealis bands — VISIBLE colour shift across the sky.
    V49.20: dropped the violet/purple (clashed with brand cyan/teal) for a
-   cohesive cyan→sky→blue glacial palette. */
+   cohesive cyan→sky→blue glacial palette.
+   V49.22c: boosted opacity + brighter cores for deep-blue base. */
 .glacier-scene::before {
   content: '';
   position: absolute;
@@ -1351,12 +1351,12 @@ input[type='number']::-webkit-inner-spin-button {
   background:
     linear-gradient(125deg,
       transparent 0%,
-      rgba(14, 165, 233, 0.85) 14%,
-      rgba(125, 211, 252, 0.94) 27%,
-      rgba(2, 132, 199, 0.82) 44%,
-      rgba(3, 105, 161, 0.80) 60%,
-      rgba(34, 211, 238, 0.75) 75%,
-      rgba(56, 189, 248, 0.65) 90%,
+      rgba(56, 189, 248, 0.92) 14%,
+      rgba(125, 211, 252, 0.98) 27%,
+      rgba(14, 165, 233, 0.90) 44%,
+      rgba(2, 132, 199, 0.88) 60%,
+      rgba(34, 211, 238, 0.85) 75%,
+      rgba(103, 232, 249, 0.78) 90%,
       transparent 100%);
   mix-blend-mode: screen;
   animation: glacierAurora 18s ease-in-out infinite alternate;
@@ -1366,12 +1366,13 @@ input[type='number']::-webkit-inner-spin-button {
   100% { opacity: 1; transform: translateX(6%) skewX(4deg) scale(1.10); }
 }
 
-/* Layer 2: Ice facet texture — visible geometric "cracked ice" overlay. */
+/* Layer 2: Ice facet texture — visible geometric "cracked ice" overlay.
+   V49.22c: stronger opacity for deep-blue base readability. */
 .glacier-scene::after {
   content: '';
   position: absolute;
   inset: 0;
-  opacity: 0.46;  /* V49.20: STRONGER cracked-ice texture for more "ice" read */
+  opacity: 0.58;  /* V49.22c: stronger cracked-ice texture */
   background:
     repeating-conic-gradient(
       from 45deg at 20% 30%,
@@ -1400,17 +1401,17 @@ input[type='number']::-webkit-inner-spin-button {
 
 /* --- Child layers (rendered via React spans inside .glacier-scene) --- */
 
-/* Aurora band 2 — VISIBLE secondary aurora */
+/* Aurora band 2 — VISIBLE secondary aurora. V49.22c: brighter for deep base. */
 .glacier__aurora-2 {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     200deg,
     transparent 0%,
-    rgba(56, 189, 248, 0.42) 20%,
-    rgba(14, 165, 233, 0.58) 45%,
-    rgba(139, 92, 246, 0.44) 70%,
-    rgba(165, 243, 252, 0.30) 85%,
+    rgba(103, 232, 249, 0.55) 20%,
+    rgba(56, 189, 248, 0.70) 45%,
+    rgba(139, 92, 246, 0.52) 70%,
+    rgba(165, 243, 252, 0.42) 85%,
     transparent 100%
   );
   mix-blend-mode: screen;
@@ -1421,23 +1422,23 @@ input[type='number']::-webkit-inner-spin-button {
   100% { opacity: 1; transform: translateY(4%) rotate(1.2deg) scale(1.12); }
 }
 
-/* Light refraction ray — VISIBLE diagonal beam through ice */
+/* Light refraction ray — VISIBLE diagonal beam through ice. V49.22c: thicker + brighter */
 .glacier__ray {
   position: absolute;
   width: 220%;
-  height: 6px;  /* V49.9②: thicker, brighter beam */
+  height: 8px;  /* V49.22c: was 6px, now thicker */
   left: -60%;
   top: 40%;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.6) 12%,
-    rgba(165, 243, 252, 0.92) 38%,
-    rgba(255, 255, 255, 0.7) 60%,
-    rgba(103, 232, 249, 0.55) 82%,
+    rgba(255, 255, 255, 0.7) 12%,
+    rgba(165, 243, 252, 0.96) 38%,
+    rgba(255, 255, 255, 0.82) 60%,
+    rgba(103, 232, 249, 0.65) 82%,
     transparent 100%
   );
-  filter: blur(3px) drop-shadow(0 0 6px rgba(165, 243, 252, 0.5));
+  filter: blur(3px) drop-shadow(0 0 10px rgba(165, 243, 252, 0.65));
   transform: rotate(25deg);
   animation: glacierRay 14s ease-in-out infinite alternate;
 }
@@ -1452,7 +1453,7 @@ input[type='number']::-webkit-inner-spin-button {
   100% { opacity: 1; transform: rotate(30deg) translateX(5%); }
 }
 
-/* Frost mist — VISIBLE ice fog at bottom */
+/* Frost mist — VISIBLE ice fog at bottom. V49.22c: brighter for deep base */
 .glacier__mist {
   position: absolute;
   bottom: 0;
@@ -1460,9 +1461,9 @@ input[type='number']::-webkit-inner-spin-button {
   right: 0;
   height: 52%;
   background:
-    radial-gradient(ellipse 50% 100% at 20% 100%, rgba(186,230,253,0.55), transparent 70%),
-    radial-gradient(ellipse 40% 100% at 75% 100%, rgba(165,243,252,0.48), transparent 65%),
-    radial-gradient(ellipse 60% 80% at 50% 100%, rgba(224,242,254,0.40), transparent 62%);
+    radial-gradient(ellipse 50% 100% at 20% 100%, rgba(186,230,253,0.68), transparent 70%),
+    radial-gradient(ellipse 40% 100% at 75% 100%, rgba(165,243,252,0.60), transparent 65%),
+    radial-gradient(ellipse 60% 80% at 50% 100%, rgba(224,242,254,0.52), transparent 62%);
   filter: blur(26px);
   animation: glacierMist 12s ease-in-out infinite alternate;
 }
@@ -1471,17 +1472,16 @@ input[type='number']::-webkit-inner-spin-button {
   100% { opacity: 1; transform: translateX(4%) scale(1.06); }
 }
 
-/* Frost sparkles — V49.22: multi-colour ice crystals (cyan / sky / teal / ice-blue)
-   instead of flat white dots. Each sparkle gets its hue via inline --gs-hue variable. */
+/* Frost sparkles — V49.22c: multi-colour ice crystals, larger + brighter for deep base */
 .glacier__sparkle {
   position: absolute;
-  width: 5px;
-  height: 5px;
+  width: 6px;   /* was 5px */
+  height: 6px;  /* was 5px */
   border-radius: 50%;
-  background: hsl(var(--gs-hue, 195), 90%, 85%);
+  background: hsl(var(--gs-hue, 195), 92%, 88%);
   box-shadow:
-    0 0 8px 2px hsl(var(--gs-hue, 195), 80%, 75% / 0.8),
-    0 0 18px 5px hsl(var(--gs-hue, 195), 75%, 65% / 0.45);
+    0 0 10px 3px hsl(var(--gs-hue, 195), 85%, 78% / 0.85),
+    0 0 24px 8px hsl(var(--gs-hue, 195), 80%, 68% / 0.5);
   /* V49.3: twinkle so the frost sparkles read as living ice crystals. */
   animation: glacierSparkle var(--gs-dur, 4s) ease-in-out infinite;
   animation-delay: var(--gs-delay, 0s);
@@ -1935,12 +1935,13 @@ input[type='number']::-webkit-inner-spin-button {
   100% { transform: translateX(320%); opacity: 0; }
 }
 
-/* Per-card pulsing light sweep — glacial shimmer across each stat card */
+/* Per-card pulsing light sweep — glacial shimmer across each stat card.
+   V49.22c: thicker (4px), brighter, slower for unmistakable visibility. */
 @keyframes card-beam-sweep {
   0%   { transform: translateX(-120%); opacity: 0; }
-  20%  { opacity: 0.9; }
-  50%  { opacity: 0.6; }
-  80%  { opacity: 0.3; }
+  20%  { opacity: 1; }
+  50%  { opacity: 0.85; }
+  80%  { opacity: 0.5; }
   100% { transform: translateX(280%); opacity: 0; }
 }
 
@@ -1950,9 +1951,10 @@ input[type='number']::-webkit-inner-spin-button {
   left: 0;
   right: 0;
   top: 0;
-  height: 2px;
+  height: 4px;
   overflow: hidden;
-  border-radius: 2px;
+  border-radius: 4px;
+  z-index: 15;
 }
 
 .card-beam-container::after {
@@ -1961,15 +1963,20 @@ input[type='number']::-webkit-inner-spin-button {
   top: 0;
   bottom: 0;
   left: 0;
-  width: 60%;
+  width: 70%;
   background: linear-gradient(90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.15) 20%,
-    rgba(255, 255, 255, 0.85) 50%,
-    rgba(34, 211, 238, 0.7) 80%,
+    rgba(255, 255, 255, 0.25) 15%,
+    rgba(255, 255, 255, 0.95) 40%,
+    rgba(165, 243, 252, 1) 50%,
+    rgba(255, 255, 255, 0.95) 60%,
+    rgba(34, 211, 238, 0.8) 85%,
     transparent 100%
   );
-  filter: blur(0.5px);
+  filter: blur(0.8px);
+  box-shadow:
+    0 0 10px 3px rgba(165, 243, 252, 0.7),
+    0 0 24px 8px rgba(34, 211, 238, 0.35);
   animation: card-beam-sweep var(--card-beam-dur, 4s) ease-in-out infinite;
   animation-delay: var(--card-beam-delay, 0s);
 }

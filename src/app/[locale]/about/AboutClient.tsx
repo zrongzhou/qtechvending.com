@@ -762,7 +762,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
 
 
       {/* ══════════════════ 1. HERO (glacier world · V48 R4) ══════════════════ */}
-      <section className="relative isolate overflow-hidden bg-gradient-to-b from-cyan-50 via-slate-50 to-white">
+      <section className="relative isolate overflow-hidden bg-gradient-to-b from-sky-700 via-cyan-800 to-sky-900">
         {/* V49: Glacier scene — ambient ice environment (NOT falling shards).
             Pure CSS aurora + ice facets + light rays + frost mist. */}
         <div className="glacier-scene" aria-hidden="true">
