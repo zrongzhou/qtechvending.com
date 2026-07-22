@@ -132,6 +132,14 @@ export interface SiteSetting {
   keywords: I18nStringList | null;
   defaultTitle: I18nString | null;
   defaultDescription: I18nString | null;
+  /** V51 (T10): enforce HTTPS at the edge (middleware redirect). */
+  forceHttps: boolean;
+  /** Path to the deployed SSL certificate (fullchain.pem) on the server. */
+  sslCertPath: string | null;
+  /** Path to the deployed SSL private key (privkey.pem) on the server. */
+  sslKeyPath: string | null;
+  /** True once the certificate has been deployed to the server (ops-managed). */
+  sslEnabled: boolean;
   updatedAt: string;
 }
 

@@ -377,6 +377,10 @@ function mapSiteSettingRow(row: Record<string, unknown>): SiteSetting {
     keywords: keywords && (keywords.en?.length || keywords.zh?.length || keywords.ar?.length) ? keywords : null,
     defaultTitle: (row.defaultTitle as I18nString) ?? null,
     defaultDescription: (row.defaultDescription as I18nString) ?? null,
+    forceHttps: (row.forceHttps as boolean) ?? false,
+    sslCertPath: (row.sslCertPath as string) ?? null,
+    sslKeyPath: (row.sslKeyPath as string) ?? null,
+    sslEnabled: (row.sslEnabled as boolean) ?? false,
     updatedAt: row.updatedAt ? new Date(row.updatedAt as string | Date).toISOString() : new Date().toISOString(),
   };
 }
@@ -413,6 +417,10 @@ export async function getSiteSetting(): Promise<SiteSetting> {
       zh: SITE_CONFIG.defaultDescriptionZh,
       ar: SITE_CONFIG.defaultDescription,
     },
+    forceHttps: false,
+    sslCertPath: null,
+    sslKeyPath: null,
+    sslEnabled: false,
     updatedAt: new Date().toISOString(),
   };
 }

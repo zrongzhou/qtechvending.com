@@ -5,6 +5,7 @@ import type { BlogPost, I18nString } from '@/types';
 import { t } from './i18n';
 import { TriTextInput, TriTextArea, emptyI18n } from './I18nInputs';
 import ImageListEditor from './ImageListEditor';
+import RichTextEditor from './RichTextEditor';
 
 const inputCls =
   'w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand-500';
@@ -36,6 +37,7 @@ export default function BlogForm({
   const [seoTitle, setSeoTitle] = useState<I18nString | null>(initial?.seoTitle ?? null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [activeLang, setActiveLang] = useState<'en' | 'zh' | 'ar'>('en');
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,7 +95,32 @@ export default function BlogForm({
       </div>
       <TriTextInput label={t('admin.fieldTitle')} value={title} onChange={setTitle} required />
       <TriTextArea label={t('admin.fieldExcerpt')} value={excerpt} onChange={setExcerpt} />
-      <TriTextArea label={`${t('admin.fieldContent')} (Markdown)`} value={content} onChange={setContent} rows={8} />
+      <div>
+        <label className={labelCls}>{t('admin.fieldContent')}</label>
+        <p className="mb-2 text-xs text-slate-400">Markdown 兼容 · 所见即所得编辑器（与现有博客内容无损互通）</p>
+        <div className="mb-2 flex gap-1">
+          {(['en', 'zh', 'ar'] as const).map((lang) => (
+            <button
+              key={lang}
+              type="button"
+              onClick={() => setActiveLang(lang)}
+              className={`rounded-md px-3 py-1 text-sm font-medium transition-colors ${
+                activeLang === lang
+                  ? 'bg-brand-600 text-white'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              }`}
+            >
+              {lang.toUpperCase()}
+            </button>
+          ))}
+        </div>
+        <RichTextEditor
+          key={activeLang}
+          value={content[activeLang] ?? ''}
+          onChange={(md) => setContent({ ...content, [activeLang]: md })}
+          placeholder={`${t('admin.fieldContent')} (${activeLang.toUpperCase()})`}
+        />
+      </div>
       <div className="grid gap-4 sm:grid-cols-3">
         <div>
           <label className={labelCls}>{t('admin.fieldPublishedAt')}</label>

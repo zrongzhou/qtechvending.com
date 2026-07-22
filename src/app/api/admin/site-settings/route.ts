@@ -37,12 +37,18 @@ export async function PATCH(req: NextRequest) {
     return badRequestResponse('Invalid request body.');
   }
 
-  const stringFields = ['email', 'phone', 'addressLine', 'ogImage', 'twitterHandle'];
+  const stringFields = ['email', 'phone', 'addressLine', 'ogImage', 'twitterHandle', 'sslCertPath', 'sslKeyPath'];
+  const booleanFields = ['forceHttps', 'sslEnabled'];
   const jsonFields = ['company', 'address', 'socials', 'sameAs', 'keywords', 'defaultTitle', 'defaultDescription'];
 
   const data: Prisma.SiteSettingUpdateInput = {};
   for (const f of stringFields) {
     if (f in body && (body[f] === null || typeof body[f] === 'string')) {
+      (data as Record<string, unknown>)[f] = body[f];
+    }
+  }
+  for (const f of booleanFields) {
+    if (f in body && typeof body[f] === 'boolean') {
       (data as Record<string, unknown>)[f] = body[f];
     }
   }
@@ -68,6 +74,10 @@ export async function PATCH(req: NextRequest) {
         addressLine: (data.addressLine as string | null) ?? null,
         ogImage: (data.ogImage as string | null) ?? SITE_CONFIG.ogImage,
         twitterHandle: (data.twitterHandle as string | null) ?? SITE_CONFIG.twitterHandle,
+        forceHttps: (data.forceHttps as boolean) ?? false,
+        sslCertPath: (data.sslCertPath as string | null) ?? null,
+        sslKeyPath: (data.sslKeyPath as string | null) ?? null,
+        sslEnabled: (data.sslEnabled as boolean) ?? false,
         address: data.address !== undefined ? (data.address as Prisma.InputJsonValue) : Prisma.JsonNull,
         socials: data.socials !== undefined ? (data.socials as Prisma.InputJsonValue) : Prisma.JsonNull,
         sameAs: data.sameAs !== undefined ? (data.sameAs as Prisma.InputJsonValue) : Prisma.JsonNull,

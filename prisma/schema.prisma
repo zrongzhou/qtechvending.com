@@ -135,6 +135,12 @@ model SiteSetting {
   keywords          Json?    // { en:[], zh:[], ar:[] }
   defaultTitle      Json?    // { en, zh, ar }
   defaultDescription Json?   // { en, zh, ar }
+  // V51 (T10): SSL / HTTPS enforcement (application-layer config only; the
+  // certificate itself is deployed to the reverse proxy / nginx by ops).
+  forceHttps        Boolean  @default(false) // redirect http -> https at the edge (middleware)
+  sslCertPath       String?  // e.g. /etc/nginx/ssl/qtechvending.com/fullchain.pem
+  sslKeyPath        String?  // e.g. /etc/nginx/ssl/qtechvending.com/privkey.pem
+  sslEnabled        Boolean  @default(false) // true once certs are deployed to the server
   updatedAt         DateTime @updatedAt
   @@map("site_settings")
 }
