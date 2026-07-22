@@ -374,5 +374,16 @@
   "admin.companyInfoDesc": "Company name, address and branding.",
   "admin.contactInfoDesc": "Email and phone contact details.",
   "admin.socialMediaDesc": "Social profiles and SameAs URLs.",
-  "admin.seoDefaultsDesc": "Site-wide default SEO metadata."
+  "admin.seoDefaultsDesc": "Site-wide default SEO metadata.",
+  "admin.fieldExcerpt": "Excerpt",
+  "admin.fieldFeatures": "Key Features",
+  "admin.fieldImages": "Images",
+  "admin.addImage": "Add Image",
+  "admin.fieldBlogImages": "Blog Images",
+  "admin.fieldCoverImage": "Cover",
+  "admin.imagesHint": "One image path per entry; the first one is the cover. e.g. /images/blog/<slug>/1.webp",
+  "admin.featuresHint": "Add one selling point per line, per language",
+  "admin.images": "Images",
+  "admin.moveUp": "Move up",
+  "admin.moveDown": "Move down"
 }

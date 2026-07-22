@@ -374,5 +374,16 @@
   "admin.companyInfoDesc": "公司名称、地址与品牌信息。",
   "admin.contactInfoDesc": "邮箱与电话等联系方式。",
   "admin.socialMediaDesc": "社交平台链接与 SameAs 地址。",
-  "admin.seoDefaultsDesc": "全站默认的 SEO 元数据。"
+  "admin.seoDefaultsDesc": "全站默认的 SEO 元数据。",
+  "admin.fieldExcerpt": "摘要",
+  "admin.fieldFeatures": "核心卖点",
+  "admin.fieldImages": "图片",
+  "admin.addImage": "添加图片",
+  "admin.fieldBlogImages": "博客图片",
+  "admin.fieldCoverImage": "封面图",
+  "admin.imagesHint": "多张图片路径，第一张为封面；格式如 /images/blog/<slug>/1.webp",
+  "admin.featuresHint": "按语言填写卖点，每行一条",
+  "admin.images": "图片",
+  "admin.moveUp": "上移",
+  "admin.moveDown": "下移"
 }

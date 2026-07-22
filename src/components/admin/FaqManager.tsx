@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { SiteFaqCategory, SiteFaqItem, I18nString } from '@/types';
 import { t } from './i18n';
 import { TriTextInput, TriTextArea, emptyI18n } from './I18nInputs';
@@ -25,6 +25,12 @@ export default function FaqManager({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  // pagination + search
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [search, setSearch] = useState('');
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   // add-category draft
   const [newKey, setNewKey] = useState('');
   const [newTitle, setNewTitle] = useState<I18nString>(emptyI18n());
@@ -35,16 +41,22 @@ export default function FaqManager({
   const [editingItemId, setEditingItemId] = useState<string | null>(null);
   const [addingItemCatId, setAddingItemCatId] = useState<string | null>(null);
 
-  const load = async () => {
+  const load = useCallback(async (p: number, q: string) => {
     setLoading(true);
     try {
-      const res = await fetch('/api/admin/faq-categories', { credentials: 'include' });
+      const params = new URLSearchParams();
+      params.set('page', String(p));
+      params.set('limit', '20');
+      if (q.trim()) params.set('search', q.trim());
+      const res = await fetch(`/api/admin/faq-categories?${params.toString()}`, { credentials: 'include' });
       if (res.ok) {
         const j = await res.json();
         const data = (j.data || []) as SiteFaqCategory[];
         setCats(data);
+        setTotalPages(j.totalPages || 1);
+        setPage(j.page || p);
         onStats?.({
-          categories: data.length,
+          categories: typeof j.total === 'number' ? j.total : data.length,
           items: data.reduce((acc, c) => acc + (c.items?.length || 0), 0),
         });
       }
@@ -53,12 +65,25 @@ export default function FaqManager({
     } finally {
       setLoading(false);
     }
-  };
+  }, [onStats]);
+
+  // Debounced search: reset to page 1 and reload.
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => {
+      setPage(1);
+      load(1, search);
+    }, 350);
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search]);
 
   useEffect(() => {
-    load();
+    load(page, search);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [page]);
 
   const addCategory = async () => {
     if (!newKey.trim()) {
@@ -76,7 +101,7 @@ export default function FaqManager({
       setNewKey('');
       setNewTitle(emptyI18n());
       setNewOrder(0);
-      load();
+      load(page, search);
     } else {
       const j = await res.json().catch(() => ({}));
       setError(j.error || t('admin.saveError'));
@@ -86,7 +111,7 @@ export default function FaqManager({
   const deleteCategory = async (id: string) => {
     if (!confirm(t('admin.deleteConfirm'))) return;
     const res = await fetch(`/api/admin/faq-categories/${id}`, { method: 'DELETE', credentials: 'include' });
-    if (res.ok) load();
+    if (res.ok) load(page, search);
   };
 
   const updateCategory = async (id: string, patch: { key?: string; title?: I18nString; faqOrder?: number }) => {
@@ -98,7 +123,7 @@ export default function FaqManager({
     });
     if (res.ok) {
       setEditingCatId(null);
-      load();
+      load(page, search);
     } else {
       const j = await res.json().catch(() => ({}));
       setError(j.error || t('admin.saveError'));
@@ -114,7 +139,7 @@ export default function FaqManager({
     });
     if (res.ok) {
       setAddingItemCatId(null);
-      load();
+      load(page, search);
     } else {
       const j = await res.json().catch(() => ({}));
       setError(j.error || t('admin.saveError'));
@@ -133,7 +158,7 @@ export default function FaqManager({
     });
     if (res.ok) {
       setEditingItemId(null);
-      load();
+      load(page, search);
     } else {
       const j = await res.json().catch(() => ({}));
       setError(j.error || t('admin.saveError'));
@@ -143,7 +168,7 @@ export default function FaqManager({
   const deleteItem = async (id: string) => {
     if (!confirm(t('admin.deleteConfirm'))) return;
     const res = await fetch(`/api/admin/faq-items/${id}`, { method: 'DELETE', credentials: 'include' });
-    if (res.ok) load();
+    if (res.ok) load(page, search);
   };
 
   return (
@@ -151,6 +176,16 @@ export default function FaqManager({
       {error && (
         <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>
       )}
+
+      {/* Search */}
+      <div className="flex flex-wrap items-center gap-3">
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder={t('admin.search')}
+          className="w-full max-w-sm rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand-500"
+        />
+      </div>
 
       {/* Add category */}
       <div className="rounded-xl border border-slate-200 bg-white p-5">
@@ -252,6 +287,31 @@ export default function FaqManager({
           </div>
         </div>
       ))}
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-4">
+          <button
+            type="button"
+            disabled={page <= 1}
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            className="rounded-lg border border-slate-300 px-4 py-2 text-sm disabled:opacity-40"
+          >
+            {t('products.prev')}
+          </button>
+          <span className="text-sm text-ink-500">
+            {t('products.page')} {page} {t('products.of')} {totalPages}
+          </span>
+          <button
+            type="button"
+            disabled={page >= totalPages}
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            className="rounded-lg border border-slate-300 px-4 py-2 text-sm disabled:opacity-40"
+          >
+            {t('products.next')}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

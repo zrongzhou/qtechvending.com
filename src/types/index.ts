@@ -77,7 +77,7 @@ export interface BlogPost {
   publishedAt: string;
   status: string;
   featured: boolean;
-  image: string | null;
+  images: string[];
   /** V49.20: Excel/docx-authored SEO fields (emitted to page meta). */
   seoTitle?: I18nString | null;
   seoKeywords?: I18nStringList | null;

@@ -220,7 +220,7 @@ export default function BlogsPage() {
         ) : (
           <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {items.map((p) => {
-              const img = p.image || undefined;
+              const img = p.images?.[0] || undefined;
               return (
                 <div
                   key={p.id}

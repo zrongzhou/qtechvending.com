@@ -5,6 +5,8 @@ import type { Product, I18nString, I18nStringList, FaqItem, Category } from '@/t
 import { t } from './i18n';
 import { TriTextInput, TriTextArea, TriListInput, emptyI18n } from './I18nInputs';
 import ProductFaqEditor from './ProductFaqEditor';
+import ImageListEditor from './ImageListEditor';
+import FeaturesEditor from './FeaturesEditor';
 
 const inputCls =
   'w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand-500';
@@ -39,7 +41,8 @@ export default function ProductForm({
   const [title, setTitle] = useState<I18nString>(initial?.name ?? emptyI18n());
   const [shortDescription, setShortDescription] = useState<I18nString | null>(initial?.shortDescription ?? null);
   const [description, setDescription] = useState<I18nString | null>(initial?.description ?? null);
-  const [image, setImage] = useState((initial?.images?.[0]) ?? '');
+  const [images, setImages] = useState<string[]>(initial?.images ?? []);
+  const [features, setFeatures] = useState<I18nStringList | null>(initial?.features ?? null);
   const [specs, setSpecs] = useState<SpecRow[]>(
     (initial?.specs as SpecRow[] | null) ?? []
   );
@@ -98,7 +101,8 @@ export default function ProductForm({
       name: title,
       shortDescription: shortDescription ?? null,
       description: description ?? null,
-      images: image.trim() ? [image.trim()] : [],
+      images,
+      features: features ?? null,
       specs,
       seoTitle: seoTitle ?? null,
       seoKeywords: seoKeywords ?? null,
@@ -241,25 +245,20 @@ export default function ProductForm({
         <TriTextArea label={t('admin.fieldDescription')} value={description} onChange={setDescription} rows={5} />
       </GroupCard>
 
-      {/* 媒体 */}
+      {/* 媒体（多图） */}
       <GroupCard title={t('admin.media')}>
-        <div>
-          <label className={labelCls}>{t('admin.fieldImage')}</label>
-          <input
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-            className={inputCls}
-            placeholder="/images/products/rose-vending/1.webp"
-          />
-          {image.trim() && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={image.trim()}
-              alt="preview"
-              className="mt-3 h-24 w-24 rounded-lg border border-slate-200 object-cover"
-            />
-          )}
-        </div>
+        <ImageListEditor
+          value={images}
+          onChange={setImages}
+          label={t('admin.fieldImages')}
+          hint={t('admin.imagesHint')}
+        />
+      </GroupCard>
+
+      {/* 核心卖点（三语 features） */}
+      <GroupCard title={t('admin.fieldFeatures')}>
+        <FeaturesEditor value={features ?? { en: [], zh: [], ar: [] }} onChange={setFeatures} />
+        <p className="mt-2 text-xs text-ink-400">{t('admin.featuresHint')}</p>
       </GroupCard>
 
       {/* 规格参数 */}

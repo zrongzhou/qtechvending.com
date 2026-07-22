@@ -4,17 +4,42 @@ import { requireAdmin, unauthorizedResponse, badRequestResponse, serverErrorResp
 
 export const dynamic = 'force-dynamic';
 
-/** GET all FAQ categories with their items. */
+/** GET FAQ categories (paginated + searchable) with their items.
+ *  Returns the shared `Paginated<T>` envelope used by other admin list APIs. */
 export async function GET(req: NextRequest) {
   const admin = await requireAdmin(req);
   if (!admin) return unauthorizedResponse();
 
+  const { searchParams } = new URL(req.url);
+  const page = parseInt(searchParams.get('page') || '1', 10) || 1;
+  const limit = Math.min(parseInt(searchParams.get('limit') || '20', 10) || 20, 100);
+  const search = (searchParams.get('search') || '').trim();
+
   try {
-    const categories = await prisma.siteFaqCategory.findMany({
+    const all = await prisma.siteFaqCategory.findMany({
       orderBy: [{ faqOrder: 'asc' }, { key: 'asc' }],
       include: { items: { orderBy: [{ faqOrder: 'asc' }, { createdAt: 'asc' }] } },
     });
-    return NextResponse.json({ data: categories });
+
+    const needle = search.toLowerCase();
+    const filtered = needle
+      ? (all as Array<{ key?: string; title?: unknown }>).filter(
+          (c) =>
+            (c.key || '').toLowerCase().includes(needle) ||
+            JSON.stringify(c.title ?? '').toLowerCase().includes(needle)
+        )
+      : all;
+
+    const total = filtered.length;
+    const data = filtered.slice((page - 1) * limit, (page - 1) * limit + limit);
+
+    return NextResponse.json({
+      data,
+      total,
+      totalPages: Math.max(1, Math.ceil(total / limit)),
+      page,
+      pageSize: limit,
+    });
   } catch (err) {
     console.error('[admin/faq-categories] GET failed:', err);
     return serverErrorResponse();

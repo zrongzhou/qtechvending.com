@@ -374,5 +374,16 @@
   "admin.companyInfoDesc": "اسم الشركة والعنوان والعلامة التجارية.",
   "admin.contactInfoDesc": "تفاصيل البريد الإلكتروني والهاتف.",
   "admin.socialMediaDesc": "حسابات التواصل وروابط SameAs.",
-  "admin.seoDefaultsDesc": "بيانات SEO الافتراضية للموقع."
+  "admin.seoDefaultsDesc": "بيانات SEO الافتراضية للموقع.",
+  "admin.fieldExcerpt": "الملخص",
+  "admin.fieldFeatures": "الميزات الرئيسية",
+  "admin.fieldImages": "الصور",
+  "admin.addImage": "إضافة صورة",
+  "admin.fieldBlogImages": "صور المدونة",
+  "admin.fieldCoverImage": "صورة الغلاف",
+  "admin.imagesHint": "مسار صورة لكل حقل؛ الأولى هي الغلاف. مثال: /images/blog/<slug>/1.webp",
+  "admin.featuresHint": "أضف ميزة واحدة لكل سطر، لكل لغة",
+  "admin.images": "الصور",
+  "admin.moveUp": "تحريك لأعلى",
+  "admin.moveDown": "تحريك لأسفل"
 }

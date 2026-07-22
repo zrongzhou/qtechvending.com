@@ -30,13 +30,20 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   }
 
   const data: Record<string, unknown> = {};
-  const stringFields = ['slug', 'author', 'status', 'image'];
+  const stringFields = ['slug', 'author', 'status'];
   const jsonFields = ['title', 'excerpt', 'content', 'seoTitle', 'seoKeywords'];
   for (const f of stringFields) {
     if (typeof body[f] === 'string') data[f] = body[f];
   }
   for (const f of jsonFields) {
     if (body[f] !== undefined) data[f] = body[f];
+  }
+  // V51 multi-image support: accept `images` array; fall back to legacy single
+  // `image` string wrapped into a one-element array for backward compatibility.
+  if (Array.isArray(body.images)) {
+    data.images = body.images as string[];
+  } else if (typeof body.image === 'string') {
+    data.images = body.image.trim() ? [body.image.trim()] : [];
   }
   if (typeof body.featured === 'boolean') data.featured = body.featured;
   if (typeof body.publishedAt === 'string' && body.publishedAt) data.publishedAt = new Date(body.publishedAt);

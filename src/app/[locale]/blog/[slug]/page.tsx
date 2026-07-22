@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     path: `/blog/${params.slug}`,
     title: seoTitle || title,
     description: desc,
-    image: post.image || undefined,
+    image: post.images?.[0] || undefined,
     type: 'article',
     publishedTime: post.publishedAt,
     author: post.author,
@@ -46,7 +46,7 @@ export default async function BlogDetailPage({ params }: PageProps) {
         data={jsonLdArticle({
           title: localized(post.title, locale as 'en' | 'zh' | 'ar'),
           description: localized(post.excerpt, locale as 'en' | 'zh' | 'ar') || '',
-          image: post.image || '/images/og-default.svg',
+          image: post.images?.[0] || '/images/og-default.svg',
           slug,
           datePublished: post.publishedAt,
           author: post.author,

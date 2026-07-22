@@ -67,7 +67,7 @@ model BlogPost {
   publishedAt DateTime
   status      String   @default("published") // published
   featured    Boolean  @default(false)
-  image       String?  // /images/blog/<slug>.webp
+  images      String[] @default([]) // V51: 多图，首张 images[0] 为封面
   seoKeywords Json?
   seoTitle    Json?    // { zh, en, ar } — distinct SERP title from the on-page H1
   createdAt   DateTime @default(now())

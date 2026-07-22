@@ -52,7 +52,7 @@ export default function BlogCard({ post, index = 0 }: { post: BlogPost; index?: 
 
           <div className="relative aspect-video overflow-hidden bg-slate-100">
             <ImageWithRetry
-              src={post.image || '/images/og-default.svg'}
+              src={post.images?.[0] || '/images/og-default.svg'}
               alt={title}
               className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
             />

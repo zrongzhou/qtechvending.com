@@ -97,7 +97,11 @@ export async function POST(req: NextRequest) {
         publishedAt,
         status: typeof body.status === 'string' ? body.status : 'published',
         featured: typeof body.featured === 'boolean' ? body.featured : false,
-        image: typeof body.image === 'string' ? body.image : null,
+        images: Array.isArray(body.images)
+          ? (body.images as string[])
+          : typeof body.image === 'string' && body.image.trim()
+            ? [body.image.trim()]
+            : [],
         seoTitle: (body.seoTitle as object) ?? null,
         seoKeywords: (body.seoKeywords as object) ?? null,
       },

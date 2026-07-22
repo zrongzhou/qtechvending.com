@@ -336,7 +336,7 @@ export default function BlogDetailClient({
 
       <RevealOnScroll className="mx-auto mt-8 max-w-4xl">
         <div className="relative aspect-[16/9] overflow-hidden rounded-3xl border border-slate-200 shadow-sm ring-1 ring-brand-100">
-          <ImageWithRetry src={post.image || '/images/og-default.svg'} alt={title} className="h-full w-full object-cover" />
+          <ImageWithRetry src={post.images?.[0] || '/images/og-default.svg'} alt={title} className="h-full w-full object-cover" />
         </div>
       </RevealOnScroll>
 

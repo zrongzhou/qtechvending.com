@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma';
 
-const LOCALES = ['en', 'zh', 'ar'] as const;
+const LOCALES = ['en'] as const;
 // V49.22: Production only — test domain removed (was causing duplicate indexing)
 const HOSTS = ['https://www.qtechvending.com'];
 const STATIC_PATHS = ['', '/products', '/blog', '/about', '/contact'];

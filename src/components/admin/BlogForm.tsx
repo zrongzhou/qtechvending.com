@@ -4,6 +4,7 @@ import { useState } from 'react';
 import type { BlogPost, I18nString } from '@/types';
 import { t } from './i18n';
 import { TriTextInput, TriTextArea, emptyI18n } from './I18nInputs';
+import ImageListEditor from './ImageListEditor';
 
 const inputCls =
   'w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand-500';
@@ -29,7 +30,7 @@ export default function BlogForm({
   const [excerpt, setExcerpt] = useState<I18nString | null>(initial?.excerpt ?? null);
   const [content, setContent] = useState<I18nString>(initial?.content ?? emptyI18n());
   const [publishedAt, setPublishedAt] = useState(toDateInput(initial?.publishedAt));
-  const [image, setImage] = useState(initial?.image ?? '');
+  const [images, setImages] = useState<string[]>(initial?.images ?? []);
   const [status, setStatus] = useState(initial?.status ?? 'published');
   const [featured, setFeatured] = useState(initial?.featured ?? false);
   const [seoTitle, setSeoTitle] = useState<I18nString | null>(initial?.seoTitle ?? null);
@@ -50,7 +51,7 @@ export default function BlogForm({
       excerpt: excerpt ?? null,
       content,
       publishedAt,
-      image: image.trim() || null,
+      images,
       status,
       featured,
       seoTitle: seoTitle ?? null,
@@ -118,12 +119,11 @@ export default function BlogForm({
         </div>
       </div>
       <div>
-        <label className={labelCls}>{t('admin.fieldImage')}</label>
-        <input
-          value={image}
-          onChange={(e) => setImage(e.target.value)}
-          className={inputCls}
-          placeholder="/images/blog/my-post.webp"
+        <ImageListEditor
+          value={images}
+          onChange={setImages}
+          label={t('admin.fieldBlogImages')}
+          hint={t('admin.imagesHint')}
         />
       </div>
       <div className="border-t border-slate-100 pt-4">
