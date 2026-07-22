@@ -1332,12 +1332,14 @@ input[type='number']::-webkit-inner-spin-button {
   pointer-events: none;
   overflow: hidden;
   /* V49.22c: DEEP ice-blue cave — near-opaque, rich saturation for "deep glacier" */
+  /* V49.x polish: glacier background deepened slightly for richer "deep ice"
+     contrast against the bright stat cards. */
   background: linear-gradient(160deg,
-    rgba(8, 78, 148, 0.95) 0%,
-    rgba(2, 100, 155, 0.93) 25%,
-    rgba(3, 85, 140, 0.92) 50%,
-    rgba(6, 120, 165, 0.94) 75%,
-    rgba(14, 85, 120, 0.95) 100%);
+    rgba(6, 58, 122, 0.97) 0%,
+    rgba(2, 82, 132, 0.96) 25%,
+    rgba(2, 66, 116, 0.95) 50%,
+    rgba(4, 96, 142, 0.96) 75%,
+    rgba(9, 64, 98, 0.97) 100%);
 }
 
 /* Layer 1: Aurora borealis bands — V49.22d: FIXED wash-out issue.

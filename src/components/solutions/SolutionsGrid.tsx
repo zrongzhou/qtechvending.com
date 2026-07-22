@@ -114,14 +114,22 @@ export default function SolutionsGrid() {
           })}
         </div>
 
-        {/* Closing CTA band — V49.7: richer gradient + depth so it reads as a
-            premium call-to-action, not a flat pastel block. */}
-        <RevealOnScroll className="mt-16 overflow-hidden rounded-3xl bg-gradient-to-br from-cyan-50 via-sky-50 to-teal-50 px-8 py-14 text-center shadow-lg shadow-cyan-500/10 ring-1 ring-cyan-100/80">
-          <h2 className="text-2xl font-bold text-ink-900 sm:text-3xl">{t('solutions.ctaTitle')}</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-ink-600">{t('solutions.ctaSubtitle')}</p>
+        {/* Closing CTA band — V49.x: deep cyan→teal glass with glow, grain &
+            sheen decoration (brand ambient). White text keeps trilingual AA
+            contrast; the button stays btn-primary but is enlarged + shadowed. */}
+        <RevealOnScroll className="mt-16 relative overflow-hidden rounded-3xl bg-gradient-to-br from-cyan-600 via-teal-600 to-teal-700 px-8 py-14 text-center shadow-2xl shadow-teal-700/30 ring-1 ring-white/10">
+          {/* decorative glow orbs */}
+          <div className="pointer-events-none absolute -top-16 -start-10 h-56 w-56 rounded-full bg-cyan-300/30 blur-3xl" aria-hidden="true" />
+          <div className="pointer-events-none absolute -bottom-20 -end-12 h-64 w-64 rounded-full bg-teal-300/30 blur-3xl" aria-hidden="true" />
+          {/* subtle sheen sweep (brand ambient, keeps running) */}
+          <div className="cta-sheen pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
+          {/* fine grain texture */}
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.18)_1px,transparent_1.5px)] [background-size:22px_22px] opacity-30" aria-hidden="true" />
+          <h2 className="relative text-2xl font-bold text-white drop-shadow sm:text-3xl">{t('solutions.ctaTitle')}</h2>
+          <p className="relative mx-auto mt-3 max-w-2xl text-cyan-50/90">{t('solutions.ctaSubtitle')}</p>
           <Link
             href={`/${locale}/contact`}
-            className="btn-primary mt-8 transition-transform duration-300 hover:-translate-y-0.5"
+            className="btn-primary group relative mt-8 px-8 py-3.5 text-base shadow-lg shadow-cyan-900/30 transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-xl"
           >
             {t('solutions.ctaButton')}
           </Link>

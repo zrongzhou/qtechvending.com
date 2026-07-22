@@ -588,10 +588,10 @@ const HERO_STATS = [
 /* V49.20: cohesive cyan→blue family for the glacier hero stat cards so the
    four icon tiles read as one cold, premium set (no violet/amber clash). */
 const HERO_STAT_ACCENTS = [
-  { tile: 'from-cyan-400 to-blue-500', shadow: 'shadow-cyan-500/30' },
-  { tile: 'from-sky-400 to-cyan-500', shadow: 'shadow-sky-500/30' },
-  { tile: 'from-teal-400 to-cyan-500', shadow: 'shadow-teal-500/30' },
-  { tile: 'from-blue-400 to-indigo-500', shadow: 'shadow-blue-500/30' },
+  { tile: 'from-cyan-400 to-blue-500', icon: 'from-cyan-300 to-sky-400', shadow: 'shadow-cyan-500/30' },
+  { tile: 'from-sky-400 to-cyan-500', icon: 'from-sky-300 to-cyan-400', shadow: 'shadow-sky-500/30' },
+  { tile: 'from-teal-400 to-cyan-500', icon: 'from-teal-300 to-cyan-400', shadow: 'shadow-teal-500/30' },
+  { tile: 'from-blue-400 to-indigo-500', icon: 'from-cyan-300 to-indigo-400', shadow: 'shadow-blue-500/30' },
 ];
 
 /* ── Global impact data wall ── */
@@ -827,11 +827,19 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                   {/* Subtle inner glow on hover */}
                   <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-b from-white/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   <div className="flex h-full flex-col items-center justify-center gap-3 text-center relative z-10">
-                    <span
-                      className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${accent.tile} ${accent.shadow} shadow-lg shadow-black/10 transition-transform duration-300 group-hover:scale-110 group-hover:shadow-cyan-400/30`}
-                      style={{ ['--glow-color' as string]: 'rgba(34, 211, 238, 0.55)' } as React.CSSProperties}
-                    >
-                      <Icon className="h-6 w-6" strokeWidth={1.8} />
+                    {/* Brighter icon + glow halo (提亮 + 发光效果) */}
+                    <span className="relative inline-flex">
+                      {/* Breathing glow halo behind the icon — frozen under reduced-motion. */}
+                      <span
+                        className="pointer-events-none absolute -inset-1.5 rounded-2xl bg-cyan-300/40 blur-md animate-pulse-glow motion-reduce:animate-none"
+                        style={{ ['--glow-color' as string]: 'rgba(34, 211, 238, 0.6)' } as React.CSSProperties}
+                        aria-hidden="true"
+                      />
+                      <span
+                        className={`relative inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${accent.icon} text-white shadow-[0_0_18px_rgba(34,211,238,0.6)] ring-2 ring-white/70 transition-transform duration-300 group-hover:scale-110`}
+                      >
+                        <Icon className="h-6 w-6 drop-shadow-[0_0_5px_rgba(255,255,255,0.9)]" strokeWidth={2.1} />
+                      </span>
                     </span>
                     <dt className="text-3xl font-extrabold tracking-tight text-white drop-shadow-sm">
                       <CountUp end={s.end} suffix={s.suffix} />

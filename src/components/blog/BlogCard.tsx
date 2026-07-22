@@ -39,10 +39,10 @@ export default function BlogCard({ post, index = 0 }: { post: BlogPost; index?: 
   const excerpt = localized(post.excerpt, locale);
 
   return (
-    <div className="relative h-full">
-      {/* Soft ocean-brand glow behind the glass blog card */}
-      <div className="absolute -inset-1 rounded-2xl opacity-20 blur-xl" aria-hidden="true" style={{ background: `linear-gradient(to bottom right, ${accent.from}, ${accent.to})` }} />
-      <OceanGlassCard depth="sm" hoverLift className="group relative z-10 h-full border border-ocean-200/50">
+    <div className="group/card relative h-full transition-transform duration-300 hover:-translate-y-1.5">
+      {/* Soft ocean-brand glow behind the glass blog card (brightens on hover) */}
+      <div className="absolute -inset-1 rounded-2xl opacity-25 blur-xl transition-opacity duration-300 group-hover/card:opacity-45" aria-hidden="true" style={{ background: `linear-gradient(to bottom right, ${accent.from}, ${accent.to})` }} />
+      <OceanGlassCard depth="sm" hoverLift className="group relative z-10 h-full border border-ocean-200/60 shadow-[0_10px_30px_rgba(8,145,178,0.10)] transition-shadow duration-300 hover:border-cyan-300/70 hover:shadow-[0_24px_54px_rgba(8,145,178,0.22)]">
         <Link
           href={`/${locale}/blog/${post.slug}`}
           className="group/link relative flex h-full flex-col overflow-hidden rounded-2xl"

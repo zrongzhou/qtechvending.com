@@ -123,7 +123,7 @@ export default function ContactClient({
   }
 
   const inputCls =
-    'w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-2.5 text-sm outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-100';
+    'w-full rounded-xl border border-slate-300 bg-white/90 px-4 py-2.5 text-sm text-ink-800 outline-none transition-all duration-200 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/15 focus:shadow-[0_0_0_4px_rgba(34,211,238,0.12)]';
 
   const infoRow = (Icon: LucideIcon, label: string, value: string) => (
     <li className="flex items-start gap-3">
@@ -136,13 +136,16 @@ export default function ContactClient({
   );
 
   return (
-    <div className="bg-gradient-to-br from-slate-50 via-white to-cyan-50/30">
+    <div className="relative bg-gradient-to-br from-slate-50 via-white to-cyan-50/30">
     <div className="container-qtech relative overflow-hidden py-12 lg:py-16">
       {/* V49.8: decorative colour blooms so the page reads less flat. */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-        <div className="absolute -top-20 start-0 h-72 w-72 rounded-full bg-cyan-300/20 blur-3xl" />
-        <div className="absolute top-1/3 end-0 h-80 w-80 rounded-full bg-teal-300/15 blur-3xl" />
-        <div className="absolute bottom-0 start-1/4 h-72 w-72 rounded-full bg-teal-300/20 blur-3xl" />
+        {/* subtle brand grid for depth */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(8,145,178,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(8,145,178,0.05)_1px,transparent_1px)] [background-size:40px_40px]" />
+        <div className="absolute -top-20 start-0 h-72 w-72 rounded-full bg-cyan-300/25 blur-3xl" />
+        <div className="absolute top-1/3 end-0 h-80 w-80 rounded-full bg-teal-300/22 blur-3xl" />
+        <div className="absolute bottom-0 start-1/4 h-72 w-72 rounded-full bg-teal-300/25 blur-3xl" />
+        <div className="absolute top-2/3 end-1/3 h-60 w-60 rounded-full bg-sky-300/12 blur-3xl" />
       </div>
       <RevealOnScroll>
         <header className="mb-8 text-center">
@@ -156,7 +159,7 @@ export default function ContactClient({
 
       <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
         <RevealOnScroll className="h-full">
-          <form onSubmit={onSubmit} className="relative h-full space-y-5 overflow-hidden rounded-3xl border border-slate-200 bg-white/90 p-8 shadow-lg shadow-cyan-500/5 backdrop-blur-md sm:p-10">
+          <form onSubmit={onSubmit} className="relative h-full space-y-5 overflow-hidden rounded-3xl border border-white/60 bg-white/75 p-8 shadow-[0_20px_60px_rgba(15,23,42,0.12),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-xl sm:p-10">
             <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-cyan-400 to-teal-600" />
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
@@ -231,7 +234,7 @@ export default function ContactClient({
         <RevealOnScroll delay={120} className="h-full">
           <aside className="space-y-6">
             {/* Contact info card */}
-            <div className="pro-card relative overflow-hidden bg-gradient-to-br from-white to-cyan-50/30 p-6">
+            <div className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/70 p-6 shadow-[0_16px_44px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.85)] backdrop-blur-xl">
               <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-cyan-400 to-teal-600" />
               <h2 className="text-lg font-semibold text-ink-900">{t('contact.info')}</h2>
               <ul className="mt-4 space-y-4 text-sm">
@@ -256,11 +259,11 @@ export default function ContactClient({
             </div>
 
             {/* Map / location */}
-            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-sm">
+            <div className="overflow-hidden rounded-2xl border border-white/60 bg-white/60 p-1.5 shadow-[0_16px_44px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.85)] backdrop-blur-xl">
               <iframe
                 title="Qtech Vending — Guangzhou"
                 src="https://maps.google.com/maps?q=2nd+Floor+No.+131+Jinlong+Road+Dalong+street+Panyu+Guangzhou+China&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                className="h-52 w-full"
+                className="h-52 w-full rounded-xl"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
@@ -268,7 +271,7 @@ export default function ContactClient({
 
             {/* Social media — V49.12: cyan/teal brand theme (matches blog/FAQ),
                 unified with the rest of the site's calm brand family. */}
-            <div className="pro-card relative overflow-hidden bg-gradient-to-br from-white to-cyan-50/40 p-6">
+            <div className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/70 p-6 shadow-[0_16px_44px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.85)] backdrop-blur-xl">
               <span className="absolute inset-x-0 top-0 z-20 h-1 bg-gradient-to-r from-cyan-400 to-teal-600" />
               <h3 className="text-sm font-semibold uppercase tracking-wide text-ink-500">
                 {t('contact.connectWithUs')}
@@ -288,7 +291,7 @@ export default function ContactClient({
                       <IconTile
                         icon={Icon}
                         className="h-5 w-5"
-                        tileClassName="flex h-10 w-10 items-center justify-center rounded-full bg-cyan-50 text-cyan-700 transition hover:bg-cyan-600 hover:text-white"
+                        tileClassName="flex h-10 w-10 items-center justify-center rounded-full bg-cyan-50 text-cyan-700 transition-all duration-300 hover:bg-gradient-to-br hover:from-cyan-500 hover:to-teal-600 hover:text-white hover:shadow-[0_0_18px_rgba(34,211,238,0.6)] hover:-translate-y-0.5"
                       />
                     </a>
                   );

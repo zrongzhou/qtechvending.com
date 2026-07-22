@@ -35,13 +35,16 @@ export default function FaqAccordion() {
   const visibleCats = active === 'all' ? FAQ_CATEGORIES : FAQ_CATEGORIES.filter((c) => c.id === active);
 
   return (
-    <RevealOnScroll className="bg-gradient-to-b from-slate-50 via-white to-cyan-50/30">
+    <RevealOnScroll className="relative bg-gradient-to-b from-slate-50 via-white to-cyan-50/30">
         <div className="container-qtech relative overflow-hidden py-20 md:py-28">
         {/* V49.8: decorative colour blooms so the page reads less flat. */}
         <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-          <div className="absolute -top-20 start-0 h-72 w-72 rounded-full bg-cyan-300/20 blur-3xl" />
-          <div className="absolute top-1/3 end-0 h-80 w-80 rounded-full bg-teal-300/15 blur-3xl" />
-          <div className="absolute bottom-0 start-1/4 h-72 w-72 rounded-full bg-teal-300/20 blur-3xl" />
+          {/* subtle brand grid for depth */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(8,145,178,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(8,145,178,0.05)_1px,transparent_1px)] [background-size:42px_42px]" />
+          <div className="absolute -top-20 start-0 h-72 w-72 rounded-full bg-cyan-300/25 blur-3xl" />
+          <div className="absolute top-1/3 end-0 h-80 w-80 rounded-full bg-teal-300/22 blur-3xl" />
+          <div className="absolute bottom-0 start-1/4 h-72 w-72 rounded-full bg-teal-300/25 blur-3xl" />
+          <div className="absolute top-1/2 start-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-sky-300/12 blur-3xl" />
         </div>
         {/* Header */}
         <div className="mx-auto max-w-2xl text-center">
@@ -66,10 +69,10 @@ export default function FaqAccordion() {
                     setActive(tab.id);
                     setOpen({});
                   }}
-                  className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold outline-none transition focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 active:scale-95 ${
+                  className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 active:scale-95 ${
                     isActive
-                      ? 'bg-cyan-600 text-white shadow-sm'
-                      : 'text-ink-600 hover:bg-cyan-50'
+                      ? 'bg-gradient-to-r from-cyan-600 to-teal-600 text-white shadow-md shadow-cyan-600/30 ring-1 ring-white/20'
+                      : 'text-ink-600 ring-1 ring-slate-200 hover:bg-cyan-50 hover:text-cyan-700 hover:ring-cyan-200'
                   }`}
                 >
                   {localized(tab.title, locale)}
@@ -97,8 +100,8 @@ export default function FaqAccordion() {
                   return (
                     <RevealOnScroll key={idx} delay={idx * 60} className="h-full">
                     <div
-                      className="pro-card faq-accent-card relative overflow-hidden rounded-2xl border border-white/70 bg-white/80 backdrop-blur-sm transition hover:-translate-y-0.5 hover:shadow-md"
-                      style={{ ['--accent' as string]: accent.from } as CSSProperties}
+                      className="faq-accent-card relative overflow-hidden rounded-2xl border border-white/60 bg-white/65 shadow-[0_6px_24px_rgba(15,23,42,0.06),inset_0_1px_0_rgba(255,255,255,0.7)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-cyan-200/70 hover:bg-white/80 hover:shadow-[0_16px_44px_rgba(8,145,178,0.20),0_0_22px_rgba(34,211,238,0.12)]"
+                      style={{ ['--accent' as string]: accent.from, borderLeft: `4px solid ${accent.from}` } as CSSProperties}
                     >
                       <span className="absolute inset-x-0 top-0 z-20 h-1" style={{ background: `linear-gradient(to right, ${accent.from}, ${accent.to})` }} />
                       <button
@@ -141,7 +144,11 @@ export default function FaqAccordion() {
         </div>
 
         {/* Contact CTA */}
-        <div className="relative mt-16 overflow-hidden rounded-3xl bg-gradient-to-br from-cyan-600 to-teal-600 px-8 py-14 text-center text-white shadow-lift">
+        <div className="relative mt-16 overflow-hidden rounded-3xl bg-gradient-to-br from-cyan-600 via-teal-600 to-teal-700 px-8 py-14 text-center text-white shadow-lift">
+          {/* decorative glow orbs + sheen (brand ambient) */}
+          <div className="pointer-events-none absolute -top-16 -start-10 h-56 w-56 rounded-full bg-cyan-300/25 blur-3xl" aria-hidden="true" />
+          <div className="pointer-events-none absolute -bottom-20 -end-12 h-64 w-64 rounded-full bg-teal-300/25 blur-3xl" aria-hidden="true" />
+          <div className="cta-sheen pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
           <div className="relative z-10">
             <h2 className="text-2xl font-bold sm:text-3xl">{t('faq.ctaTitle')}</h2>
             <p className="mx-auto mt-3 max-w-2xl text-white/90">{t('faq.ctaSubtitle')}</p>
