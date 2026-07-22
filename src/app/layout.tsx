@@ -22,6 +22,11 @@ export const metadata: Metadata = {
       'baidu-site-verification': 'YOUR_BAIDU_VERIFICATION_CODE_HERE',
     },
   },
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
 };
 
 // Reading the middleware-injected `x-pathname` forces dynamic rendering, which
