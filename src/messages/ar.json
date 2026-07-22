@@ -345,6 +345,13 @@
   "admin.keyRequired": "المفتاح مطلوب.",
   "admin.saveError": "تعذّر الحفظ. حاول مرة أخرى.",
   "admin.noData": "لا توجد بيانات.",
+  "admin.searchProductsPlaceholder": "ابحث عن المنتجات...",
+  "admin.totalProducts": "إجمالي المنتجات",
+  "admin.activeProducts": "مفعّل",
+  "admin.inactiveProducts": "غير مفعّل",
+  "admin.noProductsTitle": "لا توجد منتجات بعد",
+  "admin.noProductsDescription": "أنشئ أول منتج لك لبدء بناء كتالوجك.",
+  "admin.createFirstProduct": "أنشئ أول منتج",
   "admin.notFound": "غير موجود.",
   "admin.noCategories": "لا توجد فئات بعد.",
   "product.faq": "الأسئلة الشائعة"

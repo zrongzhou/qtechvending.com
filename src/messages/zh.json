@@ -345,6 +345,13 @@
   "admin.keyRequired": "标识必填。",
   "admin.saveError": "保存失败，请重试。",
   "admin.noData": "暂无数据。",
+  "admin.searchProductsPlaceholder": "搜索产品...",
+  "admin.totalProducts": "产品总数",
+  "admin.activeProducts": "已启用",
+  "admin.inactiveProducts": "已停用",
+  "admin.noProductsTitle": "暂无产品",
+  "admin.noProductsDescription": "创建你的第一个产品，开始搭建产品目录。",
+  "admin.createFirstProduct": "创建第一个产品",
   "admin.notFound": "未找到。",
   "admin.noCategories": "暂无分类。",
   "product.faq": "常见问题"
