@@ -67,7 +67,12 @@ const nextConfig = {
         // HTML responses only — give them a short cache + must-revalidate so a
         // CDN is unlikely to keep an old page (with stale Server Action IDs)
         // for long. Dynamic pages already send private, no-cache, no-store.
-        source: '/:path*',
+        // The negative-lookahead source excludes any path containing a dot
+        // (e.g. sitemap.xml, robots.txt, static assets) and any /api/* route,
+        // so the HTML-only header can never collide with the sitemap's own
+        // no-store Cache-Control (which would otherwise let a CDN "optimise"
+        // and strip the XML tags).
+        source: '/:path((?!api/)(?!.*\\.).*)',
         has: [{ type: 'header', key: 'Accept', value: '(.*text/html.*)' }],
         headers: [
           { key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' },

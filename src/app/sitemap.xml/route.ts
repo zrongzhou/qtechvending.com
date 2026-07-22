@@ -107,7 +107,7 @@ export async function GET(): Promise<Response> {
     headers: {
       'Content-Type': 'text/xml; charset=utf-8',
       'X-Content-Type-Options': 'nosniff',
-      'Cache-Control': 'no-store, must-revalidate',
+      'Cache-Control': 'no-store, no-transform, must-revalidate',
       'CDN-Cache-Control': 'no-store',
       'Surrogate-Control': 'no-store',
       Pragma: 'no-cache',
