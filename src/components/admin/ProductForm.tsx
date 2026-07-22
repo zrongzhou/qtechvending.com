@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import type { Product, I18nString, I18nStringList, FaqItem, Category } from '@/types';
 import { t } from './i18n';
 import { TriTextInput, TriTextArea, TriListInput, emptyI18n } from './I18nInputs';
@@ -15,6 +15,16 @@ interface SpecRow {
   value: string;
 }
 
+/** A titled grouping card used to organise the product form into sections. */
+function GroupCard({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <section className="rounded-xl border border-slate-200 bg-white p-5">
+      <h3 className="mb-4 text-sm font-semibold text-ink-900">{title}</h3>
+      <div className="space-y-4">{children}</div>
+    </section>
+  );
+}
+
 export default function ProductForm({
   initial,
   onSaved,
@@ -24,7 +34,6 @@ export default function ProductForm({
   onSaved?: () => void;
   onCancel?: () => void;
 }) {
-  const [tab, setTab] = useState<'details' | 'faq'>('details');
   const [slug, setSlug] = useState(initial?.slug ?? '');
   const [sku, setSku] = useState(initial?.sku ?? '');
   const [title, setTitle] = useState<I18nString>(initial?.name ?? emptyI18n());
@@ -45,6 +54,7 @@ export default function ProductForm({
   const [faq, setFaq] = useState<FaqItem[]>(initial?.faq ?? []);
 
   const [allCategories, setAllCategories] = useState<Category[]>([]);
+  const [catSearch, setCatSearch] = useState('');
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
@@ -62,6 +72,13 @@ export default function ProductForm({
     setSpecs((prev) => prev.map((r, i) => (i === idx ? { ...r, ...patch } : r)));
   const removeSpec = (idx: number) => setSpecs((prev) => prev.filter((_, i) => i !== idx));
   const addSpec = () => setSpecs((prev) => [...prev, { param: '', value: '' }]);
+
+  const filteredCats = allCategories.filter((c) => {
+    const q = catSearch.trim().toLowerCase();
+    if (!q) return true;
+    const name = String((c.name as Record<string, string>)?.en ?? c.slug).toLowerCase();
+    return name.includes(q) || c.slug.toLowerCase().includes(q);
+  });
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -114,30 +131,13 @@ export default function ProductForm({
 
   return (
     <form onSubmit={submit} className="space-y-5">
-      {/* Tabs */}
-      <div className="flex gap-1 border-b border-slate-200">
-        <button
-          type="button"
-          onClick={() => setTab('details')}
-          className={`rounded-t-md px-4 py-2 text-sm font-medium ${
-            tab === 'details' ? 'border-b-2 border-brand-600 text-brand-700' : 'text-ink-500 hover:text-ink-700'
-          }`}
-        >
-          {t('admin.tabDetails')}
-        </button>
-        <button
-          type="button"
-          onClick={() => setTab('faq')}
-          className={`rounded-t-md px-4 py-2 text-sm font-medium ${
-            tab === 'faq' ? 'border-b-2 border-brand-600 text-brand-700' : 'text-ink-500 hover:text-ink-700'
-          }`}
-        >
-          {t('admin.tabFaq')} ({faq.length})
-        </button>
-      </div>
+      {error && (
+        <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>
+      )}
 
-      {tab === 'details' ? (
-        <div className="space-y-4 rounded-xl border border-slate-200 bg-white p-5">
+      {/* 基础信息 */}
+      <GroupCard title={t('admin.basicInfo')}>
+        <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className={labelCls}>
               {t('admin.fieldSlug')} <span className="text-red-500">*</span>
@@ -162,127 +162,155 @@ export default function ProductForm({
               disabled={!!initial}
             />
           </div>
-          <TriTextInput label={t('admin.fieldTitle')} value={title} onChange={setTitle} required />
-          <TriTextArea label={t('admin.fieldShortDescription')} value={shortDescription} onChange={setShortDescription} />
-          <TriTextArea label={t('admin.fieldDescription')} value={description} onChange={setDescription} rows={5} />
-          <div>
-            <label className={labelCls}>{t('admin.fieldImage')}</label>
-            <input
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
-              className={inputCls}
-              placeholder="/images/products/rose-vending/1.webp"
-            />
-          </div>
+        </div>
 
-          {/* Specs editor */}
-          <div>
-            <label className={labelCls}>{t('admin.fieldSpecs')}</label>
-            <div className="space-y-2">
-              {specs.map((row, idx) => (
-                <div key={idx} className="flex items-center gap-2">
-                  <input
-                    value={row.param}
-                    onChange={(e) => updateSpec(idx, { param: e.target.value })}
-                    placeholder={t('admin.fieldParam')}
-                    className={inputCls}
-                  />
-                  <input
-                    value={row.value}
-                    onChange={(e) => updateSpec(idx, { value: e.target.value })}
-                    placeholder={t('admin.fieldValue')}
-                    className={inputCls}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => removeSpec(idx)}
-                    className="shrink-0 rounded-md border border-red-300 px-2 py-2 text-sm text-red-600 hover:bg-red-50"
-                  >
-                    ✕
-                  </button>
-                </div>
-              ))}
-              <button
-                type="button"
-                onClick={addSpec}
-                className="rounded-md border border-brand-300 px-3 py-1.5 text-sm font-medium text-brand-700 hover:bg-brand-50"
-              >
-                + {t('admin.addSpec')}
-              </button>
-            </div>
-          </div>
-
-          {/* SEO */}
-          <div className="border-t border-slate-100 pt-4">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-400">
-              {t('admin.seoSection')}
-            </p>
-            <div className="space-y-4">
-              <TriTextInput label={t('admin.fieldSeoTitle')} value={seoTitle} onChange={setSeoTitle} />
-              <TriListInput label={t('admin.fieldSeoKeywords')} value={seoKeywords} onChange={setSeoKeywords} />
-            </div>
-          </div>
-
-          {/* Categories multi-select */}
-          <div>
-            <label className={labelCls}>{t('admin.fieldCategories')}</label>
-            <div className="grid max-h-48 grid-cols-2 gap-2 overflow-y-auto rounded-lg border border-slate-200 p-3 sm:grid-cols-3">
-              {allCategories.map((c) => (
-                <label key={c.id} className="flex items-center gap-2 text-sm text-ink-700">
+        {/* Categories multi-select (searchable two-column checkbox cards). */}
+        <div>
+          <label className={labelCls}>{t('admin.fieldCategories')}</label>
+          <input
+            value={catSearch}
+            onChange={(e) => setCatSearch(e.target.value)}
+            placeholder={t('admin.search')}
+            className={inputCls}
+          />
+          <div className="mt-2 grid max-h-56 grid-cols-1 gap-2 overflow-y-auto rounded-lg border border-slate-200 p-3 sm:grid-cols-2">
+            {filteredCats.map((c) => {
+              const checked = categorySlugs.includes(c.slug);
+              return (
+                <label
+                  key={c.id}
+                  className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-sm transition ${
+                    checked
+                      ? 'border-brand-400 bg-brand-50 text-brand-700'
+                      : 'border-slate-200 text-ink-700 hover:bg-slate-50'
+                  }`}
+                >
                   <input
                     type="checkbox"
-                    checked={categorySlugs.includes(c.slug)}
+                    checked={checked}
                     onChange={() => toggleCat(c.slug)}
+                    className="h-4 w-4 rounded border-slate-300"
                   />
-                  <span>{c.icon ? `${c.icon} ` : ''}{String((c.name as Record<string, string>)?.en ?? c.slug)}</span>
+                  <span className="truncate">
+                    {c.icon ? `${c.icon} ` : ''}
+                    {String((c.name as Record<string, string>)?.en ?? c.slug)}
+                  </span>
                 </label>
-              ))}
-              {!allCategories.length && (
-                <span className="col-span-full text-sm text-ink-400">{t('admin.noCategories')}</span>
-              )}
-            </div>
+              );
+            })}
+            {!filteredCats.length && (
+              <span className="col-span-full text-sm text-ink-400">{t('admin.noCategories')}</span>
+            )}
           </div>
+        </div>
 
-          <div className="grid gap-4 sm:grid-cols-3">
-            <div>
-              <label className={labelCls}>{t('admin.fieldOrder')}</label>
+        <div className="grid gap-4 sm:grid-cols-3">
+          <div>
+            <label className={labelCls}>{t('admin.fieldStatus')}</label>
+            <select value={status} onChange={(e) => setStatus(e.target.value)} className={inputCls}>
+              <option value="active">{t('admin.statusActive')}</option>
+              <option value="inactive">{t('admin.statusInactive')}</option>
+            </select>
+          </div>
+          <div>
+            <label className={labelCls}>{t('admin.fieldOrder')}</label>
+            <input
+              type="number"
+              value={order}
+              onChange={(e) => setOrder(Number(e.target.value))}
+              className={inputCls}
+            />
+          </div>
+          <div className="flex items-end">
+            <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
               <input
-                type="number"
-                value={order}
-                onChange={(e) => setOrder(Number(e.target.value))}
+                type="checkbox"
+                checked={featured}
+                onChange={(e) => setFeatured(e.target.checked)}
+              />
+              {t('admin.fieldFeatured')}
+            </label>
+          </div>
+        </div>
+      </GroupCard>
+
+      {/* 多语言内容 */}
+      <GroupCard title={t('admin.content')}>
+        <TriTextInput label={t('admin.fieldTitle')} value={title} onChange={setTitle} required />
+        <TriTextArea label={t('admin.fieldShortDescription')} value={shortDescription} onChange={setShortDescription} />
+        <TriTextArea label={t('admin.fieldDescription')} value={description} onChange={setDescription} rows={5} />
+      </GroupCard>
+
+      {/* 媒体 */}
+      <GroupCard title={t('admin.media')}>
+        <div>
+          <label className={labelCls}>{t('admin.fieldImage')}</label>
+          <input
+            value={image}
+            onChange={(e) => setImage(e.target.value)}
+            className={inputCls}
+            placeholder="/images/products/rose-vending/1.webp"
+          />
+          {image.trim() && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={image.trim()}
+              alt="preview"
+              className="mt-3 h-24 w-24 rounded-lg border border-slate-200 object-cover"
+            />
+          )}
+        </div>
+      </GroupCard>
+
+      {/* 规格参数 */}
+      <GroupCard title={t('admin.specifications')}>
+        <div className="space-y-2">
+          {specs.map((row, idx) => (
+            <div key={idx} className="flex items-center gap-2">
+              <input
+                value={row.param}
+                onChange={(e) => updateSpec(idx, { param: e.target.value })}
+                placeholder={t('admin.fieldParam')}
                 className={inputCls}
               />
+              <input
+                value={row.value}
+                onChange={(e) => updateSpec(idx, { value: e.target.value })}
+                placeholder={t('admin.fieldValue')}
+                className={inputCls}
+              />
+              <button
+                type="button"
+                onClick={() => removeSpec(idx)}
+                className="shrink-0 rounded-md border border-red-300 px-2 py-2 text-sm text-red-600 hover:bg-red-50"
+              >
+                ✕
+              </button>
             </div>
-            <div>
-              <label className={labelCls}>{t('admin.fieldStatus')}</label>
-              <select value={status} onChange={(e) => setStatus(e.target.value)} className={inputCls}>
-                <option value="active">{t('admin.statusActive')}</option>
-                <option value="inactive">{t('admin.statusInactive')}</option>
-              </select>
-            </div>
-            <div className="flex items-end">
-              <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
-                <input
-                  type="checkbox"
-                  checked={featured}
-                  onChange={(e) => setFeatured(e.target.checked)}
-                />
-                {t('admin.fieldFeatured')}
-              </label>
-            </div>
-          </div>
+          ))}
+          <button
+            type="button"
+            onClick={addSpec}
+            className="rounded-md border border-brand-300 px-3 py-1.5 text-sm font-medium text-brand-700 hover:bg-brand-50"
+          >
+            + {t('admin.addSpec')}
+          </button>
         </div>
-      ) : (
-        <div className="rounded-xl border border-slate-200 bg-white p-5">
-          <ProductFaqEditor value={faq} onChange={setFaq} />
-        </div>
-      )}
+      </GroupCard>
 
-      {error && (
-        <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>
-      )}
+      {/* SEO */}
+      <GroupCard title={t('admin.seo')}>
+        <TriTextInput label={t('admin.fieldSeoTitle')} value={seoTitle} onChange={setSeoTitle} />
+        <TriListInput label={t('admin.fieldSeoKeywords')} value={seoKeywords} onChange={setSeoKeywords} />
+      </GroupCard>
 
-      <div className="flex gap-2">
+      {/* FAQ */}
+      <GroupCard title={t('admin.faq')}>
+        <ProductFaqEditor value={faq} onChange={setFaq} />
+      </GroupCard>
+
+      {/* Sticky action bar. */}
+      <div className="sticky bottom-0 z-10 -mx-4 flex items-center justify-end gap-2 border-t border-slate-200 bg-white/95 px-4 py-3 backdrop-blur">
         <button
           type="submit"
           disabled={saving}

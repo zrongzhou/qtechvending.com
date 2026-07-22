@@ -7,6 +7,12 @@ import { t } from '@/components/admin/i18n';
 import { localized } from '@/lib/localize';
 import type { Category } from '@/types';
 
+interface CategoryStats {
+  total: number;
+  active: number;
+  inactive: number;
+}
+
 export default function CategoriesPage() {
   const [items, setItems] = useState<Category[]>([]);
   const [total, setTotal] = useState(0);
@@ -16,6 +22,8 @@ export default function CategoriesPage() {
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState<Category | null>(null);
   const [showForm, setShowForm] = useState(false);
+  const [stats, setStats] = useState<CategoryStats>({ total: 0, active: 0, inactive: 0 });
+  const [statsLoading, setStatsLoading] = useState(true);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const load = useCallback(async (p: number, q: string) => {
@@ -39,6 +47,29 @@ export default function CategoriesPage() {
     }
   }, []);
 
+  /** Fetch overall category counts so the overview cards stay accurate. */
+  const loadStats = useCallback(async () => {
+    setStatsLoading(true);
+    try {
+      const base = new URLSearchParams();
+      base.set('limit', '1');
+      const [all, active, inactive] = await Promise.all([
+        fetch(`/api/admin/categories?${base.toString()}`, { credentials: 'include' }).then((r) => r.json()),
+        fetch(`/api/admin/categories?${base.toString()}&status=active`, { credentials: 'include' }).then((r) => r.json()),
+        fetch(`/api/admin/categories?${base.toString()}&status=inactive`, { credentials: 'include' }).then((r) => r.json()),
+      ]);
+      setStats({
+        total: all.total || 0,
+        active: active.total || 0,
+        inactive: inactive.total || 0,
+      });
+    } catch {
+      /* keep */
+    } finally {
+      setStatsLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
@@ -56,17 +87,32 @@ export default function CategoriesPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
+  useEffect(() => {
+    loadStats();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const remove = async (id: string) => {
     if (!confirm(t('admin.deleteConfirm'))) return;
     const res = await fetch(`/api/admin/categories/${id}`, { method: 'DELETE', credentials: 'include' });
-    if (res.ok) load(page, search);
+    if (res.ok) {
+      load(page, search);
+      loadStats();
+    }
   };
 
   const onSaved = () => {
     setShowForm(false);
     setEditing(null);
     load(page, search);
+    loadStats();
   };
+
+  const statCards = [
+    { label: t('admin.totalCategories'), value: stats.total },
+    { label: t('admin.activeProducts'), value: stats.active },
+    { label: t('admin.inactiveProducts'), value: stats.inactive },
+  ];
 
   return (
     <div>
@@ -86,6 +132,16 @@ export default function CategoriesPage() {
           </button>
         </div>
 
+        {/* Overview stat cards. */}
+        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+          {statCards.map((c) => (
+            <div key={c.label} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-card">
+              <p className="text-sm text-ink-500">{c.label}</p>
+              <p className="mt-2 text-3xl font-bold text-ink-900">{statsLoading ? '—' : c.value}</p>
+            </div>
+          ))}
+        </div>
+
         {showForm && (
           <div className="mt-4">
             <CategoryForm
@@ -103,63 +159,101 @@ export default function CategoriesPage() {
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder={t('admin.search')}
+            placeholder={t('admin.searchCategoriesPlaceholder')}
             className="w-full max-w-sm rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand-500"
           />
         </div>
 
-        <div className="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-white">
-          <table className="w-full text-sm">
-            <thead className="bg-slate-50 text-ink-500">
-              <tr>
-                <th className="px-3 py-2 text-start font-medium">{t('admin.colName')}</th>
-                <th className="px-3 py-2 text-start font-medium">{t('admin.colIcon')}</th>
-                <th className="px-3 py-2 text-start font-medium">{t('admin.colType')}</th>
-                <th className="px-3 py-2 text-start font-medium">{t('admin.colStatus')}</th>
-                <th className="px-3 py-2 text-start font-medium">{t('admin.colOrder')}</th>
-                <th className="px-3 py-2 text-start font-medium">{t('admin.colActions')}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {items.map((c) => (
-                <tr key={c.id} className="border-t border-slate-100">
-                  <td className="px-3 py-2 font-medium text-ink-800">
-                    {localized(c.name, 'en')}
-                    <div className="text-xs text-ink-400">{c.slug}</div>
-                  </td>
-                  <td className="px-3 py-2">{c.icon || '—'}</td>
-                  <td className="px-3 py-2 text-ink-600">{c.type}</td>
-                  <td className="px-3 py-2">
-                    <span
-                      className={`rounded-full px-2 py-0.5 text-xs ${
-                        c.status === 'active' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-ink-500'
-                      }`}
-                    >
-                      {c.status}
-                    </span>
-                  </td>
-                  <td className="px-3 py-2 text-ink-600">{c.order}</td>
-                  <td className="px-3 py-2">
-                    <div className="flex gap-2">
-                      <button type="button" onClick={() => { setEditing(c); setShowForm(true); }} className="text-brand-700 hover:underline">
-                        {t('admin.edit')}
-                      </button>
-                      <button type="button" onClick={() => remove(c.id)} className="text-red-600 hover:underline">
-                        {t('admin.delete')}
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {!loading && !items.length && (
-            <p className="px-4 py-10 text-center text-ink-400">{t('admin.noData')}</p>
-          )}
-        </div>
+        {!loading && !items.length ? (
+          <div className="mt-6 flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-white py-16 text-center">
+            <svg
+              className="h-14 w-14 text-slate-300"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-6l-2-2H5a2 2 0 0 0-2 2z" />
+            </svg>
+            <h3 className="mt-4 text-lg font-semibold text-ink-900">{t('admin.noData')}</h3>
+            <button
+              type="button"
+              onClick={() => {
+                setEditing(null);
+                setShowForm(true);
+              }}
+              className="mt-5 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700"
+            >
+              {t('admin.newCategory')}
+            </button>
+          </div>
+        ) : (
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {items.map((c) => (
+              <div
+                key={c.id}
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-card transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
+              >
+                <div className="flex items-start gap-3 p-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-lg">
+                    {c.icon || '📁'}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="truncate text-sm font-semibold text-ink-900" title={localized(c.name, 'zh')}>
+                      {localized(c.name, 'zh')}
+                    </h3>
+                    <p className="truncate font-mono text-xs text-ink-400" title={c.slug}>
+                      {c.slug}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2 px-4">
+                  <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-ink-500">{c.type}</span>
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-xs ${
+                      c.status === 'active' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-ink-500'
+                    }`}
+                  >
+                    {c.status}
+                  </span>
+                </div>
+
+                <p className="mt-2 px-4 text-xs text-ink-400">Order: {c.order}</p>
+
+                <div className="mt-auto flex gap-2 p-4 pt-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEditing(c);
+                      setShowForm(true);
+                    }}
+                    className="flex-1 rounded-lg bg-brand-600 px-3 py-1.5 text-center text-sm font-medium text-white hover:bg-brand-700"
+                  >
+                    {t('admin.edit')}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => remove(c.id)}
+                    className="rounded-lg px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50"
+                  >
+                    {t('admin.delete')}
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {loading && (
+          <p className="mt-6 text-center text-sm text-ink-400">{t('common.loading')}</p>
+        )}
 
         {totalPages > 1 && (
-          <div className="mt-4 flex items-center justify-center gap-4">
+          <div className="mt-6 flex items-center justify-center gap-4">
             <button
               type="button"
               disabled={page <= 1}

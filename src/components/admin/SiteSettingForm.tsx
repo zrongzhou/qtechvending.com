@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import type { SiteSetting, I18nString, I18nStringList, SocialLink } from '@/types';
 import { t } from './i18n';
 import { TriTextInput, TriTextArea, TriListInput, emptyI18n } from './I18nInputs';
@@ -9,12 +9,25 @@ const inputCls =
   'w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand-500';
 const labelCls = 'mb-1.5 block text-sm font-medium text-slate-700';
 
+/** A titled grouping card used to organise the site-settings form into sections. */
+function GroupCard({ title, desc, children }: { title: string; desc?: string; children: ReactNode }) {
+  return (
+    <section className="rounded-xl border border-slate-200 bg-white p-5">
+      <div className="mb-4">
+        <h3 className="text-sm font-semibold text-ink-900">{title}</h3>
+        {desc && <p className="mt-0.5 text-xs text-ink-400">{desc}</p>}
+      </div>
+      <div className="space-y-4">{children}</div>
+    </section>
+  );
+}
+
 export default function SiteSettingForm({
   initial,
   onSaved,
 }: {
   initial?: SiteSetting | null;
-  onSaved?: () => void;
+  onSaved?: (s: SiteSetting) => void;
 }) {
   const [company, setCompany] = useState<I18nString>(initial?.company ?? emptyI18n());
   const [email, setEmail] = useState(initial?.email ?? '');
@@ -64,14 +77,14 @@ export default function SiteSettingForm({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
+      const result = await res.json().catch(() => ({}));
       if (!res.ok) {
-        const j = await res.json().catch(() => ({}));
-        setError(j.error || t('admin.saveError'));
+        setError(result?.error || t('admin.saveError'));
         setSaving(false);
         return;
       }
       setSaving(false);
-      onSaved?.();
+      onSaved?.(result?.data ?? (initial as SiteSetting));
     } catch {
       setError(t('admin.saveError'));
       setSaving(false);
@@ -79,91 +92,102 @@ export default function SiteSettingForm({
   };
 
   return (
-    <form onSubmit={submit} className="space-y-4 rounded-xl border border-slate-200 bg-white p-5">
-      <TriTextInput label={t('admin.fieldCompany')} value={company} onChange={setCompany} required />
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label className={labelCls}>{t('admin.fieldEmail')}</label>
-          <input value={email} onChange={(e) => setEmail(e.target.value)} className={inputCls} />
-        </div>
-        <div>
-          <label className={labelCls}>{t('admin.fieldPhone')}</label>
-          <input value={phone} onChange={(e) => setPhone(e.target.value)} className={inputCls} />
-        </div>
-      </div>
-      <TriTextArea label={t('admin.fieldAddress')} value={address} onChange={setAddress} />
-      <div>
-        <label className={labelCls}>{t('admin.fieldAddressLine')}</label>
-        <input value={addressLine} onChange={(e) => setAddressLine(e.target.value)} className={inputCls} />
-      </div>
-
-      {/* Socials */}
-      <div>
-        <label className={labelCls}>{t('admin.fieldSocials')}</label>
-        <div className="space-y-2">
-          {socials.map((s, idx) => (
-            <div key={idx} className="flex items-center gap-2">
-              <input
-                value={s.name}
-                onChange={(e) => updateSocial(idx, { name: e.target.value })}
-                placeholder={t('admin.fieldName')}
-                className={inputCls}
-              />
-              <input
-                value={s.href}
-                onChange={(e) => updateSocial(idx, { href: e.target.value })}
-                placeholder="https://..."
-                className={inputCls}
-              />
-              <button
-                type="button"
-                onClick={() => removeSocial(idx)}
-                className="shrink-0 rounded-md border border-red-300 px-2 py-2 text-sm text-red-600 hover:bg-red-50"
-              >
-                ✕
-              </button>
-            </div>
-          ))}
-          <button
-            type="button"
-            onClick={addSocial}
-            className="rounded-md border border-brand-300 px-3 py-1.5 text-sm font-medium text-brand-700 hover:bg-brand-50"
-          >
-            + {t('admin.addSocial')}
-          </button>
-        </div>
-      </div>
-
-      {/* sameAs */}
-      <div>
-        <label className={labelCls}>{t('admin.fieldSameAs')}</label>
-        <textarea
-          rows={3}
-          value={sameAsText}
-          onChange={(e) => setSameAsText(e.target.value)}
-          placeholder="https://facebook.com/...&#10;https://twitter.com/..."
-          className={`${inputCls} resize-y`}
-        />
-      </div>
-
-      <TriListInput label={t('admin.fieldKeywords')} value={keywords} onChange={setKeywords} />
-      <TriTextInput label={t('admin.fieldDefaultTitle')} value={defaultTitle} onChange={setDefaultTitle} />
-      <TriTextArea label={t('admin.fieldDefaultDescription')} value={defaultDescription} onChange={setDefaultDescription} />
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label className={labelCls}>{t('admin.fieldOgImage')}</label>
-          <input value={ogImage} onChange={(e) => setOgImage(e.target.value)} className={inputCls} />
-        </div>
-        <div>
-          <label className={labelCls}>{t('admin.fieldTwitterHandle')}</label>
-          <input value={twitterHandle} onChange={(e) => setTwitterHandle(e.target.value)} className={inputCls} />
-        </div>
-      </div>
-
+    <form onSubmit={submit} className="space-y-5">
       {error && (
         <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>
       )}
+
+      {/* 公司信息 */}
+      <GroupCard title={t('admin.companyInfo')} desc={t('admin.companyInfoDesc')}>
+        <TriTextInput label={t('admin.fieldCompany')} value={company} onChange={setCompany} required />
+        <TriTextArea label={t('admin.fieldAddress')} value={address} onChange={setAddress} />
+        <div>
+          <label className={labelCls}>{t('admin.fieldAddressLine')}</label>
+          <input value={addressLine} onChange={(e) => setAddressLine(e.target.value)} className={inputCls} />
+        </div>
+      </GroupCard>
+
+      {/* 联系信息 */}
+      <GroupCard title={t('admin.contactInfo')} desc={t('admin.contactInfoDesc')}>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label className={labelCls}>{t('admin.fieldEmail')}</label>
+            <input value={email} onChange={(e) => setEmail(e.target.value)} className={inputCls} />
+          </div>
+          <div>
+            <label className={labelCls}>{t('admin.fieldPhone')}</label>
+            <input value={phone} onChange={(e) => setPhone(e.target.value)} className={inputCls} />
+          </div>
+        </div>
+      </GroupCard>
+
+      {/* 社交媒体 */}
+      <GroupCard title={t('admin.socialMedia')} desc={t('admin.socialMediaDesc')}>
+        <div>
+          <label className={labelCls}>{t('admin.fieldSocials')}</label>
+          <div className="space-y-2">
+            {socials.map((s, idx) => (
+              <div key={idx} className="flex items-center gap-2">
+                <input
+                  value={s.name}
+                  onChange={(e) => updateSocial(idx, { name: e.target.value })}
+                  placeholder={t('admin.fieldName')}
+                  className={inputCls}
+                />
+                <input
+                  value={s.href}
+                  onChange={(e) => updateSocial(idx, { href: e.target.value })}
+                  placeholder="https://..."
+                  className={inputCls}
+                />
+                <button
+                  type="button"
+                  onClick={() => removeSocial(idx)}
+                  className="shrink-0 rounded-md border border-red-300 px-2 py-2 text-sm text-red-600 hover:bg-red-50"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              onClick={addSocial}
+              className="rounded-md border border-brand-300 px-3 py-1.5 text-sm font-medium text-brand-700 hover:bg-brand-50"
+            >
+              + {t('admin.addSocial')}
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label className={labelCls}>{t('admin.fieldSameAs')}</label>
+          <textarea
+            rows={3}
+            value={sameAsText}
+            onChange={(e) => setSameAsText(e.target.value)}
+            placeholder="https://facebook.com/...&#10;https://twitter.com/..."
+            className={`${inputCls} resize-y`}
+          />
+        </div>
+      </GroupCard>
+
+      {/* SEO 默认 */}
+      <GroupCard title={t('admin.seoDefaults')} desc={t('admin.seoDefaultsDesc')}>
+        <TriListInput label={t('admin.fieldKeywords')} value={keywords} onChange={setKeywords} />
+        <TriTextInput label={t('admin.fieldDefaultTitle')} value={defaultTitle} onChange={setDefaultTitle} />
+        <TriTextArea label={t('admin.fieldDefaultDescription')} value={defaultDescription} onChange={setDefaultDescription} />
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label className={labelCls}>{t('admin.fieldOgImage')}</label>
+            <input value={ogImage} onChange={(e) => setOgImage(e.target.value)} className={inputCls} />
+          </div>
+          <div>
+            <label className={labelCls}>{t('admin.fieldTwitterHandle')}</label>
+            <input value={twitterHandle} onChange={(e) => setTwitterHandle(e.target.value)} className={inputCls} />
+          </div>
+        </div>
+      </GroupCard>
+
       <button
         type="submit"
         disabled={saving}

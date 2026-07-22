@@ -2,9 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import AdminNav from '@/components/admin/AdminNav';
-import en from '@/messages/en.json';
+import zh from '@/messages/zh.json';
 
-const t = (k: string) => (en as Record<string, string>)[k] || k;
+const t = (k: string) => (zh as Record<string, string>)[k] || k;
 
 interface Message {
   id: number;

@@ -28,7 +28,7 @@ export default function SiteSettingsPage() {
           <p className="mt-4 text-sm text-ink-400">{t('common.loading')}</p>
         ) : (
           <div className="mt-4">
-            <SiteSettingForm initial={setting} onSaved={() => setSetting(setting)} />
+            <SiteSettingForm initial={setting} onSaved={(s) => setSetting(s)} />
           </div>
         )}
       </main>

@@ -14,12 +14,16 @@ export async function GET(req: NextRequest) {
   const page = parseInt(searchParams.get('page') || '1', 10) || 1;
   const limit = Math.min(parseInt(searchParams.get('limit') || '20', 10) || 20, 100);
   const search = (searchParams.get('search') || '').trim();
+  const status = searchParams.get('status');
+
+  const where: Record<string, unknown> = {};
+  if (status) where.status = status;
 
   try {
     let items: unknown[];
     let total: number;
     if (search) {
-      const all = await prisma.category.findMany({ orderBy: [{ order: 'asc' }, { slug: 'asc' }] });
+      const all = await prisma.category.findMany({ where, orderBy: [{ order: 'asc' }, { slug: 'asc' }] });
       const needle = search.toLowerCase();
       const filtered = (all as Array<{ slug?: string; name?: unknown }>).filter(
         (c) =>
@@ -31,11 +35,12 @@ export async function GET(req: NextRequest) {
     } else {
       const [rows, count] = await Promise.all([
         prisma.category.findMany({
+          where,
           orderBy: [{ order: 'asc' }, { slug: 'asc' }],
           skip: (page - 1) * limit,
           take: limit,
         }),
-        prisma.category.count(),
+        prisma.category.count({ where }),
       ]);
       items = rows;
       total = count;

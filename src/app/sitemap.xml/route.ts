@@ -11,29 +11,27 @@ export const dynamic = 'force-dynamic';
 
 /**
  * Build a human-readable, indented XML sitemap and return it as a proper
- * `text/xml` Response. Unlike the built-in `app/sitemap.ts` convention
+ * `application/xml` Response. Unlike the built-in `app/sitemap.ts` convention
  * (which serialises an array into a single un-indented line), this route
  * handler emits one `<url>` block per line with clear 2-space indentation so
  * the file is legible when opened directly in a browser.
  *
- * Rendering notes (why application/xml + xsi namespace + nosniff):
- *  - `application/xml; charset=utf-8` is the standard MIME type for XML and
- *    makes browsers render the XML tree (rather than showing raw source or
- *    falling back to HTML / plain text) reliably. `text/xml` is non-standard
- *    here and can be treated as HTML by some browsers, so `application/xml`
- *    is preferred.
+ * Rendering notes (why application/xml + nosniff):
+ *  - `application/xml` is the standard MIME type for XML and makes browsers
+ *    render the XML tree (rather than showing raw source or falling back to
+ *    HTML / plain text) reliably.
  *  - The `xmlns:xsi` + `xsi:schemaLocation` attributes give the document a
  *    recognised XML schema so the browser is forced into XML-parsing mode.
  *  - `X-Content-Type-Options: nosniff` stops proxies/browsers from sniffing a
  *    different MIME type and falling back to plain-text display.
  *
- * Caching notes (fix for "sitemap shows plain text / stale content"):
- *  - `no-store, must-revalidate` tells the browser to never serve a cached
- *    copy and to revalidate on every request.
- *  - `CDN-Cache-Control: no-store` and `Surrogate-Control: no-store` override
- *    Cloudflare / EdgeOne / enterprise CDN edge caching so they always hit
- *    origin.
- *  - `Pragma: no-cache` provides HTTP/1.0 compatibility.
+ * Caching notes (aligned with the test.wstoolcabinet.com reference):
+ *  - `Content-Type: application/xml` (no charset) so the browser parses the
+ *    document as XML and displays the tree.
+ *  - `Cache-Control: public, max-age=3600, s-maxage=3600` lets the CDN/edge
+ *    cache the response for an hour while still serving it publicly.
+ *  - `CDN-Cache-Control` / `Surrogate-Control` / `Pragma` are intentionally
+ *    omitted to match the reference host exactly and avoid header drift.
  */
 export async function GET(): Promise<Response> {
   let productSlugs: string[] = [];
@@ -108,12 +106,9 @@ export async function GET(): Promise<Response> {
 
   return new Response(xml, {
     headers: {
-      'Content-Type': 'application/xml; charset=utf-8',
+      'Content-Type': 'application/xml',
       'X-Content-Type-Options': 'nosniff',
-      'Cache-Control': 'no-store, no-transform, must-revalidate',
-      'CDN-Cache-Control': 'no-store',
-      'Surrogate-Control': 'no-store',
-      Pragma: 'no-cache',
+      'Cache-Control': 'public, max-age=3600, s-maxage=3600',
     },
   });
 }

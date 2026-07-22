@@ -9,9 +9,18 @@ const inputCls =
   'w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand-500';
 const labelCls = 'mb-1.5 block text-sm font-medium text-slate-700';
 
+const primaryBtn =
+  'rounded-md border border-brand-300 px-2.5 py-1 text-sm font-medium text-brand-700 transition hover:bg-brand-50';
+const dangerBtn =
+  'rounded-md border border-red-300 px-2.5 py-1 text-sm font-medium text-red-600 transition hover:bg-red-50';
+
 const firstText = (f?: I18nString | null): string => (f ? f.en || f.zh || f.ar || '' : '');
 
-export default function FaqManager() {
+export default function FaqManager({
+  onStats,
+}: {
+  onStats?: (s: { categories: number; items: number }) => void;
+}) {
   const [cats, setCats] = useState<SiteFaqCategory[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -32,7 +41,12 @@ export default function FaqManager() {
       const res = await fetch('/api/admin/faq-categories', { credentials: 'include' });
       if (res.ok) {
         const j = await res.json();
-        setCats(j.data || []);
+        const data = (j.data || []) as SiteFaqCategory[];
+        setCats(data);
+        onStats?.({
+          categories: data.length,
+          items: data.reduce((acc, c) => acc + (c.items?.length || 0), 0),
+        });
       }
     } catch {
       /* keep */
@@ -151,11 +165,7 @@ export default function FaqManager() {
             <label className={labelCls}>{t('admin.fieldOrder')}</label>
             <input type="number" value={newOrder} onChange={(e) => setNewOrder(Number(e.target.value))} className={inputCls} />
           </div>
-          <button
-            type="button"
-            onClick={addCategory}
-            className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700"
-          >
+          <button type="button" onClick={addCategory} className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">
             {t('admin.add')}
           </button>
         </div>
@@ -168,7 +178,7 @@ export default function FaqManager() {
       )}
 
       {cats.map((cat) => (
-        <div key={cat.id} className="rounded-xl border border-slate-200 bg-white p-5">
+        <div key={cat.id} className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card">
           {editingCatId === cat.id ? (
             <CategoryEditForm
               cat={cat}
@@ -176,26 +186,18 @@ export default function FaqManager() {
               onCancel={() => setEditingCatId(null)}
             />
           ) : (
-            <div className="mb-3 flex items-center justify-between">
-              <div>
-                <h3 className="text-base font-semibold text-ink-900">{firstText(cat.title)}</h3>
+            <div className="flex items-center justify-between gap-3 border-l-4 border-brand-500 bg-slate-50 px-5 py-4">
+              <div className="min-w-0">
+                <h3 className="truncate text-base font-semibold text-ink-900">{firstText(cat.title)}</h3>
                 <p className="text-xs text-ink-400">
                   {t('admin.fieldKey')}: {cat.key} · {t('admin.fieldOrder')}: {cat.faqOrder}
                 </p>
               </div>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => setEditingCatId(cat.id)}
-                  className="rounded-md border border-slate-300 px-2.5 py-1 text-sm text-ink-600 hover:bg-slate-50"
-                >
+              <div className="flex shrink-0 gap-2">
+                <button type="button" onClick={() => setEditingCatId(cat.id)} className={primaryBtn}>
                   {t('admin.edit')}
                 </button>
-                <button
-                  type="button"
-                  onClick={() => deleteCategory(cat.id)}
-                  className="rounded-md border border-red-300 px-2.5 py-1 text-sm text-red-600 hover:bg-red-50"
-                >
+                <button type="button" onClick={() => deleteCategory(cat.id)} className={dangerBtn}>
                   {t('admin.delete')}
                 </button>
               </div>
@@ -203,7 +205,7 @@ export default function FaqManager() {
           )}
 
           {/* Items */}
-          <div className="mt-3 space-y-2 border-t border-slate-100 pt-3">
+          <div className="space-y-2 px-5 py-4">
             {cat.items.map((item: SiteFaqItem) =>
               editingItemId === item.id ? (
                 <ItemEditForm
@@ -213,24 +215,16 @@ export default function FaqManager() {
                   onCancel={() => setEditingItemId(null)}
                 />
               ) : (
-                <div key={item.id} className="flex items-start justify-between gap-3 rounded-lg bg-slate-50 p-3">
+                <div key={item.id} className="flex items-start justify-between gap-3 rounded-lg border border-slate-200 bg-white p-3 shadow-sm">
                   <div className="min-w-0">
                     <p className="text-sm font-medium text-ink-800">{firstText(item.question)}</p>
                     <p className="line-clamp-2 text-xs text-ink-500">{firstText(item.answer)}</p>
                   </div>
                   <div className="flex shrink-0 gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setEditingItemId(item.id)}
-                      className="text-sm text-brand-700 hover:underline"
-                    >
+                    <button type="button" onClick={() => setEditingItemId(item.id)} className={primaryBtn}>
                       {t('admin.edit')}
                     </button>
-                    <button
-                      type="button"
-                      onClick={() => deleteItem(item.id)}
-                      className="text-sm text-red-600 hover:underline"
-                    >
+                    <button type="button" onClick={() => deleteItem(item.id)} className={dangerBtn}>
                       {t('admin.delete')}
                     </button>
                   </div>
@@ -251,11 +245,7 @@ export default function FaqManager() {
                 onCancel={() => setAddingItemCatId(null)}
               />
             ) : (
-              <button
-                type="button"
-                onClick={() => setAddingItemCatId(cat.id)}
-                className="rounded-md border border-brand-300 px-3 py-1.5 text-sm font-medium text-brand-700 hover:bg-brand-50"
-              >
+              <button type="button" onClick={() => setAddingItemCatId(cat.id)} className={primaryBtn}>
                 + {t('admin.addFaqItem')}
               </button>
             )}
@@ -279,7 +269,7 @@ function CategoryEditForm({
   const [title, setTitle] = useState<I18nString>(cat.title);
   const [order, setOrder] = useState(cat.faqOrder);
   return (
-    <div className="mb-3 space-y-3 rounded-lg bg-slate-50 p-3">
+    <div className="space-y-3 border-l-4 border-brand-500 bg-slate-50 p-5">
       <div className="grid gap-3 sm:grid-cols-[180px_1fr_120px]">
         <div>
           <label className={labelCls}>{t('admin.fieldKey')}</label>
@@ -292,18 +282,10 @@ function CategoryEditForm({
         </div>
       </div>
       <div className="flex gap-2">
-        <button
-          type="button"
-          onClick={() => onSave({ key: key.trim(), title, faqOrder: order })}
-          className="rounded-md bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700"
-        >
+        <button type="button" onClick={() => onSave({ key: key.trim(), title, faqOrder: order })} className="rounded-md bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700">
           {t('admin.save')}
         </button>
-        <button
-          type="button"
-          onClick={onCancel}
-          className="rounded-md border border-slate-300 px-3 py-1.5 text-sm font-medium text-ink-600 hover:bg-white"
-        >
+        <button type="button" onClick={onCancel} className="rounded-md border border-slate-300 px-3 py-1.5 text-sm font-medium text-ink-600 hover:bg-white">
           {t('admin.cancel')}
         </button>
       </div>
@@ -324,26 +306,18 @@ function ItemEditForm({
   const [answer, setAnswer] = useState<I18nString>(item?.answer ?? emptyI18n());
   const [order, setOrder] = useState(item?.faqOrder ?? 0);
   return (
-    <div className="space-y-3 rounded-lg bg-slate-50 p-3">
+    <div className="space-y-3 rounded-lg border border-slate-200 bg-white p-4">
       <TriTextInput label={t('admin.faqQuestion')} value={question} onChange={setQuestion} />
       <TriTextArea label={t('admin.faqAnswer')} value={answer} onChange={setAnswer} rows={3} />
-      <div className="flex items-end gap-3">
+      <div className="flex flex-wrap items-end gap-3">
         <div className="w-40">
           <label className={labelCls}>{t('admin.fieldOrder')}</label>
           <input type="number" value={order} onChange={(e) => setOrder(Number(e.target.value))} className={inputCls} />
         </div>
-        <button
-          type="button"
-          onClick={() => onSave({ question, answer, faqOrder: order })}
-          className="rounded-md bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700"
-        >
+        <button type="button" onClick={() => onSave({ question, answer, faqOrder: order })} className="rounded-md bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700">
           {t('admin.save')}
         </button>
-        <button
-          type="button"
-          onClick={onCancel}
-          className="rounded-md border border-slate-300 px-3 py-1.5 text-sm font-medium text-ink-600 hover:bg-white"
-        >
+        <button type="button" onClick={onCancel} className="rounded-md border border-slate-300 px-3 py-1.5 text-sm font-medium text-ink-600 hover:bg-white">
           {t('admin.cancel')}
         </button>
       </div>

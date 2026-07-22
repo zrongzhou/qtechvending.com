@@ -2,9 +2,9 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import en from '@/messages/en.json';
+import zh from '@/messages/zh.json';
 
-const t = (k: string) => (en as Record<string, string>)[k] || k;
+const t = (k: string) => (zh as Record<string, string>)[k] || k;
 
 export default function AdminNav() {
   const pathname = usePathname();
