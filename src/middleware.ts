@@ -24,6 +24,21 @@ export function middleware(request: NextRequest) {
 
   const seg = pathname.split('/').filter(Boolean)[0] || '';
 
+  // 0. Guard the admin backend behind login. The login page itself must
+  //    always pass through, otherwise the redirect would loop forever.
+  if (seg === 'xiaozhouBackend') {
+    if (pathname === '/xiaozhouBackend/login') {
+      return NextResponse.next();
+    }
+    const hasAuth = request.cookies.get('admin_auth');
+    if (!hasAuth) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/xiaozhouBackend/login';
+      return NextResponse.redirect(url, 307);
+    }
+    return NextResponse.next();
+  }
+
   // 2. First segment is not a locale and not a legit top-level route →
   //    prepend the default locale so /products -> /en/products,
   //    /blog -> /en/blog, /about -> /en/about, etc. (step 1 already
