@@ -1908,6 +1908,14 @@ input[type='number']::-webkit-inner-spin-button {
   }
 }
 
+/* Beam sweep — a light bar that travels left-to-right continuously. */
+@keyframes beam-sweep {
+  0% { transform: translateX(-100%); opacity: 0; }
+  30% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { transform: translateX(320%); opacity: 0; }
+}
+
 /* Our Mission — themed border per card + icon does a full 360° spin on hover. */
 .mission-card {
   transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;

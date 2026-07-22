@@ -801,16 +801,25 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             {t('about.subtitle')}
           </p>
 
-          {/* Stat strip with animated counters — half-translucent "ice glass". */}
-          <div className="mx-auto mt-14 grid max-w-4xl grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
+          {/* Pulsing light beam above stat cards */}
+          <div className="relative mx-auto mt-12 w-full max-w-4xl overflow-hidden">
+            <div className="h-px w-full bg-gradient-to-r from-transparent via-cyan-300/30 to-transparent" />
+            <div className="absolute top-0 h-[2px] w-48 animate-[beam-sweep_2.5s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-cyan-400/70 to-transparent" />
+          </div>
+
+          {/* Stat strip with animated counters — refined glass-morphism cards */}
+          <div className="mx-auto mt-8 grid max-w-4xl grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-6">
             {HERO_STATS.map((s, i) => {
               const Icon = s.icon;
               const accent = HERO_STAT_ACCENTS[i % HERO_STAT_ACCENTS.length];
               return (
                 <RevealOnScroll key={s.key} delay={i * 80} className="h-full">
-                  <div className="glass-ice animate-pulse-border flex h-full min-h-[160px] flex-col items-center justify-center gap-3 rounded-2xl p-5 text-center">
+                  <div className="group relative h-full min-h-[160px] overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-br from-white/70 via-cyan-50/40 to-white/60 p-5 shadow-lg shadow-slate-200/50 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-100/40">
+                  {/* Top accent line per card */}
+                  <span className={`absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r ${accent.tile}`} aria-hidden="true" />
+                  <div className="flex h-full flex-col items-center justify-center gap-3 text-center relative z-10">
                     <span
-                      className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${accent.tile} ${accent.shadow} shadow-lg animate-pulse-glow`}
+                      className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${accent.tile} ${accent.shadow} shadow-lg transition-transform duration-300 group-hover:scale-110`}
                       style={{ ['--glow-color' as string]: 'rgba(34, 211, 238, 0.55)' } as React.CSSProperties}
                     >
                       <Icon className="h-6 w-6" strokeWidth={1.8} />
@@ -820,6 +829,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                     </dt>
                     <dd className="text-sm font-medium text-ink-500">{t(s.key)}</dd>
                   </div>
+                </div>
                 </RevealOnScroll>
               );
             })}
@@ -895,14 +905,12 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                 </div>
               );
             })()}
-            <div className="mt-7 flex justify-center">
-              <Link
-                href={`/${locale}/contact`}
-                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-teal-500/25 transition hover:-translate-y-0.5 hover:from-cyan-400 hover:to-teal-400"
-              >
-                {locale === 'zh' ? '获取报价' : locale === 'ar' ? 'اطلب عرض سعر' : 'Get a Quote'} →
-              </Link>
-            </div>
+            <Link
+              href={`/${locale}/contact`}
+              className="mt-7 inline-flex w-fit items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-teal-500/25 transition hover:-translate-y-0.5 hover:from-cyan-400 hover:to-teal-400"
+            >
+              {locale === 'zh' ? '获取报价' : locale === 'ar' ? 'اطلب عرض سعر' : 'Get a Quote'} →
+            </Link>
           </div>
         </RevealOnScroll>
       </section>
@@ -1056,7 +1064,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                 </div>
                 {section.key === 'capability' ? (
                   /* 词牌：V49.2 compact modern glass card (less whitespace) */
-                  <div className={`flex items-center justify-center ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
+                  <div className={`flex flex-col items-center ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
                     <div className="nameplate-3d relative mx-auto flex w-full max-w-[400px] min-h-[200px] flex-col items-center justify-center overflow-hidden rounded-2xl p-6 shadow-lg sm:p-8">
                       {/* Ambient glow */}
                       <div className="pointer-events-none absolute -top-8 start-1/2 h-28 w-28 -translate-x-1/2 rounded-full bg-cyan-300/25 blur-3xl" />
@@ -1071,6 +1079,11 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
                         {/* Minimalist divider */}
                         <div className="mt-3 h-px w-20 bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent" />
                       </div>
+                    </div>
+                    {/* Pulsing light beam below the nameplate */}
+                    <div className="relative mt-5 w-full max-w-[320px] overflow-hidden">
+                      <div className="h-px w-full bg-gradient-to-r from-transparent via-brand-300/40 to-transparent" />
+                      <div className="absolute top-0 h-px w-40 animate-[beam-sweep_2s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
                     </div>
                   </div>
                 ) : (
