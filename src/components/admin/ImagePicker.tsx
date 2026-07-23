@@ -67,6 +67,8 @@ export default function ImagePicker({ value, onChange, type, slug, label, hint }
     onChange(next);
   };
 
+  const UPLOAD_TIMEOUT_MS = 120_000; // 2 minutes per file
+
   const uploadFiles = async (files: File[] | FileList) => {
     if (!slug) {
       setUploadError(t('admin.uploadNeedSlug'));
@@ -83,21 +85,28 @@ export default function ImagePicker({ value, onChange, type, slug, label, hint }
         fd.append('file', f);
         fd.append('type', type);
         fd.append('slug', slug);
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), UPLOAD_TIMEOUT_MS);
         const res = await fetch('/api/admin/upload', {
           method: 'POST',
           credentials: 'include',
           body: fd,
+          signal: controller.signal,
         });
+        clearTimeout(timer);
         const j = (await res.json().catch(() => ({}))) as { data?: string[]; message?: string; code?: string };
         if (!res.ok) {
-          setUploadError(j?.message || j?.code || t('admin.uploadFailed'));
+          setUploadError(`${f.name}: ${j?.message || j?.code || t('admin.uploadFailed')}`);
           continue;
         }
         if (Array.isArray(j.data) && j.data.length) {
           next = [...next, ...j.data];
         }
-      } catch {
-        setUploadError(t('admin.uploadFailed'));
+      } catch (err: unknown) {
+        const msg = err instanceof DOMException && err.name === 'AbortError'
+          ? t('admin.uploadTimeout')
+          : `${f.name}: ${t('admin.uploadFailed')}`;
+        setUploadError(msg);
       }
     }
     onChange(next);

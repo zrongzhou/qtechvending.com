@@ -423,5 +423,6 @@
   "admin.uploading": "上传中…",
   "admin.uploadAddManual": "添加路径",
   "admin.uploadNeedSlug": "请先保存以获取 slug 后才能上传图片",
-  "admin.uploadFailed": "上传失败，请重试"
+  "admin.uploadFailed": "上传失败，请重试",
+  "admin.uploadTimeout": "上传超时（>2分钟），请检查网络后重试"
 }
