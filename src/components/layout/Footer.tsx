@@ -101,7 +101,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-2.5">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-cyan-400/70" />
-                <span>2nd Floor No. 131, Jinlong Road, Dalong street,<br />Panyu, Guangzhou, China</span>
+                <span>Room 1716-928, 17/F, Building 4,<br />No. 388 Hanxi Avenue East, Nancun Town,<br />Panyu District, Guangzhou, China</span>
               </li>
             </ul>
           </div>

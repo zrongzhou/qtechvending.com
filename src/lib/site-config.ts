@@ -32,5 +32,5 @@ export const SITE_CONFIG = {
   email: 'info@qtechvending.com',
   phone: '+86 183 1975 3992',
   // English address used by the contact-info card / footer / map (legacy hardcode).
-  addressLine: '2nd Floor No. 131, Jinlong Road, Dalong street, Panyu, Guangzhou, China',
+  addressLine: 'Room 1716-928, 17/F, Building 4, No. 388 Hanxi Avenue East, Nancun Town, Panyu District, Guangzhou, Guangdong, China',
 };

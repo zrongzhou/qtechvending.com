@@ -88,7 +88,7 @@ export default function ContactClient({
   const contactAddress =
     (site?.address ? localized(site.address, locale) : '') ||
     site?.addressLine ||
-    '2nd Floor No. 131, Jinlong Road, Dalong street, Panyu, Guangzhou, China';
+    'Room 1716-928, 17/F, Building 4, No. 388 Hanxi Avenue East, Nancun Town, Panyu District, Guangzhou, Guangdong, China';
   const contactPhone = site?.phone || '+86 183 1975 3992';
   const [form, setForm] = useState({
     name: '',
@@ -318,7 +318,7 @@ export default function ContactClient({
             <div className="overflow-hidden rounded-2xl border border-white/70 bg-white/90 p-1.5 shadow-[0_16px_44px_rgba(8,145,178,0.10),inset_0_1px_0_rgba(255,255,255,0.90)] backdrop-blur-xl">
               <iframe
                 title="Qtech Vending — Guangzhou"
-                src="https://maps.google.com/maps?q=2nd+Floor+No.+131+Jinlong+Road+Dalong+street+Panyu+Guangzhou+China&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                src="https://maps.google.com/maps?q=Room+1716-928+17F+Building+4+No.+388+Hanxi+Avenue+East+Nancun+Town+Panyu+District+Guangzhou+Guangdong+China&t=&z=15&ie=UTF8&iwloc=&output=embed"
                 className="h-52 w-full rounded-xl"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
