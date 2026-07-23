@@ -1,3 +1,4 @@
+import '@/styles/animations-deferred.css';
 import type { LucideIcon } from 'lucide-react';
 
 type IconVariant = 'default' | 'gradient' | 'glossy' | 'float' | 'hex';

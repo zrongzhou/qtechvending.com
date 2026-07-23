@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/animations-deferred.css';
 import { CheckCircle2, Factory, Clock, Settings2, Globe, type LucideIcon } from 'lucide-react';
 import { useLocale, type Locale } from '@/lib/i18n';
 import CountUp from '@/components/ui/CountUp';

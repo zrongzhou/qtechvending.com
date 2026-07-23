@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/animations-deferred.css';
 import { useRef, useState, type CSSProperties, type MouseEvent, type ReactNode } from 'react';
 
 export interface RippleOnHoverProps {

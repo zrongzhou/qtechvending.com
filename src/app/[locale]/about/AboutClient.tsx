@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/animations-deferred.css';
 import Link from 'next/link';
 import Image from 'next/image';
 import ImageWithRetry from '@/components/ui/ImageWithRetry';

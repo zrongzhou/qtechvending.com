@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
-import { headers } from 'next/headers';
 import './globals.css';
-import BuildVersionChecker from '@/components/BuildVersionChecker';
 
 export const metadata: Metadata = {
   title: {
@@ -30,63 +28,16 @@ export const metadata: Metadata = {
   },
 };
 
-// Reading the middleware-injected `x-pathname` forces dynamic rendering, which
-// is already the case for the data-driven pages. The locale is derived here so
-// the SSR HTML carries the correct lang/dir (e.g. /ar → lang="ar" dir="rtl")
-// for crawlers and for first paint (no RTL flash). Client-side locale switches
-// are still handled by [locale]/layout.tsx via useEffect.
-const VALID_LOCALES = ['en', 'zh', 'ar'] as const;
-
-function resolveLocale(): { locale: string; dir: 'ltr' | 'rtl' } {
-  try {
-    const pathname = headers().get('x-pathname') || '';
-    const seg = pathname.split('/').filter(Boolean)[0] || '';
-    if ((VALID_LOCALES as readonly string[]).includes(seg)) {
-      return { locale: seg, dir: seg === 'ar' ? 'rtl' : 'ltr' };
-    }
-  } catch {
-    // headers() unavailable in some contexts — fall back to defaults.
-  }
-  return { locale: 'en', dir: 'ltr' };
-}
-
-/**
- * Escapes a value for safe embedding inside a single-quoted inline <script>.
- * Build IDs only contain [A-Za-z0-9-], but we still neutralise quotes and
- * backslashes to stay defensive against any future value source.
- */
-function escapeForInlineScript(value: string): string {
-  return value.replace(/['"\\]/g, '\\$&');
-}
-
-// Build id injected at build time via next.config.mjs `env.NEXT_PUBLIC_BUILD_ID`.
-// Falls back to the deployment pipeline's GIT_COMMIT, then 'dev' for local runs
-// where the value was not inlined.
-const BUILD_ID =
-  process.env.NEXT_PUBLIC_BUILD_ID ?? process.env.GIT_COMMIT ?? 'dev';
-
+// Root layout is a pure pass-through. The <html>/<body> tags are rendered by
+// the locale-specific layout (src/app/[locale]/layout.tsx) so that each
+// locale can emit the correct `lang`/`dir` for the very first byte of HTML
+// (no RTL flash, SEO-correct). This is the next-intl official App Router
+// pattern. Removing the previous `headers()`-based locale resolution here is
+// what unblocks ISR for the content pages (no dynamic render deadlock).
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { locale, dir } = resolveLocale();
-  // Reflects the moment this HTML response was rendered (informational only;
-  // the client compares buildId, not builtAt).
-  const builtAt = new Date().toISOString();
-  return (
-    <html lang={locale} dir={dir}>
-      <body className="flex min-h-screen flex-col bg-slate-50 text-ink-800 antialiased">
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.__BUILD_ID__='${escapeForInlineScript(
-              BUILD_ID,
-            )}';window.__BUILT_AT__='${escapeForInlineScript(builtAt)}';`,
-          }}
-        />
-        {children}
-        <BuildVersionChecker />
-      </body>
-    </html>
-  );
+  return children;
 }

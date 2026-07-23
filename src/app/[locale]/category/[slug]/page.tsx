@@ -8,7 +8,7 @@ import { localized } from '@/lib/localize';
 import { generatePageMetadata } from '@/lib/seo';
 import { buildStaticPageKeywords } from '@/lib/seo-keywords';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 interface PageProps {
   params: { locale: string; slug: string };

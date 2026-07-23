@@ -670,13 +670,6 @@ input[type='number']::-webkit-inner-spin-button {
 .aurora__band--c { animation: auroraFlowC 20s ease-in-out infinite; transform-origin: center; }
 .aurora__band--d { animation: auroraFlowD 22s ease-in-out infinite; transform-origin: center; }
 
-/* Gentle pill pulse — used by the "read more" CTA on blog cards (hover). */
-@keyframes pillPulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.06); }
-}
-.pill-pulse { animation: pillPulse 1.6s ease-in-out infinite; }
-
 /* Animated ocean waves — layered, slowly-rolling wave shapes used as the
    animated "ocean floor" on the Products page (V33). Each layer rolls at a
    different speed/opacity for a living, deep-water feel. */
@@ -702,92 +695,6 @@ input[type='number']::-webkit-inner-spin-button {
 .ocean-wave--1 { animation: oceanWave 8s ease-in-out infinite; opacity: 0.6; }
 .ocean-wave--2 { animation: oceanWave 11s ease-in-out infinite reverse; opacity: 0.4; bottom: -10%; }
 .ocean-wave--3 { animation: oceanWave 14s ease-in-out infinite; opacity: 0.25; bottom: -20%; }
-
-/* Ripple on hover — one or more concentric radial "water ripple" rings that
-   expand from the pointer (or center) on hover-enter. Each ring is a child
-   <span class="ripple-ring"> animated with pure CSS; the .ripple class itself
-   is only a positioning/overflow context so it must stay visible. Re-triggering
-   is handled by remounting the spans (see RippleOnHover.tsx). */
-.ripple {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-}
-.ripple-ring {
-  position: absolute;
-  left: var(--ripple-x, 50%);
-  top: var(--ripple-y, 50%);
-  width: var(--ripple-size, 0px);
-  height: var(--ripple-size, 0px);
-  border-radius: 9999px;
-  background: radial-gradient(circle, var(--ripple-color, rgba(56, 189, 248, 0.25)) 0%, transparent 65%);
-  transform: translate(-50%, -50%) scale(0);
-  opacity: 0;
-  pointer-events: none;
-  z-index: 0;
-  animation: rippleRing 0.9s ease-out forwards;
-}
-@keyframes rippleRing {
-  0% {
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 0.55;
-  }
-  70% {
-    opacity: 0.18;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0;
-  }
-}
-
-/* Water-ripple utility — self-contained hover-triggered expanding ring. */
-.water-ripple {
-  position: relative;
-  overflow: hidden;
-}
-.water-ripple > .water-ripple__ring {
-  position: absolute;
-  left: var(--ripple-x, 50%);
-  top: var(--ripple-y, 50%);
-  width: var(--ripple-size, 0px);
-  height: var(--ripple-size, 0px);
-  border-radius: 9999px;
-  border: 2px solid var(--ripple-color, rgba(56, 189, 248, 0.5));
-  transform: translate(-50%, -50%) scale(0);
-  opacity: 0;
-  pointer-events: none;
-  animation: waterRippleExpand 1.1s ease-out forwards;
-}
-@keyframes waterRippleExpand {
-  0% { transform: translate(-50%, -50%) scale(0); opacity: 0.4; }
-  100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
-}
-
-/* God rays / light beams — slow drifting diagonal sun beams as if sunlight
-   pierces the ocean surface. Purely decorative, screen-blended over a dark
-   ocean background, pointer-events-none. */
-.god-ray {
-  position: absolute;
-  top: -25%;
-  height: 150%;
-  width: 20%;
-  background: linear-gradient(to bottom, rgba(186, 230, 253, 0.38), rgba(186, 230, 253, 0));
-  filter: blur(28px);
-  transform-origin: top center;
-  mix-blend-mode: screen;
-  pointer-events: none;
-  opacity: 0.5;
-  will-change: transform, opacity;
-}
-.god-ray--1 { left: 6%; transform: rotate(11deg); animation: godRaySway 16s ease-in-out infinite; }
-.god-ray--2 { left: 36%; width: 15%; transform: rotate(6deg); opacity: 0.4; animation: godRaySway 21s ease-in-out infinite; animation-delay: -6s; }
-.god-ray--3 { left: 66%; width: 18%; transform: rotate(15deg); opacity: 0.45; animation: godRaySway 18s ease-in-out infinite; animation-delay: -11s; }
-.god-ray--4 { left: 84%; width: 12%; transform: rotate(9deg); opacity: 0.35; animation: godRaySway 24s ease-in-out infinite; animation-delay: -3s; }
-@keyframes godRaySway {
-  0%, 100% { transform: rotate(8deg) translateX(0); opacity: 0.4; }
-  50% { transform: rotate(14deg) translateX(26px); opacity: 0.62; }
-}
 
 /* CSS bubble-rise — a lightweight, CSS-only fallback bubble field for sections
    where a full Canvas is unnecessary. Bubbles float up with a gentle sway. */
@@ -818,24 +725,6 @@ input[type='number']::-webkit-inner-spin-button {
   animation: waveShimmer 3.5s linear infinite;
 }
 
-/* Gentle icon float */
-@keyframes iconFloatY {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-.icon-float { animation: iconFloatY 4s ease-in-out infinite; }
-
-/* Glossy icon shimmer sweep */
-@keyframes iconShimmer {
-  0%   { background-position: -160% 0; }
-  100% { background-position: 160% 0; }
-}
-.icon-shimmer {
-  background-image: linear-gradient(110deg, rgba(255, 255, 255, 0) 35%, rgba(255, 255, 255, 0.55) 50%, rgba(255, 255, 255, 0) 65%);
-  background-size: 220% 100%;
-  animation: iconShimmer 2.8s linear infinite;
-}
-
 /* ============ V36 additional animations ============ */
 
 /* Chinese name-plaque stat cards — vertical writing + seal */
@@ -845,80 +734,6 @@ input[type='number']::-webkit-inner-spin-button {
 }
 .name-plaque .seal {
   font-family: ui-serif, Georgia, "Songti SC", "SimSun", serif;
-}
-
-/* Night village CTA animations */
-@keyframes villageStar {
-  0%, 100% { opacity: 0.25; transform: scale(1); }
-  50% { opacity: 0.85; transform: scale(1.4); }
-}
-.village-star { animation: villageStar var(--animation-duration, 3s) ease-in-out infinite; }
-
-@keyframes windowGlow {
-  0%, 100% { fill-opacity: 0.25; filter: drop-shadow(0 0 2px rgba(251,191,36,0.2)); }
-  50% { fill-opacity: 0.55; filter: drop-shadow(0 0 6px rgba(251,191,36,0.6)); }
-}
-.window-glow { animation: windowGlow 2.8s ease-in-out infinite; }
-
-@keyframes moonGlow {
-  0%, 100% { filter: drop-shadow(0 0 14px rgba(254,243,199,0.35)); transform: scale(1); }
-  50% { filter: drop-shadow(0 0 26px rgba(254,243,199,0.65)); transform: scale(1.04); }
-}
-.moon-glow { animation: moonGlow 5s ease-in-out infinite; }
-
-@keyframes firefly {
-  0%, 100% { transform: translate(0, 0); opacity: 0.3; }
-  25% { transform: translate(18px, -12px); opacity: 0.9; }
-  50% { transform: translate(-8px, -22px); opacity: 0.5; }
-  75% { transform: translate(10px, 6px); opacity: 0.8; }
-}
-.firefly { animation: firefly var(--animation-duration, 10s) ease-in-out infinite; }
-
-/* Animated gradient top border for cards */
-@keyframes flowBar {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-.flow-bar {
-  background-size: 200% 200%;
-  animation: flowBar 4s ease-in-out infinite;
-}
-
-/* Subtle floating cards */
-@keyframes floatSlow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-.animate-float-slow { animation: floatSlow 5s ease-in-out infinite; }
-
-/* ===== V39 card float + entrance + icon animations ===== */
-
-/* Gentle continuous up/down card float (more pronounced than floatSlow). */
-@keyframes floatGentle {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-}
-.animate-float-gentle {
-  animation: floatGentle 4s ease-in-out infinite;
-}
-
-/* Staggered entrance — slide up + fade in. */
-@keyframes slideUpFade {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.animate-slide-up {
-  animation: slideUpFade 0.7s ease-out forwards;
-}
-
-/* Slow icon rotation for advantage/feature tiles on hover. */
-@keyframes spinSlow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-.animate-spin-slow {
-  animation: spinSlow 8s linear infinite;
 }
 
 /* ===== V39 CTA "Cosmic Portal" scene (pure CSS) ===== */
@@ -2023,21 +1838,6 @@ input[type='number']::-webkit-inner-spin-button {
 }
 .vision-card:hover::after {
   opacity: 1;
-}
-
-/* Our Values — the little ordinal badges breathe (scale + glow). */
-.value-badge {
-  animation: badgeBreath 2.8s ease-in-out infinite;
-}
-@keyframes badgeBreath {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(34, 211, 238, 0);
-  }
-  50% {
-    transform: scale(1.12);
-    box-shadow: 0 0 12px 2px rgba(34, 211, 238, 0.35);
-  }
 }
 
 /* Small eyebrow / "词牌" label — V49.5: FLAT glass chip (no 3D tilt).

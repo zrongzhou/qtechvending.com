@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { headers } from 'next/headers';
 import { SITE_CONFIG as LEGACY_SITE_CONFIG } from './site-config';
 import { getSiteSetting } from './data';
 
@@ -19,19 +18,14 @@ export const SITE_CONFIG = LEGACY_SITE_CONFIG;
  * to the legacy `SITE_CONFIG` constant when the database is unavailable.
  */
 export function getBaseUrl(): string {
+  // R2 (T06, 门控 2): the previous `headers()` fallback forced every page that
+  // calls this into dynamic rendering, which silently blocked ISR for the whole
+  // site. We now resolve the canonical base *only* from NEXT_PUBLIC_BASE_URL so
+  // the render mode is deterministic and independent of request headers. When
+  // the env var is unset we return '' (callers already guard with `baseUrl &&`).
   const canonicalBase = process.env.NEXT_PUBLIC_BASE_URL;
   if (canonicalBase) {
     return canonicalBase.replace(/\/+$/, '');
-  }
-  try {
-    const headersList = headers();
-    const host = headersList.get('host');
-    if (host) {
-      const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
-      return `${protocol}://${host}`;
-    }
-  } catch {
-    // headers() throws in Client Components / during build.
   }
   return '';
 }

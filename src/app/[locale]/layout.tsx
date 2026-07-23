@@ -1,121 +1,75 @@
-'use client';
+import type { Locale } from '@/lib/i18n';
+import { locales } from '@/lib/i18n';
+import LocaleShell from '@/components/LocaleShell';
+import BuildVersionChecker from '@/components/BuildVersionChecker';
 
-import { useEffect, useState } from 'react';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
-import BackToTop from '@/components/BackToTop';
-import JsonLd from '@/components/JsonLd';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { LocaleProvider, Locale, locales } from '@/lib/i18n';
-import enMessages from '@/messages/en.json';
-import zhMessages from '@/messages/zh.json';
-import arMessages from '@/messages/ar.json';
+/**
+ * Resolves the active locale from the route segment. Falls back to `en` for
+ * any unknown segment (the middleware guarantees a valid locale prefix, but we
+ * stay defensive for direct renders / static generation).
+ */
+function resolveLocale(locale: string): Locale {
+  return (locales as readonly string[]).includes(locale) ? (locale as Locale) : 'en';
+}
 
-const MESSAGES: Record<Locale, Record<string, string>> = {
-  en: enMessages,
-  zh: zhMessages,
-  ar: arMessages,
-};
+/**
+ * Escapes a value for safe embedding inside a single-quoted inline <script>.
+ * Build IDs only contain [A-Za-z0-9-], but we still neutralise quotes and
+ * backslashes to stay defensive against any future value source.
+ */
+function escapeForInlineScript(value: string): string {
+  return value.replace(/['"\\]/g, '\\$&');
+}
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.qtechvending.com';
+// Build id injected at build time via next.config.mjs `env.NEXT_PUBLIC_BUILD_ID`.
+// Falls back to the deployment pipeline's GIT_COMMIT, then 'dev' for local runs
+// where the value was not inlined.
+const BUILD_ID =
+  process.env.NEXT_PUBLIC_BUILD_ID ?? process.env.GIT_COMMIT ?? 'dev';
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
   params: { locale: string };
 }
 
-export default function LocaleLayout({ children, params: { locale } }: LocaleLayoutProps) {
-  const activeLocale: Locale = (locales as readonly string[]).includes(locale) ? (locale as Locale) : 'en';
-  const [currentLocale, setCurrentLocale] = useState<Locale>(activeLocale);
-  const [mounted, setMounted] = useState(false);
+export default async function LocaleLayout({
+  children,
+  params: { locale },
+}: LocaleLayoutProps) {
+  const activeLocale = resolveLocale(locale);
 
-  useEffect(() => {
-    setMounted(true);
-    setCurrentLocale(activeLocale);
-  }, [activeLocale]);
+  // Server-side load of ONLY the active locale's messages. The JSON is shipped
+  // with the RSC payload so the first byte of HTML already carries the correct
+  // language copy — no English FOUC and SEO text is present in the initial
+  // response. Each locale becomes its own client chunk (no three-language
+  // bundle). T07 of the R2 plan.
+  const initialMessages = (await import(
+    `@/messages/${activeLocale}.json`
+  )).default as Record<string, string>;
 
-  // Update <html lang/dir> after mount to avoid SSR hydration mismatch.
-  useEffect(() => {
-    if (!mounted) return;
-    const htmlEl = document.documentElement;
-    htmlEl.lang = currentLocale;
-    htmlEl.dir = currentLocale === 'ar' ? 'rtl' : 'ltr';
-  }, [currentLocale, mounted]);
-
-  const messages = MESSAGES[currentLocale];
+  // Reflects the moment this HTML response was rendered (informational only;
+  // the client compares buildId, not builtAt).
+  const builtAt = new Date().toISOString();
 
   return (
-    <ErrorBoundary>
-      <LocaleProvider locale={currentLocale} messages={messages}>
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        {/* V49.21: refined web-font stack (Inter for Latin, Noto Sans SC for
-            Chinese, Noto Sans Arabic for Arabic) — replaces the blunt OS-default
-            system-ui so headings/body read as a premium, calm typeface instead
-            of a heavy blocky system bold. Runtime-loaded via <link> (no build
-            dependency); display=swap avoids invisible-text flash. */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* P-02: load the web fonts without blocking first paint. The sheet is
-            fetched as a `print` stylesheet (non-render-blocking) and promoted to
-            `all` once it finishes loading. <noscript> keeps fonts working when
-            JS is disabled. Font URLs and CSS class names are unchanged. */}
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap"
-          media="print"
-          onLoad={(e) => {
-            e.currentTarget.media = 'all';
+    <html
+      lang={activeLocale}
+      dir={activeLocale === 'ar' ? 'rtl' : 'ltr'}
+      suppressHydrationWarning
+    >
+      <body className="flex min-h-screen flex-col bg-slate-50 text-ink-800 antialiased">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.__BUILD_ID__='${escapeForInlineScript(
+              BUILD_ID,
+            )}';window.__BUILT_AT__='${escapeForInlineScript(builtAt)}';`,
           }}
         />
-        <noscript>
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap"
-          />
-        </noscript>
-        <JsonLd
-          data={{
-            '@context': 'https://schema.org',
-            '@type': 'WebSite',
-            name: 'Qtech',
-            url: BASE_URL,
-            description:
-              'Qtech (Guangzhou Qiuyan Technology) manufactures intelligent vending machines, fresh-flower vending, and automated garden equipment.',
-            potentialAction: {
-              '@type': 'SearchAction',
-              target: `${BASE_URL}/en/products?q={search_term_string}`,
-              'query-input': 'required name=search_term_string',
-            },
-          }}
-        />
-        <JsonLd
-          data={{
-            '@context': 'https://schema.org',
-            '@type': 'Organization',
-            name: 'Guangzhou Qiuyan Technology Co., Ltd.',
-            alternateName: ['广州秋彦科技有限公司', 'Qtech', 'Qiuyan Technology'],
-            url: BASE_URL,
-            logo: `${BASE_URL}/images/logo.svg`,
-            contactPoint: {
-              '@type': 'ContactPoint',
-              telephone: ['+86 183 1975 3992', '+86 190 1516 9848'],
-              contactType: 'sales',
-              email: 'info@qtechvending.com',
-              availableLanguage: ['English', 'Chinese', 'Arabic'],
-            },
-            address: {
-              '@type': 'PostalAddress',
-              addressLocality: 'Guangzhou',
-              addressRegion: 'Guangdong',
-              addressCountry: 'CN',
-            },
-          }}
-        />
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <BackToTop />
-      </LocaleProvider>
-    </ErrorBoundary>
+        <LocaleShell locale={activeLocale} initialMessages={initialMessages}>
+          {children}
+        </LocaleShell>
+        <BuildVersionChecker />
+      </body>
+    </html>
   );
 }

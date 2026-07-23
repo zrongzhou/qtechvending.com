@@ -12,7 +12,7 @@ import { getFeaturedProducts, getLatestBlogs, getCategories, getCategoryProductC
 import { generatePageMetadata, SITE_CONFIG } from '@/lib/seo';
 import { buildStaticPageKeywords } from '@/lib/seo-keywords';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 interface PageProps {
   params: { locale: string };
