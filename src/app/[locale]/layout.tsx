@@ -1,7 +1,13 @@
 import type { Locale } from '@/lib/i18n';
-import { locales } from '@/lib/i18n';
 import LocaleShell from '@/components/LocaleShell';
 import BuildVersionChecker from '@/components/BuildVersionChecker';
+
+// Server-safe mirror of the client `locales` constant from `@/lib/i18n`. The
+// client module is `'use client'`, so importing its value here would make the
+// server call `.includes()` on a client proxy and crash at runtime (RSC
+// boundary error). We keep `Locale` as a type-only import to avoid pulling the
+// client module into this Server Component.
+const LOCALES = ['en', 'zh', 'ar'] as const;
 
 /**
  * Resolves the active locale from the route segment. Falls back to `en` for
@@ -9,7 +15,9 @@ import BuildVersionChecker from '@/components/BuildVersionChecker';
  * stay defensive for direct renders / static generation).
  */
 function resolveLocale(locale: string): Locale {
-  return (locales as readonly string[]).includes(locale) ? (locale as Locale) : 'en';
+  return (LOCALES as readonly string[]).includes(locale)
+    ? (locale as Locale)
+    : 'en';
 }
 
 /**
