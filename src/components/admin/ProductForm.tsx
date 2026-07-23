@@ -5,7 +5,7 @@ import type { Product, I18nString, I18nStringList, FaqItem, Category } from '@/t
 import { t } from './i18n';
 import { TriTextInput, TriTextArea, TriListInput, emptyI18n } from './I18nInputs';
 import ProductFaqEditor from './ProductFaqEditor';
-import ImageListEditor from './ImageListEditor';
+import ImagePicker from './ImagePicker';
 import FeaturesEditor from './FeaturesEditor';
 
 const inputCls =
@@ -247,9 +247,11 @@ export default function ProductForm({
 
       {/* 媒体（多图） */}
       <GroupCard title={t('admin.media')}>
-        <ImageListEditor
+        <ImagePicker
           value={images}
           onChange={setImages}
+          type="products"
+          slug={slug}
           label={t('admin.fieldImages')}
           hint={t('admin.imagesHint')}
         />

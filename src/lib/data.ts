@@ -8,6 +8,7 @@ import type {
   Paginated,
   ProductSpec,
   SiteSetting,
+  SslCert,
   SiteFaqCategory,
   SiteFaqItem,
   I18nString,
@@ -381,6 +382,7 @@ function mapSiteSettingRow(row: Record<string, unknown>): SiteSetting {
     sslCertPath: (row.sslCertPath as string) ?? null,
     sslKeyPath: (row.sslKeyPath as string) ?? null,
     sslEnabled: (row.sslEnabled as boolean) ?? false,
+    sslCerts: (row.sslCerts as SslCert[] | null) ?? null,
     updatedAt: row.updatedAt ? new Date(row.updatedAt as string | Date).toISOString() : new Date().toISOString(),
   };
 }
@@ -421,6 +423,7 @@ export async function getSiteSetting(): Promise<SiteSetting> {
     sslCertPath: null,
     sslKeyPath: null,
     sslEnabled: false,
+    sslCerts: null,
     updatedAt: new Date().toISOString(),
   };
 }

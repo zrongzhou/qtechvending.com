@@ -41,10 +41,6 @@ export default function SiteSettingForm({
   const [defaultDescription, setDefaultDescription] = useState<I18nString | null>(initial?.defaultDescription ?? null);
   const [ogImage, setOgImage] = useState(initial?.ogImage ?? '');
   const [twitterHandle, setTwitterHandle] = useState(initial?.twitterHandle ?? '');
-  const [forceHttps, setForceHttps] = useState(initial?.forceHttps ?? false);
-  const [sslCertPath, setSslCertPath] = useState(initial?.sslCertPath ?? '');
-  const [sslKeyPath, setSslKeyPath] = useState(initial?.sslKeyPath ?? '');
-  const [sslEnabled, setSslEnabled] = useState(initial?.sslEnabled ?? false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
@@ -73,10 +69,6 @@ export default function SiteSettingForm({
       defaultDescription: defaultDescription ?? null,
       ogImage: ogImage.trim() || null,
       twitterHandle: twitterHandle.trim() || null,
-      forceHttps,
-      sslCertPath: sslCertPath.trim() || null,
-      sslKeyPath: sslKeyPath.trim() || null,
-      sslEnabled,
     };
     try {
       const res = await fetch('/api/admin/site-settings', {
@@ -196,26 +188,7 @@ export default function SiteSettingForm({
         </div>
       </GroupCard>
 
-      {/* SSL / 安全 */}
-      <GroupCard title={t('admin.sslSecurity')}>
-        <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
-          <input type="checkbox" checked={forceHttps} onChange={(e) => setForceHttps(e.target.checked)} />
-          {t('admin.fieldForceHttps')}
-        </label>
-        <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
-          <input type="checkbox" checked={sslEnabled} onChange={(e) => setSslEnabled(e.target.checked)} />
-          {t('admin.fieldSslEnabled')}
-        </label>
-        <div>
-          <label className={labelCls}>{t('admin.fieldSslCertPath')}</label>
-          <input value={sslCertPath} onChange={(e) => setSslCertPath(e.target.value)} className={inputCls} placeholder="/etc/nginx/ssl/qtechvending.com/fullchain.pem" />
-        </div>
-        <div>
-          <label className={labelCls}>{t('admin.fieldSslKeyPath')}</label>
-          <input value={sslKeyPath} onChange={(e) => setSslKeyPath(e.target.value)} className={inputCls} placeholder="/etc/nginx/ssl/qtechvending.com/privkey.pem" />
-        </div>
-        <p className="rounded-lg bg-slate-50 px-3 py-2 text-xs leading-relaxed text-slate-500">{t('admin.sslHint')}</p>
-      </GroupCard>
+      {/* SSL / HTTPS management moved to the <SiteSettingsSslCerts /> component. */}
 
       <button
         type="submit"

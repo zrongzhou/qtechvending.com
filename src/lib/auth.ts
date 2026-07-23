@@ -90,3 +90,12 @@ export function badRequestResponse(message: string = 'Bad request.') {
 export function serverErrorResponse(message: string = 'Internal server error.') {
   return NextResponse.json({ error: message }, { status: 500 });
 }
+
+/**
+ * Structured API error used by V52 endpoints. Returns `{ code, message }` with
+ * the given HTTP status (default 400), matching the shared error contract in
+ * architecture §7.4.
+ */
+export function apiError(code: string, message: string, status: number = 400) {
+  return NextResponse.json({ code, message }, { status });
+}

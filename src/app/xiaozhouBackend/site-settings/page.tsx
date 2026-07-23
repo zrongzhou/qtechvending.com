@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import AdminNav from '@/components/admin/AdminNav';
 import SiteSettingForm from '@/components/admin/SiteSettingForm';
+import SiteSettingsSslCerts from '@/components/admin/SiteSettingsSslCerts';
 import { t } from '@/components/admin/i18n';
 import type { SiteSetting } from '@/types';
 
@@ -27,7 +28,8 @@ export default function SiteSettingsPage() {
         {loading ? (
           <p className="mt-4 text-sm text-ink-400">{t('common.loading')}</p>
         ) : (
-          <div className="mt-4">
+          <div className="mt-4 space-y-5">
+            <SiteSettingsSslCerts initial={setting} />
             <SiteSettingForm initial={setting} onSaved={(s) => setSetting(s)} />
           </div>
         )}

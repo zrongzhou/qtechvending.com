@@ -29,15 +29,25 @@ function shouldSkipHttpsHost(host: string): boolean {
  */
 interface HttpsCache {
   force: boolean;
+  enabledDomains: string[];
   ts: number;
 }
 let httpsCache: HttpsCache | null = null;
 const HTTPS_CACHE_TTL = 60_000;
 
-async function getForceHttps(request: NextRequest): Promise<boolean> {
+interface HttpsConfig {
+  force: boolean;
+  enabledDomains: string[];
+}
+
+/**
+ * Read the HTTPS-enforcement config (global `forceHttps` + the list of domains
+ * with an enabled certificate) from the internal node endpoint. Cached for 60s.
+ */
+async function getHttpsConfig(request: NextRequest): Promise<HttpsConfig> {
   const now = Date.now();
   if (httpsCache && now - httpsCache.ts < HTTPS_CACHE_TTL) {
-    return httpsCache.force;
+    return { force: httpsCache.force, enabledDomains: httpsCache.enabledDomains };
   }
   try {
     // Hit the internal endpoint on the local Node server (bypasses the proxy and
@@ -49,14 +59,18 @@ async function getForceHttps(request: NextRequest): Promise<boolean> {
       cache: 'no-store',
     });
     if (res.ok) {
-      const j = (await res.json()) as { forceHttps?: boolean };
-      httpsCache = { force: !!j.forceHttps, ts: now };
-      return httpsCache.force;
+      const j = (await res.json()) as { forceHttps?: boolean; enabledDomains?: string[] };
+      const cfg = {
+        force: !!j.forceHttps,
+        enabledDomains: Array.isArray(j.enabledDomains) ? j.enabledDomains : [],
+      };
+      httpsCache = { ...cfg, ts: now };
+      return cfg;
     }
   } catch {
-    // ignore — fall back to the last cached value (or false on cold start)
+    // ignore — fall back to the last cached value (or defaults on cold start)
   }
-  return httpsCache?.force ?? false;
+  return httpsCache ? { force: httpsCache.force, enabledDomains: httpsCache.enabledDomains } : { force: false, enabledDomains: [] };
 }
 
 export async function middleware(request: NextRequest) {
@@ -81,8 +95,9 @@ export async function middleware(request: NextRequest) {
       request.headers.get('x-forwarded-proto') ||
       (request.nextUrl.protocol === 'http:' ? 'http' : 'https');
     if (proto === 'http') {
-      const force = await getForceHttps(request);
-      if (force) {
+      const https = await getHttpsConfig(request);
+      const hostNoPort = (host || '').split(':')[0].toLowerCase();
+      if (https.force && https.enabledDomains.includes(hostNoPort)) {
         const url = request.nextUrl.clone();
         url.protocol = 'https:';
         if (url.port === '80') url.port = ''; // drop a leaked :80 from the proxy

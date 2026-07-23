@@ -4,7 +4,7 @@ import { useState } from 'react';
 import type { BlogPost, I18nString } from '@/types';
 import { t } from './i18n';
 import { TriTextInput, TriTextArea, emptyI18n } from './I18nInputs';
-import ImageListEditor from './ImageListEditor';
+import ImagePicker from './ImagePicker';
 import RichTextEditor from './RichTextEditor';
 
 const inputCls =
@@ -146,9 +146,11 @@ export default function BlogForm({
         </div>
       </div>
       <div>
-        <ImageListEditor
+        <ImagePicker
           value={images}
           onChange={setImages}
+          type="blog"
+          slug={slug}
           label={t('admin.fieldBlogImages')}
           hint={t('admin.imagesHint')}
         />

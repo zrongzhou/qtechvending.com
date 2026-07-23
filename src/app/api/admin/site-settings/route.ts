@@ -1,8 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
-import { requireAdmin, unauthorizedResponse, notFoundResponse, badRequestResponse, serverErrorResponse } from '@/lib/auth';
+import {
+  requireAdmin,
+  unauthorizedResponse,
+  notFoundResponse,
+  badRequestResponse,
+  serverErrorResponse,
+} from '@/lib/auth';
 import { SITE_CONFIG } from '@/lib/site-config';
+import { nginxManager, type NginxApplyResult } from '@/lib/nginx';
+import type { SslCert } from '@/types';
 
 export const dynamic = 'force-dynamic';
 
@@ -39,7 +47,16 @@ export async function PATCH(req: NextRequest) {
 
   const stringFields = ['email', 'phone', 'addressLine', 'ogImage', 'twitterHandle', 'sslCertPath', 'sslKeyPath'];
   const booleanFields = ['forceHttps', 'sslEnabled'];
-  const jsonFields = ['company', 'address', 'socials', 'sameAs', 'keywords', 'defaultTitle', 'defaultDescription'];
+  const jsonFields = [
+    'company',
+    'address',
+    'socials',
+    'sameAs',
+    'keywords',
+    'defaultTitle',
+    'defaultDescription',
+    'sslCerts',
+  ];
 
   const data: Prisma.SiteSettingUpdateInput = {};
   for (const f of stringFields) {
@@ -87,7 +104,28 @@ export async function PATCH(req: NextRequest) {
           data.defaultDescription !== undefined ? (data.defaultDescription as Prisma.InputJsonValue) : Prisma.JsonNull,
       },
     });
-    return NextResponse.json({ success: true, data: updated });
+
+    // V52 (T3): after persisting, apply the SSL config to live nginx.
+    const nginxResult: NginxApplyResult = await nginxManager.applyConfig({
+      forceHttps: (updated.forceHttps as boolean) ?? false,
+      sslCerts: (updated.sslCerts as SslCert[] | null) ?? [],
+    });
+    if (!nginxResult.ok) {
+      // DB is already saved; report the nginx failure so the UI can show it.
+      return NextResponse.json(
+        {
+          code: 'NGINX_T',
+          message: `证书已保存，但应用 nginx 失败：${nginxResult.error ?? '未知错误'}`,
+          data: updated,
+        },
+        { status: 400 }
+      );
+    }
+    return NextResponse.json({
+      success: true,
+      data: updated,
+      nginx: { ok: true, appliedDomains: nginxResult.appliedDomains ?? 0 },
+    });
   } catch (err) {
     console.error('[admin/site-settings] PATCH failed:', err);
     return serverErrorResponse();

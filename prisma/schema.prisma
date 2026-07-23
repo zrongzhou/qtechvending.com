@@ -135,12 +135,15 @@ model SiteSetting {
   keywords          Json?    // { en:[], zh:[], ar:[] }
   defaultTitle      Json?    // { en, zh, ar }
   defaultDescription Json?   // { en, zh, ar }
-  // V51 (T10): SSL / HTTPS enforcement (application-layer config only; the
-  // certificate itself is deployed to the reverse proxy / nginx by ops).
-  forceHttps        Boolean  @default(false) // redirect http -> https at the edge (middleware)
-  sslCertPath       String?  // e.g. /etc/nginx/ssl/qtechvending.com/fullchain.pem
-  sslKeyPath        String?  // e.g. /etc/nginx/ssl/qtechvending.com/privkey.pem
-  sslEnabled        Boolean  @default(false) // true once certs are deployed to the server
+  // V52: multi-domain SSL certificate management. Replaces the V51 single-group
+  // sslCertPath/sslKeyPath/sslEnabled fields (retained as deprecated columns
+  // below for backwards compatibility — they are no longer read or written).
+  forceHttps        Boolean  @default(true)  // global HTTPS enforcement (edge 308 redirect)
+  sslCerts          Json     @default("[]")  // V52: [{ domain, certPath, keyPath, enabled }]
+  // --- V51 single-group SSL fields: DEPRECATED, retained for column compat only ---
+  sslCertPath       String?  // deprecated — prefer sslCerts[].certPath
+  sslKeyPath        String?  // deprecated — prefer sslCerts[].keyPath
+  sslEnabled        Boolean  @default(false) // deprecated — prefer sslCerts[].enabled
   updatedAt         DateTime @updatedAt
   @@map("site_settings")
 }

@@ -113,6 +113,22 @@ export interface SocialLink {
 }
 
 /**
+ * V52: a single managed SSL certificate entry (one element of
+ * `SiteSetting.sslCerts`). The certificate files themselves are placed on the
+ * server by ops; only their absolute paths are stored here.
+ */
+export interface SslCert {
+  /** Domain the certificate applies to, e.g. "www.qtechvending.com". */
+  domain: string;
+  /** Absolute path to the certificate (fullchain.pem) on the server. */
+  certPath: string;
+  /** Absolute path to the private key (privkey.pem) on the server. */
+  keyPath: string;
+  /** Whether this domain's 443 fragment + force-HTTPS redirect is generated. */
+  enabled: boolean;
+}
+
+/**
  * Site-wide settings migrated from the legacy `SITE_CONFIG` constant.
  * Single row identified by `slug = 'main'`. Multi-language fields follow the
  * `{ en, zh, ar }` convention (see I18nString).
@@ -140,6 +156,8 @@ export interface SiteSetting {
   sslKeyPath: string | null;
   /** True once the certificate has been deployed to the server (ops-managed). */
   sslEnabled: boolean;
+  /** V52: multi-domain SSL certificate list. */
+  sslCerts?: SslCert[] | null;
   updatedAt: string;
 }
 
