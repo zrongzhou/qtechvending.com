@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma';
 const LOCALES = ['en', 'zh', 'ar'] as const;
 // V49.22: Production only — test domain removed (was causing duplicate indexing)
 const HOSTS = ['https://www.qtechvending.com'];
-const STATIC_PATHS = ['', '/products', '/blog', '/about', '/contact'];
+const STATIC_PATHS = ['', '/products', '/blog', '/about', '/contact', '/solutions', '/faq'];
 
 // Dynamic route — never pre-rendered; resolved per request so the sitemap
 // always reflects the latest published products / posts / categories.
