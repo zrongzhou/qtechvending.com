@@ -17,9 +17,20 @@ interface CertForm {
   certPath: string;
   keyPath: string;
   enabled: boolean;
+  /** Transient PEM content pasted in the modal; written to disk on save. */
+  certContent: string;
+  /** Transient private-key PEM content (paired with certContent). */
+  keyContent: string;
 }
 
-const emptyForm: CertForm = { domain: '', certPath: '', keyPath: '', enabled: true };
+const emptyForm: CertForm = {
+  domain: '',
+  certPath: '',
+  keyPath: '',
+  enabled: true,
+  certContent: '',
+  keyContent: '',
+};
 
 /**
  * Multi-domain SSL certificate manager (V52). Lists certificates, supports
@@ -54,24 +65,55 @@ export default function SiteSettingsSslCerts({ initial }: { initial?: SiteSettin
   };
   const openEdit = (c: SslCert) => {
     setEditing(c);
-    setForm({ domain: c.domain, certPath: c.certPath, keyPath: c.keyPath, enabled: c.enabled });
+    setForm({
+      domain: c.domain,
+      certPath: c.certPath,
+      keyPath: c.keyPath,
+      enabled: c.enabled,
+      certContent: c.certContent || '',
+      keyContent: c.keyContent || '',
+    });
     setModalError('');
     setModalOpen(true);
   };
 
   const modalSave = () => {
     const domain = form.domain.trim();
+    const certContent = form.certContent.trim();
+    const keyContent = form.keyContent.trim();
     const certPath = form.certPath.trim();
     const keyPath = form.keyPath.trim();
     if (!domain) {
       setModalError(`${t('admin.sslDomain')} ${t('admin.required')}`);
       return;
     }
-    if (!certPath || !keyPath) {
-      setModalError(t('admin.sslPathRequired'));
-      return;
+    // Paste mode: if any PEM content is supplied, both must be present.
+    let resolvedCertPath = certPath;
+    let resolvedKeyPath = keyPath;
+    if (certContent || keyContent) {
+      if (!certContent || !keyContent) {
+        setModalError(t('admin.sslContentBothRequired'));
+        return;
+      }
+      // Server will write to /etc/nginx/ssl/<domain>.crt|.key and rewrite paths.
+      resolvedCertPath = `/etc/nginx/ssl/${domain}.crt`;
+      resolvedKeyPath = `/etc/nginx/ssl/${domain}.key`;
+    } else {
+      if (!certPath || !keyPath) {
+        setModalError(t('admin.sslPathRequired'));
+        return;
+      }
     }
-    const entry: SslCert = { domain, certPath, keyPath, enabled: form.enabled };
+    const entry: SslCert = {
+      domain,
+      certPath: resolvedCertPath,
+      keyPath: resolvedKeyPath,
+      enabled: form.enabled,
+      // Only carry the transient PEM payload when present; the server consumes
+      // and strips it (never persisted).
+      ...(certContent ? { certContent } : {}),
+      ...(keyContent ? { keyContent } : {}),
+    };
     setList((prev) => {
       if (editing) return prev.map((c) => (c === editing ? entry : c));
       return [...prev, entry];
@@ -95,12 +137,17 @@ export default function SiteSettingsSslCerts({ initial }: { initial?: SiteSettin
         body: JSON.stringify({ sslCerts: list, forceHttps }),
       });
       const j = (await res.json().catch(() => ({}))) as {
+        code?: string;
         nginx?: { appliedDomains?: number };
         message?: string;
         error?: string;
       };
       if (!res.ok) {
-        setStatus({ ok: false, message: j?.message || j?.error || t('admin.saveError') });
+        // Map structured SSL error codes to localised messages.
+        let msg = j?.message || j?.error || t('admin.saveError');
+        if (j?.code === 'SSL_CONTENT_INVALID') msg = t('admin.sslContentInvalid');
+        else if (j?.code === 'SSL_WRITE_FAILED') msg = t('admin.sslWriteFailed');
+        setStatus({ ok: false, message: msg });
         setSaving(false);
         return;
       }
@@ -112,6 +159,12 @@ export default function SiteSettingsSslCerts({ initial }: { initial?: SiteSettin
       setSaving(false);
     }
   };
+
+  // Paste mode: when either PEM textarea has content, paths are derived from
+  // the domain and shown read-only (server writes to /etc/nginx/ssl/<domain>).
+  const hasPastedContent = Boolean(form.certContent.trim() || form.keyContent.trim());
+  const autoCertPath = form.domain.trim() ? `/etc/nginx/ssl/${form.domain.trim()}.crt` : '';
+  const autoKeyPath = form.domain.trim() ? `/etc/nginx/ssl/${form.domain.trim()}.key` : '';
 
   return (
     <section className="rounded-xl border border-slate-200 bg-white p-5">
@@ -225,24 +278,69 @@ export default function SiteSettingsSslCerts({ initial }: { initial?: SiteSettin
                   className={inputCls}
                 />
               </div>
+
+              <p className="rounded-lg bg-slate-50 px-3 py-2 text-xs text-slate-500">
+                {t('admin.sslPasteHint')}
+              </p>
+
+              <div>
+                <label className={labelCls}>{t('admin.sslCertContent')}</label>
+                <textarea
+                  value={form.certContent}
+                  onChange={(e) => setForm({ ...form, certContent: e.target.value })}
+                  placeholder="-----BEGIN CERTIFICATE-----&#10;...&#10;-----END CERTIFICATE-----"
+                  rows={4}
+                  className={`${inputCls} font-mono`}
+                />
+              </div>
+              <div>
+                <label className={labelCls}>{t('admin.sslKeyContent')}</label>
+                <textarea
+                  value={form.keyContent}
+                  onChange={(e) => setForm({ ...form, keyContent: e.target.value })}
+                  placeholder="-----BEGIN PRIVATE KEY-----&#10;...&#10;-----END PRIVATE KEY-----"
+                  rows={4}
+                  className={`${inputCls} font-mono`}
+                />
+              </div>
+
               <div>
                 <label className={labelCls}>{t('admin.sslCertPath')}</label>
-                <input
-                  value={form.certPath}
-                  onChange={(e) => setForm({ ...form, certPath: e.target.value })}
-                  placeholder="/etc/nginx/ssl/www/full.pem"
-                  className={inputCls}
-                />
+                {hasPastedContent ? (
+                  <input
+                    value={autoCertPath}
+                    readOnly
+                    placeholder={t('admin.sslPathAuto')}
+                    className={`${inputCls} bg-slate-100 text-slate-500`}
+                  />
+                ) : (
+                  <input
+                    value={form.certPath}
+                    onChange={(e) => setForm({ ...form, certPath: e.target.value })}
+                    placeholder="/etc/nginx/ssl/www/full.pem"
+                    className={inputCls}
+                  />
+                )}
               </div>
               <div>
                 <label className={labelCls}>{t('admin.sslKeyPath')}</label>
-                <input
-                  value={form.keyPath}
-                  onChange={(e) => setForm({ ...form, keyPath: e.target.value })}
-                  placeholder="/etc/nginx/ssl/www/priv.pem"
-                  className={inputCls}
-                />
+                {hasPastedContent ? (
+                  <input
+                    value={autoKeyPath}
+                    readOnly
+                    placeholder={t('admin.sslPathAuto')}
+                    className={`${inputCls} bg-slate-100 text-slate-500`}
+                  />
+                ) : (
+                  <input
+                    value={form.keyPath}
+                    onChange={(e) => setForm({ ...form, keyPath: e.target.value })}
+                    placeholder="/etc/nginx/ssl/www/priv.pem"
+                    className={inputCls}
+                  />
+                )}
               </div>
+
               <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
                 <input
                   type="checkbox"

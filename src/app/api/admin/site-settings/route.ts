@@ -7,12 +7,17 @@ import {
   notFoundResponse,
   badRequestResponse,
   serverErrorResponse,
+  apiError,
 } from '@/lib/auth';
 import { SITE_CONFIG } from '@/lib/site-config';
 import { nginxManager, type NginxApplyResult } from '@/lib/nginx';
+import { preprocessSslCerts, SslCertError, SSL_DIR_DEFAULT } from '@/lib/ssl-cert';
 import type { SslCert } from '@/types';
 
 export const dynamic = 'force-dynamic';
+// This route writes certificate files with `node:fs`, so it must run on the
+// Node.js runtime (not Edge).
+export const runtime = 'nodejs';
 
 /** GET the single SiteSetting row (slug = 'main'). */
 export async function GET(req: NextRequest) {
@@ -58,6 +63,24 @@ export async function PATCH(req: NextRequest) {
     'sslCerts',
   ];
 
+  // V52.1: preprocess sslCerts BEFORE touching the DB. If certContent/keyContent
+  // are pasted, write the PEMs to disk and rewrite certPath/keyPath to the auto
+  // paths (transient fields are dropped). Any validation failure returns 400
+  // without persisting anything.
+  let preSslCerts: SslCert[] | undefined;
+  if ('sslCerts' in body && body.sslCerts !== undefined) {
+    try {
+      preSslCerts = preprocessSslCerts(body.sslCerts, {
+        sslDir: process.env.NGINX_SSL_DIR || SSL_DIR_DEFAULT,
+      });
+    } catch (e) {
+      const err = e as SslCertError;
+      const code = err?.code === 'SSL_WRITE_FAILED' ? 'SSL_WRITE_FAILED' : 'SSL_CONTENT_INVALID';
+      // Never echo the private key in the response.
+      return apiError(code, err?.message || 'Invalid SSL content.', 400);
+    }
+  }
+
   const data: Prisma.SiteSettingUpdateInput = {};
   for (const f of stringFields) {
     if (f in body && (body[f] === null || typeof body[f] === 'string')) {
@@ -71,7 +94,13 @@ export async function PATCH(req: NextRequest) {
   }
   for (const f of jsonFields) {
     if (f in body && body[f] !== undefined) {
-      (data as Record<string, unknown>)[f] = body[f];
+      if (f === 'sslCerts') {
+        // Use the preprocessed (file-written, stripped) array; never store the
+        // transient certContent/keyContent.
+        (data as Record<string, unknown>)[f] = preSslCerts ?? body.sslCerts;
+      } else {
+        (data as Record<string, unknown>)[f] = body[f];
+      }
     }
   }
 

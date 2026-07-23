@@ -126,6 +126,18 @@ export interface SslCert {
   keyPath: string;
   /** Whether this domain's 443 fragment + force-HTTPS redirect is generated. */
   enabled: boolean;
+  /**
+   * Transient PEM payload pasted in the admin UI. Used ONLY inside a save
+   * request so the server can write it to `/etc/nginx/ssl/<domain>.crt|.key`
+   * and replace `certPath`/`keyPath` with the auto-generated paths. It is
+   * consumed server-side and NEVER persisted to the database.
+   */
+  certContent?: string;
+  /**
+   * Transient private-key PEM payload (see `certContent`). Never persisted.
+   * Never logged or echoed back in API responses.
+   */
+  keyContent?: string;
 }
 
 /**
