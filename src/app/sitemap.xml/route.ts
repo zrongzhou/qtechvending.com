@@ -103,7 +103,7 @@ export async function GET(): Promise<Response> {
     headers: {
       'Content-Type': 'application/xml',
       'X-Content-Type-Options': 'nosniff',
-      'Cache-Control': 'public, max-age=3600, s-maxage=3600',
+      'Cache-Control': 'no-store, no-transform, must-revalidate',
     },
   });
 }
