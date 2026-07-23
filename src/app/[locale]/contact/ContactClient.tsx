@@ -87,8 +87,7 @@ export default function ContactClient({
   const contactEmail = site?.email || 'info@qtechvending.com';
   const contactAddress =
     (site?.address ? localized(site.address, locale) : '') ||
-    site?.addressLine ||
-    'Room 1716-928, 17/F, Building 4, No. 388 Hanxi Avenue East, Nancun Town, Panyu District, Guangzhou, Guangdong, China';
+    t('company.address');
   const contactPhone = site?.phone || '+86 183 1975 3992';
   const [form, setForm] = useState({
     name: '',
