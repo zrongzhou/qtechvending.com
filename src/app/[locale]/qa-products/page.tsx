@@ -1,7 +1,5 @@
 'use client';
 
-export const revalidate = 300;
-
 import '@/styles/animations-deferred.css';
 
 /**
