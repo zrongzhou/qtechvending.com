@@ -81,6 +81,8 @@ export interface BlogPost {
   /** V49.20: Excel/docx-authored SEO fields (emitted to page meta). */
   seoTitle?: I18nString | null;
   seoKeywords?: I18nStringList | null;
+  /** Blog FAQ entries, localized per language (mirrors Product.faq). */
+  faq?: FaqItem[] | null;
 }
 
 export type ContactSubject = 'general' | 'sales' | 'support' | 'customization' | 'partnership';

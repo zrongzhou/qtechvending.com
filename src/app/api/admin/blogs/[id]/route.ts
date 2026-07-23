@@ -31,7 +31,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
 
   const data: Record<string, unknown> = {};
   const stringFields = ['slug', 'author', 'status'];
-  const jsonFields = ['title', 'excerpt', 'content', 'seoTitle', 'seoKeywords'];
+  const jsonFields = ['title', 'excerpt', 'content', 'seoTitle', 'seoKeywords', 'faq'];
   for (const f of stringFields) {
     if (typeof body[f] === 'string') data[f] = body[f];
   }

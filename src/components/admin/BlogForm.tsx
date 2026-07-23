@@ -1,11 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import type { BlogPost, I18nString } from '@/types';
+import type { BlogPost, FaqItem, I18nString } from '@/types';
 import { t } from './i18n';
 import { TriTextInput, TriTextArea, emptyI18n } from './I18nInputs';
 import ImagePicker from './ImagePicker';
 import RichTextEditor from './RichTextEditor';
+import ProductFaqEditor from './ProductFaqEditor';
 
 const inputCls =
   'w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand-500';
@@ -35,6 +36,7 @@ export default function BlogForm({
   const [status, setStatus] = useState(initial?.status ?? 'published');
   const [featured, setFeatured] = useState(initial?.featured ?? false);
   const [seoTitle, setSeoTitle] = useState<I18nString | null>(initial?.seoTitle ?? null);
+  const [faq, setFaq] = useState<FaqItem[]>(initial?.faq ?? []);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [activeLang, setActiveLang] = useState<'en' | 'zh' | 'ar'>('en');
@@ -57,6 +59,7 @@ export default function BlogForm({
       status,
       featured,
       seoTitle: seoTitle ?? null,
+      faq,
     };
     try {
       const res = await fetch(initial ? `/api/admin/blogs/${initial.id}` : '/api/admin/blogs', {
@@ -154,6 +157,10 @@ export default function BlogForm({
           label={t('admin.fieldBlogImages')}
           hint={t('admin.imagesHint')}
         />
+      </div>
+      <div className="border-t border-slate-100 pt-4">
+        <p className="mb-3 text-sm font-semibold text-ink-700">常见问题 (FAQ)</p>
+        <ProductFaqEditor value={faq} onChange={setFaq} />
       </div>
       <div className="border-t border-slate-100 pt-4">
         <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-400">

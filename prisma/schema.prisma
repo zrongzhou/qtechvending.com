@@ -70,6 +70,7 @@ model BlogPost {
   images      String[] @default([]) // V51: 多图，首张 images[0] 为封面
   seoKeywords Json?
   seoTitle    Json?    // { zh, en, ar } — distinct SERP title from the on-page H1
+  faq         Json?    // [{ q: { en, zh, ar }, a: { en, zh, ar } }]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   @@index([status, publishedAt])

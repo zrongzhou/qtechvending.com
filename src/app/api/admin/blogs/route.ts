@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { Prisma } from '@prisma/client';
 import { requireAdmin, unauthorizedResponse, badRequestResponse, serverErrorResponse } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
@@ -104,6 +105,7 @@ export async function POST(req: NextRequest) {
             : [],
         seoTitle: (body.seoTitle as object) ?? null,
         seoKeywords: (body.seoKeywords as object) ?? null,
+        faq: Array.isArray(body.faq) ? (body.faq as object) : Prisma.DbNull,
       },
     });
     return NextResponse.json({ success: true, data: created });
