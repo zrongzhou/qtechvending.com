@@ -51,6 +51,10 @@ const nextConfig = {
   // All product/blog/about images are downloaded locally into /public/images,
   // so no remote image domains are required.
   images: {
+    // 本地预压图已是最优 webp/avif，经 next/image 服务端实时优化反而更慢
+    // (实测优化接口 5.7s vs 直读 1.5s)，并导致关于我们页白骨架长时间可见=白屏闪。
+    // 关闭优化后 next/image 直接输出 /public/images 原图，恢复直读速度。
+    unoptimized: true,
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
