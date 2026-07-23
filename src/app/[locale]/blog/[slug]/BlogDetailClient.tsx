@@ -9,7 +9,7 @@ import BlogCard from '@/components/blog/BlogCard';
 import IconTile from '@/components/ui/IconTile';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import ImageWithRetry from '@/components/ui/ImageWithRetry';
-import type { BlogPost } from '@/types';
+import type { BlogPost, FaqItem as StructuredFaq, I18nString } from '@/types';
 
 function formatDate(iso: string, locale: string): string {
   try {
@@ -45,6 +45,22 @@ function parseFaqBlock(lines: string[]): FaqItem[] {
   return items;
 }
 
+/** Convert the structured, localized blog FAQ (`post.faq`) into the flat
+ *  { q, a } shape consumed by the public FAQ accordion, applying the active
+ *  locale. Items are sorted by their `order` field. Returns [] when there are
+ *  no structured items, so callers can fall back to the Markdown FAQ. */
+function toFlatFaq(items: StructuredFaq[] | null | undefined, locale: 'zh' | 'ar' | 'en'): FaqItem[] {
+  if (!items || items.length === 0) return [];
+  return items
+    .slice()
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+    .map((it) => ({
+      q: localized(it.q ?? ({} as I18nString), locale),
+      a: localized(it.a ?? ({} as I18nString), locale),
+    }))
+    .filter((it) => it.q.trim() !== '' || it.a.trim() !== '');
+}
+
 /* Detect whether a block of consecutive lines reads like a bare-line list
    (e.g. "Shopping malls" / "Amusement parks" with no "- " prefix). */
 function looksLikeBareList(lines: string[]): boolean {
@@ -61,11 +77,14 @@ function looksLikeBareListItem(line: string): boolean {
   return t.length > 0 && t.length < 80 && !/^[#>*`\-*]/.test(t);
 }
 
-function renderRichContent(text: string, t: (key: string) => string) {
+function renderRichContent(text: string, t: (key: string) => string, structuredFaqs?: FaqItem[] | null) {
   const raw = text.split('\n');
   const els: (JSX.Element | null)[] = [];
   let idx = 0;
   const faqAccents = ['#0891B2', '#0E7490', '#155E75', '#0D9488', '#0284C7'];
+  // When the structured `post.faq` is provided, render it instead of the
+  // Markdown-parsed FAQ (which remains the fallback for older posts).
+  const useStructured = !!(structuredFaqs && structuredFaqs.length > 0);
 
   // Collect ALL FAQ items across the entire content; render once at first FAQ position.
   const allFaqs: FaqItem[] = [];
@@ -89,7 +108,7 @@ function renderRichContent(text: string, t: (key: string) => string) {
         block.push(raw[idx]); idx++;
       }
       const faqs = parseFaqBlock(block);
-      allFaqs.push(...faqs);
+      if (!useStructured) allFaqs.push(...faqs);
       continue;
     }
 
@@ -232,15 +251,17 @@ function renderRichContent(text: string, t: (key: string) => string) {
       }
     }
   }
-  // Render ALL collected FAQs as ONE single section (one heading, one accordion)
-  if (allFaqs.length > 0) {
+  // Render FAQs as ONE single section (one heading, one accordion).
+  // Prefer the structured `post.faq` when present; otherwise Markdown-parsed items.
+  const faqsToRender = useStructured ? structuredFaqs! : allFaqs;
+  if (faqsToRender.length > 0) {
     const faqSection = (
       <div key="faq-unified" className="mt-10">
         <div className="mb-5 flex items-center gap-3">
           <span className="h-5 w-1.5 rounded-full bg-brand-500" />
           <h2 className="text-2xl font-semibold text-ink-900">{t('blog.faqTitle')}</h2>
         </div>
-        <BlogFaqAccordion items={allFaqs} accents={faqAccents} />
+        <BlogFaqAccordion items={faqsToRender} accents={faqAccents} />
       </div>
     );
     if (firstFaqPosition >= 0) {
@@ -306,6 +327,8 @@ export default function BlogDetailClient({
   const title = localized(post.title, locale);
   const content = localized(post.content, locale);
   const excerpt = localized(post.excerpt, locale);
+  // Structured FAQ authored via the admin editor (falls back to Markdown parsing inside renderRichContent).
+  const structuredFaqs = toFlatFaq(post.faq, locale);
 
   return (
     <article className="container-qtech py-10 lg:py-14">
@@ -342,7 +365,7 @@ export default function BlogDetailClient({
 
       <RevealOnScroll className="mx-auto mt-10 max-w-4xl">
         <div className="rounded-2xl border border-slate-200/80 bg-white/70 p-8 shadow-lg backdrop-blur-sm lg:p-10">
-          {renderRichContent(content, t)}
+          {renderRichContent(content, t, structuredFaqs)}
         </div>
       </RevealOnScroll>
 
