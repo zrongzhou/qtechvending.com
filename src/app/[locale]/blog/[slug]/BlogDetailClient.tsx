@@ -5,11 +5,12 @@ import Link from 'next/link';
 import { ArrowLeft, CalendarDays, ChevronDown } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
+import { toFlatFaq } from '@/lib/faq';
 import BlogCard from '@/components/blog/BlogCard';
 import IconTile from '@/components/ui/IconTile';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import ImageWithRetry from '@/components/ui/ImageWithRetry';
-import type { BlogPost, FaqItem as StructuredFaq, I18nString } from '@/types';
+import type { BlogPost } from '@/types';
 
 function formatDate(iso: string, locale: string): string {
   try {
@@ -43,22 +44,6 @@ function parseFaqBlock(lines: string[]): FaqItem[] {
   }
   if (cur) items.push(cur);
   return items;
-}
-
-/** Convert the structured, localized blog FAQ (`post.faq`) into the flat
- *  { q, a } shape consumed by the public FAQ accordion, applying the active
- *  locale. Items are sorted by their `order` field. Returns [] when there are
- *  no structured items, so callers can fall back to the Markdown FAQ. */
-function toFlatFaq(items: StructuredFaq[] | null | undefined, locale: 'zh' | 'ar' | 'en'): FaqItem[] {
-  if (!items || items.length === 0) return [];
-  return items
-    .slice()
-    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-    .map((it) => ({
-      q: localized(it.q ?? ({} as I18nString), locale),
-      a: localized(it.a ?? ({} as I18nString), locale),
-    }))
-    .filter((it) => it.q.trim() !== '' || it.a.trim() !== '');
 }
 
 /* Detect whether a block of consecutive lines reads like a bare-line list
