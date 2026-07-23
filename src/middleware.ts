@@ -137,14 +137,6 @@ export async function middleware(request: NextRequest) {
 
   // 4. Locale routes pass through (inject header).
   if (seg && VALID_LOCALES.includes(seg)) {
-    // Disable caching for product listing pages (frequently filtered/searched).
-    if (pathname.endsWith('/products')) {
-      const response = NextResponse.next({ request: { headers: requestHeaders } });
-      response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-      response.headers.set('Pragma', 'no-cache');
-      response.headers.set('Expires', '0');
-      return response;
-    }
     return NextResponse.next({ request: { headers: requestHeaders } });
   }
 
