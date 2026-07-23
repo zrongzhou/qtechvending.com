@@ -27,8 +27,10 @@ export async function POST(req: NextRequest) {
     return badRequestResponse('Invalid request body.');
   }
 
-  const currentPassword = body.currentPassword || '';
-  const newPassword = body.newPassword || '';
+  // Coerce to string so a non-string body (e.g. a number) cannot make
+  // bcrypt.compare throw "Illegal arguments" and bubble up as a 500.
+  const currentPassword = String(body.currentPassword ?? '');
+  const newPassword = String(body.newPassword ?? '');
 
   if (!currentPassword || !newPassword) {
     return badRequestResponse('当前密码与新密码均为必填。');
@@ -66,6 +68,7 @@ export async function POST(req: NextRequest) {
     res.cookies.set('admin_auth', token, {
       httpOnly: true,
       sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
       path: '/',
       maxAge: 60 * 60 * 12,
     });
