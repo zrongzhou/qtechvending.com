@@ -142,7 +142,7 @@ export default function ImageWithRetry({
   return (
     <>
       {showSkeleton && (
-        <div className="absolute inset-0 overflow-hidden animate-pulse bg-white/20 backdrop-blur-[1px]" aria-hidden="true">
+        <div className="absolute inset-0 overflow-hidden bg-transparent" aria-hidden="true">
           <div className="absolute inset-0 flex items-center justify-center">
             <svg className="w-8 h-8 text-cyan-400/40 animate-spin" viewBox="0 0 24 24" fill="none">
               <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2.5" opacity="0.3" />
