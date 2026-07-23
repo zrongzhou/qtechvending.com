@@ -105,6 +105,8 @@ export async function POST(req: NextRequest) {
             : [],
         seoTitle: (body.seoTitle as object) ?? null,
         seoKeywords: (body.seoKeywords as object) ?? null,
+        // S-06: single-language SEO description (string, not JSON).
+        seoDescription: typeof body.seoDescription === 'string' ? body.seoDescription : null,
         faq: Array.isArray(body.faq) ? (body.faq as object) : Prisma.DbNull,
       },
     });

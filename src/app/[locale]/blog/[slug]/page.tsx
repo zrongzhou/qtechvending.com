@@ -15,13 +15,18 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const post = await getBlogBySlug(params.slug);
-  if (!post) return generatePageMetadata({ path: `/blog/${params.slug}` });
+  if (!post) return generatePageMetadata({ path: `/blog/${params.slug}`, locale: params.locale });
   const title = localized(post.title, params.locale as 'en' | 'zh' | 'ar');
   const seoTitle = post.seoTitle ? localized(post.seoTitle, params.locale as 'en' | 'zh' | 'ar') : '';
-  const desc = localized(post.excerpt, params.locale as 'en' | 'zh' | 'ar') || '';
+  // S-06: prefer the dedicated SEO description, falling back to the excerpt.
+  const desc =
+    (post.seoDescription && post.seoDescription.trim()) ||
+    localized(post.excerpt, params.locale as 'en' | 'zh' | 'ar') ||
+    '';
   const kw = seoKeywordList(post.seoKeywords, params.locale as 'en' | 'zh' | 'ar');
   return generatePageMetadata({
     path: `/blog/${params.slug}`,
+    locale: params.locale,
     title: seoTitle || title,
     description: desc,
     image: post.images?.[0] || undefined,

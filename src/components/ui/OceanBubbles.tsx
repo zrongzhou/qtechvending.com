@@ -168,13 +168,45 @@ export default function OceanBubbles({ className = '', reduced = false, tone = '
       }
     };
 
+    // P-06: start/stop helpers so the rAF loop only runs while visible.
+    let running = false;
+    const startLoop = () => {
+      if (running) return;
+      running = true;
+      raf = requestAnimationFrame(tick);
+    };
+    const stopLoop = () => {
+      running = false;
+      cancelAnimationFrame(raf);
+    };
+
     resize();
     window.addEventListener('resize', resize);
-    raf = requestAnimationFrame(tick);
+
+    // P-06: gate the animation on viewport visibility. Off-screen bubbles pause
+    // the rAF loop (no CPU/GPU waste); resuming continues from the same bubble
+    // positions — count, speed, sway and appearance are unchanged.
+    let io: IntersectionObserver | null = null;
+    if (typeof IntersectionObserver !== 'undefined' && canvasRef.current) {
+      io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) startLoop();
+            else stopLoop();
+          }
+        },
+        { threshold: 0 }
+      );
+      io.observe(canvasRef.current);
+    } else {
+      startLoop();
+    }
 
     return () => {
       cancelAnimationFrame(raf);
+      running = false;
       window.removeEventListener('resize', resize);
+      io?.disconnect();
     };
   }, [reduced]);
 

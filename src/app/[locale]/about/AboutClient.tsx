@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import ImageWithRetry from '@/components/ui/ImageWithRetry';
 import {
   Award,
   BadgeCheck,
@@ -1471,10 +1472,11 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           <p className="mb-4 text-center text-sm font-medium text-ink-400">
             {locale === 'zh' ? '资质认证实拍' : locale === 'ar' ? 'صور الشهادات الفعلية' : 'Real Certification Photos'}
           </p>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <ImageWithRetry
             src="/images/certificates/full-certificates.jpg"
             alt={locale === 'zh' ? 'Qtech 资质认证证书实拍' : locale === 'ar' ? 'صور شهادات اعتماد Qtech' : 'Qtech certification certificates'}
+            width={1920}
+            height={650}
             className="w-full max-w-5xl mx-auto rounded-2xl shadow-lg"
           />
         </div>

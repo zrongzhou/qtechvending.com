@@ -13,7 +13,7 @@ interface PageProps {
 export async function generateMetadata({ params: { locale } }: PageProps): Promise<Metadata> {
   return generatePageMetadata({
     path: '/about',
-    title: 'About Qtech Vending | Smart Vending Machine Manufacturer',
+    locale,
     description:
       'Qtech Vending is a smart vending machine manufacturer with 10+ years of experience, offering custom vending solutions for snacks, flowers, pizza, hot food, ice and more.',
     keywords: buildStaticPageKeywords(

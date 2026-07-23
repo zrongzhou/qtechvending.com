@@ -13,7 +13,7 @@ interface PageProps {
 export async function generateMetadata({ params: { locale } }: PageProps): Promise<Metadata> {
   return generatePageMetadata({
     path: '/blog',
-    title: 'Blog',
+    locale,
     description: SITE_CONFIG.defaultDescription,
     keywords: buildStaticPageKeywords(['Qtech blog', 'vending machine news'], locale),
   });

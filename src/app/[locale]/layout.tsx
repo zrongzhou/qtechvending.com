@@ -55,10 +55,24 @@ export default function LocaleLayout({ children, params: { locale } }: LocaleLay
             dependency); display=swap avoids invisible-text flash. */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* P-02: load the web fonts without blocking first paint. The sheet is
+            fetched as a `print` stylesheet (non-render-blocking) and promoted to
+            `all` once it finishes loading. <noscript> keeps fonts working when
+            JS is disabled. Font URLs and CSS class names are unchanged. */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap"
+          media="print"
+          onLoad={(e) => {
+            e.currentTarget.media = 'all';
+          }}
         />
+        <noscript>
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap"
+          />
+        </noscript>
         <JsonLd
           data={{
             '@context': 'https://schema.org',

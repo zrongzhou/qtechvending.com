@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import type { BlogPost, FaqItem, I18nString } from '@/types';
+import type { BlogPost, FaqItem, I18nString, I18nStringList } from '@/types';
 import { t } from './i18n';
-import { TriTextInput, TriTextArea, emptyI18n } from './I18nInputs';
+import { TriTextInput, TriTextArea, TriListInput, emptyI18n } from './I18nInputs';
 import ImagePicker from './ImagePicker';
 import RichTextEditor from './RichTextEditor';
 import ProductFaqEditor from './ProductFaqEditor';
@@ -36,6 +36,10 @@ export default function BlogForm({
   const [status, setStatus] = useState(initial?.status ?? 'published');
   const [featured, setFeatured] = useState(initial?.featured ?? false);
   const [seoTitle, setSeoTitle] = useState<I18nString | null>(initial?.seoTitle ?? null);
+  // S-05: tri-lingual SEO keywords (mirrors ProductForm's seoKeywords field).
+  const [seoKeywords, setSeoKeywords] = useState<I18nStringList | null>(initial?.seoKeywords ?? null);
+  // S-06: single-language SEO description (distinct from the on-page excerpt).
+  const [seoDescription, setSeoDescription] = useState<string>(initial?.seoDescription ?? '');
   const [faq, setFaq] = useState<FaqItem[]>(initial?.faq ?? []);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
@@ -59,6 +63,8 @@ export default function BlogForm({
       status,
       featured,
       seoTitle: seoTitle ?? null,
+      seoKeywords: seoKeywords ?? null,
+      seoDescription: seoDescription.trim() || null,
       faq,
     };
     try {
@@ -167,6 +173,17 @@ export default function BlogForm({
           {t('admin.seoSection')}
         </p>
         <TriTextInput label={t('admin.fieldSeoTitle')} value={seoTitle} onChange={setSeoTitle} />
+        <TriListInput label={t('admin.fieldSeoKeywords')} value={seoKeywords} onChange={setSeoKeywords} />
+        <div>
+          <label className={labelCls}>{t('admin.fieldSeoDescription')}</label>
+          <textarea
+            value={seoDescription}
+            onChange={(e) => setSeoDescription(e.target.value)}
+            rows={3}
+            className={inputCls}
+            placeholder={t('admin.fieldSeoDescriptionPlaceholder')}
+          />
+        </div>
       </div>
       {error && (
         <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>

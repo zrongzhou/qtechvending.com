@@ -20,7 +20,8 @@
     "qa:data": "node scripts/qa/check-data-files.mjs",
     "qa:smoke": "node scripts/qa/smoke.mjs",
     "test": "vitest run",
-    "db:alter:v52": "node scripts/db_alter_v52.mjs"
+    "db:alter:v52": "node scripts/db_alter_v52.mjs",
+    "db:alter:v53": "node scripts/db_alter_v53.mjs"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

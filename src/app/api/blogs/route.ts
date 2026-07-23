@@ -18,11 +18,15 @@ export async function GET(req: NextRequest) {
     });
   }
   const total = items.length;
-  return NextResponse.json({
-    data: items,
-    total,
-    totalPages: Math.max(1, Math.ceil(total / 9)),
-    page,
-    pageSize: 9,
-  });
+  // P-05: public, read-only list — edge-cache for 5 min, stale-while-revalidate 10 min.
+  return NextResponse.json(
+    {
+      data: items,
+      total,
+      totalPages: Math.max(1, Math.ceil(total / 9)),
+      page,
+      pageSize: 9,
+    },
+    { headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600' } }
+  );
 }

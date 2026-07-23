@@ -307,6 +307,8 @@
   "admin.fieldValue": "القيمة",
   "admin.fieldSeoTitle": "عنوان SEO",
   "admin.fieldSeoKeywords": "كلمات SEO",
+  "admin.fieldSeoDescription": "وصف SEO",
+  "admin.fieldSeoDescriptionPlaceholder": "وصف meta موجز يظهر في نتائج البحث (اختياري)",
   "admin.fieldCategories": "الفئات",
   "admin.fieldFeatured": "مميز",
   "admin.fieldPublishedAt": "تاريخ النشر",

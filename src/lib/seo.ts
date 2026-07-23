@@ -47,7 +47,50 @@ interface PageSEOOptions {
   author?: string;
   keywords?: string[];
   noindex?: boolean;
+  /** Active locale (en | zh | ar). Used to localize the canonical/og:url,
+   *  hreflang alternates, the metadata title/description/keywords, and (for
+   *  the static marketing routes) the page <title>. */
+  locale: string;
 }
+
+/**
+ * Locale-aware titles for the static marketing routes. These pages previously
+ * emitted a hardcoded English <title>; S-04 switches them to the visitor's
+ * locale. Keyed by the `path` passed to `generatePageMetadata` so the function
+ * can pick the right language without the caller threading a `t()` helper.
+ */
+const STATIC_TITLES: Record<string, { en: string; zh: string; ar: string }> = {
+  '/about': {
+    en: 'About Qtech Vending | Smart Vending Machine Manufacturer',
+    zh: '关于 Qtech 智能售货机 | 自助售卖设备制造商',
+    ar: 'حول Qtech للبيع الذكي | مصنّع لآلات البيع الذكية',
+  },
+  '/products': {
+    en: 'Products',
+    zh: '产品',
+    ar: 'المنتجات',
+  },
+  '/solutions': {
+    en: 'Solutions',
+    zh: '解决方案',
+    ar: 'الحلول',
+  },
+  '/contact': {
+    en: 'Contact',
+    zh: '联系我们',
+    ar: 'اتصل بنا',
+  },
+  '/faq': {
+    en: 'FAQ',
+    zh: '常见问题',
+    ar: 'الأسئلة الشائعة',
+  },
+  '/blog': {
+    en: 'Blog',
+    zh: '博客',
+    ar: 'المدونة',
+  },
+};
 
 export async function generatePageMetadata(options: PageSEOOptions): Promise<Metadata> {
   const {
@@ -60,30 +103,48 @@ export async function generatePageMetadata(options: PageSEOOptions): Promise<Met
     modifiedTime,
     author,
     noindex = false,
+    locale,
   } = options;
   const baseUrl = getBaseUrl();
 
   // Resolve site-wide defaults from the DB-backed SiteSetting (degrades to SITE_CONFIG).
   const setting = await getSiteSetting();
   const siteName = SITE_CONFIG.name;
-  const defaultTitle = setting.defaultTitle?.en || LEGACY_SITE_CONFIG.defaultTitle;
-  const defaultDescription = setting.defaultDescription?.en || LEGACY_SITE_CONFIG.defaultDescription;
+  // S-03: resolve the site-wide defaults in the active locale, falling back to
+  // the English copy (and finally the legacy constant) for safety.
+  const defaultTitle = setting.defaultTitle?.[locale] || setting.defaultTitle?.en || LEGACY_SITE_CONFIG.defaultTitle;
+  const defaultDescription =
+    setting.defaultDescription?.[locale] || setting.defaultDescription?.en || LEGACY_SITE_CONFIG.defaultDescription;
   const ogImage = setting.ogImage || LEGACY_SITE_CONFIG.ogImage;
   const twitterHandle = setting.twitterHandle || LEGACY_SITE_CONFIG.twitterHandle;
-  const keywordList = setting.keywords?.en || LEGACY_SITE_CONFIG.keywords;
+  const keywordList = setting.keywords?.[locale] || setting.keywords?.en || LEGACY_SITE_CONFIG.keywords;
 
   // `title` is the BARE page title. The root layout's `title.template`
   // ("%s | Qtech") appends the site name to the <title> tag, so we must NOT
   // prepend it here (that would double the site name). OG/Twitter titles are
   // not templated, so we build the full display title for them.
-  const displayTitle = title ? `${title} | ${siteName}` : defaultTitle;
+  // S-04: for the static marketing routes (about/products/solutions/contact/
+  // faq/blog) the caller no longer passes an English title — pick the
+  // locale-aware title from STATIC_TITLES. Dynamic routes (product/category/
+  // blog-detail) still pass their own already-localized title.
+  const staticEntry = STATIC_TITLES[path];
+  const staticTitle = staticEntry
+    ? staticEntry[locale as 'en' | 'zh' | 'ar'] || staticEntry.en
+    : undefined;
+  const effectiveTitle = title || staticTitle;
+  const displayTitle = effectiveTitle ? `${effectiveTitle} | ${siteName}` : defaultTitle;
   const fullDescription = description || defaultDescription;
   const ogImageUrl = image
     ? image.startsWith('http')
       ? image
       : `${baseUrl}${image.startsWith('/') ? '' : '/'}${image}`
     : `${baseUrl}${ogImage}`;
-  const pageUrl = path.startsWith('http') ? path : `${baseUrl}${path.startsWith('/') ? '' : '/'}${path}`;
+  // S-01: every canonical/og:url must include the locale segment so each
+  // language variant points at its own URL (e.g. /en/about, /zh/about).
+  const normalizedPath = path === '/' ? '' : path;
+  const pageUrl = path.startsWith('http')
+    ? path
+    : `${baseUrl}/${locale}${normalizedPath || ''}`;
 
   // Next.js's Metadata API only accepts a fixed set of OpenGraph `type`
   // values; 'product' is rejected at RUNTIME (throws "Invalid OpenGraph
@@ -92,7 +153,7 @@ export async function generatePageMetadata(options: PageSEOOptions): Promise<Met
   const ogType = type === 'product' ? 'website' : type;
 
   return {
-    title,
+    title: effectiveTitle,
     description: fullDescription,
     keywords:
       options.keywords && options.keywords.length
@@ -104,8 +165,8 @@ export async function generatePageMetadata(options: PageSEOOptions): Promise<Met
       description: fullDescription,
       url: pageUrl,
       siteName,
-      images: [{ url: ogImageUrl, width: 1200, height: 630, alt: title || siteName }],
-      locale: 'en_US',
+      images: [{ url: ogImageUrl, width: 1200, height: 630, alt: effectiveTitle || siteName }],
+      locale: locale === 'zh' ? 'zh_CN' : locale === 'ar' ? 'ar' : 'en_US',
       alternateLocale: ['zh_CN', 'ar'],
       type: ogType as 'website' | 'article',
       ...(publishedTime && { publishedTime }),
@@ -121,11 +182,14 @@ export async function generatePageMetadata(options: PageSEOOptions): Promise<Met
     },
     alternates: {
       canonical: pageUrl,
+      // S-01: emit absolute hreflang alternates for every locale plus an
+      // x-default that points at the English variant (which is also the
+      // canonical URL for the en locale, keeping the set self-consistent).
       languages: {
-        en: `/en${path}`,
-        'zh-CN': `/zh${path}`,
-        ar: `/ar${path}`,
-        'x-default': `/en${path}`,
+        en: `${baseUrl}/en${normalizedPath || ''}`,
+        'zh-CN': `${baseUrl}/zh${normalizedPath || ''}`,
+        ar: `${baseUrl}/ar${normalizedPath || ''}`,
+        'x-default': `${baseUrl}/en${normalizedPath || ''}`,
       },
     },
   };

@@ -21,6 +21,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     : 'Category';
   return generatePageMetadata({
     path: `/category/${params.slug}`,
+    locale: params.locale,
     title: name,
     description: category ? localized(category.description, params.locale as 'en' | 'zh' | 'ar') : undefined,
     keywords: buildStaticPageKeywords([name, 'Qtech'], params.locale),

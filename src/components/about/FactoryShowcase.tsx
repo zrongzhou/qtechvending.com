@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight, Factory } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import IconTile from '@/components/ui/IconTile';
+import ImageWithRetry from '@/components/ui/ImageWithRetry';
 
 /** Ordered factory / workshop photos (converted to webp in public/images/factory). */
 const FACTORY_IMAGES = Array.from(
@@ -67,7 +68,7 @@ export default function FactoryShowcase() {
       >
         <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-slate-100">
           {FACTORY_IMAGES.map((src, i) => (
-            <img
+            <ImageWithRetry
               key={src}
               src={src}
               alt={caption(i)}
@@ -121,7 +122,7 @@ export default function FactoryShowcase() {
                 : 'border-white/70 opacity-70 hover:opacity-100'
             }`}
           >
-            <img src={src} alt={caption(i)} loading="lazy" className="h-full w-full object-cover" />
+            <ImageWithRetry src={src} alt={caption(i)} loading="lazy" className="h-full w-full object-cover" />
           </button>
         ))}
       </div>

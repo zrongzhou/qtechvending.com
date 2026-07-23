@@ -427,10 +427,11 @@ export default function ProductDetailView({
             )}
 
             <div className="animate-scale-in" onClick={(e) => e.stopPropagation()}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <ImageWithRetry
                 src={images[lightboxIndex]}
                 alt={`${name} ${lightboxIndex + 1}`}
+                width={1200}
+                height={900}
                 className="max-h-[90vh] max-w-[90vw] rounded-xl object-contain shadow-2xl"
                 draggable={false}
               />

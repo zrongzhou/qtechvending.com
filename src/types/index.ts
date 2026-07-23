@@ -81,6 +81,8 @@ export interface BlogPost {
   /** V49.20: Excel/docx-authored SEO fields (emitted to page meta). */
   seoTitle?: I18nString | null;
   seoKeywords?: I18nStringList | null;
+  /** V53: single-language SEO meta description (distinct from the excerpt). */
+  seoDescription?: string | null;
   /** Blog FAQ entries, localized per language (mirrors Product.faq). */
   faq?: FaqItem[] | null;
 }

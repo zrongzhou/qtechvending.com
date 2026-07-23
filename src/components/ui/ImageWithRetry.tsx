@@ -34,6 +34,10 @@ export interface ImageWithRetryProps {
   draggable?: boolean;
   /** Next.js <Image> quality (1-100). Bypass the default 75 for crisp product shots. */
   quality?: number;
+  /** Optional external onLoad handler, invoked once the image has loaded. */
+  onLoad?: () => void;
+  /** Native decoding hint passthrough (sync | async | auto). */
+  decoding?: 'sync' | 'async' | 'auto';
 }
 
 type Status = 'loading' | 'ready' | 'retrying' | 'failed';
@@ -66,6 +70,8 @@ export default function ImageWithRetry({
   onClick,
   draggable = true,
   quality,
+  onLoad,
+  decoding,
 }: ImageWithRetryProps) {
   const [displaySrc, setDisplaySrc] = useState<string>(src);
   const [status, setStatus] = useState<Status>('loading');
@@ -164,7 +170,11 @@ export default function ImageWithRetry({
         quality={quality}
         draggable={draggable}
         onClick={onClick}
-        onLoad={() => setStatus('ready')}
+        onLoad={() => {
+          setStatus('ready');
+          onLoad?.();
+        }}
+        decoding={decoding}
         onError={handleError}
         style={imgStyle}
         className={`transition-opacity duration-500 ${

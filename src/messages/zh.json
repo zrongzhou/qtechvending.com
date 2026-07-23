@@ -307,6 +307,8 @@
   "admin.fieldValue": "值",
   "admin.fieldSeoTitle": "SEO 标题",
   "admin.fieldSeoKeywords": "SEO 关键词",
+  "admin.fieldSeoDescription": "SEO 描述",
+  "admin.fieldSeoDescriptionPlaceholder": "搜索结果中显示的简短描述（可选）",
   "admin.fieldCategories": "分类",
   "admin.fieldFeatured": "精选",
   "admin.fieldPublishedAt": "发布日期",

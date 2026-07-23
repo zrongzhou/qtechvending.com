@@ -274,6 +274,8 @@
   "admin.fieldValue": "Value",
   "admin.fieldSeoTitle": "SEO title",
   "admin.fieldSeoKeywords": "SEO keywords",
+  "admin.fieldSeoDescription": "SEO description",
+  "admin.fieldSeoDescriptionPlaceholder": "Short meta description shown in search results (optional)",
   "admin.fieldCategories": "Categories",
   "admin.fieldFeatured": "Featured",
   "admin.fieldPublishedAt": "Published date",

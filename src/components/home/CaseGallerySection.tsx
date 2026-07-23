@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import { useLocale } from '@/lib/i18n';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import ImageWithRetry from '@/components/ui/ImageWithRetry';
 
 // V47: 14 real customer-installation photos (WebP, max-width 800, q80).
 const GALLERY = Array.from(
@@ -89,18 +90,13 @@ export default function CaseGallerySection() {
               }`}
             >
               {i === 0 ? (
-                /* V49.4: first frame rendered as a plain <img> with eager +
-                   synchronous decode + high fetch priority so it paints sharp
-                   immediately and never depends on the Next.js image pipeline
-                   (the previous first frame looked blurry). */
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+                <ImageWithRetry
                   src={src}
                   alt={`${altPrefix}${i + 1}`}
-                  className="absolute inset-0 h-full w-full object-cover"
                   loading="eager"
                   decoding="sync"
                   fetchPriority="high"
+                  className="absolute inset-0 h-full w-full object-cover"
                   onLoad={() => setImgLoaded((prev) => ({ ...prev, [i]: true }))}
                 />
               ) : (

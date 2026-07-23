@@ -546,6 +546,7 @@ export default function Starfield({
     resize();
     let raf = 0;
     let last = 0;
+    let running = false;
     const FRAME = 1000 / 30; // 30fps cap
     function loop(tt: number) {
       if (tt - last >= FRAME) {
@@ -554,17 +555,53 @@ export default function Starfield({
       }
       raf = requestAnimationFrame(loop);
     }
-
-    if (isReduced) {
-      draw(0); // single static frame (no meteors / flares / pulse)
-    } else {
+    // P-06: start/stop helpers so the rAF loop only runs while visible.
+    function startLoop() {
+      if (running) return;
+      running = true;
       raf = requestAnimationFrame(loop);
+    }
+    function stopLoop() {
+      running = false;
+      cancelAnimationFrame(raf);
     }
 
     window.addEventListener('resize', resize);
+
+    if (isReduced) {
+      draw(0); // single static frame (no meteors / flares / pulse)
+      return () => {
+        window.removeEventListener('resize', resize);
+      };
+    }
+
+    // P-06: gate the animation on viewport visibility. While the canvas is off
+    // screen (e.g. scrolled away) the rAF loop is paused to save CPU/GPU; when
+    // it scrolls back the loop resumes from the exact same particle state — no
+    // reset, no change to count / frequency / appearance. Stars/flares/meteors
+    // are untouched.
+    const observeTarget = canvasRef.current ?? wrapRef.current;
+    let io: IntersectionObserver | null = null;
+    if (typeof IntersectionObserver !== 'undefined' && observeTarget) {
+      io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) startLoop();
+            else stopLoop();
+          }
+        },
+        { threshold: 0 }
+      );
+      io.observe(observeTarget);
+    } else {
+      startLoop();
+    }
+
     return () => {
       cancelAnimationFrame(raf);
+      running = false;
       window.removeEventListener('resize', resize);
+      io?.disconnect();
     };
   }, [starCount, speed, depth, twinkle, reduced]);
 

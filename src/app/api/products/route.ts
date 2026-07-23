@@ -17,5 +17,9 @@ export async function GET(req: NextRequest) {
     : 'featured';
 
   const data = await getProducts({ categories, search, page, sort });
-  return NextResponse.json(data);
+  // P-05: public, read-only list — let the CDN/edge cache it for 5 min while
+  // serving stale content for up to 10 min during revalidation.
+  return NextResponse.json(data, {
+    headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600' },
+  });
 }

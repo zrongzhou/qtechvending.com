@@ -16,7 +16,7 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const slug = params.slug[0];
   const product = await getProductBySlug(slug);
-  if (!product) return generatePageMetadata({ path: `/products/${slug}` });
+  if (!product) return generatePageMetadata({ path: `/products/${slug}`, locale: params.locale });
   const name = localized(product.name, params.locale as 'en' | 'zh' | 'ar');
   const seoTitle = product.seoTitle ? localized(product.seoTitle, params.locale as 'en' | 'zh' | 'ar') : '';
   const desc =
@@ -26,6 +26,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const kw = seoKeywordList(product.seoKeywords, params.locale as 'en' | 'zh' | 'ar');
   return generatePageMetadata({
     path: `/products/${slug}`,
+    locale: params.locale,
     title: seoTitle || name,
     description: desc,
     image: product.images?.[0],
