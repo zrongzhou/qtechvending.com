@@ -27,19 +27,15 @@ export const SSL_DIR_DEFAULT = '/etc/nginx/ssl';
 
 const DOMAIN_RE = /^[a-zA-Z0-9._-]+$/;
 
-const CERT_BEGIN = '-----BEGIN CERTIFICATE-----';
-const CERT_END = '-----END CERTIFICATE-----';
-
-const KEY_BEGINS = [
-  '-----BEGIN PRIVATE KEY-----',
-  '-----BEGIN RSA PRIVATE KEY-----',
-  '-----BEGIN EC PRIVATE KEY-----',
-];
-const KEY_ENDS = [
-  '-----END PRIVATE KEY-----',
-  '-----END RSA PRIVATE KEY-----',
-  '-----END EC PRIVATE KEY-----',
-];
+// Strict PEM markers: a begin/end pair with a non-empty body in between. The
+// regex enforces the correct order (BEGIN before END) and rejects an empty body
+// (markers adjacent with only whitespace), so invalid certs/keys fail fast here
+// instead of surfacing later at `nginx -t`.
+const CERT_PEM_RE = /-----BEGIN CERTIFICATE-----([\s\S]*?)-----END CERTIFICATE-----/;
+// Backreference (\1) forces the END prefix to match the BEGIN prefix
+// (PRIVATE KEY / RSA PRIVATE KEY / EC PRIVATE KEY), rejecting mismatched pairs
+// as well as reversed or END-less markers.
+const KEY_PEM_RE = /-----BEGIN ((?:RSA |EC )?)PRIVATE KEY-----([\s\S]*?)-----END \1PRIVATE KEY-----/;
 
 /** Error type carrying a stable `code` used by callers / API responses. */
 export class SslCertError extends Error {
@@ -60,6 +56,9 @@ export class SslCertError extends Error {
 export function sanitizeSslDomain(domain: string): string {
   const d = (domain || '').trim();
   if (!d) throw new SslCertError('SSL_DOMAIN', 'Invalid SSL domain: empty');
+  // Cap length (RFC 1035 max label 63, FQDN 253) so an absurdly long domain
+  // cannot produce an unmanageable on-disk path.
+  if (d.length > 253) throw new SslCertError('SSL_DOMAIN', `Invalid SSL domain (too long): ${d}`);
   if (!DOMAIN_RE.test(d)) {
     throw new SslCertError('SSL_DOMAIN', `Invalid SSL domain: ${d}`);
   }
@@ -72,35 +71,47 @@ export function sanitizeSslDomain(domain: string): string {
   return d;
 }
 
-/** True iff the content contains both a CERTIFICATE begin and end marker. */
+/**
+ * True iff `content` is a well-formed certificate PEM: a CERTIFICATE begin/end
+ * pair (in order) whose captured body has at least one non-whitespace
+ * character (i.e. there is actual base64 content, not just adjacent markers).
+ */
 export function validatePemCert(content: string): boolean {
   if (!content || typeof content !== 'string') return false;
-  return content.includes(CERT_BEGIN) && content.includes(CERT_END);
+  const m = CERT_PEM_RE.exec(content);
+  if (!m) return false;
+  return m[1].trim().length > 0;
 }
 
-/** True iff the content contains a recognised PRIVATE KEY begin/end pair. */
+/**
+ * True iff `content` is a well-formed private-key PEM: a recognised
+ * (RSA/EC/unspecified) PRIVATE KEY begin/end pair (in order, prefixes matched
+ * via backreference) whose captured body has at least one non-whitespace char.
+ */
 export function validatePemKey(content: string): boolean {
   if (!content || typeof content !== 'string') return false;
-  const hasBegin = KEY_BEGINS.some((b) => content.includes(b));
-  const hasEnd = KEY_ENDS.some((e) => content.includes(e));
-  return hasBegin && hasEnd;
+  const m = KEY_PEM_RE.exec(content);
+  if (!m) return false;
+  return m[2].trim().length > 0;
 }
 
 /**
  * Validate that a stored cert/key path is safe to embed in nginx config:
  *   - non-empty absolute path
- *   - located under `sslDir` (default `/etc/nginx/ssl`)
- *   - no `..` traversal
- * Path separators are normalised to `/` so the check is platform-independent.
+ *   - located *inside* `sslDir` (default `/etc/nginx/ssl`), with a strict
+ *     directory boundary so `/etc/nginx/ssl-evil/foo.crt` is rejected.
+ * `path.resolve` normalises `..`, duplicate separators and `.`, which also
+ * neutralises traversal attempts before the prefix comparison. The check is
+ * therefore platform-independent.
  */
 export function isSafeSslPath(p: string, sslDir: string = SSL_DIR_DEFAULT): boolean {
   if (!p || typeof p !== 'string') return false;
   if (!path.isAbsolute(p)) return false;
-  const np = p.replace(/\\/g, '/');
-  const nd = sslDir.replace(/\\/g, '/');
-  if (!np.startsWith(nd)) return false;
-  if (np.includes('..')) return false;
-  return true;
+  const resolved = path.resolve(p);
+  const dir = path.resolve(sslDir);
+  // Equal to the dir itself (defensive) or strictly nested under it. The
+  // `dir + path.sep` boundary is what prevents the `ssl-evil` sibling bypass.
+  return resolved === dir || resolved.startsWith(dir + path.sep);
 }
 
 export interface WriteSslCertResult {

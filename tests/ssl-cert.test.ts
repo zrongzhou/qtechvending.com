@@ -64,6 +64,20 @@ describe('validatePem', () => {
     expect(validatePemKey('')).toBe(false);
     expect(validatePemKey('-----BEGIN PRIVATE KEY-----')).toBe(false);
   });
+  it('rejects a certificate with an empty body (adjacent markers)', () => {
+    expect(validatePemCert('-----BEGIN CERTIFICATE-----\n-----END CERTIFICATE-----')).toBe(false);
+    expect(validatePemCert('-----BEGIN CERTIFICATE-----   \n\t-----END CERTIFICATE-----')).toBe(false);
+  });
+  it('rejects reversed / END-less certificate markers', () => {
+    expect(validatePemCert('-----END CERTIFICATE-----\n-----BEGIN CERTIFICATE-----')).toBe(false);
+    expect(validatePemCert('-----BEGIN CERTIFICATE-----\nabc')).toBe(false);
+  });
+  it('rejects a key with an empty body or mismatched markers', () => {
+    expect(validatePemKey('-----BEGIN PRIVATE KEY-----\n-----END PRIVATE KEY-----')).toBe(false);
+    expect(validatePemKey('-----END PRIVATE KEY-----\n-----BEGIN PRIVATE KEY-----')).toBe(false);
+    // BEGIN RSA must pair with END RSA, not a plain END.
+    expect(validatePemKey('-----BEGIN RSA PRIVATE KEY-----\n-----END PRIVATE KEY-----')).toBe(false);
+  });
 });
 
 describe('sanitizeSslDomain', () => {
@@ -77,6 +91,10 @@ describe('sanitizeSslDomain', () => {
     expect(() => sanitizeSslDomain('..')).toThrow(SslCertError);
     expect(() => sanitizeSslDomain('a/../b')).toThrow(SslCertError);
     expect(() => sanitizeSslDomain('a b')).toThrow(SslCertError);
+  });
+  it('rejects over-long domains (length cap 253)', () => {
+    expect(() => sanitizeSslDomain('a'.repeat(254))).toThrow(SslCertError);
+    expect(() => sanitizeSslDomain('a'.repeat(253))).not.toThrow();
   });
 });
 
@@ -211,5 +229,9 @@ describe('isSafeSslPath', () => {
     expect(isSafeSslPath('a.crt')).toBe(false);
     expect(isSafeSslPath('/etc/nginx/ssl/../../etc/passwd')).toBe(false);
     expect(isSafeSslPath('/other/a.crt')).toBe(false);
+  });
+  it('rejects a sibling dir that merely shares the ssl prefix (boundary)', () => {
+    expect(isSafeSslPath('/etc/nginx/ssl-evil/foo.crt')).toBe(false);
+    expect(isSafeSslPath('/etc/nginx/ssl/../ssl-evil/foo.crt')).toBe(false);
   });
 });
