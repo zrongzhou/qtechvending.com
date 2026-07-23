@@ -21,30 +21,28 @@ export async function GET(req: NextRequest) {
   if (featuredParam === 'true') where.featured = true;
   else if (featuredParam === 'false') where.featured = false;
 
-  try {
-    if (search) {
-      const all = await prisma.product.findMany({
-        where,
-        orderBy: [{ order: 'asc' }, { sku: 'asc' }],
-        include: { categories: true },
-      });
-      const needle = search.toLowerCase();
-      const filtered = (all as Array<{ name?: unknown; sku?: string; slug?: string }>).filter(
-        (p) =>
-          JSON.stringify(p.name ?? '').toLowerCase().includes(needle) ||
-          (p.sku || '').toLowerCase().includes(needle) ||
-          (p.slug || '').toLowerCase().includes(needle)
-      );
-      const total = filtered.length;
-      return NextResponse.json({
-        data: filtered.slice((page - 1) * limit, (page - 1) * limit + limit),
-        total,
-        totalPages: Math.max(1, Math.ceil(total / limit)),
-        page,
-        pageSize: limit,
-      });
-    }
+  // DB-side search. Previously the whole table was pulled into memory and
+  // filtered in JS, which is slow at scale. Now the filter runs in the DB.
+  // `name` is a JSON i18n field ({ en, zh, ar }), so we match every language
+  // path with `string_contains`. Prisma JSON filters do NOT support
+  // `mode: 'insensitive'`, so we match both the original and lowercased needle
+  // to keep search case-insensitive. `sku`/`slug` are plain strings and use
+  // `mode: 'insensitive'` directly.
+  if (search) {
+    const needle = search.toLowerCase();
+    where.OR = [
+      { name: { path: ['en'], string_contains: search } },
+      { name: { path: ['zh'], string_contains: search } },
+      { name: { path: ['ar'], string_contains: search } },
+      { name: { path: ['en'], string_contains: needle } },
+      { name: { path: ['zh'], string_contains: needle } },
+      { name: { path: ['ar'], string_contains: needle } },
+      { sku: { contains: search, mode: 'insensitive' } },
+      { slug: { contains: search, mode: 'insensitive' } },
+    ];
+  }
 
+  try {
     const [items, total] = await Promise.all([
       prisma.product.findMany({
         where,

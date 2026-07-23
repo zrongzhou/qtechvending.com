@@ -425,5 +425,16 @@
   "admin.uploadNeedSlug": "请先保存以获取 slug 后才能上传图片",
   "admin.uploadFailed": "上传失败，请重试",
   "admin.uploadTimeout": "上传超时（>2分钟），请检查网络后重试",
-  "admin.uploadTimeoutHint": "上传超时（>5分钟）。图片可能已成功上传，请刷新页面查看。如未出现请重试"
+  "admin.uploadTimeoutHint": "上传超时（>5分钟）。图片可能已成功上传，请刷新页面查看。如未出现请重试",
+  "admin.changePassword": "修改密码",
+  "admin.currentPassword": "当前密码",
+  "admin.newPassword": "新密码",
+  "admin.confirmPassword": "确认新密码",
+  "admin.passwordMismatch": "两次输入的新密码不一致",
+  "admin.passwordTooShort": "新密码至少 8 位",
+  "admin.passwordWeak": "新密码需同时包含字母和数字",
+  "admin.currentPasswordWrong": "当前密码错误",
+  "admin.passwordUpdated": "密码修改成功，会话已续期",
+  "admin.passwordError": "修改密码失败，请重试",
+  "admin.backToDashboard": "返回仪表盘"
 }

@@ -425,5 +425,16 @@
   "admin.uploadNeedSlug": "Save the item first to get a slug before uploading images",
   "admin.uploadFailed": "Upload failed, please retry",
   "admin.uploadTimeout": "Upload timed out (>2 min), check network and retry",
-  "admin.uploadTimeoutHint": "Upload timed out (>5 min). The image may have uploaded successfully — refresh to check. If not visible, please retry"
+  "admin.uploadTimeoutHint": "Upload timed out (>5 min). The image may have uploaded successfully — refresh to check. If not visible, please retry",
+  "admin.changePassword": "Change Password",
+  "admin.currentPassword": "Current Password",
+  "admin.newPassword": "New Password",
+  "admin.confirmPassword": "Confirm New Password",
+  "admin.passwordMismatch": "New passwords do not match",
+  "admin.passwordTooShort": "New password must be at least 8 characters",
+  "admin.passwordWeak": "New password must contain both letters and numbers",
+  "admin.currentPasswordWrong": "Current password is incorrect",
+  "admin.passwordUpdated": "Password updated. Session renewed.",
+  "admin.passwordError": "Failed to change password. Please try again.",
+  "admin.backToDashboard": "Back to Dashboard"
 }

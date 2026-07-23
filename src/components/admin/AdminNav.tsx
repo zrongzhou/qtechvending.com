@@ -24,6 +24,7 @@ export default function AdminNav() {
     { href: '/xiaozhouBackend/blogs', label: t('admin.blogs') },
     { href: '/xiaozhouBackend/site-settings', label: t('admin.siteSettings') },
     { href: '/xiaozhouBackend/faq', label: t('admin.faq') },
+    { href: '/xiaozhouBackend/change-password', label: t('admin.changePassword') },
   ];
 
   return (
