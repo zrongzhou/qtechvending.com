@@ -424,5 +424,6 @@
   "admin.uploadAddManual": "Add path",
   "admin.uploadNeedSlug": "Save the item first to get a slug before uploading images",
   "admin.uploadFailed": "Upload failed, please retry",
-  "admin.uploadTimeout": "Upload timed out (>2 min), check network and retry"
+  "admin.uploadTimeout": "Upload timed out (>2 min), check network and retry",
+  "admin.uploadTimeoutHint": "Upload timed out (>5 min). The image may have uploaded successfully — refresh to check. If not visible, please retry"
 }

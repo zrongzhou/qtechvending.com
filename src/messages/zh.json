@@ -424,5 +424,6 @@
   "admin.uploadAddManual": "添加路径",
   "admin.uploadNeedSlug": "请先保存以获取 slug 后才能上传图片",
   "admin.uploadFailed": "上传失败，请重试",
-  "admin.uploadTimeout": "上传超时（>2分钟），请检查网络后重试"
+  "admin.uploadTimeout": "上传超时（>2分钟），请检查网络后重试",
+  "admin.uploadTimeoutHint": "上传超时（>5分钟）。图片可能已成功上传，请刷新页面查看。如未出现请重试"
 }

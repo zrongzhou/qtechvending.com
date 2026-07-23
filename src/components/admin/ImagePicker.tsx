@@ -67,7 +67,7 @@ export default function ImagePicker({ value, onChange, type, slug, label, hint }
     onChange(next);
   };
 
-  const UPLOAD_TIMEOUT_MS = 120_000; // 2 minutes per file
+  const UPLOAD_TIMEOUT_MS = 300_000; // 5 minutes per file (large images over slow CDN)
 
   const uploadFiles = async (files: File[] | FileList) => {
     if (!slug) {
@@ -104,7 +104,7 @@ export default function ImagePicker({ value, onChange, type, slug, label, hint }
         }
       } catch (err: unknown) {
         const msg = err instanceof DOMException && err.name === 'AbortError'
-          ? t('admin.uploadTimeout')
+          ? t('admin.uploadTimeoutHint')
           : `${f.name}: ${t('admin.uploadFailed')}`;
         setUploadError(msg);
       }
