@@ -113,6 +113,8 @@ describe('generateHttpInc', () => {
   it('does not emit a redirect when forceHttps is off', () => {
     const s = nginxManager.generateHttpInc(false, ['www.qtechvending.com']);
     expect(s).not.toContain('return 301');
+    expect(s).toContain('proxy_pass');
+    expect(s).toContain('HTTP is served directly');
   });
 });
 
@@ -207,7 +209,7 @@ describe('applyConfig', () => {
     expect(res.error).toContain('Invalid certificate path');
   });
 
-  it('removes fragments for disabled domains', async () => {
+  it('removes fragments for disabled domains and serves HTTP directly', async () => {
     mockStore[fragKey] = 'PREV';
     const res = await nginxManager.applyConfig({
       forceHttps: false,
@@ -215,5 +217,8 @@ describe('applyConfig', () => {
     });
     expect(res.ok).toBe(true);
     expect(mockStore[fragKey]).toBeUndefined();
+    const httpInc = mockStore['/etc/nginx/conf.d/qtechvending-http.inc'];
+    expect(httpInc).toContain('proxy_pass');
+    expect(httpInc).not.toContain('return 301');
   });
 });
