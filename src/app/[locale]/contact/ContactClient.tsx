@@ -88,7 +88,7 @@ export default function ContactClient({
   const contactAddress =
     (site?.address ? localized(site.address, locale) : '') ||
     t('company.address');
-  const contactPhone = site?.phone || '+86 183 1975 3992';
+  const contactPhones = ['+86 183 1975 3992', '+86 190 1516 9848'];
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -306,7 +306,11 @@ export default function ContactClient({
                   />
                   <div>
                     <p className="text-xs font-medium uppercase tracking-wide text-slate-500">{t('contact.callUs')}</p>
-                    <p className="mt-0.5 text-slate-700">{contactPhone}</p>
+                    <p className="mt-0.5 flex flex-col gap-0.5 text-slate-700">
+                      {contactPhones.map((p) => (
+                        <span key={p}>{p}</span>
+                      ))}
+                    </p>
                   </div>
                 </li>
                 {/* WhatsApp & WeChat removed per user request */}
