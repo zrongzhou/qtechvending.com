@@ -85,6 +85,12 @@ describe('generateSslFragment', () => {
     expect(s).toContain('server_name www.qtechvending.com');
     expect(s).toContain('ssl_certificate     /etc/nginx/ssl/www/full.pem;');
     expect(s).toContain('ssl_certificate_key /etc/nginx/ssl/www/priv.pem;');
+    // Production-grade proxy config must be present (V52 fix):
+    //  _next/static alias, /public static, client_max_body_size, gzip.
+    expect(s).toContain('client_max_body_size 50m');
+    expect(s).toContain('alias /var/www/qtechvending/.next/static;');
+    expect(s).toContain('root /var/www/qtechvending/public;');
+    expect(s).toContain('gzip on;');
   });
   it('throws on an unsafe cert path', () => {
     expect(() =>
@@ -122,6 +128,44 @@ describe('sanitize / validate', () => {
   });
   it('validateCertPath rejects path traversal', () => {
     expect(() => nginxManager.validateCertPath('/etc/nginx/../x')).toThrow();
+  });
+});
+
+describe('ensureMainConfIncludes', () => {
+  const mainConf = '/etc/nginx/conf.d/qtechvending.conf';
+  const httpInclude = 'include /etc/nginx/conf.d/qtechvending-http.inc;';
+
+  it('injects the http include into the listen 80 block, not the first 443 block', async () => {
+    mockStore[mainConf] = `server {
+    listen 443 ssl;
+    server_name www.qtechvending.com;
+}
+server {
+    listen 80;
+    server_name www.qtechvending.com;
+}`;
+    const ok = await nginxManager.ensureMainConfIncludes();
+    expect(ok).toBe(true);
+    const out = mockStore[mainConf];
+    const idx443 = out.indexOf('listen 443');
+    const idx80 = out.indexOf('listen 80');
+    const idxInclude = out.indexOf(httpInclude);
+    // The http include must land inside the 80 block (after both blocks start).
+    expect(idxInclude).toBeGreaterThan(idx80);
+    expect(idxInclude).toBeGreaterThan(idx443);
+  });
+
+  it('falls back to the first server block when no listen 80 block exists', async () => {
+    mockStore[mainConf] = `server {
+    listen 443 ssl;
+    server_name www.qtechvending.com;
+}`;
+    const ok = await nginxManager.ensureMainConfIncludes();
+    expect(ok).toBe(true);
+    const out = mockStore[mainConf];
+    const idx443 = out.indexOf('listen 443');
+    const idxInclude = out.indexOf(httpInclude);
+    expect(idxInclude).toBeGreaterThan(idx443);
   });
 });
 

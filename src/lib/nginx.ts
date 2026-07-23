@@ -21,7 +21,7 @@ import type { SslCert } from '@/types';
  */
 
 const NGINX_BIN = process.env.NGINX_BIN || '/usr/sbin/nginx';
-const APP_UPSTREAM = process.env.APP_UPSTREAM || 'http://127.0.0.1:3000';
+const APP_UPSTREAM = process.env.APP_UPSTREAM || 'http://localhost:3001';
 const CONF_DIR = process.env.NGINX_CONF_DIR || '/etc/nginx/conf.d';
 const MAIN_CONF = process.env.NGINX_MAIN_CONF || path.join(CONF_DIR, 'qtechvending.conf');
 
@@ -90,16 +90,54 @@ server {
     ssl_certificate     ${cert.certPath};
     ssl_certificate_key ${cert.keyPath};
     ssl_protocols TLSv1.2 TLSv1.3;
-    ssl_session_cache shared:SSL:10m;
+    ssl_ciphers HIGH:!aNULL:!MD5;
 
-    # Reuse the main site proxy logic.
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+
+    gzip on;
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_min_length 1024;
+    gzip_types text/plain text/css text/xml text/javascript application/json application/javascript application/xml+rss application/atom+xml image/svg+xml application/font-woff application/font-woff2;
+
+    location = /favicon.ico {
+        return 301 /favicon.svg;
+    }
+
     location / {
+        client_max_body_size 50m;
         proxy_pass ${APP_UPSTREAM};
         proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_buffer_size 32k;
+        proxy_buffers 8 32k;
+        proxy_busy_buffers_size 64k;
+        proxy_cache_bypass $http_upgrade;
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
+    }
+
+    location /_next/static {
+        alias /var/www/qtechvending/.next/static;
+        expires 365d;
+        add_header Cache-Control "public, max-age=31536000, immutable";
+        access_log off;
+    }
+
+    location ~* \.(svg|png|jpg|jpeg|gif|webp|avif|ico|woff|woff2|ttf|eot)$ {
+        root /var/www/qtechvending/public;
+        expires 7d;
+        add_header Cache-Control "public, max-age=604800";
+        access_log off;
     }
 }
 `;
@@ -173,14 +211,17 @@ export async function ensureMainConfIncludes(): Promise<boolean> {
       next = `${next.replace(/\s*$/, '')}\n\n# qtechvending: include generated SSL fragments\n${SSL_INCLUDE_DIRECTIVE}\n`;
     }
     if (!next.includes(HTTP_INCLUDE_DIRECTIVE)) {
-      const injected = injectIntoFirstServer(next, `    ${HTTP_INCLUDE_DIRECTIVE}`);
-      if (injected) {
-        next = injected;
+      // Prefer the `listen 80` server block; fall back to the first server block.
+      const close =
+        findServerClose(next, (body) => /\blisten\s+80\b/.test(body)) ??
+        findServerClose(next, () => true);
+      if (close !== null) {
+        next = `${next.slice(0, close)}\n    ${HTTP_INCLUDE_DIRECTIVE}\n${next.slice(close)}`;
       } else {
-        // Best-effort: if we cannot locate a server block, append at EOF so the
-        // directive is at least present; the middleware handles the redirect.
+        // Best-effort: append at EOF so the directive is at least present; the
+        // middleware handles the redirect.
         next = `${next.replace(/\s*$/, '')}\n${HTTP_INCLUDE_DIRECTIVE}\n`;
-        console.warn('[nginx] could not locate an 80 server block; http include appended at EOF (best-effort).');
+        console.warn('[nginx] could not locate a server block; http include appended at EOF (best-effort).');
       }
     }
 
@@ -202,22 +243,34 @@ export async function ensureMainConfIncludes(): Promise<boolean> {
   }
 }
 
-/** Insert `line` just before the closing brace of the first `server { }` block. */
-function injectIntoFirstServer(conf: string, line: string): string | null {
-  const start = conf.indexOf('server');
-  if (start === -1) return null;
-  const open = conf.indexOf('{', start);
-  if (open === -1) return null;
-  let depth = 0;
-  for (let i = open; i < conf.length; i++) {
-    if (conf[i] === '{') depth++;
-    else if (conf[i] === '}') {
-      depth--;
-      if (depth === 0) {
-        const close = i;
-        return `${conf.slice(0, close)}\n${line}\n${conf.slice(close)}`;
+/**
+ * Return the close-brace index of the first `server { }` block whose body
+ * satisfies `predicate`, or null if none matches. Scans all server blocks so a
+ * caller can prefer a specific block (e.g. `listen 80`) and fall back to the
+ * first block when that specific one is absent.
+ */
+function findServerClose(conf: string, predicate: (body: string) => boolean): number | null {
+  let i = 0;
+  while ((i = conf.indexOf('server', i)) !== -1) {
+    const open = conf.indexOf('{', i);
+    if (open === -1) return null;
+    let depth = 0;
+    let close = -1;
+    for (let j = open; j < conf.length; j++) {
+      if (conf[j] === '{') depth++;
+      else if (conf[j] === '}') {
+        depth--;
+        if (depth === 0) {
+          close = j;
+          break;
+        }
       }
     }
+    if (close === -1) return null; // malformed — unterminated server block
+    if (predicate(conf.slice(open + 1, close))) {
+      return close;
+    }
+    i = close + 1; // advance past this block and keep searching
   }
   return null;
 }
