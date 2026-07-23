@@ -390,11 +390,15 @@ export default function ProductDetailView({
             aria-modal="true"
             aria-label={name}
           >
+            {/* V50: close button made clearly visible — solid brand-cyan fill,
+                white X, white ring + drop shadow, lifted above the image so it
+                is always perceptible and clickable. Overlay-click + ESC still
+                close the lightbox (see handlers above). */}
             <button
               type="button"
               onClick={closeLightbox}
               aria-label={t('product.close') || 'Close'}
-              className="absolute end-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+              className="absolute end-4 top-4 z-[75] inline-flex h-11 w-11 items-center justify-center rounded-full bg-cyan-600 text-white shadow-lg shadow-black/40 ring-2 ring-white/80 transition hover:bg-cyan-500 hover:scale-105 active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-200 focus-visible:ring-offset-2 focus-visible:ring-offset-black/50"
             >
               <X className="h-6 w-6" />
             </button>
