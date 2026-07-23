@@ -98,7 +98,7 @@ export default function LocaleLayout({ children, params: { locale } }: LocaleLay
             logo: `${BASE_URL}/images/logo.svg`,
             contactPoint: {
               '@type': 'ContactPoint',
-              telephone: '+86 183 1975 3992',
+              telephone: ['+86 183 1975 3992', '+86 190 1516 9848'],
               contactType: 'sales',
               email: 'info@qtechvending.com',
               availableLanguage: ['English', 'Chinese', 'Arabic'],
