@@ -23,13 +23,14 @@ import type { SslCert } from '@/types';
 const NGINX_BIN = process.env.NGINX_BIN || '/usr/sbin/nginx';
 const APP_UPSTREAM = process.env.APP_UPSTREAM || 'http://localhost:3001';
 const CONF_DIR = process.env.NGINX_CONF_DIR || '/etc/nginx/conf.d';
+const SSL_CONF_DIR = process.env.NGINX_SSL_CONF_DIR || '/etc/nginx/qtechvending-ssl';
 const MAIN_CONF = process.env.NGINX_MAIN_CONF || path.join(CONF_DIR, 'qtechvending.conf');
 
 const SSL_FRAGMENT_PREFIX = 'qtechvending-ssl-';
 const SSL_FRAGMENT_SUFFIX = '.conf';
 const HTTP_INC_NAME = 'qtechvending-http.inc';
 
-const SSL_INCLUDE_DIRECTIVE = `include ${CONF_DIR}/${SSL_FRAGMENT_PREFIX}*.conf;`;
+const SSL_INCLUDE_DIRECTIVE = `include ${SSL_CONF_DIR}/${SSL_FRAGMENT_PREFIX}*.conf;`;
 const HTTP_INCLUDE_DIRECTIVE = `include ${CONF_DIR}/${HTTP_INC_NAME};`;
 
 const DOMAIN_RE = /^[a-zA-Z0-9.-]+$/;
@@ -65,7 +66,7 @@ export function validateCertPath(p: string): void {
 }
 
 function fragmentPathFor(domain: string): string {
-  return path.join(CONF_DIR, `${SSL_FRAGMENT_PREFIX}${sanitizeDomain(domain)}${SSL_FRAGMENT_SUFFIX}`);
+  return path.join(SSL_CONF_DIR, `${SSL_FRAGMENT_PREFIX}${sanitizeDomain(domain)}${SSL_FRAGMENT_SUFFIX}`);
 }
 function fragmentBakPathFor(domain: string): string {
   return `${fragmentPathFor(domain)}.bak`;
@@ -313,7 +314,7 @@ export async function applyConfig(site: {
   }
 
   const enabledDomains = enabled.map((c) => c.domain);
-  const dir = CONF_DIR;
+  const dir = SSL_CONF_DIR;
 
   const backedUpDomains: string[] = []; // enabled domains whose .conf existed → backed up
   const createdDomains: string[] = []; // enabled domains whose .conf is newly created

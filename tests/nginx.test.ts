@@ -70,7 +70,7 @@ const enabledCert = {
   keyPath: '/etc/nginx/ssl/www/priv.pem',
   enabled: true,
 };
-const fragKey = '/etc/nginx/conf.d/qtechvending-ssl-www.qtechvending.com.conf';
+const fragKey = '/etc/nginx/qtechvending-ssl/qtechvending-ssl-www.qtechvending.com.conf';
 
 beforeEach(() => {
   for (const k of Object.keys(mockStore)) delete mockStore[k];
