@@ -331,7 +331,7 @@ export default function ProductDetailView({
                     }`}
                   >
                     <span className="absolute inset-0 transition-transform duration-500 group-hover:scale-110">
-                      <ImageWithRetry src={img} alt="" className="h-full w-full object-cover" />
+                      <ImageWithRetry src={img} alt={name} className="h-full w-full object-cover" />
                     </span>
                   </button>
                 ))}
