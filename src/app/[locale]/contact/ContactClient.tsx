@@ -101,6 +101,7 @@ export default function ContactClient({
   });
   const [status, setStatus] = useState<Status>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+  const [mapError, setMapError] = useState(false);
 
   const set = (key: keyof typeof form, value: string) =>
     setForm((f) => ({ ...f, [key]: value }));
@@ -319,13 +320,41 @@ export default function ContactClient({
 
             {/* Map / location */}
             <div className="overflow-hidden rounded-2xl border border-white/70 bg-white/90 p-1.5 shadow-[0_16px_44px_rgba(8,145,178,0.10),inset_0_1px_0_rgba(255,255,255,0.90)] backdrop-blur-xl">
-              <iframe
-                title="Qtech Vending — Guangzhou"
-                src="https://maps.google.com/maps?q=Room+1716-928+17F+Building+4+No.+388+Hanxi+Avenue+East+Nancun+Town+Panyu+District+Guangzhou+Guangdong+China&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                className="h-52 w-full rounded-xl"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
+              {mapError ? (
+                <div className="flex h-52 w-full flex-col items-center justify-center gap-3 rounded-xl bg-gradient-to-br from-cyan-50 to-teal-50 p-4 text-center">
+                  <MapPin className="h-8 w-8 text-cyan-600" />
+                  <p className="text-sm font-medium text-slate-700">{contactAddress}</p>
+                  <a
+                    href="https://www.openstreetmap.org/?mlat=22.965&mlon=113.38#map=14/22.965/113.38"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-medium text-cyan-600 underline-offset-2 hover:underline"
+                  >
+                    {locale === 'zh'
+                      ? '在 OpenStreetMap 中查看'
+                      : locale === 'ar'
+                        ? 'عرض في الخريطة المفتوحة'
+                        : 'View on OpenStreetMap'}
+                  </a>
+                </div>
+              ) : (
+                <iframe
+                  title={
+                    locale === 'zh'
+                      ? 'Qtech Vending 位置'
+                      : locale === 'ar'
+                        ? 'موقع Qtech Vending'
+                        : 'Qtech Vending — Guangzhou'
+                  }
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=113.34%2C22.93%2C113.42%2C23.00&layer=mapnik&marker=22.965%2C113.38"
+                  width="100%"
+                  height="208"
+                  className="h-52 w-full rounded-xl"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  onError={() => setMapError(true)}
+                />
+              )}
             </div>
 
             {/* Social media — V49.12: cyan/teal brand theme (matches blog/FAQ),

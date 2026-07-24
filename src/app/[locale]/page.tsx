@@ -1,16 +1,23 @@
 import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import HeroSection from '@/components/home/HeroSection';
-import CategoriesGrid from '@/components/home/CategoriesGrid';
-import FeaturedProducts from '@/components/home/FeaturedProducts';
-import AdvantagesSection from '@/components/home/AdvantagesSection';
-import PartnersSection from '@/components/home/PartnersSection';
-import StatsBand from '@/components/home/StatsBand';
-import CasesSection from '@/components/home/CasesSection';
-import BlogPreview from '@/components/home/BlogPreview';
-import CtaSection from '@/components/home/CtaSection';
 import { getFeaturedProducts, getLatestBlogs, getCategories, getCategoryProductCounts } from '@/lib/data';
 import { generatePageMetadata, SITE_CONFIG } from '@/lib/seo';
 import { buildStaticPageKeywords } from '@/lib/seo-keywords';
+
+// P0 / CWV: 首屏以下的重型 client 组件改用 next/dynamic 懒加载（代码分割，保留 SSR 以保 SEO/首屏）。
+// qtechvending 移动端 TBT 高达 23.6s（首屏 JS 过多），根因是首页把 9 个 client 组件一次性打进主 bundle。
+// 这里只保留首屏 HeroSection 为直接 import（含 LCP 图，必须即时渲染），其余非首屏组件用「不带 ssr:false」
+// 的 dynamic（SSR + 代码分割），把它们的 JS 拆到独立 chunk，首屏只加载 hero，从而降低 TBT。
+// 注意：Next 15 禁止在 Server Component 内使用 dynamic(..., { ssr: false })，故此处全部不带 ssr:false。
+const CategoriesGrid = dynamic(() => import('@/components/home/CategoriesGrid'));
+const FeaturedProducts = dynamic(() => import('@/components/home/FeaturedProducts'));
+const AdvantagesSection = dynamic(() => import('@/components/home/AdvantagesSection'));
+const PartnersSection = dynamic(() => import('@/components/home/PartnersSection'));
+const StatsBand = dynamic(() => import('@/components/home/StatsBand'));
+const CasesSection = dynamic(() => import('@/components/home/CasesSection'));
+const BlogPreview = dynamic(() => import('@/components/home/BlogPreview'));
+const CtaSection = dynamic(() => import('@/components/home/CtaSection'));
 
 export const revalidate = 300;
 

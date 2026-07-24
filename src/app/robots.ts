@@ -8,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/xiaozhouBackend/', '/api/'],
+      disallow: [],
     },
     sitemap: `${BASE_URL}/sitemap.xml`,
     host: BASE_URL,
