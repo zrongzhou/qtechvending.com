@@ -108,6 +108,15 @@ server {
         return 301 /favicon.svg;
     }
 
+    # RFC 9116 security.txt — served statically via nginx. The Next App-Router
+    # route-handler path containing a dot segment (security.txt) is unreliable
+    # across Next versions, so nginx static is the stable source of truth.
+    location = /.well-known/security.txt {
+        default_type text/plain;
+        charset utf-8;
+        alias /var/www/well-known/qt-security.txt;
+    }
+
 ${PROXY_LOCATION}
 }
 `;
