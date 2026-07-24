@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type ComponentType } from 'react';
+import { useState, useEffect, type ComponentType } from 'react';
 import Link from 'next/link';
 import {
   MapPin,
@@ -105,6 +105,16 @@ export default function ContactClient({
 
   const set = (key: keyof typeof form, value: string) =>
     setForm((f) => ({ ...f, [key]: value }));
+
+  // Prefill product interest from ?product= on the client so the server-rendered
+  // HTML stays identical for every query variant (CDN ignores query strings in
+  // the cache key). SSR passes initialProductInterest="" and we override after
+  // mount — keeps the page cacheable while preserving the deep-link prefill.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const p = params.get('product');
+    if (p) set('productInterest', p);
+  }, []);
 
   const validate = (): string | null => {
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {

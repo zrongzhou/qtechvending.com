@@ -8,7 +8,6 @@ export const revalidate = 300;
 
 interface PageProps {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ product?: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -21,9 +20,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   });
 }
 
-export default async function ContactPage({ params, searchParams }: PageProps) {
+export default async function ContactPage({ params }: PageProps) {
   const { locale } = await params;
-  const { product } = await searchParams;
   const [categories, site] = await Promise.all([getCategories(), getSiteSetting()]);
-  return <ContactClient categories={categories} site={site} initialProductInterest={product || ''} />;
+  return <ContactClient categories={categories} site={site} initialProductInterest="" />;
 }
