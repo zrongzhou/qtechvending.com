@@ -113,6 +113,49 @@ ${PROXY_LOCATION}
 `;
 }
 
+/**
+ * Public dynamic HTML pages — allow EdgeOne/CDN to cache (5min s-maxage).
+ * Matches locale-prefixed public pages and re-emits a public Cache-Control,
+ * stripping the app's dynamic `no-store`. Excludes /api, /admin, /panel,
+ * /xiaozhouBackend and user/account/auth paths plus static asset extensions.
+ * Security headers are re-added because nginx does not inherit server-level
+ * add_header into a location that defines its own.
+ */
+const PUBLIC_CACHE_LOCATION = `    # Public dynamic HTML pages — allow EdgeOne/CDN to cache (5min s-maxage)
+    location ~* ^/(en|zh|ar)/(?!(?:api|admin|panel|xiaozhouBackend|account|login|register|cart|checkout|applications|managed-items|user)(?:/|$))(?!.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|woff|woff2|ttf|eot|css|js|json|xml)$) {
+        proxy_pass ${APP_UPSTREAM};
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_hide_header Cache-Control;
+        proxy_hide_header Expires;
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header X-XSS-Protection "1; mode=block" always;
+        add_header Cache-Control "public, s-maxage=300, stale-while-revalidate=600" always;
+        access_log off;
+    }
+
+    # Public home pages (locale root)
+    location ~* ^/(en|zh|ar)/?$ {
+        proxy_pass ${APP_UPSTREAM};
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_hide_header Cache-Control;
+        proxy_hide_header Expires;
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header X-XSS-Protection "1; mode=block" always;
+        add_header Cache-Control "public, s-maxage=300, stale-while-revalidate=600" always;
+        access_log off;
+    }
+`;
+
 const PROXY_LOCATION = `    location / {
         client_max_body_size 50m;
         proxy_pass ${APP_UPSTREAM};
@@ -132,6 +175,7 @@ const PROXY_LOCATION = `    location / {
         proxy_read_timeout 60s;
     }
 
+${PUBLIC_CACHE_LOCATION}
     location /_next/static {
         alias /var/www/qtechvending/.next/static;
         expires 365d;
