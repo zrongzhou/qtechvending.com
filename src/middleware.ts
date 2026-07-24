@@ -20,6 +20,39 @@ function shouldSkipHttpsHost(host: string): boolean {
   return SKIP_HTTPS_HOSTS.has(h) || h.endsWith('.localhost');
 }
 
+// --- Public-page edge caching (CDN / EdgeOne) ---
+// Public, locale-prefixed, GET-only pages receive a cacheable Cache-Control header
+// so the CDN can serve them from the edge. Secrets / user-scoped routes are excluded.
+const NO_CACHE_SEGMENTS = ['account', 'login', 'register', 'cart', 'checkout', 'applications', 'managed-items', 'user'];
+
+/**
+ * Decide whether a response for the given path/method may be cached at the edge.
+ * Only GET requests under a valid locale prefix are cacheable; API, backend and
+ * user-scoped (account/cart/checkout/…) routes are never cached.
+ */
+function isPublicCacheable(pathname: string, method: string): boolean {
+  if (method !== 'GET') return false;
+  const seg = pathname.split('/').filter(Boolean)[0] || '';
+  if (!VALID_LOCALES.includes(seg)) return false; // only locale-prefixed public pages
+  if (pathname.includes('/api/')) return false;
+  if (pathname.includes('/xiaozhouBackend')) return false;
+  for (const s of NO_CACHE_SEGMENTS) {
+    if (pathname.includes('/' + s)) return false; // user-related / sensitive pages
+  }
+  return true;
+}
+
+/**
+ * Attach `Cache-Control: public, s-maxage=300, stale-while-revalidate=600` to a
+ * response when the request targets a cacheable public page.
+ */
+function withPublicCache(response: NextResponse, request: NextRequest): NextResponse {
+  if (isPublicCacheable(request.nextUrl.pathname, request.method)) {
+    response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
+  }
+  return response;
+}
+
 /**
  * Edge-runtime middleware cannot use Prisma directly, so the HTTPS-enforcement
  * flag is read from the database through a tiny internal (node-runtime) endpoint
@@ -137,10 +170,10 @@ export async function middleware(request: NextRequest) {
 
   // 4. Locale routes pass through (inject header).
   if (seg && VALID_LOCALES.includes(seg)) {
-    return NextResponse.next({ request: { headers: requestHeaders } });
+    return withPublicCache(NextResponse.next({ request: { headers: requestHeaders } }), request);
   }
 
-  return NextResponse.next({ request: { headers: requestHeaders } });
+  return withPublicCache(NextResponse.next({ request: { headers: requestHeaders } }), request);
 }
 
 export const config = {
