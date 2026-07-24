@@ -5,12 +5,13 @@ import { requireAdmin, unauthorizedResponse, notFoundResponse, badRequestRespons
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const admin = await requireAdmin(req);
   if (!admin) return unauthorizedResponse();
 
   try {
-    const category = await prisma.category.findUnique({ where: { id: params.id } });
+    const category = await prisma.category.findUnique({ where: { id: id } });
     if (!category) return notFoundResponse('Category');
     return NextResponse.json({ data: category });
   } catch (err) {
@@ -19,7 +20,8 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const admin = await requireAdmin(req);
   if (!admin) return unauthorizedResponse();
 
@@ -41,10 +43,10 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
 
   try {
     if (data.slug) {
-      const clash = await prisma.category.findFirst({ where: { slug: data.slug as string, NOT: { id: params.id } } });
+      const clash = await prisma.category.findFirst({ where: { slug: data.slug as string, NOT: { id: id } } });
       if (clash) return badRequestResponse('slug already exists');
     }
-    const updated = await prisma.category.update({ where: { id: params.id }, data });
+    const updated = await prisma.category.update({ where: { id: id }, data });
     return NextResponse.json({ success: true, data: updated });
   } catch (err: unknown) {
     if (err && typeof err === 'object' && 'code' in err && (err as { code?: string }).code === 'P2025') {
@@ -55,12 +57,13 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const admin = await requireAdmin(req);
   if (!admin) return unauthorizedResponse();
 
   try {
-    await prisma.category.delete({ where: { id: params.id } });
+    await prisma.category.delete({ where: { id: id } });
     return NextResponse.json({ success: true });
   } catch (err: unknown) {
     if (err && typeof err === 'object' && 'code' in err && (err as { code?: string }).code === 'P2025') {

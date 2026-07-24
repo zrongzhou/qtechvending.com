@@ -1,24 +1,25 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import AdminNav from '@/components/admin/AdminNav';
 import ProductForm from '@/components/admin/ProductForm';
 import { t } from '@/components/admin/i18n';
 import type { Product } from '@/types';
 
-export default function ProductEditPage({ params }: { params: { id: string } }) {
+export default function ProductEditPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
+  const { id } = use(params);
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`/api/admin/products/${params.id}`, { credentials: 'include' })
+    fetch(`/api/admin/products/${id}`, { credentials: 'include' })
       .then((r) => r.json())
       .then((j) => setProduct(j.data || null))
       .catch(() => setProduct(null))
       .finally(() => setLoading(false));
-  }, [params.id]);
+  }, [id]);
 
   return (
     <div>

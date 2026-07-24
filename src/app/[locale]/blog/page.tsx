@@ -7,10 +7,11 @@ import { buildStaticPageKeywords } from '@/lib/seo-keywords';
 export const revalidate = 300;
 
 interface PageProps {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }
 
-export async function generateMetadata({ params: { locale } }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
   return generatePageMetadata({
     path: '/blog',
     locale,

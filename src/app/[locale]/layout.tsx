@@ -37,13 +37,14 @@ const BUILD_ID =
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }
 
 export default async function LocaleLayout({
   children,
-  params: { locale },
+  params,
 }: LocaleLayoutProps) {
+  const { locale } = await params;
   const activeLocale = resolveLocale(locale);
 
   // Server-side load of ONLY the active locale's messages. The JSON is shipped

@@ -64,7 +64,7 @@ function looksLikeBareListItem(line: string): boolean {
 
 function renderRichContent(text: string, t: (key: string) => string, structuredFaqs?: FaqItem[] | null) {
   const raw = text.split('\n');
-  const els: (JSX.Element | null)[] = [];
+  const els: (React.JSX.Element | null)[] = [];
   let idx = 0;
   const faqAccents = ['#0891B2', '#0E7490', '#155E75', '#0D9488', '#0284C7'];
   // When the structured `post.faq` is provided, render it instead of the

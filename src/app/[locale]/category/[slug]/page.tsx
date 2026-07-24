@@ -11,25 +11,26 @@ import { buildStaticPageKeywords } from '@/lib/seo-keywords';
 export const revalidate = 300;
 
 interface PageProps {
-  params: { locale: string; slug: string };
+  params: Promise<{ locale: string; slug: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const category = await getCategoryBySlug(params.slug);
+  const { locale, slug } = await params;
+  const category = await getCategoryBySlug(slug);
   const name = category
-    ? localized(category.name, params.locale as 'en' | 'zh' | 'ar')
+    ? localized(category.name, locale as 'en' | 'zh' | 'ar')
     : 'Category';
   return generatePageMetadata({
-    path: `/category/${params.slug}`,
-    locale: params.locale,
+    path: `/category/${slug}`,
+    locale,
     title: name,
-    description: category ? localized(category.description, params.locale as 'en' | 'zh' | 'ar') : undefined,
-    keywords: buildStaticPageKeywords([name, 'Qtech'], params.locale),
+    description: category ? localized(category.description, locale as 'en' | 'zh' | 'ar') : undefined,
+    keywords: buildStaticPageKeywords([name, 'Qtech'], locale),
   });
 }
 
 export default async function CategoryPage({ params }: PageProps) {
-  const { locale, slug } = params;
+  const { locale, slug } = await params;
   const category = await getCategoryBySlug(slug);
   if (!category) notFound();
 

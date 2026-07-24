@@ -4,7 +4,8 @@ import { requireAdmin, unauthorizedResponse, notFoundResponse, badRequestRespons
 
 export const dynamic = 'force-dynamic';
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const admin = await requireAdmin(req);
   if (!admin) return unauthorizedResponse();
 
@@ -22,7 +23,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   if (typeof body.categoryId === 'string' && body.categoryId.trim()) data.categoryId = body.categoryId.trim();
 
   try {
-    const updated = await prisma.siteFaqItem.update({ where: { id: params.id }, data });
+    const updated = await prisma.siteFaqItem.update({ where: { id: id }, data });
     return NextResponse.json({ success: true, data: updated });
   } catch (err: unknown) {
     if (err && typeof err === 'object' && 'code' in err && (err as { code?: string }).code === 'P2025') {
@@ -33,12 +34,13 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const admin = await requireAdmin(req);
   if (!admin) return unauthorizedResponse();
 
   try {
-    await prisma.siteFaqItem.delete({ where: { id: params.id } });
+    await prisma.siteFaqItem.delete({ where: { id: id } });
     return NextResponse.json({ success: true });
   } catch (err: unknown) {
     if (err && typeof err === 'object' && 'code' in err && (err as { code?: string }).code === 'P2025') {

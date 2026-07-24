@@ -22,10 +22,11 @@ const CtaSection = dynamic(() => import('@/components/home/CtaSection'));
 export const revalidate = 300;
 
 interface PageProps {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }
 
-export async function generateMetadata({ params: { locale } }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
   return generatePageMetadata({
     path: '/',
     locale,
@@ -35,7 +36,8 @@ export async function generateMetadata({ params: { locale } }: PageProps): Promi
   });
 }
 
-export default async function HomePage({ params: { locale } }: PageProps) {
+export default async function HomePage({ params }: PageProps) {
+  const { locale } = await params;
   const [featured, blogs, categories, counts] = await Promise.all([
     getFeaturedProducts(6),
     getLatestBlogs(3),

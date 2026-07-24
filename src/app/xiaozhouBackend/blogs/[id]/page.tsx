@@ -1,24 +1,25 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import AdminNav from '@/components/admin/AdminNav';
 import BlogForm from '@/components/admin/BlogForm';
 import { t } from '@/components/admin/i18n';
 import type { BlogPost } from '@/types';
 
-export default function BlogEditPage({ params }: { params: { id: string } }) {
+export default function BlogEditPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
+  const { id } = use(params);
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`/api/admin/blogs/${params.id}`, { credentials: 'include' })
+    fetch(`/api/admin/blogs/${id}`, { credentials: 'include' })
       .then((r) => r.json())
       .then((j) => setPost(j.data || null))
       .catch(() => setPost(null))
       .finally(() => setLoading(false));
-  }, [params.id]);
+  }, [id]);
 
   return (
     <div>

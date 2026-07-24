@@ -7,10 +7,11 @@ import { buildStaticPageKeywords } from '@/lib/seo-keywords';
 export const revalidate = 300;
 
 interface PageProps {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }
 
-export async function generateMetadata({ params: { locale } }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
   return generatePageMetadata({
     path: '/products',
     locale,
@@ -19,7 +20,8 @@ export async function generateMetadata({ params: { locale } }: PageProps): Promi
   });
 }
 
-export default async function ProductsPage({ params: { locale } }: PageProps) {
+export default async function ProductsPage({ params }: PageProps) {
+  const { locale } = await params;
   const [categories, initial] = await Promise.all([
     getCategories(),
     getProducts({ page: 1, sort: 'featured' }),

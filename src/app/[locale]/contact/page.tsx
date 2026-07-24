@@ -7,11 +7,12 @@ import { buildStaticPageKeywords } from '@/lib/seo-keywords';
 export const revalidate = 300;
 
 interface PageProps {
-  params: { locale: string };
-  searchParams: { product?: string };
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ product?: string }>;
 }
 
-export async function generateMetadata({ params: { locale } }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params;
   return generatePageMetadata({
     path: '/contact',
     locale,
@@ -21,6 +22,8 @@ export async function generateMetadata({ params: { locale } }: PageProps): Promi
 }
 
 export default async function ContactPage({ params, searchParams }: PageProps) {
+  const { locale } = await params;
+  const { product } = await searchParams;
   const [categories, site] = await Promise.all([getCategories(), getSiteSetting()]);
-  return <ContactClient categories={categories} site={site} initialProductInterest={searchParams.product || ''} />;
+  return <ContactClient categories={categories} site={site} initialProductInterest={product || ''} />;
 }

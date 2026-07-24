@@ -10,23 +10,24 @@ import { seoKeywordList } from '@/lib/seo-keywords';
 export const revalidate = 300;
 
 interface PageProps {
-  params: { locale: string; slug: string };
+  params: Promise<{ locale: string; slug: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const post = await getBlogBySlug(params.slug);
-  if (!post) return generatePageMetadata({ path: `/blog/${params.slug}`, locale: params.locale });
-  const title = localized(post.title, params.locale as 'en' | 'zh' | 'ar');
-  const seoTitle = post.seoTitle ? localized(post.seoTitle, params.locale as 'en' | 'zh' | 'ar') : '';
+  const { locale, slug } = await params;
+  const post = await getBlogBySlug(slug);
+  if (!post) return generatePageMetadata({ path: `/blog/${slug}`, locale });
+  const title = localized(post.title, locale as 'en' | 'zh' | 'ar');
+  const seoTitle = post.seoTitle ? localized(post.seoTitle, locale as 'en' | 'zh' | 'ar') : '';
   // S-06: prefer the dedicated SEO description, falling back to the excerpt.
   const desc =
     (post.seoDescription && post.seoDescription.trim()) ||
-    localized(post.excerpt, params.locale as 'en' | 'zh' | 'ar') ||
+    localized(post.excerpt, locale as 'en' | 'zh' | 'ar') ||
     '';
-  const kw = seoKeywordList(post.seoKeywords, params.locale as 'en' | 'zh' | 'ar');
+  const kw = seoKeywordList(post.seoKeywords, locale as 'en' | 'zh' | 'ar');
   return generatePageMetadata({
-    path: `/blog/${params.slug}`,
-    locale: params.locale,
+    path: `/blog/${slug}`,
+    locale,
     title: seoTitle || title,
     description: desc,
     image: post.images?.[0] || undefined,
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function BlogDetailPage({ params }: PageProps) {
-  const { locale, slug } = params;
+  const { locale, slug } = await params;
   const post = await getBlogBySlug(slug);
   if (!post) notFound();
 

@@ -6,12 +6,12 @@ export const dynamic = 'force-dynamic';
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const admin = await requireAdmin(req);
   if (!admin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-  const id = parseInt(params.id, 10);
+  const id = parseInt((await params).id, 10);
   if (!Number.isInteger(id)) return notFoundResponse('Message');
 
   let body: { isRead?: boolean };
@@ -38,12 +38,12 @@ export async function PATCH(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const admin = await requireAdmin(req);
   if (!admin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-  const id = parseInt(params.id, 10);
+  const id = parseInt((await params).id, 10);
   if (!Number.isInteger(id)) return notFoundResponse('Message');
 
   try {
