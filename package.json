@@ -13,6 +13,7 @@
     "prisma:migrate": "prisma migrate dev",
     "scrape": "node scripts/scrape.mjs",
     "download:images": "node scripts/download-images.mjs",
+    "images:responsive": "node scripts/gen-responsive-images.mjs",
     "seed": "tsx scripts/seed.mjs",
     "seed:site": "tsx scripts/seed-site.mjs",
     "db:seed": "tsx prisma/seed.ts",
@@ -42,6 +43,7 @@
     "nodemailer": "^6.9.16",
     "react": "^19",
     "react-dom": "^19",
+    "sharp": "0.34.5",
     "tailwindcss": "^3.4.15",
     "tiptap-markdown": "^0.8.10"
   },

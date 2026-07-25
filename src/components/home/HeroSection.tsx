@@ -14,7 +14,8 @@ import {
 } from 'lucide-react';
 import { useLocale } from '@/lib/i18n';
 import { localized } from '@/lib/localize';
-import ImageWithRetry from '@/components/ui/ImageWithRetry';
+import ResponsiveImg from '@/components/ui/ResponsiveImg';
+import { buildSrcSet, HERO_IMG_SIZES } from '@/lib/responsive-images';
 import IconTile from '@/components/ui/IconTile';
 import RevealOnScroll from '@/components/ui/RevealOnScroll';
 import Starfield from '@/components/ui/Starfield';
@@ -257,8 +258,10 @@ export default function HeroSection({ products = [] }: { products?: Product[] })
                       i === currentIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-[1.02]'
                     }`}
                   >
-                    <ImageWithRetry
+                    <ResponsiveImg
                       src={src}
+                      srcSet={buildSrcSet(src)}
+                      sizes={HERO_IMG_SIZES}
                       alt={heroAlt(i, locale)}
                       loading={i === 0 ? 'eager' : 'lazy'}
                       fetchPriority={i === 0 ? 'high' : undefined}
