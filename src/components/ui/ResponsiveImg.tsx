@@ -127,10 +127,12 @@ export default function ResponsiveImg({
 
   const showSkeleton = status !== 'ready' && status !== 'failed';
   const imgHidden = status === 'retrying';
+  // The <img> renders at full opacity immediately (no gated fade). The
+  // transparent skeleton (z-10) overlays it during load and is removed on
+  // 'ready'. This complies with the project's 白屏闪铁律 (image must display
+  // immediately) and avoids adding a fade gate in front of the LCP hero.
   const imgStyle: CSSProperties = {
     ...style,
-    opacity: status === 'ready' ? 1 : 0,
-    transition: 'opacity 600ms ease',
     ...(imgHidden ? { visibility: 'hidden' as const } : null),
   };
 
@@ -141,7 +143,7 @@ export default function ResponsiveImg({
   return (
     <>
       {showSkeleton && (
-        <div className="absolute inset-0 overflow-hidden bg-transparent" aria-hidden="true">
+        <div className="absolute inset-0 z-10 overflow-hidden bg-transparent" aria-hidden="true">
           <div className="absolute inset-0 flex items-center justify-center">
             <svg
               className="h-8 w-8 animate-spin text-cyan-400/40"
@@ -160,7 +162,7 @@ export default function ResponsiveImg({
         </div>
       )}
       {status === 'failed' && (
-        <div className="absolute inset-0 flex items-center justify-center bg-slate-100 text-xs text-slate-400">
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-slate-100 text-xs text-slate-400">
           {alt || 'image'}
         </div>
       )}
