@@ -13,6 +13,7 @@
     "prisma:migrate": "prisma migrate dev",
     "scrape": "node scripts/scrape.mjs",
     "download:images": "node scripts/download-images.mjs",
+    "images:responsive": "node scripts/gen-responsive-images.mjs",
     "seed": "tsx scripts/seed.mjs",
     "seed:site": "tsx scripts/seed-site.mjs",
     "db:seed": "tsx prisma/seed.ts",
