@@ -46,6 +46,7 @@ export default function ContactMessagesPage() {
         if (q.trim()) params.set('search', q.trim());
         const res = await fetch(`/api/admin/contact-messages?${params.toString()}`, {
           credentials: 'include',
+          cache: 'no-store',
         });
         if (res.ok) {
           const json = await res.json();
@@ -96,6 +97,7 @@ export default function ContactMessagesPage() {
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ids: Array.from(selected), action }),
+      cache: 'no-store',
     });
     if (res.ok) {
       setSelected(new Set());
@@ -110,6 +112,7 @@ export default function ContactMessagesPage() {
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'readAll' }),
+      cache: 'no-store',
     });
     if (res.ok) load(page, filter, search);
   };
@@ -119,6 +122,7 @@ export default function ContactMessagesPage() {
     const res = await fetch(`/api/admin/contact-messages/${id}`, {
       method: 'DELETE',
       credentials: 'include',
+      cache: 'no-store',
     });
     if (res.ok) {
       if (detail?.id === id) setDetail(null);
@@ -134,6 +138,7 @@ export default function ContactMessagesPage() {
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ isRead: true }),
+        cache: 'no-store',
       });
       if (res.ok) {
         setMessages((prev) => prev.map((x) => (x.id === m.id ? { ...x, isRead: true } : x)));

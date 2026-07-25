@@ -4,6 +4,11 @@ import { requireAdmin, notFoundResponse, serverErrorResponse } from '@/lib/auth'
 
 export const dynamic = 'force-dynamic';
 
+// Private admin data — never cache at the browser/CDN edge (see list route).
+const NO_STORE_HEADERS: Record<string, string> = {
+  'Cache-Control': 'private, no-cache, no-store, max-age=0, must-revalidate',
+};
+
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -26,7 +31,7 @@ export async function PATCH(
       where: { id },
       data: { isRead: body.isRead === undefined ? true : body.isRead },
     });
-    return NextResponse.json({ success: true, data: updated });
+    return NextResponse.json({ success: true, data: updated }, { headers: NO_STORE_HEADERS });
   } catch (err: unknown) {
     if (err && typeof err === 'object' && 'code' in err && (err as { code?: string }).code === 'P2025') {
       return notFoundResponse('Message');
@@ -48,7 +53,7 @@ export async function DELETE(
 
   try {
     await prisma.contactMessage.delete({ where: { id } });
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true }, { headers: NO_STORE_HEADERS });
   } catch (err: unknown) {
     if (err && typeof err === 'object' && 'code' in err && (err as { code?: string }).code === 'P2025') {
       return notFoundResponse('Message');

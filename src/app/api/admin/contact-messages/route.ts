@@ -4,6 +4,14 @@ import { requireAdmin, badRequestResponse, serverErrorResponse } from '@/lib/aut
 
 export const dynamic = 'force-dynamic';
 
+// Admin contact-message data is private and must never be cached by the browser
+// or any CDN edge. Without an explicit no-store header, EdgeOne (and the browser
+// HTTP cache) keeps a stale list for up to 7 days, so a row deleted via
+// DELETE/PATCH would still appear in the UI until the cache expired.
+const NO_STORE_HEADERS: Record<string, string> = {
+  'Cache-Control': 'private, no-cache, no-store, max-age=0, must-revalidate',
+};
+
 export async function GET(req: NextRequest) {
   const admin = await requireAdmin(req);
   if (!admin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -35,13 +43,16 @@ export async function GET(req: NextRequest) {
     prisma.contactMessage.count({ where }),
   ]);
 
-  return NextResponse.json({
-    data: items,
-    total,
-    totalPages: Math.max(1, Math.ceil(total / limit)),
-    page,
-    pageSize: limit,
-  });
+  return NextResponse.json(
+    {
+      data: items,
+      total,
+      totalPages: Math.max(1, Math.ceil(total / limit)),
+      page,
+      pageSize: limit,
+    },
+    { headers: NO_STORE_HEADERS }
+  );
 }
 
 export async function PATCH(req: NextRequest) {
@@ -62,7 +73,7 @@ export async function PATCH(req: NextRequest) {
   if (action === 'readAll') {
     try {
       await prisma.contactMessage.updateMany({ where: { isRead: false }, data: { isRead: true } });
-      return NextResponse.json({ success: true });
+      return NextResponse.json({ success: true }, { headers: NO_STORE_HEADERS });
     } catch (err) {
       console.error('[admin/contact-messages] PATCH readAll failed:', err);
       return serverErrorResponse();
@@ -82,7 +93,7 @@ export async function PATCH(req: NextRequest) {
     } else {
       await prisma.contactMessage.deleteMany({ where: { id: { in: ids } } });
     }
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true }, { headers: NO_STORE_HEADERS });
   } catch (err) {
     console.error('[admin/contact-messages] PATCH failed:', err);
     return serverErrorResponse();
