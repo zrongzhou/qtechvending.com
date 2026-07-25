@@ -36,8 +36,10 @@ export default function RevealOnScroll({
           observer.disconnect();
         }
       },
-      // Trigger slightly before the element is fully in view.
-      { rootMargin: '0px 0px -10% 0px', threshold: 0.1 }
+      // Trigger as soon as the element enters the (adjusted) root, so very tall
+      // elements (e.g. long blog posts) reveal on short mobile viewports where
+      // 10% of the element can never fit in view.
+      { rootMargin: '0px 0px -10% 0px', threshold: 0 }
     );
     observer.observe(el);
     return () => observer.disconnect();
