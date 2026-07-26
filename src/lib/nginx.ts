@@ -143,7 +143,7 @@ const PUBLIC_CACHE_LOCATION = `    # Public dynamic HTML pages — allow EdgeOne
         add_header X-Frame-Options "SAMEORIGIN" always;
         add_header X-Content-Type-Options "nosniff" always;
         add_header X-XSS-Protection "1; mode=block" always;
-        add_header Cache-Control "public, max-age=7776000, s-maxage=7776000, stale-while-revalidate=604800" always;
+        add_header Cache-Control "public, s-maxage=7776000, stale-while-revalidate=604800" always;
         access_log off;
     }
 
@@ -160,7 +160,7 @@ const PUBLIC_CACHE_LOCATION = `    # Public dynamic HTML pages — allow EdgeOne
         add_header X-Frame-Options "SAMEORIGIN" always;
         add_header X-Content-Type-Options "nosniff" always;
         add_header X-XSS-Protection "1; mode=block" always;
-        add_header Cache-Control "public, max-age=7776000, s-maxage=7776000, stale-while-revalidate=604800" always;
+        add_header Cache-Control "public, s-maxage=7776000, stale-while-revalidate=604800" always;
         access_log off;
     }
 `;
