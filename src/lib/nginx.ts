@@ -123,14 +123,14 @@ ${PROXY_LOCATION}
 }
 
 /**
- * Public dynamic HTML pages — allow EdgeOne/CDN to cache (5min s-maxage).
+ * Public dynamic HTML pages — allow EdgeOne/CDN to cache (90-day s-maxage).
  * Matches locale-prefixed public pages and re-emits a public Cache-Control,
  * stripping the app's dynamic `no-store`. Excludes /api, /admin, /panel,
  * /xiaozhouBackend and user/account/auth paths plus static asset extensions.
  * Security headers are re-added because nginx does not inherit server-level
  * add_header into a location that defines its own.
  */
-const PUBLIC_CACHE_LOCATION = `    # Public dynamic HTML pages — allow EdgeOne/CDN to cache (5min s-maxage)
+const PUBLIC_CACHE_LOCATION = `    # Public dynamic HTML pages — allow EdgeOne/CDN to cache (90-day s-maxage)
     location ~* ^/(en|zh|ar)/(?!(?:api|admin|panel|xiaozhouBackend|account|login|register|cart|checkout|applications|managed-items|user)(?:/|$))(?!.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|woff|woff2|ttf|eot|css|js|json|xml)$) {
         proxy_pass ${APP_UPSTREAM};
         proxy_http_version 1.1;
@@ -143,7 +143,7 @@ const PUBLIC_CACHE_LOCATION = `    # Public dynamic HTML pages — allow EdgeOne
         add_header X-Frame-Options "SAMEORIGIN" always;
         add_header X-Content-Type-Options "nosniff" always;
         add_header X-XSS-Protection "1; mode=block" always;
-        add_header Cache-Control "public, s-maxage=300, stale-while-revalidate=600" always;
+        add_header Cache-Control "public, s-maxage=7776000, stale-while-revalidate=604800" always;
         access_log off;
     }
 
@@ -160,7 +160,7 @@ const PUBLIC_CACHE_LOCATION = `    # Public dynamic HTML pages — allow EdgeOne
         add_header X-Frame-Options "SAMEORIGIN" always;
         add_header X-Content-Type-Options "nosniff" always;
         add_header X-XSS-Protection "1; mode=block" always;
-        add_header Cache-Control "public, s-maxage=300, stale-while-revalidate=600" always;
+        add_header Cache-Control "public, s-maxage=7776000, stale-while-revalidate=604800" always;
         access_log off;
     }
 `;
@@ -194,8 +194,8 @@ ${PUBLIC_CACHE_LOCATION}
 
     location ~* \\.(svg|png|jpg|jpeg|gif|webp|avif|ico|woff|woff2|ttf|eot)$ {
         root /var/www/qtechvending/public;
-        expires 7d;
-        add_header Cache-Control "public, max-age=604800";
+        expires 90d;
+        add_header Cache-Control "public, max-age=7776000";
         access_log off;
     }`;
 
