@@ -43,13 +43,24 @@ function isPublicCacheable(pathname: string, method: string): boolean {
 }
 
 /**
- * Attach `Cache-Control: public, s-maxage=2592000, stale-while-revalidate=604800` to a
- * response when the request targets a cacheable public page (30-day edge cache).
+ * Attach `Cache-Control: public, s-maxage=7776000, stale-while-revalidate=604800` to a
+ * response when the request targets a cacheable public page (90-day edge cache).
  */
 function withPublicCache(response: NextResponse, request: NextRequest): NextResponse {
   if (isPublicCacheable(request.nextUrl.pathname, request.method)) {
-    response.headers.set('Cache-Control', 'public, s-maxage=2592000, stale-while-revalidate=604800');
+    response.headers.set('Cache-Control', 'public, s-maxage=7776000, stale-while-revalidate=604800');
   }
+  return response;
+}
+
+// Admin surfaces (API + backend pages) must NEVER be cached — a stale list after
+// delete/edit would mislead the operator. EdgeOne injects a 7-day default cache for
+// any response without an explicit Cache-Control, which caused the "deleted but still
+// shown" bug. This single source covers every /api/admin/* route and /xiaozhouBackend/* page.
+const ADMIN_NO_STORE = 'private, no-cache, no-store, max-age=0, must-revalidate';
+
+function withAdminNoStore(response: NextResponse): NextResponse {
+  response.headers.set('Cache-Control', ADMIN_NO_STORE);
   return response;
 }
 
@@ -139,11 +150,19 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // Expose the current pathname to the root layout for <html lang/dir>.
+  // Declared up-front so the admin (backend page + API) branches below can
+  // forward it via NextResponse.next({ request: { headers: requestHeaders } })
+  // without a temporal-dead-zone reference error.
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-pathname', pathname);
+
   // 0. Guard the admin backend behind login. The login page itself must
   //    always pass through, otherwise the redirect would loop forever.
   if (seg === 'xiaozhouBackend') {
     if (pathname === '/xiaozhouBackend/login') {
-      return NextResponse.next();
+      // login page must also never be cached
+      return withAdminNoStore(NextResponse.next());
     }
     const hasAuth = request.cookies.get('admin_auth');
     if (!hasAuth) {
@@ -151,7 +170,14 @@ export async function middleware(request: NextRequest) {
       url.pathname = '/xiaozhouBackend/login';
       return NextResponse.redirect(url, 307);
     }
-    return NextResponse.next();
+    // authenticated admin page → never cache (stale data after edit/delete)
+    return withAdminNoStore(NextResponse.next({ request: { headers: requestHeaders } }));
+  }
+
+  // Admin API routes: never cache (covers every /api/admin/* route uniformly,
+  // including contact-messages which already sets it per-handler as defense-in-depth).
+  if (pathname.startsWith('/api/admin')) {
+    return withAdminNoStore(NextResponse.next({ request: { headers: requestHeaders } }));
   }
 
   // 2. First segment is not a locale and not a legit top-level route →
@@ -163,10 +189,6 @@ export async function middleware(request: NextRequest) {
     url.pathname = '/en' + pathname;
     return NextResponse.redirect(url, 308);
   }
-
-  // 3. Expose the current pathname to the root layout for <html lang/dir>.
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set('x-pathname', pathname);
 
   // 4. Locale routes pass through (inject header).
   if (seg && VALID_LOCALES.includes(seg)) {
