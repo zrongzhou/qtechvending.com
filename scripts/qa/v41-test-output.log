@@ -1,0 +1,152 @@
+{
+  "base": "http://localhost:3002",
+  "results": [
+    {
+      "page": "home-en",
+      "url": "/en",
+      "status": 200,
+      "i18nOk": true,
+      "htmlLang": "en",
+      "htmlDir": "ltr",
+      "starfield": {
+        "ok": true,
+        "diff": 11635891,
+        "count": 1
+      },
+      "advantagesCards": {
+        "ok": true,
+        "count": 4
+      },
+      "casesColors": {
+        "ok": true,
+        "count": 6,
+        "distinct": 6
+      },
+      "ctaFullWidth": {
+        "ok": true,
+        "width": 1216,
+        "vw": 1366,
+        "ratio": 0.89
+      },
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v41-artifacts\\home-en.png"
+    },
+    {
+      "page": "home-zh",
+      "url": "/zh",
+      "status": 200,
+      "i18nOk": true,
+      "htmlLang": "zh",
+      "htmlDir": "ltr",
+      "starfield": {
+        "ok": true,
+        "diff": 120771,
+        "count": 1
+      },
+      "advantagesCards": {
+        "ok": true,
+        "count": 4
+      },
+      "casesColors": {
+        "ok": true,
+        "count": 6,
+        "distinct": 6
+      },
+      "ctaFullWidth": {
+        "ok": true,
+        "width": 1216,
+        "vw": 1366,
+        "ratio": 0.89
+      },
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v41-artifacts\\home-zh.png"
+    },
+    {
+      "page": "home-ar",
+      "url": "/ar",
+      "status": 200,
+      "i18nOk": true,
+      "htmlLang": "ar",
+      "htmlDir": "rtl",
+      "starfield": {
+        "ok": true,
+        "diff": 265812,
+        "count": 1
+      },
+      "advantagesCards": {
+        "ok": true,
+        "count": 4
+      },
+      "casesColors": {
+        "ok": true,
+        "count": 6,
+        "distinct": 6
+      },
+      "ctaFullWidth": {
+        "ok": true,
+        "width": 1216,
+        "vw": 1366,
+        "ratio": 0.89
+      },
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v41-artifacts\\home-ar.png"
+    },
+    {
+      "page": "products-list",
+      "url": "/en/products",
+      "status": 200,
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v41-artifacts\\products.png"
+    },
+    {
+      "page": "product-tab",
+      "url": "/en/qa-product-tab",
+      "status": 200,
+      "tabCount": 3,
+      "tabCountOk": true,
+      "featuresDefaultVisible": true,
+      "specsSwitchOk": true,
+      "descriptionSwitchOk": true,
+      "animateFadeInClass": true,
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v41-artifacts\\product-tab.png"
+    },
+    {
+      "page": "about-en",
+      "url": "/en/about",
+      "status": 200,
+      "sectionCount": 14,
+      "sectionCountOk": true,
+      "heroDeepSpace": true,
+      "oceanBubblesCanvas": 1,
+      "oceanBubblesOk": true,
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v41-artifacts\\about-en.png"
+    },
+    {
+      "page": "about-zh",
+      "url": "/zh/about",
+      "status": 200,
+      "sectionCount": 14,
+      "sectionCountOk": true,
+      "heroDeepSpace": true,
+      "oceanBubblesCanvas": 1,
+      "oceanBubblesOk": true,
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v41-artifacts\\about-zh.png"
+    },
+    {
+      "page": "about-ar",
+      "url": "/ar/about",
+      "status": 200,
+      "sectionCount": 14,
+      "sectionCountOk": true,
+      "heroDeepSpace": true,
+      "oceanBubblesCanvas": 1,
+      "oceanBubblesOk": true,
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v41-artifacts\\about-ar.png"
+    }
+  ],
+  "pageErrors": []
+}

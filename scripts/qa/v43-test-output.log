@@ -1,0 +1,204 @@
+{
+  "base": "http://localhost:3001",
+  "results": [
+    {
+      "page": "home-en",
+      "url": "/en",
+      "status": 200,
+      "i18nOk": true,
+      "htmlLang": "en",
+      "htmlDir": "ltr",
+      "starfield": {
+        "ok": true,
+        "diff": 24045136,
+        "count": 1
+      },
+      "starfieldAnimating": true,
+      "ctaAqua": {
+        "ok": true,
+        "hasSea": true,
+        "isBlack": false,
+        "backgroundImage": "linear-gradient(rgba(22, 78, 99, 0.8) 0%, rgba(17, 94, 89, 0.7) 50%, rgba(22, 78, 99, 0.8) 100%)",
+        "bubbleCount": 18,
+        "crystalBubbleBorder": "1pxsolidrgba(255,255,255,0.6)",
+        "maxBubbleOpacity": 0.847392,
+        "godrayCount": 4,
+        "maxGodrayOpacity": 0.799582,
+        "sun": true,
+        "lamp": true
+      },
+      "ctaVisible": true,
+      "partners": {
+        "found": true,
+        "tileCount": 8,
+        "hasScroll": true
+      },
+      "partnersRendered": true,
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v43-artifacts\\home-en.png"
+    },
+    {
+      "page": "home-zh",
+      "url": "/zh",
+      "status": 200,
+      "i18nOk": true,
+      "htmlLang": "zh",
+      "htmlDir": "ltr",
+      "starfield": {
+        "ok": true,
+        "diff": 65741,
+        "count": 1
+      },
+      "starfieldAnimating": true,
+      "ctaAqua": {
+        "ok": true,
+        "hasSea": true,
+        "isBlack": false,
+        "backgroundImage": "linear-gradient(rgba(22, 78, 99, 0.8) 0%, rgba(17, 94, 89, 0.7) 50%, rgba(22, 78, 99, 0.8) 100%)",
+        "bubbleCount": 18,
+        "crystalBubbleBorder": "1pxsolidrgba(255,255,255,0.6)",
+        "maxBubbleOpacity": 0.848407,
+        "godrayCount": 4,
+        "maxGodrayOpacity": 0.79936,
+        "sun": true,
+        "lamp": true
+      },
+      "ctaVisible": true,
+      "partners": {
+        "found": true,
+        "tileCount": 8,
+        "hasScroll": true
+      },
+      "partnersRendered": true,
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v43-artifacts\\home-zh.png"
+    },
+    {
+      "page": "home-ar",
+      "url": "/ar",
+      "status": 200,
+      "i18nOk": true,
+      "htmlLang": "ar",
+      "htmlDir": "rtl",
+      "starfield": {
+        "ok": true,
+        "diff": 27561,
+        "count": 1
+      },
+      "starfieldAnimating": true,
+      "ctaAqua": {
+        "ok": true,
+        "hasSea": true,
+        "isBlack": false,
+        "backgroundImage": "linear-gradient(rgba(22, 78, 99, 0.8) 0%, rgba(17, 94, 89, 0.7) 50%, rgba(22, 78, 99, 0.8) 100%)",
+        "bubbleCount": 18,
+        "crystalBubbleBorder": "1pxsolidrgba(255,255,255,0.6)",
+        "maxBubbleOpacity": 0.847899,
+        "godrayCount": 4,
+        "maxGodrayOpacity": 0.799477,
+        "sun": true,
+        "lamp": true
+      },
+      "ctaVisible": true,
+      "partners": {
+        "found": true,
+        "tileCount": 8,
+        "hasScroll": true
+      },
+      "partnersRendered": true,
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v43-artifacts\\home-ar.png"
+    },
+    {
+      "page": "products-list",
+      "url": "/en/products",
+      "status": 200,
+      "productsBackground": {
+        "ok": true,
+        "hasGradient": true,
+        "hasLight": true,
+        "isBlack": false,
+        "backgroundImage": "radial-gradient(60% 50% at 15% 12%, rgba(56, 189, 248, 0.12) 0%, rgba(0, 0, 0, 0) 60%), radial-gradient(55% 45% at 88% 22%, rgba(139, 92, 246, 0.1) 0%, rgba(0, 0, 0, 0) 60%), radial-gradient(60% 50% a"
+      },
+      "productsLightGlass": true,
+      "medianLum": 248,
+      "lightEnough": true,
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v43-artifacts\\products.png"
+    },
+    {
+      "page": "qa-product-tab",
+      "url": "/en/qa-product-tab",
+      "status": 200,
+      "tabCount": 3,
+      "tabCountOk": true,
+      "panels": [
+        {
+          "found": true,
+          "backgroundColor": "rgba(255, 255, 255, 0.7)"
+        },
+        {
+          "found": true,
+          "backgroundColor": "rgba(255, 255, 255, 0.7)"
+        },
+        {
+          "found": true,
+          "backgroundColor": "rgba(255, 255, 255, 0.7)"
+        }
+      ],
+      "lightGlassOk": true,
+      "tabPanelsLightGlass": true,
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v43-artifacts\\qa-product-tab.png"
+    },
+    {
+      "page": "about-en",
+      "url": "/en/about",
+      "status": 200,
+      "aboutHero": {
+        "ok": true,
+        "hasLight": true,
+        "isBlack": false,
+        "backgroundImage": "linear-gradient(rgb(255, 255, 255), rgb(248, 250, 252), rgba(236, 254, 255, 0.4))"
+      },
+      "aboutLightOk": true,
+      "medianLum": 252,
+      "lightEnough": true,
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v43-artifacts\\about-en.png"
+    },
+    {
+      "page": "about-zh",
+      "url": "/zh/about",
+      "status": 200,
+      "aboutHero": {
+        "ok": true,
+        "hasLight": true,
+        "isBlack": false,
+        "backgroundImage": "linear-gradient(rgb(255, 255, 255), rgb(248, 250, 252), rgba(236, 254, 255, 0.4))"
+      },
+      "aboutLightOk": true,
+      "medianLum": 253,
+      "lightEnough": true,
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v43-artifacts\\about-zh.png"
+    },
+    {
+      "page": "about-ar",
+      "url": "/ar/about",
+      "status": 200,
+      "aboutHero": {
+        "ok": true,
+        "hasLight": true,
+        "isBlack": false,
+        "backgroundImage": "linear-gradient(rgb(255, 255, 255), rgb(248, 250, 252), rgba(236, 254, 255, 0.4))"
+      },
+      "aboutLightOk": true,
+      "medianLum": 253,
+      "lightEnough": true,
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v43-artifacts\\about-ar.png"
+    }
+  ],
+  "pageErrors": []
+}

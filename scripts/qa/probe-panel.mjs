@@ -1,0 +1,10 @@
+const url = 'http://localhost:3002/en/qa-product-tab';
+const t = await fetch(url).then((r) => r.text());
+const slate = [...new Set(t.match(/[a-z-]*slate-50[^"\s]*/g) || [])];
+const backdrop = [...new Set(t.match(/backdrop-blur[a-z-]*/g) || [])];
+const bgSlate = [...new Set(t.match(/bg-slate-50[^"\s]*/g) || [])];
+console.log('slate-50 tokens:', slate);
+console.log('backdrop tokens:', backdrop);
+console.log('bg-slate-50 tokens:', bgSlate);
+console.log('has bg-slate-50/60:', t.includes('bg-slate-50/60'));
+console.log('has backdrop-blur-sm:', t.includes('backdrop-blur-sm'));

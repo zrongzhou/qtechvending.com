@@ -1,0 +1,1257 @@
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3002
+
+ ✓ Starting...
+ ✓ Ready in 56.2s
+ ✓ Compiled /src/middleware in 157ms
+ ✓ Compiled (72 modules)
+ ○ Compiling /[locale] ...
+ ✓ Compiled /[locale] in 2.5s (722 modules)
+[data] getFeaturedProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getFeaturedProducts (webpack-internal:///(rsc)/./src/lib/data.ts:87:26)
+    at async Promise.all (index 0)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getLatestBlogs failed: PrismaClientInitializationError: 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getLatestBlogs (webpack-internal:///(rsc)/./src/lib/data.ts:404:23)
+    at async Promise.all (index 1)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 2)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategoryProductCounts failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategoryProductCounts (webpack-internal:///(rsc)/./src/lib/data.ts:61:22)
+    at async Promise.all (index 3)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /en 200 in 7708ms
+[data] getFeaturedProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getFeaturedProducts (webpack-internal:///(rsc)/./src/lib/data.ts:87:26)
+    at async Promise.all (index 0)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getLatestBlogs failed: PrismaClientInitializationError: 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getLatestBlogs (webpack-internal:///(rsc)/./src/lib/data.ts:404:23)
+    at async Promise.all (index 1)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 2)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategoryProductCounts failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategoryProductCounts (webpack-internal:///(rsc)/./src/lib/data.ts:61:22)
+    at async Promise.all (index 3)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /en 200 in 4193ms
+[data] getFeaturedProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getFeaturedProducts (webpack-internal:///(rsc)/./src/lib/data.ts:87:26)
+    at async Promise.all (index 0)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getLatestBlogs failed: PrismaClientInitializationError: 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getLatestBlogs (webpack-internal:///(rsc)/./src/lib/data.ts:404:23)
+    at async Promise.all (index 1)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 2)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategoryProductCounts failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategoryProductCounts (webpack-internal:///(rsc)/./src/lib/data.ts:61:22)
+    at async Promise.all (index 3)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /en 200 in 4180ms
+[data] getFeaturedProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getFeaturedProducts (webpack-internal:///(rsc)/./src/lib/data.ts:87:26)
+    at async Promise.all (index 0)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getLatestBlogs failed: PrismaClientInitializationError: 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getLatestBlogs (webpack-internal:///(rsc)/./src/lib/data.ts:404:23)
+    at async Promise.all (index 1)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 2)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategoryProductCounts failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategoryProductCounts (webpack-internal:///(rsc)/./src/lib/data.ts:61:22)
+    at async Promise.all (index 3)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /zh 200 in 4582ms
+[data] getFeaturedProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getFeaturedProducts (webpack-internal:///(rsc)/./src/lib/data.ts:87:26)
+    at async Promise.all (index 0)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getLatestBlogs failed: PrismaClientInitializationError: 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getLatestBlogs (webpack-internal:///(rsc)/./src/lib/data.ts:404:23)
+    at async Promise.all (index 1)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 2)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategoryProductCounts failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategoryProductCounts (webpack-internal:///(rsc)/./src/lib/data.ts:61:22)
+    at async Promise.all (index 3)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /ar 200 in 4181ms
+ ○ Compiling /[locale]/qa-categories ...
+ ✓ Compiled /[locale]/qa-categories in 900ms (728 modules)
+ ✓ Compiled in 618ms (360 modules)
+ GET /ar?_rsc=1h5zx 200 in 305ms
+ GET /en/qa-categories 200 in 1795ms
+ ✓ Compiled /[locale]/products in 440ms (731 modules)
+[data] getFeaturedProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getFeaturedProducts (webpack-internal:///(rsc)/./src/lib/data.ts:87:26)
+    at async Promise.all (index 0)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getLatestBlogs failed: PrismaClientInitializationError: 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getLatestBlogs (webpack-internal:///(rsc)/./src/lib/data.ts:404:23)
+    at async Promise.all (index 1)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 2)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategoryProductCounts failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategoryProductCounts (webpack-internal:///(rsc)/./src/lib/data.ts:61:22)
+    at async Promise.all (index 3)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 0)
+    at async ProductsPage (webpack-internal:///(rsc)/./src/app/[locale]/products/page.tsx:31:35) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async Promise.all (index 0)
+    at async getProducts (webpack-internal:///(rsc)/./src/lib/data.ts:175:32)
+    at async Promise.all (index 1)
+    at async ProductsPage (webpack-internal:///(rsc)/./src/app/[locale]/products/page.tsx:31:35) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /en/products 200 in 1360ms
+ ✓ Compiled /api/products in 129ms (406 modules)
+ ✓ Compiled /[locale]/qa-products-grid in 214ms (765 modules)
+ GET /en/qa-products-grid 200 in 1137ms
+ GET /api/products?page=1 200 in 3822ms
+[data] getProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async Promise.all (index 0)
+    at async getProducts (webpack-internal:///(rsc)/./src/lib/data.ts:175:32)
+    at async GET (webpack-internal:///(rsc)/./src/app/api/products/route.ts:23:18)
+    at async D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\compiled\next-server\app-route.runtime.dev.js:6:57228
+    at async eT.execute (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\compiled\next-server\app-route.runtime.dev.js:6:46851)
+    at async eT.handle (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\compiled\next-server\app-route.runtime.dev.js:6:58760)
+    at async doRender (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:1366:42)
+    at async cacheEntry.responseCache.get.routeKind (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:1588:28)
+    at async DevServer.renderToResponseWithComponentsImpl (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:1496:28)
+    at async DevServer.renderPageComponent (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:1924:24)
+    at async DevServer.renderToResponseImpl (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ ○ Compiling /[locale]/about ...
+ ✓ Compiled /[locale]/about in 748ms (820 modules)
+ GET /en/qa-products-grid?_rsc=sfq2c 200 in 61ms
+[data] getCompanyInfo failed: PrismaClientInitializationError: 
+Invalid `prisma.companyInfo.findUnique()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCompanyInfo (webpack-internal:///(rsc)/./src/lib/data.ts:421:22)
+    at async AboutPage (webpack-internal:///(rsc)/./src/app/[locale]/about/page.tsx:87:18) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /en/about 200 in 5363ms
+[data] getCompanyInfo failed: PrismaClientInitializationError: 
+Invalid `prisma.companyInfo.findUnique()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCompanyInfo (webpack-internal:///(rsc)/./src/lib/data.ts:421:22)
+    at async AboutPage (webpack-internal:///(rsc)/./src/app/[locale]/about/page.tsx:87:18) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /zh/about 200 in 4171ms
+[data] getCompanyInfo failed: PrismaClientInitializationError: 
+Invalid `prisma.companyInfo.findUnique()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCompanyInfo (webpack-internal:///(rsc)/./src/lib/data.ts:421:22)
+    at async AboutPage (webpack-internal:///(rsc)/./src/app/[locale]/about/page.tsx:87:18) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /ar/about 200 in 4195ms
+ ✓ Compiled /[locale]/qa-product-tab in 277ms (828 modules)
+ GET /en/qa-product-tab 200 in 769ms
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 0)
+    at async ProductsPage (webpack-internal:///(rsc)/./src/app/[locale]/products/page.tsx:31:35) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async Promise.all (index 0)
+    at async getProducts (webpack-internal:///(rsc)/./src/lib/data.ts:175:32)
+    at async Promise.all (index 1)
+    at async ProductsPage (webpack-internal:///(rsc)/./src/app/[locale]/products/page.tsx:31:35) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /en/products 200 in 4574ms
+ GET /api/products?page=1 200 in 2474ms
+[data] getProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async Promise.all (index 0)
+    at async getProducts (webpack-internal:///(rsc)/./src/lib/data.ts:175:32)
+    at async GET (webpack-internal:///(rsc)/./src/app/api/products/route.ts:23:18)
+    at async D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\compiled\next-server\app-route.runtime.dev.js:6:57228
+    at async eT.execute (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\compiled\next-server\app-route.runtime.dev.js:6:46851)
+    at async eT.handle (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\compiled\next-server\app-route.runtime.dev.js:6:58760)
+    at async doRender (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:1366:42)
+    at async cacheEntry.responseCache.get.routeKind (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:1588:28)
+    at async DevServer.renderToResponseWithComponentsImpl (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:1496:28)
+    at async DevServer.renderPageComponent (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:1924:24)
+    at async DevServer.renderToResponseImpl (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getFeaturedProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getFeaturedProducts (webpack-internal:///(rsc)/./src/lib/data.ts:87:26)
+    at async Promise.all (index 0)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getLatestBlogs failed: PrismaClientInitializationError: 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getLatestBlogs (webpack-internal:///(rsc)/./src/lib/data.ts:404:23)
+    at async Promise.all (index 1)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 2)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategoryProductCounts failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategoryProductCounts (webpack-internal:///(rsc)/./src/lib/data.ts:61:22)
+    at async Promise.all (index 3)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /en 200 in 4669ms
+ ✓ Compiled in 912ms (810 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\.next\cache\webpack\server-development\7.pack.gz_' -> 'D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\.next\cache\webpack\server-development\7.pack.gz'
+[data] getCompanyInfo failed: PrismaClientInitializationError: 
+Invalid `prisma.companyInfo.findUnique()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCompanyInfo (webpack-internal:///(rsc)/./src/lib/data.ts:421:22)
+    at async AboutPage (webpack-internal:///(rsc)/./src/app/[locale]/about/page.tsx:87:18) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /zh/about 200 in 4404ms
+[data] getCompanyInfo failed: PrismaClientInitializationError: 
+Invalid `prisma.companyInfo.findUnique()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCompanyInfo (webpack-internal:///(rsc)/./src/lib/data.ts:421:22)
+    at async AboutPage (webpack-internal:///(rsc)/./src/app/[locale]/about/page.tsx:87:18) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /ar/about 200 in 4162ms
+[data] getCompanyInfo failed: PrismaClientInitializationError: 
+Invalid `prisma.companyInfo.findUnique()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCompanyInfo (webpack-internal:///(rsc)/./src/lib/data.ts:421:22)
+    at async AboutPage (webpack-internal:///(rsc)/./src/app/[locale]/about/page.tsx:87:18) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /en/about 200 in 4182ms
+[data] getFeaturedProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getFeaturedProducts (webpack-internal:///(rsc)/./src/lib/data.ts:87:26)
+    at async Promise.all (index 0)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getLatestBlogs failed: PrismaClientInitializationError: 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getLatestBlogs (webpack-internal:///(rsc)/./src/lib/data.ts:404:23)
+    at async Promise.all (index 1)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 2)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategoryProductCounts failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategoryProductCounts (webpack-internal:///(rsc)/./src/lib/data.ts:61:22)
+    at async Promise.all (index 3)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /en 200 in 4162ms
+[data] getFeaturedProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getFeaturedProducts (webpack-internal:///(rsc)/./src/lib/data.ts:87:26)
+    at async Promise.all (index 0)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getLatestBlogs failed: PrismaClientInitializationError: 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getLatestBlogs (webpack-internal:///(rsc)/./src/lib/data.ts:404:23)
+    at async Promise.all (index 1)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 2)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategoryProductCounts failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategoryProductCounts (webpack-internal:///(rsc)/./src/lib/data.ts:61:22)
+    at async Promise.all (index 3)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /en 200 in 4160ms
+[data] getFeaturedProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getFeaturedProducts (webpack-internal:///(rsc)/./src/lib/data.ts:87:26)
+    at async Promise.all (index 0)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getLatestBlogs failed: PrismaClientInitializationError: 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getLatestBlogs (webpack-internal:///(rsc)/./src/lib/data.ts:404:23)
+    at async Promise.all (index 1)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 2)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategoryProductCounts failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategoryProductCounts (webpack-internal:///(rsc)/./src/lib/data.ts:61:22)
+    at async Promise.all (index 3)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /en 200 in 4185ms
+[data] getFeaturedProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getFeaturedProducts (webpack-internal:///(rsc)/./src/lib/data.ts:87:26)
+    at async Promise.all (index 0)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getLatestBlogs failed: PrismaClientInitializationError: 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getLatestBlogs (webpack-internal:///(rsc)/./src/lib/data.ts:404:23)
+    at async Promise.all (index 1)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 2)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategoryProductCounts failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategoryProductCounts (webpack-internal:///(rsc)/./src/lib/data.ts:61:22)
+    at async Promise.all (index 3)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /zh 200 in 4173ms
+[data] getFeaturedProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getFeaturedProducts (webpack-internal:///(rsc)/./src/lib/data.ts:87:26)
+    at async Promise.all (index 0)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getLatestBlogs failed: PrismaClientInitializationError: 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getLatestBlogs (webpack-internal:///(rsc)/./src/lib/data.ts:404:23)
+    at async Promise.all (index 1)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 2)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategoryProductCounts failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategoryProductCounts (webpack-internal:///(rsc)/./src/lib/data.ts:61:22)
+    at async Promise.all (index 3)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /ar 200 in 4188ms
+ ✓ Compiled /[locale]/qa-categories in 131ms (416 modules)
+ GET /en/qa-categories 200 in 298ms
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 0)
+    at async ProductsPage (webpack-internal:///(rsc)/./src/app/[locale]/products/page.tsx:31:35) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async Promise.all (index 0)
+    at async getProducts (webpack-internal:///(rsc)/./src/lib/data.ts:175:32)
+    at async Promise.all (index 1)
+    at async ProductsPage (webpack-internal:///(rsc)/./src/app/[locale]/products/page.tsx:31:35) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /en/products 200 in 4193ms
+ ✓ Compiled /api/products in 130ms (444 modules)
+ GET /en/qa-products-grid 200 in 539ms
+ GET /api/products?page=1 200 in 3215ms
+[data] getProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async Promise.all (index 0)
+    at async getProducts (webpack-internal:///(rsc)/./src/lib/data.ts:175:32)
+    at async GET (webpack-internal:///(rsc)/./src/app/api/products/route.ts:23:18)
+    at async D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\compiled\next-server\app-route.runtime.dev.js:6:57228
+    at async eT.execute (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\compiled\next-server\app-route.runtime.dev.js:6:46851)
+    at async eT.handle (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\compiled\next-server\app-route.runtime.dev.js:6:58760)
+    at async doRender (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:1366:42)
+    at async cacheEntry.responseCache.get.routeKind (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:1588:28)
+    at async DevServer.renderToResponseWithComponentsImpl (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:1496:28)
+    at async DevServer.renderPageComponent (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:1924:24)
+    at async DevServer.renderToResponseImpl (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ ✓ Compiled in 1234ms (775 modules)
+ ✓ Compiled in 485ms (398 modules)
+ ✓ Compiled in 387ms (398 modules)
+ ✓ Compiled in 507ms (398 modules)
+ ✓ Compiled in 562ms (398 modules)
+ ✓ Compiled in 811ms (775 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\.next\cache\webpack\client-development\8.pack.gz_' -> 'D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\.next\cache\webpack\client-development\8.pack.gz'
+ ✓ Compiled in 553ms (775 modules)
+ ✓ Compiled in 525ms (775 modules)
+ ✓ Compiled in 490ms (775 modules)
+ ✓ Compiled in 676ms (775 modules)
+ ✓ Compiled in 554ms (775 modules)
+ ✓ Compiled in 686ms (775 modules)
+ ✓ Compiled in 716ms (775 modules)
+ ✓ Compiled in 192ms (761 modules)
+ ✓ Compiled in 179ms (761 modules)
+ ✓ Compiled in 170ms (761 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\.next\cache\webpack\client-development\1.pack.gz_' -> 'D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\.next\cache\webpack\client-development\1.pack.gz'
+ ○ Compiling /[locale] ...
+[?25h

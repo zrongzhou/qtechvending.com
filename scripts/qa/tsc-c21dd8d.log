@@ -1,0 +1,11 @@
+src/app/api/admin/categories/[id]/route.ts(54,78): error TS2322: Type '{ slug?: string | undefined; name?: object | undefined; icon?: string | null | undefined; description?: object | null | undefined; order?: number | undefined; status?: string | undefined; type?: string | undefined; }' is not assignable to type '(Without<CategoryUpdateInput, CategoryUncheckedUpdateInput> & CategoryUncheckedUpdateInput) | (Without<...> & CategoryUpdateInput)'.
+  Type '{ slug?: string | undefined; name?: object | undefined; icon?: string | null | undefined; description?: object | null | undefined; order?: number | undefined; status?: string | undefined; type?: string | undefined; }' is not assignable to type 'Without<CategoryUncheckedUpdateInput, CategoryUpdateInput> & CategoryUpdateInput'.
+    Type '{ slug?: string | undefined; name?: object | undefined; icon?: string | null | undefined; description?: object | null | undefined; order?: number | undefined; status?: string | undefined; type?: string | undefined; }' is not assignable to type 'CategoryUpdateInput'.
+      Types of property 'description' are incompatible.
+        Type 'object | null | undefined' is not assignable to type 'InputJsonValue | NullableJsonNullValueInput | undefined'.
+          Type 'null' is not assignable to type 'InputJsonValue | NullableJsonNullValueInput | undefined'.
+src/app/api/admin/categories/route.ts(82,9): error TS2322: Type '{} | null' is not assignable to type 'InputJsonValue | NullableJsonNullValueInput | undefined'.
+  Type 'null' is not assignable to type 'InputJsonValue | NullableJsonNullValueInput | undefined'.
+src/app/api/admin/site-settings/route.ts(54,7): error TS2322: Type '{ slug: string; email: string; phone: string; }' is not assignable to type '(Without<SiteSettingCreateInput, SiteSettingUncheckedCreateInput> & SiteSettingUncheckedCreateInput) | (Without<...> & SiteSettingCreateInput)'.
+  Type '{ slug: string; email: string; phone: string; }' is not assignable to type 'Without<SiteSettingUncheckedCreateInput, SiteSettingCreateInput> & SiteSettingCreateInput'.
+    Property 'company' is missing in type '{ slug: string; email: string; phone: string; }' but required in type 'SiteSettingCreateInput'.

@@ -1,0 +1,1209 @@
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3002
+
+ ✓ Starting...
+ ✓ Ready in 2.7s
+ ✓ Compiled /src/middleware in 344ms (72 modules)
+ ○ Compiling /[locale]/qa-product-tab ...
+ ✓ Compiled /[locale]/qa-product-tab in 3.4s (658 modules)
+ GET /en/qa-product-tab 200 in 4000ms
+ GET /en/qa-product-tab 200 in 95ms
+ GET /en/qa-product-tab 200 in 91ms
+ GET /en/qa-product-tab 200 in 96ms
+ GET /en/qa-product-tab 200 in 103ms
+ GET /en/qa-product-tab 200 in 84ms
+ GET /en/qa-product-tab 200 in 96ms
+ ○ Compiling /[locale] ...
+ ✓ Compiled /[locale] in 1034ms (746 modules)
+[data] getFeaturedProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getFeaturedProducts (webpack-internal:///(rsc)/./src/lib/data.ts:87:26)
+    at async Promise.all (index 0)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getLatestBlogs failed: PrismaClientInitializationError: 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getLatestBlogs (webpack-internal:///(rsc)/./src/lib/data.ts:404:23)
+    at async Promise.all (index 1)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 2)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategoryProductCounts failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategoryProductCounts (webpack-internal:///(rsc)/./src/lib/data.ts:61:22)
+    at async Promise.all (index 3)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /en 200 in 6263ms
+[data] getFeaturedProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getFeaturedProducts (webpack-internal:///(rsc)/./src/lib/data.ts:87:26)
+    at async Promise.all (index 0)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getLatestBlogs failed: PrismaClientInitializationError: 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getLatestBlogs (webpack-internal:///(rsc)/./src/lib/data.ts:404:23)
+    at async Promise.all (index 1)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 2)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategoryProductCounts failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategoryProductCounts (webpack-internal:///(rsc)/./src/lib/data.ts:61:22)
+    at async Promise.all (index 3)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /en 200 in 4202ms
+[data] getFeaturedProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getFeaturedProducts (webpack-internal:///(rsc)/./src/lib/data.ts:87:26)
+    at async Promise.all (index 0)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getLatestBlogs failed: PrismaClientInitializationError: 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getLatestBlogs (webpack-internal:///(rsc)/./src/lib/data.ts:404:23)
+    at async Promise.all (index 1)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 2)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategoryProductCounts failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategoryProductCounts (webpack-internal:///(rsc)/./src/lib/data.ts:61:22)
+    at async Promise.all (index 3)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /en 200 in 4161ms
+[data] getFeaturedProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getFeaturedProducts (webpack-internal:///(rsc)/./src/lib/data.ts:87:26)
+    at async Promise.all (index 0)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getLatestBlogs failed: PrismaClientInitializationError: 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getLatestBlogs (webpack-internal:///(rsc)/./src/lib/data.ts:404:23)
+    at async Promise.all (index 1)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 2)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategoryProductCounts failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategoryProductCounts (webpack-internal:///(rsc)/./src/lib/data.ts:61:22)
+    at async Promise.all (index 3)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /en 200 in 4193ms
+[data] getFeaturedProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getFeaturedProducts (webpack-internal:///(rsc)/./src/lib/data.ts:87:26)
+    at async Promise.all (index 0)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getLatestBlogs failed: PrismaClientInitializationError: 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getLatestBlogs (webpack-internal:///(rsc)/./src/lib/data.ts:404:23)
+    at async Promise.all (index 1)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 2)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategoryProductCounts failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategoryProductCounts (webpack-internal:///(rsc)/./src/lib/data.ts:61:22)
+    at async Promise.all (index 3)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /zh 200 in 4196ms
+[data] getFeaturedProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getFeaturedProducts (webpack-internal:///(rsc)/./src/lib/data.ts:87:26)
+    at async Promise.all (index 0)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getLatestBlogs failed: PrismaClientInitializationError: 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getLatestBlogs (webpack-internal:///(rsc)/./src/lib/data.ts:404:23)
+    at async Promise.all (index 1)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 2)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategoryProductCounts failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategoryProductCounts (webpack-internal:///(rsc)/./src/lib/data.ts:61:22)
+    at async Promise.all (index 3)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /ar 200 in 4198ms
+ ○ Compiling /[locale]/products ...
+ ✓ Compiled /[locale]/products in 778ms (761 modules)
+[data] getFeaturedProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getFeaturedProducts (webpack-internal:///(rsc)/./src/lib/data.ts:87:26)
+    at async Promise.all (index 0)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getLatestBlogs failed: PrismaClientInitializationError: 
+Invalid `prisma.blogPost.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getLatestBlogs (webpack-internal:///(rsc)/./src/lib/data.ts:404:23)
+    at async Promise.all (index 1)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 2)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategoryProductCounts failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategoryProductCounts (webpack-internal:///(rsc)/./src/lib/data.ts:61:22)
+    at async Promise.all (index 3)
+    at async HomePage (webpack-internal:///(rsc)/./src/app/[locale]/page.tsx:48:51) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getCategories failed: PrismaClientInitializationError: 
+Invalid `prisma.category.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async getCategories (webpack-internal:///(rsc)/./src/lib/data.ts:36:22)
+    at async Promise.all (index 0)
+    at async ProductsPage (webpack-internal:///(rsc)/./src/app/[locale]/products/page.tsx:31:35) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+[data] getProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async Promise.all (index 0)
+    at async getProducts (webpack-internal:///(rsc)/./src/lib/data.ts:175:32)
+    at async Promise.all (index 1)
+    at async ProductsPage (webpack-internal:///(rsc)/./src/app/[locale]/products/page.tsx:31:35) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ GET /ar?_rsc=1h5zx 200 in 4127ms
+ GET /en/products 200 in 5021ms
+ ✓ Compiled /api/products in 201ms (414 modules)
+ GET /api/products?page=1 200 in 275ms
+[data] getProducts failed: PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at ei.handleRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:7568)
+    at ei.handleAndLogRequestError (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6593)
+    at ei.request (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:121:6300)
+    at async a (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\@prisma\client\runtime\library.js:130:9551)
+    at async Promise.all (index 0)
+    at async getProducts (webpack-internal:///(rsc)/./src/lib/data.ts:175:32)
+    at async GET (webpack-internal:///(rsc)/./src/app/api/products/route.ts:23:18)
+    at async D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\compiled\next-server\app-route.runtime.dev.js:6:57228
+    at async eT.execute (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\compiled\next-server\app-route.runtime.dev.js:6:46851)
+    at async eT.handle (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\compiled\next-server\app-route.runtime.dev.js:6:58760)
+    at async doRender (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:1366:42)
+    at async cacheEntry.responseCache.get.routeKind (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:1588:28)
+    at async DevServer.renderToResponseWithComponentsImpl (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:1496:28)
+    at async DevServer.renderPageComponent (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:1924:24)
+    at async DevServer.renderToResponseImpl (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:1962:32)
+    at async DevServer.pipeImpl (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\next-server.js:272:17)
+    at async DevServer.handleRequestImpl (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\base-server.js:818:17)
+    at async D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\dev\next-dev-server.js:339:20
+    at async Span.traceAsyncFn (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\trace\trace.js:154:20)
+    at async DevServer.handleRequest (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\dev\next-dev-server.js:336:24)
+    at async invokeRender (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\lib\router-server.js:179:21)
+    at async handleRequest (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\lib\router-server.js:359:24)
+    at async requestHandlerImpl (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\lib\router-server.js:383:13)
+    at async Server.requestListener (D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\lib\start-server.js:141:13) {
+  clientVersion: '6.19.3',
+  errorCode: undefined,
+  retryable: undefined
+}
+ ✓ Compiled in 629ms (752 modules)
+ ✓ Compiled in 618ms (752 modules)
+ ✓ Compiled in 591ms (752 modules)
+ ✓ Compiled in 462ms (752 modules)
+ ✓ Compiled in 778ms (375 modules)
+ ✓ Compiled in 553ms (375 modules)
+ ✓ Compiled in 388ms (375 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\.next\server\app\api'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/api/products/route' in D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\.next\server\app\api\products\route.js', but to 'Error: Can't resolve '../../../../.next/server/app/api/products/route' in 'D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/api/products/route (expected D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\.next\server\app\api\products\route.js)
+<w>  at file dependencies D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\require.js
+<w>  at file D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\require.js
+<w>  at file dependencies D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\load-components.js
+<w>  at file D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\build\utils.js
+<w>  at file D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\build\utils.js
+<w>  at file dependencies D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\build\webpack\loaders\next-app-loader.js
+<w>  at file D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\build\webpack\loaders\next-app-loader.js
+<w>  at file dependencies D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\compiled\loader-runner\LoaderRunner.js
+<w>  at file dependencies D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\compiled\webpack\bundle5.js
+<w>  at file dependencies D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\compiled\webpack\webpack.js
+<w>  at file dependencies D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\build\webpack\plugins\define-env-plugin.js
+<w>  at file dependencies D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\build\swc\index.js
+<w>  at file D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\build\swc\index.js
+<w>  at file dependencies D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\build\webpack\loaders\next-barrel-loader.js
+<w>  at file D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\build\webpack\loaders\next-barrel-loader.js
+<w>  at resolve commonjs D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\build\webpack\loaders\next-barrel-loader.js
+ ✓ Compiled in 407ms (375 modules)
+ ✓ Compiled in 384ms (375 modules)
+ ✓ Compiled in 355ms (375 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\.next\cache\webpack\client-development\3.pack.gz_' -> 'D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\.next\cache\webpack\client-development\3.pack.gz'
+ ✓ Compiled in 693ms (752 modules)
+ ✓ Compiled in 349ms (375 modules)
+ ✓ Compiled in 441ms (752 modules)
+ ✓ Compiled in 1138ms (752 modules)
+ ✓ Compiled in 727ms (752 modules)
+ ✓ Compiled in 382ms (375 modules)
+ ✓ Compiled in 364ms (375 modules)
+ ✓ Compiled in 521ms (376 modules)
+ ✓ Compiled in 584ms (754 modules)
+ ✓ Compiled in 406ms (376 modules)
+ ✓ Compiled in 479ms (376 modules)
+ ✓ Compiled in 457ms (376 modules)
+ ✓ Compiled in 462ms (376 modules)
+ ✓ Compiled in 357ms (376 modules)
+ ✓ Compiled in 385ms (376 modules)
+ ✓ Compiled in 298ms (740 modules)
+ ✓ Compiled in 479ms (376 modules)
+ ✓ Compiled in 381ms (376 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\.next\server\app\api'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving '../../../../.next/server/app/api/products/route' in D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server for build dependencies doesn't lead to expected result 'D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\.next\server\app\api\products\route.js', but to 'Error: Can't resolve '../../../../.next/server/app/api/products/route' in 'D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ../../../../.next/server/app/api/products/route (expected D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\.next\server\app\api\products\route.js)
+<w>  at file dependencies D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\require.js
+<w>  at file D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\require.js
+<w>  at file dependencies D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\load-components.js
+<w>  at file D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\build\utils.js
+<w>  at file D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\build\utils.js
+<w>  at file dependencies D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\build\webpack\plugins\flight-client-entry-plugin.js
+<w>  at file D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\build\webpack\plugins\flight-client-entry-plugin.js
+<w>  at file dependencies D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\build\webpack-config.js
+<w>  at file D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\build\webpack-config.js
+<w>  at file dependencies D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+ ✓ Compiled in 1652ms (754 modules)
+ ✓ Compiled in 469ms (754 modules)
+ ✓ Compiled in 426ms (376 modules)
+ ✓ Compiled in 2.4s (754 modules)
+ ✓ Compiled in 858ms (754 modules)
+ ✓ Compiled in 593ms (754 modules)
+ ✓ Compiled in 478ms (754 modules)
+ ✓ Compiled in 444ms (376 modules)
+ ✓ Compiled in 351ms (376 modules)
+ ✓ Compiled in 377ms (376 modules)
+ ✓ Compiled in 431ms (376 modules)
+ ✓ Compiled in 490ms (376 modules)
+ ✓ Compiled in 967ms (376 modules)
+ ✓ Compiled in 393ms (376 modules)
+ ✓ Compiled in 479ms (376 modules)
+ ✓ Compiled in 455ms (376 modules)
+ ✓ Compiled in 1182ms (754 modules)
+ ✓ Compiled in 155ms (740 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\.next\cache\webpack\server-development\0.pack.gz_' -> 'D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\.next\cache\webpack\server-development\0.pack.gz'
+ ✓ Compiled in 2.1s (754 modules)
+ ✓ Compiled in 852ms (754 modules)
+ ✓ Compiled in 603ms (754 modules)
+ ✓ Compiled in 391ms (376 modules)
+ ✓ Compiled in 568ms (754 modules)
+ ✓ Compiled in 384ms (376 modules)
+ ✓ Compiled in 591ms (754 modules)
+ ✓ Compiled in 584ms (754 modules)
+ ✓ Compiled in 506ms (376 modules)
+ ✓ Compiled in 491ms (376 modules)
+ ✓ Compiled in 504ms (376 modules)
+ ✓ Compiled in 1483ms (754 modules)
+ ✓ Compiled in 676ms (754 modules)
+ ✓ Compiled in 507ms (376 modules)
+ ✓ Compiled in 462ms (376 modules)
+ ✓ Compiled in 1454ms (754 modules)
+ ✓ Compiled in 832ms (754 modules)
+ ✓ Compiled in 944ms (754 modules)
+ ✓ Compiled in 930ms (754 modules)
+ ✓ Compiled in 854ms (754 modules)
+ ✓ Compiled in 921ms (754 modules)
+ ✓ Compiled in 675ms (754 modules)
+ ✓ Compiled in 470ms (376 modules)
+ ✓ Compiled in 569ms (754 modules)
+ ✓ Compiled in 503ms (754 modules)
+ ✓ Compiled in 548ms (754 modules)
+ ✓ Compiled in 413ms (376 modules)
+ ✓ Compiled in 445ms (376 modules)
+ ✓ Compiled in 636ms (754 modules)
+ ✓ Compiled in 575ms (754 modules)
+ ✓ Compiled in 493ms (376 modules)
+ ✓ Compiled in 433ms (376 modules)
+ ✓ Compiled in 386ms (376 modules)
+ ✓ Compiled in 412ms (376 modules)
+ ✓ Compiled in 511ms (376 modules)
+ ✓ Compiled in 506ms (376 modules)
+ ✓ Compiled in 1042ms (376 modules)
+ ✓ Compiled in 457ms (376 modules)
+ ✓ Compiled in 1918ms (754 modules)
+ ✓ Compiled in 961ms (754 modules)
+ ✓ Compiled in 386ms (376 modules)
+ ✓ Compiled in 629ms (754 modules)
+ ✓ Compiled in 598ms (754 modules)
+ ✓ Compiled in 477ms (754 modules)
+ ✓ Compiled in 911ms (754 modules)
+ ✓ Compiled in 939ms (754 modules)
+ ✓ Compiled in 959ms (754 modules)
+ ✓ Compiled in 489ms (376 modules)
+ ✓ Compiled in 1394ms (754 modules)
+ ✓ Compiled in 446ms (376 modules)
+ ✓ Compiled in 482ms (376 modules)
+ ✓ Compiled in 417ms (376 modules)
+ ✓ Compiled in 542ms (376 modules)
+ ✓ Compiled in 1456ms (754 modules)
+ ✓ Compiled in 616ms (754 modules)
+ ✓ Compiled in 616ms (754 modules)
+ ✓ Compiled in 857ms (754 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\.next\cache\webpack\client-development\0.pack.gz_' -> 'D:\workbuddy\2026-07-06-18-12-38\qtechvending-local\.next\cache\webpack\client-development\0.pack.gz'
+ ✓ Compiled in 924ms (754 modules)
+ ✓ Compiled in 526ms (376 modules)
+ ✓ Compiled in 929ms (754 modules)
+ ✓ Compiled in 926ms (754 modules)
+ ✓ Compiled in 897ms (754 modules)
+ ✓ Compiled in 538ms (376 modules)
+ ✓ Compiled in 919ms (376 modules)
+ ✓ Compiled in 408ms (376 modules)
+ ✓ Compiled in 920ms (754 modules)
+ ✓ Compiled in 1439ms (754 modules)
+ ✓ Compiled in 959ms (754 modules)
+ ✓ Compiled in 1423ms (754 modules)
+ ✓ Compiled in 852ms (754 modules)
+ ✓ Compiled in 956ms (754 modules)
+ ✓ Compiled in 506ms (376 modules)
+ ✓ Compiled in 510ms (376 modules)
+ ✓ Compiled in 432ms (376 modules)
+ ✓ Compiled in 460ms (376 modules)
+ ✓ Compiled in 890ms (754 modules)
+ ✓ Compiled in 1139ms (754 modules)
+ ✓ Compiled in 1028ms (754 modules)
+ ✓ Compiled in 453ms (376 modules)
+ ✓ Compiled in 686ms (754 modules)
+ ✓ Compiled in 605ms (754 modules)
+ ✓ Compiled in 876ms (754 modules)
+ ✓ Compiled in 380ms (376 modules)
+ ✓ Compiled in 943ms (754 modules)
+ ✓ Compiled in 491ms (376 modules)
+ ✓ Compiled in 458ms (376 modules)
+ ✓ Compiled in 980ms (754 modules)
+ ✓ Compiled in 530ms (376 modules)
+ ✓ Compiled in 518ms (376 modules)
+ ✓ Compiled in 451ms (376 modules)
+ ✓ Compiled in 875ms (754 modules)
+ ✓ Compiled in 646ms (754 modules)
+ ✓ Compiled in 866ms (754 modules)
+ ✓ Compiled in 638ms (754 modules)
+ ✓ Compiled in 635ms (754 modules)
+ ✓ Compiled in 969ms (754 modules)
+ ✓ Compiled in 783ms (754 modules)
+ ✓ Compiled in 613ms (754 modules)
+ ✓ Compiled in 523ms (754 modules)
+ ✓ Compiled in 959ms (754 modules)
+ ✓ Compiled in 938ms (754 modules)
+ ✓ Compiled in 468ms (376 modules)
+ ✓ Compiled in 880ms (754 modules)
+ ✓ Compiled in 921ms (754 modules)
+ ✓ Compiled in 571ms (376 modules)
+ ✓ Compiled in 465ms (376 modules)
+ ✓ Compiled in 428ms (376 modules)
+ ✓ Compiled in 428ms (376 modules)
+ ✓ Compiled in 455ms (376 modules)
+ ✓ Compiled in 430ms (376 modules)
+ ✓ Compiled in 435ms (376 modules)
+ ✓ Compiled in 911ms (754 modules)
+ ✓ Compiled in 959ms (754 modules)
+ ✓ Compiled in 953ms (754 modules)
+ ✓ Compiled in 732ms (754 modules)
+ ✓ Compiled in 702ms (754 modules)
+ ✓ Compiled in 602ms (754 modules)
+ ✓ Compiled in 925ms (754 modules)
+ ✓ Compiled in 373ms (376 modules)
+ ✓ Compiled in 709ms (754 modules)
+ ✓ Compiled in 592ms (754 modules)
+ ✓ Compiled in 463ms (376 modules)
+ ✓ Compiled in 930ms (754 modules)
+ ✓ Compiled in 927ms (754 modules)
+ ✓ Compiled in 601ms (754 modules)
+ ✓ Compiled in 665ms (754 modules)
+ ✓ Compiled in 571ms (754 modules)
+ ✓ Compiled in 450ms (376 modules)
+ ✓ Compiled in 930ms (754 modules)
+ ✓ Compiled in 533ms (376 modules)
+ ✓ Compiled in 1577ms (754 modules)
+ ✓ Compiled in 544ms (376 modules)
+ ✓ Compiled in 936ms (754 modules)
+ ✓ Compiled in 849ms (754 modules)
+ ✓ Compiled in 955ms (754 modules)
+ ✓ Compiled in 488ms (376 modules)
+ ✓ Compiled in 1491ms (754 modules)
+ ✓ Compiled in 688ms (754 modules)
+ ✓ Compiled in 563ms (754 modules)
+ ✓ Compiled in 586ms (754 modules)
+ ✓ Compiled in 553ms (376 modules)
+ ✓ Compiled in 519ms (376 modules)
+ ✓ Compiled in 937ms (754 modules)
+ ✓ Compiled in 542ms (376 modules)
+ ✓ Compiled in 494ms (376 modules)
+ ✓ Compiled in 963ms (754 modules)
+ ✓ Compiled in 944ms (754 modules)
+ ✓ Compiled in 532ms (376 modules)
+ ✓ Compiled in 482ms (376 modules)
+ ✓ Compiled in 463ms (376 modules)
+ ✓ Compiled in 515ms (376 modules)
+ ✓ Compiled in 506ms (376 modules)
+ ✓ Compiled in 474ms (376 modules)
+ ✓ Compiled in 532ms (376 modules)
+ ✓ Compiled in 495ms (376 modules)
+ ✓ Compiled in 504ms (376 modules)
+ ✓ Compiled in 506ms (376 modules)
+ ✓ Compiled in 430ms (376 modules)
+ ✓ Compiled in 429ms (376 modules)
+ ✓ Compiled in 481ms (376 modules)
+ ✓ Compiled in 1020ms (754 modules)
+ ✓ Compiled in 872ms (760 modules)
+ ✓ Compiled in 1484ms (760 modules)
+ ✓ Compiled in 1009ms (760 modules)
+ ✓ Compiled in 997ms (760 modules)
+ ✓ Compiled in 737ms (760 modules)
+ ✓ Compiled in 557ms (760 modules)
+ ✓ Compiled in 982ms (760 modules)
+ ✓ Compiled in 1147ms (760 modules)
+ ✓ Compiled in 1166ms (760 modules)
+ ✓ Compiled in 646ms (379 modules)
+ ✓ Compiled in 1074ms (760 modules)
+ ✓ Compiled in 993ms (760 modules)
+ ✓ Compiled in 554ms (379 modules)
+ ✓ Compiled in 491ms (379 modules)
+ ✓ Compiled in 559ms (379 modules)
+ ✓ Compiled in 472ms (379 modules)
+ ✓ Compiled in 464ms (379 modules)
+ ✓ Compiled in 1178ms (760 modules)
+ ✓ Compiled in 431ms (379 modules)
+ ✓ Compiled in 797ms (760 modules)
+ ✓ Compiled in 791ms (760 modules)
+ ✓ Compiled in 789ms (760 modules)
+ ✓ Compiled in 775ms (760 modules)
+ ✓ Compiled in 776ms (760 modules)
+ ✓ Compiled in 827ms (760 modules)
+ ✓ Compiled in 829ms (760 modules)
+ ✓ Compiled in 775ms (760 modules)
+ ✓ Compiled in 1006ms (760 modules)
+ ✓ Compiled in 993ms (760 modules)
+ ✓ Compiled in 808ms (760 modules)
+ ✓ Compiled in 823ms (760 modules)
+ ✓ Compiled in 931ms (760 modules)
+ ✓ Compiled in 962ms (760 modules)
+ ✓ Compiled in 842ms (760 modules)
+ ✓ Compiled in 926ms (760 modules)
+ ✓ Compiled in 773ms (760 modules)
+ ✓ Compiled in 839ms (760 modules)
+ ✓ Compiled in 928ms (760 modules)
+ ✓ Compiled in 880ms (760 modules)
+ ✓ Compiled in 814ms (760 modules)
+ ✓ Compiled in 927ms (760 modules)
+ ✓ Compiled in 970ms (760 modules)
+ ✓ Compiled in 949ms (760 modules)
+ ✓ Compiled in 725ms (760 modules)
+ ✓ Compiled in 694ms (760 modules)
+ ✓ Compiled in 567ms (760 modules)
+ ✓ Compiled in 589ms (379 modules)
+ ✓ Compiled in 449ms (379 modules)
+ ✓ Compiled in 453ms (379 modules)
+ ✓ Compiled in 538ms (379 modules)
+ ✓ Compiled in 467ms (379 modules)
+ ✓ Compiled in 460ms (379 modules)
+ ✓ Compiled in 434ms (379 modules)
+ ✓ Compiled in 443ms (379 modules)
+ ✓ Compiled in 434ms (379 modules)
+ ✓ Compiled in 414ms (379 modules)
+ ✓ Compiled in 441ms (379 modules)
+ ✓ Compiled in 484ms (379 modules)
+ ✓ Compiled in 488ms (379 modules)
+ ✓ Compiled in 395ms (379 modules)
+ ✓ Compiled in 1013ms (760 modules)
+ ✓ Compiled in 934ms (760 modules)
+ ✓ Compiled in 957ms (760 modules)
+ ✓ Compiled in 921ms (760 modules)
+ ✓ Compiled in 660ms (760 modules)
+ ✓ Compiled in 680ms (760 modules)
+ ✓ Compiled in 497ms (379 modules)
+ ✓ Compiled in 497ms (379 modules)
+ ✓ Compiled in 496ms (379 modules)
+ ✓ Compiled in 668ms (760 modules)
+ ✓ Compiled in 534ms (760 modules)
+ ✓ Compiled in 928ms (760 modules)
+ ✓ Compiled in 664ms (760 modules)
+ ✓ Compiled in 897ms (760 modules)
+ ✓ Compiled in 875ms (760 modules)
+ ✓ Compiled in 828ms (760 modules)
+ ✓ Compiled in 863ms (760 modules)
+ ✓ Compiled in 837ms (760 modules)
+ ✓ Compiled in 850ms (760 modules)
+ ✓ Compiled in 831ms (760 modules)
+ ✓ Compiled in 852ms (760 modules)
+ ✓ Compiled in 998ms (760 modules)
+ ✓ Compiled in 1003ms (760 modules)
+ ✓ Compiled in 965ms (760 modules)
+ ✓ Compiled in 740ms (760 modules)
+ ✓ Compiled in 567ms (379 modules)
+ ✓ Compiled in 464ms (379 modules)
+ ✓ Compiled in 468ms (379 modules)
+ ✓ Compiled in 444ms (379 modules)
+ ✓ Compiled in 547ms (379 modules)
+ ✓ Compiled in 425ms (379 modules)
+ ✓ Compiled in 463ms (379 modules)
+ ✓ Compiled in 521ms (379 modules)
+ ✓ Compiled in 1195ms (760 modules)
+ ✓ Compiled in 1019ms (760 modules)
+ ✓ Compiled in 543ms (379 modules)
+ ✓ Compiled in 589ms (379 modules)
+ ✓ Compiled in 630ms (760 modules)
+ ✓ Compiled in 523ms (379 modules)
+ ✓ Compiled in 643ms (760 modules)
+ ✓ Compiled in 614ms (760 modules)
+ ✓ Compiled in 557ms (760 modules)
+ ✓ Compiled in 542ms (760 modules)
+ ✓ Compiled in 964ms (760 modules)
+ ✓ Compiled in 881ms (760 modules)
+ ✓ Compiled in 1002ms (760 modules)
+ ✓ Compiled in 869ms (760 modules)
+ ✓ Compiled in 555ms (379 modules)
+ ✓ Compiled in 998ms (760 modules)
+ ✓ Compiled in 654ms (760 modules)
+ ✓ Compiled in 533ms (760 modules)
+ ✓ Compiled in 548ms (760 modules)
+ ✓ Compiled in 791ms (760 modules)
+ ✓ Compiled in 586ms (760 modules)
+ ✓ Compiled in 497ms (379 modules)
+ ✓ Compiled in 498ms (379 modules)
+ ✓ Compiled in 576ms (379 modules)
+ ✓ Compiled in 510ms (379 modules)
+ ✓ Compiled in 466ms (379 modules)
+ ✓ Compiled in 603ms (379 modules)
+ ✓ Compiled in 559ms (379 modules)
+ ✓ Compiled in 511ms (379 modules)
+ ✓ Compiled in 456ms (379 modules)
+ ✓ Compiled in 480ms (379 modules)
+ ✓ Compiled in 508ms (379 modules)
+ ✓ Compiled in 758ms (760 modules)
+ ✓ Compiled in 1026ms (760 modules)
+ ✓ Compiled in 536ms (379 modules)
+ ✓ Compiled in 402ms (379 modules)
+ ✓ Compiled in 587ms (379 modules)
+ ✓ Compiled in 507ms (379 modules)
+ ✓ Compiled in 242ms (746 modules)
+ ✓ Compiled in 481ms (379 modules)
+ ✓ Compiled in 533ms (379 modules)
+ ✓ Compiled in 676ms (760 modules)
+ ⨯ ./src/components/products/FilterBar.tsx
+Error: 
+  [31mx[0m Expected ',', got 'ripple'
+    ,-[[36;1;4mD:\workbuddy\2026-07-06-18-12-38\qtechvending-local\src\components\products\FilterBar.tsx[0m:81:1]
+ [2m81[0m |         later-DOM sibling cards instead of being clipped behind them. The
+ [2m82[0m |         inner stacking context (z-10) scopes the panel, but this raises the
+ [2m83[0m |         whole card above its grid siblings. */}
+ [2m84[0m |     <OceanGlassCard ripple surface="glass" depth="lg" hoverLift={false} className="relative z-50 overflow-visible p-5">
+    : [31;1m                    ^^^^^^[0m
+ [2m85[0m |       {/* Ocean top accent bar — aligns with the ocean design system.
+ [2m86[0m |           NOTE: overflow-visible (not overflow-hidden) so the absolute category
+ [2m87[0m |           dropdown panel is NOT clipped by the card. The bar keeps rounded-t to
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/components/products/FilterBar.tsx
+./src/app/[locale]/products/ProductsClient.tsx
+ ⨯ ./src/components/products/FilterBar.tsx
+Error: 
+  [31mx[0m Expected ',', got 'ripple'
+    ,-[[36;1;4mD:\workbuddy\2026-07-06-18-12-38\qtechvending-local\src\components\products\FilterBar.tsx[0m:81:1]
+ [2m81[0m |         later-DOM sibling cards instead of being clipped behind them. The
+ [2m82[0m |         inner stacking context (z-10) scopes the panel, but this raises the
+ [2m83[0m |         whole card above its grid siblings. */}
+ [2m84[0m |     <OceanGlassCard ripple surface="glass" depth="lg" hoverLift={false} className="relative z-50 overflow-visible p-5">
+    : [31;1m                    ^^^^^^[0m
+ [2m85[0m |       {/* Ocean top accent bar — aligns with the ocean design system.
+ [2m86[0m |           NOTE: overflow-visible (not overflow-hidden) so the absolute category
+ [2m87[0m |           dropdown panel is NOT clipped by the card. The bar keeps rounded-t to
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/components/products/FilterBar.tsx
+./src/app/[locale]/products/ProductsClient.tsx
+ ⨯ ./src/components/products/FilterBar.tsx
+Error: 
+  [31mx[0m Expected ',', got 'ripple'
+    ,-[[36;1;4mD:\workbuddy\2026-07-06-18-12-38\qtechvending-local\src\components\products\FilterBar.tsx[0m:81:1]
+ [2m81[0m |         later-DOM sibling cards instead of being clipped behind them. The
+ [2m82[0m |         inner stacking context (z-10) scopes the panel, but this raises the
+ [2m83[0m |         whole card above its grid siblings. */}
+ [2m84[0m |     <OceanGlassCard ripple surface="glass" depth="lg" hoverLift={false} className="relative z-50 overflow-visible p-5">
+    : [31;1m                    ^^^^^^[0m
+ [2m85[0m |       {/* Ocean top accent bar — aligns with the ocean design system.
+ [2m86[0m |           NOTE: overflow-visible (not overflow-hidden) so the absolute category
+ [2m87[0m |           dropdown panel is NOT clipped by the card. The bar keeps rounded-t to
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/components/products/FilterBar.tsx
+./src/app/[locale]/products/ProductsClient.tsx
+ ⨯ ./src/components/products/FilterBar.tsx
+Error: 
+  [31mx[0m Expected ',', got 'ripple'
+    ,-[[36;1;4mD:\workbuddy\2026-07-06-18-12-38\qtechvending-local\src\components\products\FilterBar.tsx[0m:81:1]
+ [2m81[0m |         later-DOM sibling cards instead of being clipped behind them. The
+ [2m82[0m |         inner stacking context (z-10) scopes the panel, but this raises the
+ [2m83[0m |         whole card above its grid siblings. */}
+ [2m84[0m |     <OceanGlassCard ripple surface="glass" depth="lg" hoverLift={false} className="relative z-50 overflow-visible p-5">
+    : [31;1m                    ^^^^^^[0m
+ [2m85[0m |       {/* Ocean top accent bar — aligns with the ocean design system.
+ [2m86[0m |           NOTE: overflow-visible (not overflow-hidden) so the absolute category
+ [2m87[0m |           dropdown panel is NOT clipped by the card. The bar keeps rounded-t to
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/components/products/FilterBar.tsx
+./src/app/[locale]/products/ProductsClient.tsx
+ ⨯ ./src/components/products/FilterBar.tsx
+Error: 
+  [31mx[0m Expected ',', got 'ripple'
+    ,-[[36;1;4mD:\workbuddy\2026-07-06-18-12-38\qtechvending-local\src\components\products\FilterBar.tsx[0m:81:1]
+ [2m81[0m |         later-DOM sibling cards instead of being clipped behind them. The
+ [2m82[0m |         inner stacking context (z-10) scopes the panel, but this raises the
+ [2m83[0m |         whole card above its grid siblings. */}
+ [2m84[0m |     <OceanGlassCard ripple surface="glass" depth="lg" hoverLift={false} className="relative z-50 overflow-visible p-5">
+    : [31;1m                    ^^^^^^[0m
+ [2m85[0m |       {/* Ocean top accent bar — aligns with the ocean design system.
+ [2m86[0m |           NOTE: overflow-visible (not overflow-hidden) so the absolute category
+ [2m87[0m |           dropdown panel is NOT clipped by the card. The bar keeps rounded-t to
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/components/products/FilterBar.tsx
+./src/app/[locale]/products/ProductsClient.tsx
+ ⨯ ./src/components/products/FilterBar.tsx
+Error: 
+  [31mx[0m Expected ',', got 'ripple'
+    ,-[[36;1;4mD:\workbuddy\2026-07-06-18-12-38\qtechvending-local\src\components\products\FilterBar.tsx[0m:81:1]
+ [2m81[0m |         later-DOM sibling cards instead of being clipped behind them. The
+ [2m82[0m |         inner stacking context (z-10) scopes the panel, but this raises the
+ [2m83[0m |         whole card above its grid siblings. */}
+ [2m84[0m |     <OceanGlassCard ripple surface="glass" depth="lg" hoverLift={false} className="relative z-50 overflow-visible p-5">
+    : [31;1m                    ^^^^^^[0m
+ [2m85[0m |       {/* Ocean top accent bar — aligns with the ocean design system.
+ [2m86[0m |           NOTE: overflow-visible (not overflow-hidden) so the absolute category
+ [2m87[0m |           dropdown panel is NOT clipped by the card. The bar keeps rounded-t to
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/components/products/FilterBar.tsx
+./src/app/[locale]/products/ProductsClient.tsx
+ ⨯ ./src/components/products/FilterBar.tsx
+Error: 
+  [31mx[0m Expected ',', got 'ripple'
+    ,-[[36;1;4mD:\workbuddy\2026-07-06-18-12-38\qtechvending-local\src\components\products\FilterBar.tsx[0m:81:1]
+ [2m81[0m |         later-DOM sibling cards instead of being clipped behind them. The
+ [2m82[0m |         inner stacking context (z-10) scopes the panel, but this raises the
+ [2m83[0m |         whole card above its grid siblings. */}
+ [2m84[0m |     <OceanGlassCard ripple surface="glass" depth="lg" hoverLift={false} className="relative z-50 overflow-visible p-5">
+    : [31;1m                    ^^^^^^[0m
+ [2m85[0m |       {/* Ocean top accent bar — aligns with the ocean design system.
+ [2m86[0m |           NOTE: overflow-visible (not overflow-hidden) so the absolute category
+ [2m87[0m |           dropdown panel is NOT clipped by the card. The bar keeps rounded-t to
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/components/products/FilterBar.tsx
+./src/app/[locale]/products/ProductsClient.tsx
+ ⨯ ./src/components/products/FilterBar.tsx
+Error: 
+  [31mx[0m Expected ',', got 'ripple'
+    ,-[[36;1;4mD:\workbuddy\2026-07-06-18-12-38\qtechvending-local\src\components\products\FilterBar.tsx[0m:81:1]
+ [2m81[0m |         later-DOM sibling cards instead of being clipped behind them. The
+ [2m82[0m |         inner stacking context (z-10) scopes the panel, but this raises the
+ [2m83[0m |         whole card above its grid siblings. */}
+ [2m84[0m |     <OceanGlassCard ripple surface="glass" depth="lg" hoverLift={false} className="relative z-50 overflow-visible p-5">
+    : [31;1m                    ^^^^^^[0m
+ [2m85[0m |       {/* Ocean top accent bar — aligns with the ocean design system.
+ [2m86[0m |           NOTE: overflow-visible (not overflow-hidden) so the absolute category
+ [2m87[0m |           dropdown panel is NOT clipped by the card. The bar keeps rounded-t to
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/components/products/FilterBar.tsx
+./src/app/[locale]/products/ProductsClient.tsx
+ ⨯ ./src/components/products/FilterBar.tsx
+Error: 
+  [31mx[0m Expected ',', got 'ripple'
+    ,-[[36;1;4mD:\workbuddy\2026-07-06-18-12-38\qtechvending-local\src\components\products\FilterBar.tsx[0m:78:1]
+ [2m78[0m |   return (
+ [2m79[0m |     {/* V49.9: z-50 so the dropdown (which overflows into the right-hand
+ [2m80[0m |         product column) paints ABOVE the later-DOM sibling cards. */}
+ [2m81[0m |     <OceanGlassCard ripple surface="glass" depth="lg" hoverLift={false} className="relative z-50 overflow-visible p-5">
+    : [31;1m                    ^^^^^^[0m
+ [2m82[0m |       {/* Ocean top accent bar — aligns with the ocean design system.
+ [2m83[0m |           NOTE: overflow-visible (not overflow-hidden) so the absolute category
+ [2m84[0m |           dropdown panel is NOT clipped by the card. The bar keeps rounded-t to
+    `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./src/components/products/FilterBar.tsx
+./src/app/[locale]/products/ProductsClient.tsx
+ ✓ Compiled in 476ms (379 modules)
+ ✓ Compiled in 984ms (760 modules)
+ ✓ Compiled in 513ms (379 modules)
+ ✓ Compiled in 495ms (379 modules)
+ ✓ Compiled in 566ms (379 modules)
+ ✓ Compiled in 552ms (379 modules)
+ ✓ Compiled in 400ms (379 modules)
+ ✓ Compiled in 538ms (379 modules)
+ ✓ Compiled in 1071ms (760 modules)
+ ✓ Compiled in 406ms (379 modules)
+ ✓ Compiled in 536ms (379 modules)
+ ✓ Compiled in 441ms (379 modules)
+ ✓ Compiled in 575ms (379 modules)
+ ✓ Compiled in 419ms (379 modules)
+ ✓ Compiled in 918ms (760 modules)
+ ✓ Compiled in 380ms (379 modules)
+ ✓ Compiled in 744ms (760 modules)
+ ✓ Compiled in 546ms (760 modules)
+ ✓ Compiled in 554ms (760 modules)
+ ✓ Compiled in 507ms (760 modules)
+ ✓ Compiled in 666ms (760 modules)
+ ✓ Compiled in 543ms (379 modules)
+ ✓ Compiled in 487ms (379 modules)
+ ✓ Compiled in 437ms (379 modules)
+ ✓ Compiled in 740ms (760 modules)
+ ✓ Compiled in 389ms (379 modules)
+ ✓ Compiled in 543ms (760 modules)
+ ✓ Compiled in 544ms (760 modules)
+ ✓ Compiled in 559ms (379 modules)
+ ✓ Compiled in 460ms (379 modules)
+ ✓ Compiled in 443ms (379 modules)
+ ✓ Compiled in 628ms (760 modules)
+ ✓ Compiled in 538ms (379 modules)
+ ✓ Compiled in 745ms (760 modules)
+ ✓ Compiled in 847ms (765 modules)
+ ✓ Compiled in 632ms (765 modules)
+ ⚠ Found a change in next.config.mjs. Restarting the server to apply the changes...
+[?25h

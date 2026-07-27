@@ -1,0 +1,347 @@
+{
+  "summary": {
+    "base": "http://localhost:3002",
+    "generatedAt": "2026-07-19T05:20:14.989Z",
+    "items": [
+      {
+        "name": "1. Starfield fade + meteor speed",
+        "pass": true,
+        "evidence": "bottom fade mask present; meteor speed code-verified (maxLife 120-240, speed 3.0-7.5, fadeIn 18f) + canvas animating"
+      },
+      {
+        "name": "2. Category theme colours",
+        "pass": true,
+        "evidence": "distinct top-bar gradients = 8"
+      },
+      {
+        "name": "3. AdvantagesSection no-float",
+        "pass": true,
+        "evidence": "float animation=false, animate-float-gentle class=false, hover scale=true"
+      },
+      {
+        "name": "4. Partners->testimonials",
+        "pass": true,
+        "evidence": "figures=3, q1 present=true"
+      },
+      {
+        "name": "5. CTA full-bleed aquarium",
+        "pass": true,
+        "evidence": "fullBleed=true, bubbles=22, godrays=4"
+      },
+      {
+        "name": "6. Products ice-blue glass + chip/ripple",
+        "pass": false,
+        "evidence": "blooms ice-blue=false, glass cards=6, distinct chips=5, rippleOk=true"
+      },
+      {
+        "name": "7. About stats gradient + bubbles",
+        "pass": true,
+        "evidence": "gradient=true, bubble canvas=true"
+      },
+      {
+        "name": "8. About single \"About Us\"",
+        "pass": true,
+        "evidence": "aboutUs count=1"
+      },
+      {
+        "name": "9. About card differentiation",
+        "pass": true,
+        "evidence": "ink=4, leftBorder=14, flowBar=12"
+      },
+      {
+        "name": "10. Values no big watermark",
+        "pass": true,
+        "evidence": "bigNum=false, smallOrdinal=true"
+      }
+    ],
+    "pageErrors": [],
+    "consoleErrors": [
+      "Warning: Prop `%s` did not match. Server: %s Client: %s%s style \"left:53.418768712288056%;width:26.25220996273856px;height:26.25220996273856px;--cta-dur:14.336697873623052s;--cta-bg:radial-gradient(circle at 32% 28%, rgba(165,243,252,0.95), rgba(103,232,249,0.40) 50%, rgba(34,211,238,0.12) 72%, transparent 80%);animation-delay:2.6399383651460084s\" \"left:53.418768712288056%;width:26.25220996252756px;height:26.25220996252756px;--cta-dur:14.336697873623052s;--cta-bg:radial-gradient(circle at 32% 28%, rgba(165,243,252,0.95), rgba(103,232,249,0.40) 50%, rgba(34,211,238,0.12) 72%, transparent 80%);animation-delay:2.6399383651132666s\" \n    at span\n    at div\n    at div\n    at section\n    at RevealOnScroll (webpack-internal:///(app-pages-browser)/./src/components/ui/RevealOnScroll.tsx:17:11)\n    at CtaSection (webpack-internal:///(app-pages-browser)/./src/components/home/CtaSection.tsx:34:79)\n    at HomePage (Server)\n    at InnerLayoutRouter (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:243:11)\n    at RedirectErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/redirect-boundary.js:74:9)\n    at RedirectBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/redirect-boundary.js:82:11)\n    at NotFoundBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/not-found-boundary.js:84:11)\n    at LoadingBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:349:11)\n    at ErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/error-boundary.js:160:11)\n    at InnerScrollAndFocusHandler (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:153:9)\n    at ScrollAndFocusHandler (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:228:11)\n    at RenderFromTemplateContext (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/render-from-template-context.js:16:44)\n    at OuterLayoutRouter (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:370:11)\n    at main\n    at LocaleProvider (webpack-internal:///(app-pages-browser)/./src/lib/i18n.tsx:24:11)\n    at ErrorBoundary (webpack-internal:///(app-pages-browser)/./src/components/ErrorBoundary.tsx:50:9)\n    at LocaleLayout (webpack-internal:///(app-pages-browser)/./src/app/[locale]/layout.tsx:37:11)\n    at InnerLayoutRouter (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:243:11)\n    at RedirectErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/redirect-boundary.js:74:9)\n    at RedirectBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/redirect-boundary.js:82:11)\n    at NotFoundErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/not-found-boundary.js:76:9)\n    at NotFoundBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/not-found-boundary.js:84:11)\n    at LoadingBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:349:11)\n    at ErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/error-boundary.js:160:11)\n    at InnerScrollAndFocusHandler (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:153:9)\n    at ScrollAndFocusHandler (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:228:11)\n    at RenderFromTemplateContext (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/render-from-template-context.js:16:44)\n    at OuterLayoutRouter (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:370:11)\n    at body\n    at html\n    at RootLayout (Server)\n    at RedirectErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/redirect-boundary.js:74:9)\n    at RedirectBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/redirect-boundary.js:82:11)\n    at NotFoundErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/not-found-boundary.js:76:9)\n    at NotFoundBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/not-found-boundary.js:84:11)\n    at DevRootNotFoundBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/dev-root-not-found-boundary.js:33:11)\n    at ReactDevOverlay (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/ReactDevOverlay.js:87:9)\n    at HotReload (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:321:11)\n    at Router (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/app-router.js:207:11)\n    at ErrorBoundaryHandler (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/error-boundary.js:113:9)\n    at ErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/error-boundary.js:160:11)\n    at AppRouter (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/app-router.js:585:13)\n    at ServerRoot (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/app-index.js:112:27)\n    at Root (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/app-index.js:117:11)",
+      "Warning: Prop `%s` did not match. Server: %s Client: %s%s style \"left:53.418768712288056%;width:26.25220996273856px;height:26.25220996273856px;--cta-dur:14.336697873623052s;--cta-bg:radial-gradient(circle at 32% 28%, rgba(165,243,252,0.95), rgba(103,232,249,0.40) 50%, rgba(34,211,238,0.12) 72%, transparent 80%);animation-delay:2.6399383651460084s\" \"left:53.418768712288056%;width:26.25220996252756px;height:26.25220996252756px;--cta-dur:14.336697873623052s;--cta-bg:radial-gradient(circle at 32% 28%, rgba(165,243,252,0.95), rgba(103,232,249,0.40) 50%, rgba(34,211,238,0.12) 72%, transparent 80%);animation-delay:2.6399383651132666s\" \n    at span\n    at div\n    at div\n    at section\n    at RevealOnScroll (webpack-internal:///(app-pages-browser)/./src/components/ui/RevealOnScroll.tsx:17:11)\n    at CtaSection (webpack-internal:///(app-pages-browser)/./src/components/home/CtaSection.tsx:34:79)\n    at HomePage (Server)\n    at InnerLayoutRouter (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:243:11)\n    at RedirectErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/redirect-boundary.js:74:9)\n    at RedirectBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/redirect-boundary.js:82:11)\n    at NotFoundBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/not-found-boundary.js:84:11)\n    at LoadingBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:349:11)\n    at ErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/error-boundary.js:160:11)\n    at InnerScrollAndFocusHandler (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:153:9)\n    at ScrollAndFocusHandler (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:228:11)\n    at RenderFromTemplateContext (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/render-from-template-context.js:16:44)\n    at OuterLayoutRouter (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:370:11)\n    at main\n    at LocaleProvider (webpack-internal:///(app-pages-browser)/./src/lib/i18n.tsx:24:11)\n    at ErrorBoundary (webpack-internal:///(app-pages-browser)/./src/components/ErrorBoundary.tsx:50:9)\n    at LocaleLayout (webpack-internal:///(app-pages-browser)/./src/app/[locale]/layout.tsx:37:11)\n    at InnerLayoutRouter (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:243:11)\n    at RedirectErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/redirect-boundary.js:74:9)\n    at RedirectBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/redirect-boundary.js:82:11)\n    at NotFoundErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/not-found-boundary.js:76:9)\n    at NotFoundBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/not-found-boundary.js:84:11)\n    at LoadingBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:349:11)\n    at ErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/error-boundary.js:160:11)\n    at InnerScrollAndFocusHandler (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:153:9)\n    at ScrollAndFocusHandler (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:228:11)\n    at RenderFromTemplateContext (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/render-from-template-context.js:16:44)\n    at OuterLayoutRouter (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:370:11)\n    at body\n    at html\n    at RootLayout (Server)\n    at RedirectErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/redirect-boundary.js:74:9)\n    at RedirectBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/redirect-boundary.js:82:11)\n    at NotFoundErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/not-found-boundary.js:76:9)\n    at NotFoundBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/not-found-boundary.js:84:11)\n    at DevRootNotFoundBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/dev-root-not-found-boundary.js:33:11)\n    at ReactDevOverlay (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/ReactDevOverlay.js:87:9)\n    at HotReload (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:321:11)\n    at Router (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/app-router.js:207:11)\n    at ErrorBoundaryHandler (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/error-boundary.js:113:9)\n    at ErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/error-boundary.js:160:11)\n    at AppRouter (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/app-router.js:585:13)\n    at ServerRoot (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/app-index.js:112:27)\n    at Root (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/app-index.js:117:11)",
+      "Warning: Prop `%s` did not match. Server: %s Client: %s%s style \"left:53.418768712288056%;width:26.25220996273856px;height:26.25220996273856px;--cta-dur:14.336697873623052s;--cta-bg:radial-gradient(circle at 32% 28%, rgba(165,243,252,0.95), rgba(103,232,249,0.40) 50%, rgba(34,211,238,0.12) 72%, transparent 80%);animation-delay:2.6399383651460084s\" \"left:53.418768712288056%;width:26.25220996252756px;height:26.25220996252756px;--cta-dur:14.336697873623052s;--cta-bg:radial-gradient(circle at 32% 28%, rgba(165,243,252,0.95), rgba(103,232,249,0.40) 50%, rgba(34,211,238,0.12) 72%, transparent 80%);animation-delay:2.6399383651132666s\" \n    at span\n    at div\n    at div\n    at section\n    at RevealOnScroll (webpack-internal:///(app-pages-browser)/./src/components/ui/RevealOnScroll.tsx:17:11)\n    at CtaSection (webpack-internal:///(app-pages-browser)/./src/components/home/CtaSection.tsx:34:79)\n    at HomePage (Server)\n    at InnerLayoutRouter (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:243:11)\n    at RedirectErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/redirect-boundary.js:74:9)\n    at RedirectBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/redirect-boundary.js:82:11)\n    at NotFoundBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/not-found-boundary.js:84:11)\n    at LoadingBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:349:11)\n    at ErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/error-boundary.js:160:11)\n    at InnerScrollAndFocusHandler (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:153:9)\n    at ScrollAndFocusHandler (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:228:11)\n    at RenderFromTemplateContext (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/render-from-template-context.js:16:44)\n    at OuterLayoutRouter (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:370:11)\n    at main\n    at LocaleProvider (webpack-internal:///(app-pages-browser)/./src/lib/i18n.tsx:24:11)\n    at ErrorBoundary (webpack-internal:///(app-pages-browser)/./src/components/ErrorBoundary.tsx:50:9)\n    at LocaleLayout (webpack-internal:///(app-pages-browser)/./src/app/[locale]/layout.tsx:37:11)\n    at InnerLayoutRouter (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:243:11)\n    at RedirectErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/redirect-boundary.js:74:9)\n    at RedirectBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/redirect-boundary.js:82:11)\n    at NotFoundErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/not-found-boundary.js:76:9)\n    at NotFoundBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/not-found-boundary.js:84:11)\n    at LoadingBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:349:11)\n    at ErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/error-boundary.js:160:11)\n    at InnerScrollAndFocusHandler (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:153:9)\n    at ScrollAndFocusHandler (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:228:11)\n    at RenderFromTemplateContext (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/render-from-template-context.js:16:44)\n    at OuterLayoutRouter (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js:370:11)\n    at body\n    at html\n    at RootLayout (Server)\n    at RedirectErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/redirect-boundary.js:74:9)\n    at RedirectBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/redirect-boundary.js:82:11)\n    at NotFoundErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/not-found-boundary.js:76:9)\n    at NotFoundBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/not-found-boundary.js:84:11)\n    at DevRootNotFoundBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/dev-root-not-found-boundary.js:33:11)\n    at ReactDevOverlay (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/ReactDevOverlay.js:87:9)\n    at HotReload (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/react-dev-overlay/app/hot-reloader-client.js:321:11)\n    at Router (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/app-router.js:207:11)\n    at ErrorBoundaryHandler (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/error-boundary.js:113:9)\n    at ErrorBoundary (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/error-boundary.js:160:11)\n    at AppRouter (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/components/app-router.js:585:13)\n    at ServerRoot (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/app-index.js:112:27)\n    at Root (webpack-internal:///(app-pages-browser)/./node_modules/next/dist/client/app-index.js:117:11)"
+    ],
+    "brokenImages": [],
+    "isPass": false,
+    "routing": "Engineer"
+  },
+  "results": [
+    {
+      "page": "home-en",
+      "url": "/en",
+      "status": 200,
+      "i18nOk": true,
+      "htmlLang": "en",
+      "htmlDir": "ltr",
+      "starfieldFade": {
+        "ok": true
+      },
+      "starfieldAnimating": true,
+      "starfieldAnimDiff": 90149,
+      "advantages": {
+        "ok": true,
+        "cardCount": 4,
+        "anyFloat": false,
+        "floatClass": false,
+        "scaleHover": true
+      },
+      "testimonials": {
+        "ok": true,
+        "count": 3,
+        "hasQ1": true
+      },
+      "cta": {
+        "ok": true,
+        "fullBleed": true,
+        "width": 1366,
+        "vw": 1366,
+        "bubbles": 22,
+        "godrays": 4,
+        "sun": true,
+        "lamp": true
+      },
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v44-artifacts\\home-en.png"
+    },
+    {
+      "page": "home-zh",
+      "url": "/zh",
+      "status": 200,
+      "i18nOk": true,
+      "htmlLang": "zh",
+      "htmlDir": "ltr",
+      "starfieldFade": {
+        "ok": true
+      },
+      "starfieldAnimating": true,
+      "starfieldAnimDiff": 22291295,
+      "advantages": {
+        "ok": true,
+        "cardCount": 4,
+        "anyFloat": false,
+        "floatClass": false,
+        "scaleHover": true
+      },
+      "testimonials": {
+        "ok": false,
+        "count": 3,
+        "hasQ1": false
+      },
+      "cta": {
+        "ok": true,
+        "fullBleed": true,
+        "width": 1366,
+        "vw": 1366,
+        "bubbles": 22,
+        "godrays": 4,
+        "sun": true,
+        "lamp": true
+      },
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v44-artifacts\\home-zh.png"
+    },
+    {
+      "page": "home-ar",
+      "url": "/ar",
+      "status": 200,
+      "i18nOk": true,
+      "htmlLang": "ar",
+      "htmlDir": "rtl",
+      "starfieldFade": {
+        "ok": true
+      },
+      "starfieldAnimating": true,
+      "starfieldAnimDiff": 22451259,
+      "advantages": {
+        "ok": true,
+        "cardCount": 4,
+        "anyFloat": false,
+        "floatClass": false,
+        "scaleHover": true
+      },
+      "testimonials": {
+        "ok": false,
+        "count": 3,
+        "hasQ1": false
+      },
+      "cta": {
+        "ok": true,
+        "fullBleed": true,
+        "width": 1366,
+        "vw": 1366,
+        "bubbles": 22,
+        "godrays": 4,
+        "sun": true,
+        "lamp": true
+      },
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v44-artifacts\\home-ar.png"
+    },
+    {
+      "page": "qa-categories",
+      "url": "/en/qa-categories",
+      "status": 200,
+      "categories": {
+        "ok": true,
+        "cardCount": 8,
+        "distinctBars": 8,
+        "icons": 8
+      },
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v44-artifacts\\qa-categories.png"
+    },
+    {
+      "page": "products-list",
+      "url": "/en/products",
+      "status": 200,
+      "products": {
+        "okRoot": true,
+        "okBlooms": false,
+        "bubbleCanvas": 1,
+        "bloomCount": 3,
+        "blueish": [
+          false,
+          false,
+          false
+        ]
+      },
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v44-artifacts\\products.png"
+    },
+    {
+      "page": "qa-products-grid",
+      "url": "/en/qa-products-grid",
+      "status": 200,
+      "grid": {
+        "ok": true,
+        "cardCount": 6,
+        "glassOk": true,
+        "distinctChips": 5
+      },
+      "rippleCounts": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "rippleOk": true,
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v44-artifacts\\qa-products-grid.png"
+    },
+    {
+      "page": "about-en",
+      "url": "/en/about",
+      "status": 200,
+      "aboutStats": {
+        "ok": true,
+        "hasLight": true,
+        "hasCanvas": true
+      },
+      "aboutBubbleCanvas": {
+        "w": 1366,
+        "h": 702
+      },
+      "aboutSingle": {
+        "ok": true,
+        "count": 1
+      },
+      "aboutCards": {
+        "ok": true,
+        "ink": 4,
+        "inkBar": 4,
+        "leftBorder": 14,
+        "flowBar": 12
+      },
+      "aboutValues": {
+        "ok": true,
+        "bigNum": false,
+        "smallOrd": true
+      },
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v44-artifacts\\about-en.png"
+    },
+    {
+      "page": "about-zh",
+      "url": "/zh/about",
+      "status": 200,
+      "aboutStats": {
+        "ok": true,
+        "hasLight": true,
+        "hasCanvas": true
+      },
+      "aboutBubbleCanvas": {
+        "w": 1366,
+        "h": 674
+      },
+      "aboutSingle": {
+        "ok": false,
+        "count": 0
+      },
+      "aboutCards": {
+        "ok": true,
+        "ink": 4,
+        "inkBar": 4,
+        "leftBorder": 14,
+        "flowBar": 12
+      },
+      "aboutValues": {
+        "ok": true,
+        "bigNum": false,
+        "smallOrd": true
+      },
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v44-artifacts\\about-zh.png"
+    },
+    {
+      "page": "about-ar",
+      "url": "/ar/about",
+      "status": 200,
+      "aboutStats": {
+        "ok": true,
+        "hasLight": true,
+        "hasCanvas": true
+      },
+      "aboutBubbleCanvas": {
+        "w": 1366,
+        "h": 646
+      },
+      "aboutSingle": {
+        "ok": false,
+        "count": 0
+      },
+      "aboutCards": {
+        "ok": true,
+        "ink": 4,
+        "inkBar": 4,
+        "leftBorder": 14,
+        "flowBar": 12
+      },
+      "aboutValues": {
+        "ok": true,
+        "bigNum": false,
+        "smallOrd": true
+      },
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v44-artifacts\\about-ar.png"
+    },
+    {
+      "page": "qa-product-tab",
+      "url": "/en/qa-product-tab",
+      "status": 200,
+      "detail": {
+        "okBlooms": false,
+        "bloomCount": 2,
+        "blueish": [
+          false,
+          false
+        ]
+      },
+      "tabCount": 3,
+      "tabCountOk": true,
+      "lightGlassOk": true,
+      "brokenImages": [],
+      "screenshot": "D:\\workbuddy\\2026-07-06-18-12-38\\qtechvending-local\\scripts\\qa\\v44-artifacts\\qa-product-tab.png"
+    }
+  ]
+}

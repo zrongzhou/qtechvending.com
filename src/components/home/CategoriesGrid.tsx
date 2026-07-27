@@ -41,20 +41,20 @@ const ICON_MAP: Record<string, LucideIcon> = {
 
 // Banner photo per category slug (generated visuals in public/images/categories).
 const IMAGE_MAP: Record<string, string> = {
-  'fresh-flower-vending-machine': '/images/categories/fresh-flower-vending-machine.png',
-  'pizza-vending-machine': '/images/categories/pizza-vending-machine.png',
-  'cotton-candy-machine': '/images/categories/cotton-candy-machine.png',
-  'fruit-vegetable-egg-vending-machine': '/images/categories/fruit-vegetable-egg-vending-machine.png',
-  'sugar-cane-juice-vending-machine': '/images/categories/sugar-cane-juice-vending-machine.png',
-  'ice-maker-vending-machine': '/images/categories/ice-maker-vending-machine.png',
-  'coffee-vending-machine': '/images/categories/coffee-vending-machine.png',
-  'ice-cream-vending-machine': '/images/categories/ice-cream-vending-machine.png',
-  'pet-washing-machine': '/images/categories/pet-washing-machine.png',
-  'food-vending-machine': '/images/categories/food-vending-machine.png',
+  'fresh-flower-vending-machine': '/images/categories/fresh-flower-vending-machine.webp',
+  'pizza-vending-machine': '/images/categories/pizza-vending-machine.webp',
+  'cotton-candy-machine': '/images/categories/cotton-candy-machine.webp',
+  'fruit-vegetable-egg-vending-machine': '/images/categories/fruit-vegetable-egg-vending-machine.webp',
+  'sugar-cane-juice-vending-machine': '/images/categories/sugar-cane-juice-vending-machine.webp',
+  'ice-maker-vending-machine': '/images/categories/ice-maker-vending-machine.webp',
+  'coffee-vending-machine': '/images/categories/coffee-vending-machine.webp',
+  'ice-cream-vending-machine': '/images/categories/ice-cream-vending-machine.webp',
+  'pet-washing-machine': '/images/categories/pet-washing-machine.webp',
+  'food-vending-machine': '/images/categories/food-vending-machine.webp',
   // V49.19: these two homepage categories previously had no cover → blank cards.
   // Reuse representative product photos as their category banners.
-  'pet-food-vending-machine': '/images/categories/pet-food-vending-machine.png',
-  'beauty-products-vending-machine': '/images/categories/beauty-products-vending-machine.png',
+  'pet-food-vending-machine': '/images/categories/pet-food-vending-machine.webp',
+  'beauty-products-vending-machine': '/images/categories/beauty-products-vending-machine.webp',
 };
 
 // V44: per-category theme colours (the V41 "CASE_THEMES" approach) so the 8+

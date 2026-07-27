@@ -10,12 +10,12 @@ import ImageWithRetry from '@/components/ui/ImageWithRetry';
 
 /** Banner image per solution id (generated visuals in public/images/solutions). */
 const SOLUTION_IMAGES: Record<string, string> = {
-  'factory-tools': '/images/solutions/factory-tools.png',
-  'office-stationery': '/images/solutions/office-stationery.png',
-  'electronic-components': '/images/solutions/electronic-components.png',
-  'medical-supply': '/images/solutions/medical-supply.png',
-  'food-beverage': '/images/solutions/food-beverage.png',
-  'ppe-safety': '/images/solutions/ppe-safety.png',
+  'factory-tools': '/images/solutions/factory-tools.webp',
+  'office-stationery': '/images/solutions/office-stationery.webp',
+  'electronic-components': '/images/solutions/electronic-components.webp',
+  'medical-supply': '/images/solutions/medical-supply.webp',
+  'food-beverage': '/images/solutions/food-beverage.webp',
+  'ppe-safety': '/images/solutions/ppe-safety.webp',
 };
 
 // Per-card accent identity (V35) — rotates cyan / emerald / violet / amber /

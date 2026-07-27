@@ -893,7 +893,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           <div className="flex flex-col items-center gap-5">
             <div className="relative aspect-[16/10] w-full max-w-[460px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100">
               <Image
-                src="/images/about/company-building-3.jpg"
+                src="/images/about/company-building-3.webp"
                 alt={t('about.aboutTitle')}
                 fill
                 className="object-cover"
@@ -1474,7 +1474,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
             {locale === 'zh' ? '资质认证实拍' : locale === 'ar' ? 'صور الشهادات الفعلية' : 'Real Certification Photos'}
           </p>
           <ImageWithRetry
-            src="/images/certificates/full-certificates.jpg"
+            src="/images/certificates/full-certificates.webp"
             alt={locale === 'zh' ? 'Qtech 资质认证证书实拍' : locale === 'ar' ? 'صور شهادات اعتماد Qtech' : 'Qtech certification certificates'}
             width={1920}
             height={650}
