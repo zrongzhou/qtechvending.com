@@ -194,7 +194,7 @@
   "contact.subject.customization": "OEM / 定制",
   "contact.subject.partnership": "合作 / 经销",
   "admin.loginTitle": "后台登录",
-  "admin.email": "邮箱",
+  "admin.email": "用户名 / 邮箱",
   "admin.password": "密码",
   "admin.loginBtn": "登录",
   "admin.loginError": "邮箱或密码错误。",
