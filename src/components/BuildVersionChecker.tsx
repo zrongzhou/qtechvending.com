@@ -8,6 +8,8 @@ const BUILD_INFO_ENDPOINT = '/api/build-info';
 const FIRST_CHECK_DELAY_MS = 2000;
 /** Delay before re-checking when the tab becomes visible again. */
 const VISIBLE_CHECK_DELAY_MS = 2000;
+/** sessionStorage key marking that we already triggered one reload this tab session. */
+const RELOAD_GUARD_KEY = '__BVC_RELOADED__';
 
 declare global {
   interface Window {
@@ -54,6 +56,15 @@ export default function BuildVersionChecker(): null {
           clientBuildId &&
           serverBuildId !== clientBuildId
         ) {
+          // One-shot guard: even if the build ids permanently mismatch (e.g. a
+          // deploy forgot to purge the CDN cache), we reload at most once per
+          // tab session and then give up — preventing an infinite reload loop.
+          try {
+            if (sessionStorage.getItem(RELOAD_GUARD_KEY) === '1') return; // 已 reload 过仍不匹配 → 放弃，防死循环
+            sessionStorage.setItem(RELOAD_GUARD_KEY, '1');
+          } catch {
+            /* sessionStorage 不可用时退化为直接 reload */
+          }
           window.location.reload();
         }
       } catch {

@@ -95,3 +95,27 @@ The config reverse-proxies both `www` and `test` hostnames to
 - Stop only this site: `pm2 stop qtechvending` (leaves `smart-cabinet` running).
 - Database, process, port, nginx file, and certificates are all independent.
 - No shared directories with `smart-cabinet` (`/var/www/smart-cabinet`).
+
+---
+
+## 8. 必做：部署后清 EdgeOne 缓存
+
+HTML 经过 CDN 缓存（90 天 `s-maxage`）。一旦重新构建、commit 变化，CDN 仍可能吐出**旧 HTML**（旧 build id），而 `/api/build-info` 已返回**新 build id** → 前端 `BuildVersionChecker` 会反复 `reload()` 形成死循环（详见 `src/components/BuildVersionChecker.tsx`）。
+
+**部署后必须清一次 EdgeOne 缓存，让 CDN 吐出新 HTML。** 推荐的标准部署顺序：
+
+```bash
+npm run build
+pm2 restart qtechvending          # 或 smart-cabinet，视部署站点而定
+npm run purge:cache
+```
+
+- `scripts/purge-eo-cache.mjs`（即 `npm run purge:cache`）会同时清理两个站点的 CDN 缓存：
+  - `qtechvending`：zone `zone-3h9p5uedvs0a`，域名 `qtechvending.com`
+  - `smart-cabinet`：zone `zone-3sbdkmn9rdsy`，域名 `wstoolcabinet.com`
+  - 每个站点按前缀 `https://www.<domain>/` 与 `https://<domain>/` 提交 `purge_prefix` 任务。
+- **凭据来自环境变量，不要写死进仓库**：`EO_SECRET_ID`、`EO_SECRET_KEY`。
+  必须在部署环境的 env（或 `sudo -E` 透传、CI secret）中提供，否则脚本会直接非零退出并中断部署。
+- 该脚本任意一次 purge 失败都会以非零状态退出，因此可直接接在 `pm2 restart` 之后（如 `scripts/qtechvendingctl.sh` 的 `deploy` 命令），确保不会「带着旧缓存上线」。
+
+> 说明：即便忘记清缓存，`BuildVersionChecker` 现在也内置了一次性 reload 守卫（每个标签页会话最多刷新一次后放弃），不会形成死循环。但清缓存仍是必须步骤，目的是让线上用户第一时间拿到新 HTML。

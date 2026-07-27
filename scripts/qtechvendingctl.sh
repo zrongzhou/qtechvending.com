@@ -173,6 +173,14 @@ cmd_deploy() {
   pm2 restart "$PM2_NAME"
   nginx -s reload
   pm2 save
+
+  # Purge the EdgeOne CDN cache so the CDN stops serving stale HTML (which
+  # triggered the BuildVersionChecker infinite-reload loop). The purge:cache
+  # script reads EO_SECRET_ID / EO_SECRET_KEY from the environment and also
+  # clears the smart-cabinet zone. It aborts (non-zero) on failure, which
+  # stops the deploy rather than shipping with a stale cache.
+  npm run purge:cache
+
   info "Deploy finished."
 }
 
