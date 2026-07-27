@@ -893,7 +893,7 @@ export default function AboutClient({ sections }: { sections: AboutSection[] }) 
           <div className="flex flex-col items-center gap-5">
             <div className="relative aspect-[16/10] w-full max-w-[460px] overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-slate-100">
               <Image
-                src="/images/about/real-building.webp"
+                src="/images/about/company-building.webp"
                 alt={t('about.aboutTitle')}
                 fill
                 className="object-cover"
