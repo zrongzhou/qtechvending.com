@@ -62,6 +62,36 @@ function looksLikeBareListItem(line: string): boolean {
   return t.length > 0 && t.length < 80 && !/^[#>*`\-*]/.test(t);
 }
 
+function renderInline(text: string, keyPrefix: string) {
+  if (!text) return text;
+  const nodes = [];
+  const re = /\[([^\]]+)\]\((https?:\/\/[^\s)]+|[^\s)]+)\)/g;
+  let last = 0;
+  let m: RegExpExecArray | null;
+  let i = 0;
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > last) nodes.push(text.slice(last, m.index));
+    const label = m[1];
+    const url = m[2];
+    const isExt = /^https?:\/\//i.test(url);
+    nodes.push(
+      <a
+        key={`${keyPrefix}-l${i}`}
+        href={url}
+        target={isExt ? '_blank' : undefined}
+        rel={isExt ? 'noopener noreferrer' : undefined}
+        className="font-medium text-brand-700 underline underline-offset-2 hover:text-brand-900"
+      >
+        {label}
+      </a>
+    );
+    i += 1;
+    last = re.lastIndex;
+  }
+  if (last < text.length) nodes.push(text.slice(last));
+  return nodes;
+}
+
 function renderRichContent(text: string, t: (key: string) => string, structuredFaqs?: FaqItem[] | null) {
   const raw = text.split('\n');
   const els: (React.JSX.Element | null)[] = [];
@@ -113,7 +143,7 @@ function renderRichContent(text: string, t: (key: string) => string, structuredF
       els.push(
         <div key={idx} className="mt-10 rounded-2xl border border-brand-100 bg-brand-50/60 p-6">
           <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-brand-700">{t('blog.conclusion')}</p>
-          <p className="text-[15px] leading-8 text-ink-700 sm:text-[17px]">{text2}</p>
+          <p className="text-[15px] leading-8 text-ink-700 sm:text-[17px]">{renderInline(text2, `concl${idx}`)}</p>
         </div>,
       );
       continue;
@@ -148,7 +178,7 @@ function renderRichContent(text: string, t: (key: string) => string, structuredF
         <ul key={idx} className="mb-7 space-y-3 ps-5">
           {items.map((it, j) => (
             <li key={j} className="relative text-[15px] leading-7 text-ink-700 sm:text-[16px] before:content-[''] before:absolute before:-left-4 before:top-[0.6em] before:h-1.5 before:w-1.5 before:rounded-full before:bg-brand-500">
-              {it}
+              {renderInline(it, `li-${idx}-${j}`)}
             </li>
           ))}
         </ul>,
@@ -188,12 +218,12 @@ function renderRichContent(text: string, t: (key: string) => string, structuredF
           }
           // If we found 2+ items ahead, treat lead-in + items as paragraph + list
           if (futureItems.length >= 2) {
-            els.push(<p key={idx} className="mb-4 text-[15px] leading-8 text-ink-800 sm:text-[16px]">{parts[0]}</p>);
+            els.push(<p key={idx} className="mb-4 text-[15px] leading-8 text-ink-800 sm:text-[16px]">{renderInline(parts[0], `lead${idx}`)}</p>);
             els.push(
               <ul key={`${idx}-ul`} className="mb-7 rounded-xl bg-slate-50/70 p-5 ps-6 space-y-3">
                 {futureItems.map((it, j) => (
                   <li key={j} className="relative text-[15px] leading-7 text-ink-700 sm:text-[16px] before:content-[''] before:absolute before:-left-5 before:top-[0.6em] before:h-2 before:w-2 before:rounded-full before:bg-brand-400 before:shadow-sm before:shadow-brand-200">
-                    {it}
+                    {renderInline(it, `li-${idx}-${j}`)}
                   </li>
                 ))}
               </ul>,
@@ -204,7 +234,7 @@ function renderRichContent(text: string, t: (key: string) => string, structuredF
               <ul key={idx} className="mb-7 rounded-xl bg-slate-50/70 p-5 ps-6 space-y-3">
                 {parts.map((it, j) => (
                   <li key={j} className="relative text-[15px] leading-7 text-ink-700 sm:text-[16px] before:content-[''] before:absolute before:-left-5 before:top-[0.6em] before:h-2 before:w-2 before:rounded-full before:bg-brand-400 before:shadow-sm before:shadow-brand-200">
-                    {it}
+                    {renderInline(it, `li-${idx}-${j}`)}
                   </li>
                 ))}
               </ul>,
@@ -212,7 +242,7 @@ function renderRichContent(text: string, t: (key: string) => string, structuredF
           } else {
             els.push(
               <p key={idx} className="mb-6 text-[15px] leading-8 text-ink-800 sm:text-[16px]">
-                {parts.join(' ')}
+                {renderInline(parts.join(' '), `pg${idx}`)}
               </p>
             );
           }
@@ -221,7 +251,7 @@ function renderRichContent(text: string, t: (key: string) => string, structuredF
             <ul key={idx} className="mb-7 rounded-xl bg-slate-50/70 p-5 ps-6 space-y-3">
               {parts.map((it, j) => (
                 <li key={j} className="relative text-[15px] leading-7 text-ink-700 sm:text-[16px] before:content-[''] before:absolute before:-left-5 before:top-[0.6em] before:h-2 before:w-2 before:rounded-full before:bg-brand-400 before:shadow-sm before:shadow-brand-200">
-                  {it}
+                  {renderInline(it, `li-${idx}-${j}`)}
                 </li>
               ))}
             </ul>,
@@ -229,7 +259,7 @@ function renderRichContent(text: string, t: (key: string) => string, structuredF
         } else {
           els.push(
             <p key={idx} className="mb-6 text-[15px] leading-8 text-ink-800 sm:text-[16px]">
-              {parts.join(' ')}
+              {renderInline(parts.join(' '), `pg${idx}`)}
             </p>
           );
         }
