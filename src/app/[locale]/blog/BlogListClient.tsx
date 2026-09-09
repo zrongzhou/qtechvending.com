@@ -14,6 +14,7 @@ export default function BlogListClient({ initial }: { initial: Paginated<BlogPos
   const [result, setResult] = useState<Paginated<BlogPost>>(initial);
   const [loading, setLoading] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const topRef = useRef<HTMLDivElement>(null);
 
   const load = useCallback(async (opts: { search: string; page: number }) => {
     setLoading(true);
@@ -50,10 +51,18 @@ export default function BlogListClient({ initial }: { initial: Paginated<BlogPos
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
-  const { data, totalPages } = result;
+  const { data, totalPages, total, pageSize } = result;
+  const size = pageSize || 9;
+  const from = total === 0 ? 0 : (page - 1) * size + 1;
+  const to = Math.min(page * size, total);
+  const goToPage = (p: number) => {
+    const next = Math.min(Math.max(1, p), totalPages);
+    setPage(next);
+    topRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   return (
-    <div className="container-qtech relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-cyan-50/30 py-12 lg:py-16">
+    <div ref={topRef} className="container-qtech relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-cyan-50/30 py-12 lg:py-16">
       {/* V49.8: decorative colour blooms so the page reads less flat. */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
         {/* subtle brand grid for depth */}
@@ -103,26 +112,49 @@ export default function BlogListClient({ initial }: { initial: Paginated<BlogPos
       )}
 
       {totalPages > 1 && (
-        <div className="mt-10 flex items-center justify-center gap-3">
-          <button
-            type="button"
-            disabled={page <= 1}
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
-            className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-cyan-600 to-teal-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-cyan-600/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-cyan-600/30 active:scale-[0.97] disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400 disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:bg-slate-200 disabled:hover:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2"
-          >
-            {t('products.prev')}
-          </button>
-          <span className="rounded-full bg-white/80 px-4 py-2 text-sm font-semibold text-cyan-700 ring-1 ring-cyan-100 backdrop-blur">
-            {t('products.page')} {page} {t('products.of')} {totalPages}
-          </span>
-          <button
-            type="button"
-            disabled={page >= totalPages}
-            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-            className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-cyan-600 to-teal-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-cyan-600/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-cyan-600/30 active:scale-[0.97] disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400 disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:bg-slate-200 disabled:hover:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2"
-          >
-            {t('products.next')}
-          </button>
+        <div className="mt-10 flex flex-col items-center gap-3">
+          <p className="text-sm text-ink-500">
+            {t('blog.showing')
+              .replace('{from}', String(from))
+              .replace('{to}', String(to))
+              .replace('{total}', String(total))}
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-2" dir="ltr">
+            <button
+              type="button"
+              disabled={page <= 1}
+              onClick={() => goToPage(page - 1)}
+              className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-cyan-600 to-teal-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-cyan-600/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-cyan-600/30 active:scale-[0.97] disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400 disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:bg-slate-200 disabled:hover:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2"
+            >
+              {t('products.prev')}
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => {
+              const active = p === page;
+              return (
+                <button
+                  key={p}
+                  type="button"
+                  onClick={() => goToPage(p)}
+                  aria-current={active ? 'page' : undefined}
+                  className={
+                    active
+                      ? 'inline-flex h-9 min-w-[2.25rem] items-center justify-center rounded-full bg-gradient-to-r from-cyan-600 to-teal-600 px-3 text-sm font-semibold text-white shadow-md shadow-cyan-600/20 transition active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2'
+                      : 'inline-flex h-9 min-w-[2.25rem] items-center justify-center rounded-full bg-white/80 px-3 text-sm font-semibold text-cyan-700 ring-1 ring-cyan-100 backdrop-blur transition hover:bg-cyan-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2'
+                  }
+                >
+                  {p}
+                </button>
+              );
+            })}
+            <button
+              type="button"
+              disabled={page >= totalPages}
+              onClick={() => goToPage(page + 1)}
+              className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-cyan-600 to-teal-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-cyan-600/20 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-cyan-600/30 active:scale-[0.97] disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-400 disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:bg-slate-200 disabled:hover:shadow-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2"
+            >
+              {t('products.next')}
+            </button>
+          </div>
         </div>
       )}
     </div>

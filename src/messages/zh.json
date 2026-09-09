@@ -137,6 +137,7 @@
   "category.subtitle": "探索本分类下的全部机型——完整规格、工厂直供报价与针对您市场的 OEM 定制方案。",
   "category.backToAll": "返回全部产品",
   "blog.title": "博客",
+  "blog.showing": "第 {from}–{to} 篇，共 {total} 篇",
   "blog.subtitle": "Qtech 的新闻、指南与应用案例。",
   "blog.readMore": "阅读更多",
   "blog.publishedOn": "发布于",

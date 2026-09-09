@@ -137,6 +137,7 @@
   "category.subtitle": "تصفح الآلات في هذه الفئة.",
   "category.backToAll": "العودة إلى كل المنتجات",
   "blog.title": "المدونة",
+  "blog.showing": "عرض {from}–{to} من {total} مقالًا",
   "blog.subtitle": "أخبار وإرشادات وقصص تطبيق من Qtech.",
   "blog.readMore": "اقرأ المزيد",
   "blog.publishedOn": "نُشر في",

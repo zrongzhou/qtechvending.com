@@ -137,6 +137,7 @@
   "category.subtitle": "Explore every model in this category — full specifications, factory-direct pricing and OEM options tailored to your market.",
   "category.backToAll": "Back to all products",
   "blog.title": "Blog",
+  "blog.showing": "Showing {from}–{to} of {total} posts",
   "blog.subtitle": "News, guides and application stories from Qtech.",
   "blog.readMore": "Read more",
   "blog.publishedOn": "Published on",
